@@ -20,12 +20,13 @@ const raleway = Raleway({ subsets: ["latin"], weight: ["300", "400", "500", "600
 const caveat = Caveat({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-hand" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.zubatoken.com"),
   title: { default: `${site.name} · ${site.tagline}`, template: `%s · ${site.name}` },
   description: site.description,
   openGraph: {
     title: `${site.name} · ${site.tagline}`,
     description: site.description,
-    images: ["/brand/zuba-coin.png"],
+    images: [{ url: "/brand/og.jpg", width: 1200, height: 630, alt: "ZUBA" }],
   },
   twitter: { card: "summary_large_image", site: site.socials.x.handle },
 };
