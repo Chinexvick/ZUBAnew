@@ -47,5 +47,17 @@ export const media: Record<string, string> = {
   "zuba-stand-3d-a": "/media/zuba-stand-3d-a.png",
   "zuba-stand-3d-b": "/media/zuba-stand-3d-b.png",
   "zuba-stand-2d-a": "/media/zuba-stand-2d-a.png",
-  "zuba-stand-2d-b": "/media/zuba-stand-2d-b.png"
+  "zuba-stand-2d-b": "/media/zuba-stand-2d-b.png",
+  "zuba-fire": "/media/zuba-fire.png",
+  "zuba-explorer": "/media/zuba-explorer.png",
+  "zuba-griot": "/media/zuba-griot.png",
+  "parchment": "/media/parchment.png",
+  "anansi-poster-2d": "/media/anansi-poster-2d.png",
+  "anansi-backdrop-2d": "/media/anansi-backdrop-2d.png",
+  "anansi-still-1-2d": "/media/anansi-still-1-2d.png",
+  "anansi-still-2-2d": "/media/anansi-still-2-2d.png",
+  "sundiata-poster-2d": "/media/sundiata-poster-2d.png",
+  "sundiata-backdrop-2d": "/media/sundiata-backdrop-2d.png",
+  "sundiata-still-1-2d": "/media/sundiata-still-1-2d.png",
+  "sundiata-still-2-2d": "/media/sundiata-still-2-2d.png"
 };
