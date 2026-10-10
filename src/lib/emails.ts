@@ -22,7 +22,7 @@ const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
 /* "ZUBA" → "ZUBΔ": the greatness symbol stands in for the letter A, as on the site. */
-const delta = (s: string) => s.replace(/(?<=[a-z])a|a(?=[a-z])/gi, "Δ");
+const delta = (s: string) => s.split(/(\s+)/).map((w) => (/zuba/i.test(w) ? w : w.replace(/(?<=[a-z])a|a(?=[a-z])/gi, "Δ"))).join("");
 
 const runeLine = `<table role="presentation" align="center" cellpadding="0" cellspacing="0" style="margin:0 auto"><tr>
 <td style="width:70px;border-top:1px solid ${C.line};font-size:0;line-height:0">&nbsp;</td>
@@ -92,7 +92,7 @@ a{color:${C.soft}}
 <tr><td align="center" style="padding-bottom:18px">
 <a href="${url}" style="text-decoration:none">
 <img src="${url}/email/coin.png" width="56" height="56" alt="" style="display:block;margin:0 auto;border-radius:50%;border:2px solid ${C.gold}">
-<div style="margin-top:10px;font-family:${TITLE};font-size:26px;letter-spacing:8px;color:#ffffff;font-weight:700;text-shadow:0 0 14px rgba(190,90,255,.9)">ZUBΔ</div>
+<div style="margin-top:10px;font-family:${TITLE};font-size:26px;letter-spacing:8px;color:#ffffff;font-weight:700;text-shadow:0 0 14px rgba(190,90,255,.9)">ZUBA</div>
 </a>
 <div style="margin-top:4px;font-family:${TITLE};font-size:11px;letter-spacing:4px;text-transform:uppercase;color:${C.muted}">${esc(site.tagline)}</div>
 </td></tr>

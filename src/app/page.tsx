@@ -52,7 +52,6 @@ export default function Home() {
               <span>
                 <Icon name="id" size={15} /> KYC verified
               </span>
-              <span>{token.supplyShort} supply</span>
             </Link>
           </div>
 

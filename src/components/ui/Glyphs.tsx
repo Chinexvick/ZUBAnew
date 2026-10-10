@@ -20,6 +20,12 @@ export function ZText({ children }: { children: string }) {
       <span aria-hidden="true">
         {words.map((w, wi) => {
           if (/^\s+$/.test(w)) return w;
+          // The name ZUBA is always written in plain letters.
+          if (/zuba/i.test(w)) return (
+            <span key={wi} className="zword">
+              {w}
+            </span>
+          );
           const chars = w.split("");
           return (
             <span key={wi} className="zword">
