@@ -42,3 +42,7 @@ oware-still-1 https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrft
 oware-still-2 https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_014956_b66f390a-92bd-49f2-a607-67b74f870a9c.png
 grootslang-still-1 https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_014956_05356f5d-7de4-44c0-8ed6-54a476450d5c.png
 grootslang-still-2 https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_014956_2fe1177c-cd8e-4784-aa67-a2cd6d3a4bec.png
+zuba-stand-3d-a https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023951_c86b9152-a791-4e44-811b-c942fb539d63.png
+zuba-stand-3d-b https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023951_87c49698-b097-4fbc-8280-6ce6e7d37ae3.png
+zuba-stand-2d-a https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023956_c6c5c499-da8c-4ed9-8314-b9ad8a224072.png
+zuba-stand-2d-b https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023956_ddb4d137-8a2b-4781-a68e-abd4a534eb90.png
