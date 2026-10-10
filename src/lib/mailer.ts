@@ -22,6 +22,8 @@ function getTransport() {
       pool: true,
       maxConnections: 2,
       connectionTimeout: 15_000,
+      greetingTimeout: 15_000,
+      socketTimeout: 20_000,
     });
   }
   return transport;

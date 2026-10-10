@@ -31,6 +31,18 @@ export async function writeJson(pathname: string, data: unknown) {
   });
 }
 
+/* Creates a JSON blob only if it doesn't exist yet. Returns false when it already existed. */
+export async function createJson(pathname: string, data: unknown) {
+  try {
+    await put(pathname, JSON.stringify(data), { access: "private", contentType: "application/json", addRandomSuffix: false, allowOverwrite: false });
+    return true;
+  } catch (e) {
+    // The store answers "This blob already exists" on a conflict; double-check before treating it as one.
+    if (/already exists/i.test((e as Error).message) || (await readBlob(pathname).catch(() => null))) return false;
+    throw e;
+  }
+}
+
 export async function writeFile(pathname: string, body: Buffer, contentType: string) {
   await put(pathname, body, { access: "private", contentType, addRandomSuffix: false, allowOverwrite: true });
 }

@@ -152,29 +152,27 @@ export default function Dashboard({ mode }: { mode: string }) {
   }
 
   /* Emails a dev note to every subscriber, batch by batch, showing progress. */
-  async function broadcast(slug: string, title: string) {
+  async function broadcast(slug: string, title: string, restart = false) {
     setSending(slug);
-    let offset = 0;
     let sent = 0;
     let failed = 0;
     try {
-      for (;;) {
+      for (let first = true; ; first = false) {
         setToast({ kind: "ok", text: `Emailing subscribers about “${title}”… ${sent} sent` });
         const res = await fetch("/api/admin/notify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ slug, offset }),
+          body: JSON.stringify({ slug, restart: restart && first }),
         });
         const json = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(json.error || "Sending failed.");
+        if (!res.ok) throw new Error(json.error || "Sending stopped.");
         sent += json.sent;
         failed += json.failed?.length ?? 0;
-        offset = json.next;
         if (json.done) break;
       }
       setToast({ kind: failed ? "err" : "ok", text: `Emailed ${sent} subscriber${sent === 1 ? "" : "s"}${failed ? `, ${failed} failed` : ""}.` });
     } catch (e) {
-      setToast({ kind: "err", text: `${(e as Error).message} ${sent} sent before it stopped.` });
+      setToast({ kind: "err", text: `${(e as Error).message} ${sent} sent so far. Press “Resume sending” to finish.` });
     }
     setSending(null);
     loadSubs();
@@ -394,16 +392,24 @@ export default function Dashboard({ mode }: { mode: string }) {
                     <button
                       className="btn"
                       disabled={busy || !!sending || !subs.emails.length}
-                      title={subs.notified[note.slug] ? `Already emailed on ${subs.notified[note.slug].slice(0, 10)}` : undefined}
-                      onClick={() =>
-                        window.confirm(
-                          subs.notified[note.slug]
-                            ? `This note was already emailed on ${subs.notified[note.slug].slice(0, 10)}. Send it again to ${subs.emails.length} subscribers?`
-                            : `Email this note to ${subs.emails.length} subscribers now?`
-                        ) && broadcast(note.slug, note.title)
-                      }
+                      onClick={() => {
+                        const st = subs.notified[note.slug];
+                        if (st === "partial") return broadcast(note.slug, note.title);
+                        if (st) {
+                          if (window.confirm(`This note was already emailed on ${st.slice(0, 10)}. Send it again to all ${subs.emails.length} subscribers?`))
+                            broadcast(note.slug, note.title, true);
+                          return;
+                        }
+                        if (window.confirm(`Email this note to ${subs.emails.length} subscribers now?`)) broadcast(note.slug, note.title);
+                      }}
                     >
-                      {sending === note.slug ? "Sending…" : subs.notified[note.slug] ? "Emailed ✓ Resend" : "Email subscribers"}
+                      {sending === note.slug
+                        ? "Sending…"
+                        : subs.notified[note.slug] === "partial"
+                          ? "Resume sending"
+                          : subs.notified[note.slug]
+                            ? "Emailed ✓ Resend"
+                            : "Email subscribers"}
                     </button>
                   </>
                 )}

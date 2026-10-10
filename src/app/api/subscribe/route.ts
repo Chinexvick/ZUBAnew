@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { welcomeEmail } from "@/lib/emails";
 import { mailEnabled, sendMail } from "@/lib/mailer";
-import { addSubscriber, normalizeEmail, subscribersEnabled, unsubscribeUrl } from "@/lib/subscribers";
+import { addSubscriber, allowOnce, normalizeEmail, subscribersEnabled, unsubscribeUrl } from "@/lib/subscribers";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +16,11 @@ export async function POST(req: Request) {
   }
   const source = typeof body?.source === "string" ? body.source.slice(0, 40) : "site";
   try {
+    // One sign-up per visitor every 30 seconds keeps scripts from enrolling lists of strangers.
+    const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "unknown";
+    if (!(await allowOnce(`sub:${ip}`, 30))) {
+      return NextResponse.json({ error: "Please wait a moment and try again." }, { status: 429 });
+    }
     const isNew = await addSubscriber(email, source);
     if (isNew) {
       const unsub = unsubscribeUrl(email);

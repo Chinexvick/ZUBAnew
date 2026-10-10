@@ -1,6 +1,6 @@
 // Dev Notes subscribers, one private blob per address: subscribers/<base64url(email)>.json
 import { sign, safeEqual } from "./auth";
-import { blobEnabled, listPaths, readJson, removeBlob, writeJson } from "./blob";
+import { blobEnabled, createJson, listPaths, readJson, removeBlob, writeJson } from "./blob";
 import { siteUrl } from "./mailer";
 
 const PREFIX = "subscribers/";
@@ -23,12 +23,9 @@ export function subscribersEnabled() {
   return blobEnabled();
 }
 
-/* Returns true when the address is new. */
+/* Returns true when the address is new. Atomic, so parallel requests can't send two welcomes. */
 export async function addSubscriber(email: string, source: string) {
-  const key = keyFor(email);
-  if (await readJson<Subscriber>(key)) return false;
-  await writeJson(key, { email, createdAt: new Date().toISOString(), source } satisfies Subscriber);
-  return true;
+  return createJson(keyFor(email), { email, createdAt: new Date().toISOString(), source } satisfies Subscriber);
 }
 
 export async function removeSubscriber(email: string) {
@@ -54,13 +51,25 @@ export function verifyUnsubscribe(e: string, s: string) {
   return normalizeEmail(Buffer.from(e, "base64url").toString("utf8"));
 }
 
-/* Which dev notes have already gone out, so a note is never emailed twice by accident. */
-export async function notifiedSlugs() {
-  return (await readJson<Record<string, string>>(NOTIFIED)) ?? {};
+/* Broadcast progress per dev note: `cursor` is the last address emailed (the list is sorted),
+   `at` is set once every subscriber has it. A cut-off send resumes from the cursor. */
+export type Broadcast = { at?: string; cursor?: string };
+
+export async function broadcasts() {
+  return (await readJson<Record<string, Broadcast>>(NOTIFIED)) ?? {};
 }
 
-export async function markNotified(slug: string) {
-  const map = await notifiedSlugs();
-  map[slug] = new Date().toISOString();
+export async function saveBroadcast(slug: string, b: Broadcast) {
+  const map = await broadcasts();
+  map[slug] = b;
   await writeJson(NOTIFIED, map);
+}
+
+/* Throttle for emails anyone can trigger (admin sign-in links): one per key per window. */
+export async function allowOnce(key: string, seconds: number) {
+  const path = `meta/throttle-${Buffer.from(key).toString("base64url")}.json`;
+  const last = await readJson<{ at: number }>(path);
+  if (last && Date.now() - last.at < seconds * 1000) return false;
+  await writeJson(path, { at: Date.now() });
+  return true;
 }

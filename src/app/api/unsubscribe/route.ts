@@ -3,6 +3,12 @@ import { removeSubscriber, verifyUnsubscribe } from "@/lib/subscribers";
 
 export const dynamic = "force-dynamic";
 
+// Mail apps that open the List-Unsubscribe link in a browser land on the confirmation page.
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  return NextResponse.redirect(new URL(`/unsubscribe${url.search}`, url.origin), 303);
+}
+
 // Called by the /unsubscribe page button and by mail apps' one-click unsubscribe (RFC 8058).
 export async function POST(req: Request) {
   const url = new URL(req.url);

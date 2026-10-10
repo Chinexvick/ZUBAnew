@@ -14,15 +14,25 @@ export function slugify(s: string) {
     .slice(0, 80);
 }
 
+/* Items that already have a slug keep it (their URL may be shared or emailed);
+   only new items get a fresh one, suffixed if the title is taken. */
 function uniqueSlugs<T extends { slug: string; title: string }>(items: T[]) {
   const seen = new Set<string>();
-  return items.map((it) => {
-    let base = slugify(it.slug || it.title) || "entry";
-    let s = base;
-    let i = 2;
-    while (seen.has(s)) s = `${base}-${i++}`;
+  const kept = items.map((it) => {
+    const s = slugify(it.slug);
+    if (!s || seen.has(s)) return null;
     seen.add(s);
-    base = s;
+    return s;
+  });
+  return items.map((it, idx) => {
+    let s = kept[idx];
+    if (!s) {
+      const base = slugify(it.title) || "entry";
+      s = base;
+      let i = 2;
+      while (seen.has(s)) s = `${base}-${i++}`;
+      seen.add(s);
+    }
     return { ...it, slug: s };
   });
 }

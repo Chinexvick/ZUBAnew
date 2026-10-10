@@ -11,7 +11,7 @@ import {
 } from "@/lib/auth";
 import { loginEmail } from "@/lib/emails";
 import { sendMail, siteUrl } from "@/lib/mailer";
-import { normalizeEmail } from "@/lib/subscribers";
+import { allowOnce, normalizeEmail } from "@/lib/subscribers";
 
 export async function POST(req: Request) {
   if (!adminConfigured()) {
@@ -24,7 +24,8 @@ export async function POST(req: Request) {
   if (email !== undefined) {
     if (!emailLoginEnabled()) return NextResponse.json({ error: "Email sign-in is not set up." }, { status: 503 });
     const addr = normalizeEmail(email);
-    if (addr && adminEmails().includes(addr)) {
+    // At most one link per minute, so the endpoint can't be used to flood the admin inbox.
+    if (addr && adminEmails().includes(addr) && (await allowOnce(`login:${addr}`, 60))) {
       const link = `${siteUrl()}/api/admin/login/verify?t=${createLoginToken(addr)}`;
       try {
         await sendMail({ to: addr, ...loginEmail(link) });
