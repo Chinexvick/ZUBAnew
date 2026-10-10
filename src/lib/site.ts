@@ -74,11 +74,19 @@ export type Partner = { name: string; logo: string; url?: string };
 // Partner logos live in /public/partners.
 export const partners: Partner[] = [
   { name: "Partner", logo: "/partners/partner-1.png" },
-  { name: "Partner", logo: "/partners/partner-2.png" },
-  { name: "LightSpeedCat", logo: "/partners/partner-3.png" },
+  { name: "Phoenix Token", logo: "/partners/partner-2.png" },
+  { name: "Light Speed Cat Token", logo: "/partners/partner-3.png" },
   { name: "Phenomenal Cat Coin", logo: "/partners/partner-4.png" },
-  { name: "Partner", logo: "/partners/partner-5.png" },
+  { name: "Kinesis Flow", logo: "/partners/partner-5.png" },
   { name: "uTrading", logo: "/partners/partner-6.png" },
+  { name: "Mamba Coin", logo: "/partners/mamba.webp" },
+  { name: "Gracia Token", logo: "/partners/gracia.webp" },
+  { name: "Catademia", logo: "/partners/catademia.webp" },
+  { name: "Unity Makes One Token", logo: "/partners/unity.webp" },
+  { name: "Snow Cat", logo: "/partners/snowcat.webp" },
+  { name: "Luminous AI", logo: "/partners/luminous.webp" },
+  { name: "IAped Token", logo: "/partners/iaped.webp" },
+  { name: "Cat Cake Token", logo: "/partners/catcake.webp" },
 ];
 
 export const nav = [
