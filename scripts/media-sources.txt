@@ -46,3 +46,15 @@ zuba-stand-3d-a https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTr
 zuba-stand-3d-b https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023951_87c49698-b097-4fbc-8280-6ce6e7d37ae3.png
 zuba-stand-2d-a https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023956_c6c5c499-da8c-4ed9-8314-b9ad8a224072.png
 zuba-stand-2d-b https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_023956_ddb4d137-8a2b-4781-a68e-abd4a534eb90.png
+zuba-fire https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024253_9efae367-3187-482a-b1a3-d36d7818f36f.png
+zuba-explorer https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024253_83817578-83e5-43f9-b095-2a78f770738e.png
+zuba-griot https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024252_3c75f374-329b-4e2c-be2a-d5264b929181.png
+parchment https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024253_7245100b-aa4a-46f4-b120-7b56e868eb9e.png
+anansi-poster-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024613_616561b5-67de-4637-b5b0-5429f551ba47.png
+anansi-backdrop-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024613_d585526d-7549-456a-b782-5e926bccaaf1.png
+anansi-still-1-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024613_92740b49-1ac4-4d69-b20f-83036c453017.png
+anansi-still-2-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024614_e8d43689-afc9-48f7-b91a-83e7f0429b39.png
+sundiata-poster-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024859_36b85f59-a29b-4bb1-9562-66bce5072ce0.png
+sundiata-backdrop-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024900_79750e83-be14-426f-aa9e-bc8985c79328.png
+sundiata-still-1-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024900_198922ca-1d92-4705-834c-2565d22682af.png
+sundiata-still-2-2d https://d8j0ntlcm91z4.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/hf_20261010_024900_e3244fe2-5d0e-4487-a2a9-29dd9a3d2a23.png
