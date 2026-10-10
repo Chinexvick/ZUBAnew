@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { art } from "@/content/art";
 import { socialLinks } from "@/components/Social";
 import CopyCA from "@/components/CopyCA";
+import { site } from "@/lib/site";
 import { Divider, Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
@@ -17,10 +17,10 @@ const blurbs: Record<string, string> = {
 };
 
 const roles = [
-  { r: "Griot", t: "Griots", d: "Storytellers, writers and meme lords who spread the legend." },
-  { r: "Smith", t: "Smiths", d: "Artists, animators and developers who forge new worlds." },
-  { r: "Warrior", t: "Warriors", d: "Raiders and defenders who carry the flag across every timeline." },
-  { r: "Elder", t: "Elders", d: "Long-term holders whose patience keeps the fire burning." },
+  { r: "Griot", t: "Griots", d: "Storytellers, writers and meme lords who spread the legend.", cta: "Spread the word on X", href: site.socials.x.url },
+  { r: "Smith", t: "Smiths", d: "Artists, animators and developers who forge new worlds.", cta: "Read the Dev Notes", href: "/dev-notes" },
+  { r: "Warrior", t: "Warriors", d: "Raiders and defenders who carry the flag across every timeline.", cta: "Join the Telegram", href: site.socials.telegram.url },
+  { r: "Elder", t: "Elders", d: "Long-term holders whose patience keeps the fire burning.", cta: "See the token", href: "/token" },
 ];
 
 export default function Community() {
@@ -44,15 +44,15 @@ export default function Community() {
           <div className="grid cols-3">
             {socialLinks.map(({ key, label, handle, url, Icon }) => {
               const card = (
-                <Frame hoverable={!!url} active={key === "x"}>
+                <Frame hoverable={!!url}>
                   <div className="social-card">
                     <span className="medal">
                       <Icon />
                     </span>
                     <h2 className="t-title md">
-                      <ZText>{label}</ZText>
+                      <ZText>{key === "x" ? "X (Twitter)" : label}</ZText>
                     </h2>
-                    <span className="hl">{handle}</span>
+                    <span className="hl">{key === "telegram" ? "t.me/zubacommunitychat" : key === "whatsapp" ? "Village group chat" : handle}</span>
                     <Divider variant="simple" />
                     <p className="t-muted" style={{ margin: 0 }}>
                       {blurbs[key]}
@@ -77,18 +77,21 @@ export default function Community() {
 
       <section className="section">
         <div className="container">
-          <Heading runes="Roles" title="Find Your Role" lead="Every village needs all kinds of heroes. Which one are you?" />
+          <Heading runes="Roles" title="Find Your Role" lead="Every village needs all kinds of heroes. Pick yours and find your fire." />
           <div className="values" style={{ marginTop: 40 }}>
             {roles.map((v) => (
-              <Frame key={v.t} hoverable>
-                <div className="stack">
-                  <Runes text={v.r} />
-                  <h3 className="t-title sm">
-                    <ZText>{v.t}</ZText>
-                  </h3>
-                  <p className="t-muted">{v.d}</p>
-                </div>
-              </Frame>
+              <a key={v.t} href={v.href} {...(v.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                <Frame hoverable>
+                  <div className="stack">
+                    <Runes text={v.r} />
+                    <h3 className="t-title sm">
+                      <ZText>{v.t}</ZText>
+                    </h3>
+                    <p className="t-muted">{v.d}</p>
+                    <span className="prompt">{v.cta} →</span>
+                  </div>
+                </Frame>
+              </a>
             ))}
           </div>
         </div>
@@ -103,7 +106,10 @@ export default function Community() {
           <Divider variant="notched" />
           <CopyCA />
           <p className="t-muted">
-            Read the <Link href="/dev-notes" className="hl">Developer Notebook</Link> to see what the builders are working on right now.
+            Always check the full address before you swap.{" "}
+            <a href={site.links.bscscan} target="_blank" rel="noopener noreferrer" className="hl">
+              Verify on BscScan ↗
+            </a>
           </p>
         </div>
       </section>

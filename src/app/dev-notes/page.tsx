@@ -22,8 +22,8 @@ export default async function DevNotes() {
         <div className="container">
           <Heading
             as="h1"
-            runes="Notebook"
-            title="The Builders' Notebook"
+            runes="Builders"
+            title="Dev Notes"
             size="xl"
             lead="Every marker on this map is a real update from the ZUBA developers. Follow the trail to see where we've been and exactly where we stand."
           />
@@ -34,9 +34,7 @@ export default async function DevNotes() {
         <div className="map-board">
           <div className="map-legend">
             <div className="map-progress">
-              <span className="t-label">
-                <span className="num">▮▮▮</span> Current region
-              </span>
+              <span className="t-label">◆ Current region</span>
               <span className="t-title">
                 <ZText>{`Phase 0${current.n}: ${current.name}`}</ZText>
               </span>
@@ -44,14 +42,14 @@ export default async function DevNotes() {
                 <span className="check on" /> Markers logged <strong style={{ color: "#fff", marginLeft: "auto" }}>{notes.length}</strong>
               </span>
               <span className="map-check">
-                <span className="check on" /> Objectives completed <strong style={{ color: "#fff", marginLeft: "auto" }}>{totalWins}</strong>
+                <span className="check on" /> Wins logged <strong style={{ color: "#fff", marginLeft: "auto" }}>{totalWins}</strong>
               </span>
             </div>
             <div className="mini-map" aria-label="Roadmap progress">
               {phases.map((p, i) => (
                 <span key={p.n} style={{ display: "contents" }}>
                   {i > 0 && <i />}
-                  <span className={p.status !== "locked" ? "on" : ""} title={p.name}>
+                  <span className={p.status === "cleared" ? "on" : p.status === "active" ? "now" : ""} title={p.name}>
                     {p.n}
                   </span>
                 </span>

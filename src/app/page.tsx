@@ -1,20 +1,19 @@
 import Link from "next/link";
 import { media } from "@/content/media";
 import { art } from "@/content/art";
-import { allTitles, games, movies } from "@/content/theatre";
+import { allTitles, games } from "@/content/theatre";
 import { phases } from "@/content/roadmap";
 import { partners, site, token } from "@/lib/site";
 import CopyCA from "@/components/CopyCA";
 import TitleRow from "@/components/TitleRow";
-import { PartnerMarquee } from "@/components/Listings";
-import { SocialRow } from "@/components/Social";
+import { PartnerGrid } from "@/components/Listings";
 import { Icon } from "@/components/Icons";
 import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
 const worlds = [
-  { href: "/theatre#films", label: "Watch", title: "Animated Legends", line: "Gods, tricksters and heroes, drawn by African hands.", img: () => movies[1]?.poster },
-  { href: "/theatre#games", label: "Play", title: "African Games", line: "Myths you don't just hear. You play them.", img: () => games[0]?.poster },
-  { href: "/community", label: "Own", title: "A Village That Owns It", line: "Holders build, vote and grow the universe.", img: () => media["zuba-explorer"] },
+  { href: "/theatre#films", label: "Watch", title: "Animated Legends", line: "Gods, tricksters and heroes, drawn by African hands.", img: () => art("sundiata-still-2") },
+  { href: "/theatre#games", label: "Play", title: "African Games", line: "Myths you don't just hear. You play them.", img: () => art("impundulu-still-1") },
+  { href: "/community", label: "Own", title: "Owned by Holders", line: "The village backs, shapes and grows the universe.", img: () => art("anansi-still-2") },
 ];
 
 export default function Home() {
@@ -97,12 +96,12 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <div className="h-row-head">
-            <Heading runes="Theatre" title="Now Showing" size="md" align="left" divider={false} />
+            <Heading runes="Theatre" title="Coming to the Theatre" size="md" align="left" divider={false} />
             <Link href="/theatre" className="prompt">
-              See all <Chev />
+              See all titles <Chev />
             </Link>
           </div>
-          <TitleRow title="Films & Games" items={allTitles} hideHead />
+          <TitleRow title="Films & Games" items={allTitles.filter((t) => t.slug !== flagship.slug)} hideHead />
         </div>
       </section>
 
@@ -113,7 +112,7 @@ export default function Home() {
             <span className="h-forge-art" style={{ backgroundImage: `url(${flagship.backdrop})` }} />
             <span className="h-forge-text">
               <Runes text="Forge" />
-              <span className="t-label">In the Forge · Our flagship game</span>
+              <span className="t-label">Our flagship game</span>
               <span className="t-title lg">
                 <ZText>{flagship.title.split(":")[0]}</ZText>
               </span>
@@ -150,22 +149,29 @@ export default function Home() {
                   <dd>{token.supplyShort}</dd>
                 </div>
                 <div>
-                  <dt>Network</dt>
-                  <dd>BNB</dd>
+                  <dt>Fair launch</dt>
+                  <dd>{token.allocation[0].pct}%</dd>
                 </div>
                 <div>
-                  <dt>Liquidity</dt>
-                  <dd>{token.allocation[0].pct}%</dd>
+                  <dt>Security</dt>
+                  <dd>
+                    <Link href="/token#guarded" className="tstats-link">
+                      Audited ✓
+                    </Link>
+                  </dd>
                 </div>
               </dl>
               <div className="hero-actions">
-                <Link href="/token" className="btn primary">
+                <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary">
+                  <Chev /> Buy $ZUBA
+                </a>
+                <Link href="/token" className="btn">
                   Explore the Token
                 </Link>
-                <a href={site.links.chart} target="_blank" rel="noopener noreferrer" className="btn">
-                  Live Chart
-                </a>
               </div>
+              <a href={site.links.chart} target="_blank" rel="noopener noreferrer" className="prompt h-chart-link">
+                <Icon name="chart" size={16} /> Live chart on DEX Screener ↗
+              </a>
             </div>
           </div>
         </div>
@@ -174,7 +180,12 @@ export default function Home() {
       {/* ============ QUEST LINE ============ */}
       <section className="section">
         <div className="container">
-          <Heading runes="Roadmap" title="The Quest Line" size="md" lead="Five phases from first spark to the world stage." />
+          <div className="h-row-head">
+            <Heading runes="Roadmap" title="The Quest Line" size="md" align="left" divider={false} lead="Five phases from first spark to the world stage." />
+            <Link href="/roadmap" className="prompt">
+              Full roadmap <Chev />
+            </Link>
+          </div>
           <div className="quest-strip">
             {phases.map((p) => (
               <Link href={`/roadmap#phase-${p.n}`} key={p.n} className={`quest-node ${p.status}`}>
@@ -185,6 +196,7 @@ export default function Home() {
                 <span className="quest-name">
                   <ZText>{p.name}</ZText>
                 </span>
+                <span className="quest-quest">{p.quest}</span>
                 <span className="quest-state">{p.status === "cleared" ? "Cleared" : p.status === "active" ? "In progress" : "Locked"}</span>
               </Link>
             ))}
@@ -195,9 +207,9 @@ export default function Home() {
       {/* ============ PARTNERS ============ */}
       <section className="section h-partners">
         <div className="container">
-          <Heading runes="Allies" title="Allies of the Village" size="md" />
+          <Heading runes="Allies" title="Allies of the Village" size="md" lead="Projects and communities building alongside ZUBA." />
+          <PartnerGrid items={partners} />
         </div>
-        <PartnerMarquee items={partners} />
       </section>
 
       {/* ============ JOIN ============ */}
@@ -211,7 +223,17 @@ export default function Home() {
               </h2>
               <Divider variant="simple" align="left" />
               <p className="t-lead">The fire is lit. Every legend needs its people.</p>
-              <SocialRow />
+              <div className="hero-actions">
+                <a href={site.socials.telegram.url} target="_blank" rel="noopener noreferrer" className="btn primary">
+                  Join the Telegram
+                </a>
+                <a href={site.socials.x.url} target="_blank" rel="noopener noreferrer" className="btn">
+                  Follow on X
+                </a>
+                <a href={site.socials.whatsapp.url} target="_blank" rel="noopener noreferrer" className="btn">
+                  WhatsApp
+                </a>
+              </div>
             </div>
             <img src={media["zuba-explorer"]} alt="" className="h-join-zuba" />
           </div>

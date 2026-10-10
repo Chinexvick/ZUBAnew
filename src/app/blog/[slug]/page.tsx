@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPost, getPosts, formatDate, renderMarkdown } from "@/lib/content";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
+import { art } from "@/content/art";
+
+const FALLBACK = ["anansi-backdrop", "zuba-game-backdrop", "impundulu-backdrop", "oware-backdrop", "grootslang-backdrop"];
 
 type Params = { slug: string };
 
@@ -35,16 +38,28 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
             {formatDate(p.date)} · {p.author} · {p.category}
           </p>
         </header>
-        {p.cover && (
-          <div className="article-cover">
-            <img src={p.cover} alt="" />
-          </div>
-        )}
+        <div className="article-cover">
+          <img src={p.cover || art(FALLBACK[p.slug.length % FALLBACK.length])} alt="" />
+        </div>
         <p className="t-lead" style={{ marginTop: 30 }}>
           {p.excerpt}
         </p>
         <div className="prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(p.body) }} />
         <Divider variant="diamond" />
+        <div className="center stack" style={{ marginTop: 30 }}>
+          <Runes text="Next" />
+          <div className="hero-actions" style={{ justifyContent: "center" }}>
+            <Link href="/community" className="btn primary">
+              Join the Village
+            </Link>
+            <Link href="/roadmap" className="btn">
+              Follow the Roadmap
+            </Link>
+          </div>
+          <Link href="/blog" className="back-link" style={{ justifyContent: "center" }}>
+            <Chev dir="left" /> All scrolls
+          </Link>
+        </div>
       </article>
     </div>
   );

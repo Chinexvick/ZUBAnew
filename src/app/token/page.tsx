@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { listings, site, token, trust } from "@/lib/site";
+import { media } from "@/content/media";
 import { utilities } from "@/content/utilities";
 import CopyCA from "@/components/CopyCA";
 import Donut, { donutColors } from "@/components/Donut";
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   description: "The coin that carries a continent's stories: supply, allocation, security, utility and where to find $ZUBA on BNB Chain.",
 };
 
-function Chapter({ n, runes, title, line, children, id }: { n: string; runes: string; title: string; line: string; children: React.ReactNode; id: string }) {
+function Chapter({ n, runes, title, line, children, id, art }: { n: string; runes: string; title: string; line: string; children: React.ReactNode; id: string; art?: string }) {
   return (
     <section className="tchapter" id={id}>
       <div className="container tchapter-grid">
@@ -25,6 +26,7 @@ function Chapter({ n, runes, title, line, children, id }: { n: string; runes: st
           </h2>
           <Divider variant="simple" align="left" />
           <p className="t-lead">{line}</p>
+          {art && <img className="tchapter-art" src={art} alt="" aria-hidden="true" />}
         </header>
         <div className="tchapter-body">{children}</div>
       </div>
@@ -34,8 +36,8 @@ function Chapter({ n, runes, title, line, children, id }: { n: string; runes: st
 
 const steps = [
   { icon: "wallet", t: "Open your wallet", d: "MetaMask, Trust Wallet or any BNB Chain wallet, funded with a little BNB." },
-  { icon: "copy", t: "Copy the contract", d: "Use only the address on this page. It is the one real $ZUBA." },
-  { icon: "swap", t: "Swap on PancakeSwap", d: "Paste the address, choose an amount of BNB and swap. Welcome to the village." },
+  { icon: "copy", t: "Check the contract", d: "This is the only real $ZUBA. Compare the last characters: …994A4." },
+  { icon: "swap", t: "Swap on PancakeSwap", d: "Tap the button below. $ZUBA is pre-filled; choose an amount of BNB and swap." },
 ];
 
 export default function TokenPage() {
@@ -45,12 +47,12 @@ export default function TokenPage() {
       <section className="tcard-wrap">
         <div className="container">
           <div className="tcard rise">
-            <div className="tcard-coin" aria-hidden="true">
-              <span className="tcard-orbit" />
-              <img src="/brand/zuba-coin.png" alt="" />
+            <div className="tcard-art" aria-hidden="true">
+              <span className="tcard-glow" />
+              <img src={media["zuba-stand-2d-a"]} alt="" />
             </div>
             <div className="tcard-info">
-              <p className="t-label">Legendary item · BNB Chain</p>
+              <p className="t-label">Legendary item · BEP-20 on BNB Chain</p>
               <h1 className="t-title xl tcard-title">
                 <ZText>$ZUBA</ZText>
               </h1>
@@ -61,12 +63,16 @@ export default function TokenPage() {
                   <dd>{token.supplyShort}</dd>
                 </div>
                 <div>
-                  <dt>Network</dt>
-                  <dd>BNB</dd>
+                  <dt>Fair launch</dt>
+                  <dd>{token.allocation[0].pct}%</dd>
                 </div>
                 <div>
-                  <dt>Liquidity</dt>
-                  <dd>{token.allocation[0].pct}%</dd>
+                  <dt>Security</dt>
+                  <dd>
+                    <a href="#guarded" className="tstats-link">
+                      Audited ✓
+                    </a>
+                  </dd>
                 </div>
               </dl>
               <CopyCA />
@@ -138,16 +144,6 @@ export default function TokenPage() {
               <Icon name="external" size={18} className="tseal-ext" />
             </a>
           ))}
-          <a href={site.links.bscscan} target="_blank" rel="noopener noreferrer" className="tseal">
-            <span className="tseal-badge">
-              <Icon name="scroll" size={30} />
-            </span>
-            <span className="tseal-text">
-              <strong>Public contract</strong>
-              <span>verify it on BscScan</span>
-            </span>
-            <Icon name="external" size={18} className="tseal-ext" />
-          </a>
         </div>
       </Chapter>
 
@@ -161,14 +157,14 @@ export default function TokenPage() {
               <ZText>What the Coin Unlocks</ZText>
             </h2>
             <Divider variant="notched" />
-            <p className="t-lead">One key for the whole ZUBA universe. Choose a slot to see what it opens.</p>
+            <p className="t-lead">One key for the whole ZUBA universe. Most doors are still being built: choose a slot to see what each one opens and where it stands.</p>
           </header>
           <UtilityRing items={utilities} />
         </div>
       </section>
 
       {/* ---------- IV. how to buy ---------- */}
-      <Chapter id="join" n="IV" runes="Join" title="Join the Quest" line="Three steps, about two minutes.">
+      <Chapter id="join" n="IV" runes="Join" title="Join the Quest" line="Three steps, about two minutes." art={media["zuba-explorer"]}>
         <ol className="tsteps">
           {steps.map((s, i) => (
             <li key={s.t}>
@@ -178,16 +174,24 @@ export default function TokenPage() {
               </span>
               <strong>{s.t}</strong>
               <span>{s.d}</span>
+              {i === 1 && (
+                <span className="tstep-ca">
+                  <CopyCA />
+                </span>
+              )}
             </li>
           ))}
         </ol>
+        <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary tbuy">
+          <Chev /> Buy on PancakeSwap
+        </a>
         <p className="tscam">
-          <Icon name="shield" size={18} /> The team will never DM you first or ask for your seed phrase.
+          <Icon name="shield" size={18} /> The team will never DM you first or ask for your seed phrase. If someone does, it is a scam.
         </p>
       </Chapter>
 
       {/* ---------- V. listings ---------- */}
-      <Chapter id="found" n="V" runes="Found" title="Where to Find ZUBA" line="Trade it, track it and verify it.">
+      <Chapter id="found" n="V" runes="Found" title="Find $ZUBA" line="Trade it, track it and verify it.">
         <div className="tlist">
           {listings.map((l) => (
             <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" className="tlist-item">
@@ -195,24 +199,27 @@ export default function TokenPage() {
                 <Icon name={l.kind === "Trade" ? "swap" : l.kind === "Live chart" ? "chart" : "scroll"} size={20} />
               </span>
               <span className="tlist-name">{l.name}</span>
-              <span className="tlist-kind">{l.kind}</span>
+              <span className="tlist-kind">{l.detail}</span>
               <Icon name="external" size={16} />
             </a>
           ))}
         </div>
       </Chapter>
 
-      <section className="section center">
-        <div className="container stack" style={{ maxWidth: 640 }}>
-          <Runes text="Whitepaper" />
-          <h2 className="t-title md">
-            <ZText>The Full Story</ZText>
-          </h2>
-          <p className="t-muted">Vision, tokenomics, utility and the road ahead, all in the ZUBA whitepaper.</p>
-          <div>
-            <Link href="/whitepaper" className="btn primary">
-              <Icon name="read" size={18} /> Read the Whitepaper
-            </Link>
+      <section className="section">
+        <div className="container twp">
+          <img src={media["zuba-griot"]} alt="" aria-hidden="true" className="twp-art" />
+          <div className="twp-text">
+            <Runes text="Whitepaper" />
+            <h2 className="t-title md">
+              <ZText>The Full Story</ZText>
+            </h2>
+            <p className="t-muted">Vision, tokenomics, utility and the road ahead, all in the ZUBA whitepaper.</p>
+            <div>
+              <Link href="/whitepaper" className="btn primary">
+                <Icon name="read" size={18} /> Read the Whitepaper
+              </Link>
+            </div>
           </div>
         </div>
       </section>

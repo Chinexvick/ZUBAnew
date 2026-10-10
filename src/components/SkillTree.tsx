@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Phase } from "@/content/roadmap";
 import { Cursor, Divider, Runes, ZText } from "./ui/Glyphs";
 
@@ -24,8 +24,17 @@ export default function SkillTree({ phases, art }: { phases: Phase[]; art: strin
     if (m) setSel(Number(m[1]));
   }, []);
 
+  const panelRef = useRef<HTMLElement>(null);
   const p = phases.find((x) => x.n === sel) ?? phases[0];
   const locked = p.status === "locked";
+  const prev = phases.find((x) => x.n === p.n - 1);
+
+  function choose(n: number) {
+    setSel(n);
+    if (window.matchMedia("(max-width: 960px)").matches) {
+      requestAnimationFrame(() => panelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+  }
 
   return (
     <div className="tree-wrap">
@@ -37,7 +46,7 @@ export default function SkillTree({ phases, art }: { phases: Phase[]; art: strin
             role="tab"
             aria-selected={sel === ph.n}
             className={`tree-node ${ph.status} ${sel === ph.n ? "selected" : ""}`}
-            onClick={() => setSel(ph.n)}
+            onClick={() => choose(ph.n)}
           >
             <span className="tree-medal">
               <span className={`quest-node ${ph.status}`} style={{ display: "block" }}>
@@ -58,7 +67,7 @@ export default function SkillTree({ phases, art }: { phases: Phase[]; art: strin
         ))}
       </div>
 
-      <aside className="detail-panel" aria-live="polite">
+      <aside className={`detail-panel ${locked ? "locked" : ""}`} aria-live="polite" ref={panelRef}>
         <div className="detail-panel-art" style={{ backgroundImage: `url(${art[(p.n - 1) % art.length]})` }} />
         <div className="detail-panel-body">
           <Runes text={p.name} />
@@ -72,7 +81,7 @@ export default function SkillTree({ phases, art }: { phases: Phase[]; art: strin
           <ul className="objective-list">
             {p.objectives.map((o) => (
               <li key={o}>
-                <span className={`check ${p.status === "cleared" ? "on" : ""}`} />
+                <span className={`check ${p.status === "cleared" ? "on" : p.status === "active" ? "half" : ""}`} />
                 <span>{o}</span>
               </li>
             ))}
@@ -81,7 +90,7 @@ export default function SkillTree({ phases, art }: { phases: Phase[]; art: strin
           {locked ? (
             <div className="lock-box">
               <LockIcon />
-              <div>Clear the previous phase to unlock</div>
+              <div>{prev ? `Unlocks after Phase 0${prev.n}: ${prev.name}` : "Coming soon"}</div>
             </div>
           ) : (
             <span className={`chip ${p.status === "cleared" ? "live" : ""}`}>{stateLabel[p.status]}</span>

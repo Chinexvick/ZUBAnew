@@ -38,15 +38,15 @@ export const token = {
 export type Listing = {
   name: string;
   kind: string;
+  detail: string;
   url: string;
-  logo?: string;
 };
 
 // Where $ZUBA is live today.
 export const listings: Listing[] = [
-  { name: "PancakeSwap", kind: "Trade", url: site.links.buy },
-  { name: "DEX Screener", kind: "Live chart", url: site.links.chart },
-  { name: "BscScan", kind: "Contract", url: site.links.bscscan },
+  { name: "PancakeSwap", kind: "Trade", detail: "Swap BNB for $ZUBA", url: site.links.buy },
+  { name: "DEX Screener", kind: "Live chart", detail: "Price, volume and liquidity", url: site.links.chart },
+  { name: "BscScan", kind: "Contract", detail: "0xE1bf…994A4", url: site.links.bscscan },
 ];
 
 // Security documents.

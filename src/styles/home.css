@@ -43,6 +43,7 @@
 }
 .h-hero-tag {
   margin: 0;
+  text-wrap: balance;
   font-family: var(--font-title);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -197,7 +198,7 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center top;
+  background-position: center;
   background-color: var(--bg-2);
   transition: transform 0.8s ease;
 }
@@ -233,7 +234,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .h-world {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
+  }
+  .h-world-img {
+    background-position: center 20%;
+  }
+  .h-world-shade {
+    background: linear-gradient(180deg, transparent 25%, rgba(11, 7, 22, 0.96) 72%);
   }
 }
 
@@ -499,4 +506,79 @@ a.h-product:hover {
   font-weight: 600;
   color: var(--violet-soft);
   margin-top: -6px;
+}
+
+.h-chart-link {
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
+.h-chart-link:hover {
+  color: #fff;
+}
+@media (max-width: 760px) {
+  .h-token .runes,
+  .h-token .h-chart-link {
+    align-self: center;
+  }
+  .h-token .hero-actions .btn {
+    flex: 1 1 200px;
+    justify-content: center;
+  }
+}
+.h-row-head .heading .t-lead {
+  margin-top: 4px;
+}
+
+/* partner grid */
+.pgrid {
+  list-style: none;
+  margin: 36px auto 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1000px;
+}
+.pgrid-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 10px 16px;
+  border-radius: 16px;
+  border: 1.5px solid var(--line-dim);
+  background: rgba(20, 12, 40, 0.6);
+  height: 100%;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+a.pgrid-tile:hover,
+.pgrid-tile:hover {
+  border-color: #f1d9ff;
+  box-shadow: 0 0 22px rgba(170, 70, 255, 0.35);
+  transform: translateY(-3px);
+}
+.pgrid-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  box-shadow: 0 0 0 3px #120b24, 0 0 0 4px var(--line-dim);
+}
+.pgrid-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pgrid-name {
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--lav);
+}
+@media (max-width: 860px) {
+  .pgrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

@@ -133,7 +133,7 @@ button {
   min-height: 100vh;
 }
 .section {
-  padding: 90px 0;
+  padding: 72px 0;
   position: relative;
 }
 .center {
@@ -145,6 +145,7 @@ button {
 
 /* ---------- typography ---------- */
 .t-title {
+  text-wrap: balance;
   font-family: var(--font-title);
   text-transform: uppercase;
   font-weight: 600;
@@ -231,6 +232,9 @@ button {
 }
 
 /* Δ letter (greatness symbol) inside titles */
+.zword {
+  white-space: nowrap;
+}
 .delta {
   display: inline-block;
   width: 0.74em;
@@ -610,6 +614,8 @@ button {
 }
 .prose h2,
 .prose h3 {
+  line-height: 1.2;
+  text-wrap: balance;
   font-family: var(--font-title);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -720,7 +726,7 @@ button {
     grid-template-columns: minmax(0, 1fr);
   }
   .section {
-    padding: 64px 0;
+    padding: 52px 0;
   }
 }
 

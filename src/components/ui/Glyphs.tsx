@@ -10,16 +10,25 @@ export function Delta({ className = "delta" }: { className?: string }) {
   );
 }
 
-/* Title text with every A inside a word swapped for the greatness symbol (a lone "A" stays a letter). */
+/* Title text with every A inside a word swapped for the greatness symbol (a lone "A" stays a letter).
+   Each word is kept whole so lines never break next to a glyph. */
 export function ZText({ children }: { children: string }) {
-  const chars = children.split("");
   const isLetter = (c?: string) => !!c && /[a-z0-9]/i.test(c);
+  const words = children.split(/(\s+)/);
   return (
     <>
       <span aria-hidden="true">
-        {chars.map((c, i) =>
-          (c === "a" || c === "A") && (isLetter(chars[i - 1]) || isLetter(chars[i + 1])) ? <Delta key={i} /> : c
-        )}
+        {words.map((w, wi) => {
+          if (/^\s+$/.test(w)) return w;
+          const chars = w.split("");
+          return (
+            <span key={wi} className="zword">
+              {chars.map((c, i) =>
+                (c === "a" || c === "A") && (isLetter(chars[i - 1]) || isLetter(chars[i + 1])) ? <Delta key={i} /> : c
+              )}
+            </span>
+          );
+        })}
       </span>
       <span className="sr-only">{children}</span>
     </>
@@ -35,7 +44,7 @@ const RUNE: Record<string, string> = {
   E: "M8 1L2 4l6 3-6 3 6 3",
   F: "M2 13V1h6M2 7l5-3",
   G: "M8 2L2 7l6 5M5 7h4",
-  H: "M1 13l4-12 4 12M3 9l4-4",
+  H: "M2 1v12M8 1v12M2 9l6-4",
   I: "M5 1v12M3 4l2-3 2 3",
   J: "M7 1v10l-3 2-2-2M5 5h4",
   K: "M8 1v12M8 7L2 1M8 7l-6 6",
@@ -50,7 +59,7 @@ const RUNE: Record<string, string> = {
   T: "M1 5l4-4 4 4M5 1v12",
   U: "M1 1l4 4 4-4M5 5v8M2 13h6",
   V: "M1 1v8l4 4 4-4V1",
-  W: "M1 13l2-12 2 7 2-7 2 12",
+  W: "M1 1l4 5 4-5M5 6v7M2 13h6",
   X: "M1 1l8 6-8 6M5 1v12",
   Y: "M1 13l4-6 4 6M5 7V1",
   Z: "M1 1l8 3-8 3 8 3-8 3",

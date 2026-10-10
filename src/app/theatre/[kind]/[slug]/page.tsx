@@ -40,7 +40,7 @@ export default async function TitlePage({ params }: { params: Promise<Params> })
           )}
           <div className="detail-copy">
             <Link href={`/theatre#${isMovie ? "films" : "games"}`} className="back-link">
-              <Chev dir="left" /> Back to the Theatre
+              <Chev dir="left" /> Back to Movies &amp; Games
             </Link>
             <p className="t-label">
               {isMovie ? "ZUBA Films" : "ZUBA Games"} · {t.shelf}
@@ -55,10 +55,8 @@ export default async function TitlePage({ params }: { params: Promise<Params> })
               </p>
             )}
             <div className="meta-row">
-              <span className="chip">{t.origin}</span>
               <span className="chip">{t.genre}</span>
-              <span className="chip">{t.format}</span>
-              <span className="chip live">{t.status}</span>
+              <span className="chip prod">{t.status}</span>
             </div>
             <p className="t-lead">{t.logline}</p>
             <div className="hero-actions">
@@ -163,13 +161,13 @@ export default async function TitlePage({ params }: { params: Promise<Params> })
         <section id="gallery" className="section" style={{ paddingBottom: 30, scrollMarginTop: 110 }}>
           <Heading runes="Gallery" title="Scenes" size="md" />
           <div style={{ marginTop: 30 }}>
-            <Stills images={[t.backdrop, ...t.stills]} title={t.title} />
+            <Stills images={t.stills.filter(Boolean).length ? t.stills : [t.backdrop]} title={t.title} />
           </div>
         </section>
 
         <section className="section" style={{ paddingTop: 30 }}>
           <TitleRow title={isMovie ? "More Films" : "More Games"} items={more} />
-          <TitleRow title={isMovie ? "Play the Legends" : "Watch the Legends"} items={isMovie ? games : movies} />
+          <TitleRow title={isMovie ? "Games in the Forge" : "Films in Development"} items={isMovie ? games : movies} />
         </section>
       </div>
     </>

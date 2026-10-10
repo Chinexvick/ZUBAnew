@@ -169,12 +169,17 @@
 }
 
 @media (max-width: 1240px) {
-  .nav-tabs,
-  .nav-cta {
+  .nav-tabs {
     display: none;
+  }
+  .nav-cta {
+    margin-left: auto;
+    padding: 9px 16px;
+    font-size: 0.78rem;
   }
   .nav-burger {
     display: flex;
+    margin-left: 0;
   }
 }
 
@@ -323,4 +328,16 @@
 }
 .ca-copy.done {
   color: #c9ffd9;
+}
+
+.ca-short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .ca-full {
+    display: none;
+  }
+  .ca-short {
+    display: inline;
+  }
 }

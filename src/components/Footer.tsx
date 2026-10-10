@@ -23,7 +23,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="t-muted" style={{ maxWidth: 340 }}>
-              African stories, built into games and animation the whole world can play.
+              Story-first. Community-driven. Africa to the world.
             </p>
             <SocialRow />
           </div>

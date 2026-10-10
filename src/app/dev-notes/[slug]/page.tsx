@@ -32,7 +32,7 @@ export default async function DevNotePage({ params }: { params: Promise<Params> 
     <div className="page">
       <div className="container">
         <Link href="/dev-notes" className="back-link" style={{ marginBottom: 24 }}>
-          <Chev dir="left" /> Back to the map
+          <Chev dir="left" /> Back to Dev Notes
         </Link>
 
         <article className="notebook" style={{ marginTop: 20 }}>
@@ -66,7 +66,7 @@ export default async function DevNotePage({ params }: { params: Promise<Params> 
             </div>
             {n.achievements.length > 0 && (
               <div>
-                <span className="t-label">Objectives cleared</span>
+                <span className="t-label">Shipped in this update</span>
                 <ul className="task-list" style={{ marginTop: 12 }}>
                   {n.achievements.map((a) => (
                     <li key={a}>
@@ -108,14 +108,14 @@ export default async function DevNotePage({ params }: { params: Promise<Params> 
         <nav className="hero-actions" style={{ justifyContent: "space-between", marginTop: 30 }}>
           {older ? (
             <Link href={`/dev-notes/${older.slug}`} className="prompt-pill">
-              <span className="keycap">LB</span> {older.title}
+              <span className="keycap">LB</span> Older · {older.title}
             </Link>
           ) : (
             <span />
           )}
           {newer && (
             <Link href={`/dev-notes/${newer.slug}`} className="prompt-pill">
-              {newer.title} <span className="keycap">RB</span>
+              Newer · {newer.title} <span className="keycap">RB</span>
             </Link>
           )}
         </nav>

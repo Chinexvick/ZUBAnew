@@ -81,6 +81,18 @@ const paths: Record<string, React.ReactNode> = {
       <path d="M9 9h7M9 12h7M9 15h5" />
     </>
   ),
+  map: (
+    <>
+      <path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" />
+      <path d="M9 4v14M15 6v14" />
+    </>
+  ),
+  brush: (
+    <>
+      <path d="M14 4l6 6-8 8-3-3z" />
+      <path d="M9 15c-2 0-4 1.5-4 4v1h1c2.5 0 4-2 4-4" />
+    </>
+  ),
   external: <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />,
   lock: (
     <>

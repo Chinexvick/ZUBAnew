@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { media } from "@/content/media";
+import { art } from "@/content/art";
 import { Icon } from "@/components/Icons";
 import { Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
@@ -11,11 +12,11 @@ export const metadata: Metadata = {
 
 const building = [
   { icon: "play", t: "Story-driven games" },
-  { icon: "compete", t: "Action-packed battle mechanics" },
+  { icon: "shield", t: "Action-packed battle mechanics" },
   { icon: "watch", t: "Animated films and series" },
-  { icon: "own", t: "African characters and creatures" },
-  { icon: "gather", t: "Digital worlds to explore" },
-  { icon: "speak", t: "Community-driven creative studios" },
+  { icon: "id", t: "African characters and creatures" },
+  { icon: "map", t: "Digital worlds to explore" },
+  { icon: "brush", t: "Community-driven creative studios" },
 ];
 
 export default function About() {
@@ -94,7 +95,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section a-why-band" style={{ backgroundImage: `url(${art("sundiata-still-1")})` }}>
         <div className="container a-why">
           <Runes text="Why Zuba" />
           <h2 className="t-title md">

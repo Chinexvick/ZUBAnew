@@ -21,3 +21,33 @@ export function PartnerMarquee({ items }: { items: Partner[] }) {
     </div>
   );
 }
+
+/* Static grid of identical partner tiles, with a caption when the name is known. */
+export function PartnerGrid({ items }: { items: Partner[] }) {
+  return (
+    <ul className="pgrid">
+      {items.map((p) => {
+        const known = p.name !== "Partner";
+        const tile = (
+          <>
+            <span className="pgrid-logo">
+              <img src={p.logo} alt={known ? `${p.name} logo` : "Partner logo"} />
+            </span>
+            {known && <span className="pgrid-name">{p.name}</span>}
+          </>
+        );
+        return (
+          <li key={p.logo}>
+            {p.url ? (
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="pgrid-tile">
+                {tile}
+              </a>
+            ) : (
+              <span className="pgrid-tile">{tile}</span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
