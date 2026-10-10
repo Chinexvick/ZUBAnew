@@ -29,7 +29,7 @@ export const utilities: Utility[] = [
     key: "play",
     verb: "Play",
     name: "Game Key",
-    body: "Items, early access and season passes across ZUBA games, starting with ZUBA Game, our endless runner now in production.",
+    body: "Items, early access and season passes across ZUBA games, starting with ZUBA, our endless runner built on the ZUBA animation, now in production.",
     lore: "Run far enough and the road starts telling you its name.",
     status: "In production",
   },

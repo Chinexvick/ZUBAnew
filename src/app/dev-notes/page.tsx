@@ -4,6 +4,7 @@ import { getDevNotes, formatDate } from "@/lib/content";
 import { phases } from "@/content/roadmap";
 import { art } from "@/content/art";
 import { Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
+import { SubscribeCard } from "@/components/Subscribe";
 
 export const metadata: Metadata = {
   title: "Developer Notebook",
@@ -106,6 +107,7 @@ export default async function DevNotes() {
             </div>
           )}
         </div>
+        <SubscribeCard />
       </div>
     </>
   );

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Theatre() {
   const featured = movies[0];
-  const flagship = games.find((g) => g.slug === "zuba-rise-of-the-ancestors") ?? games[0];
+  const flagship = games.find((g) => g.slug === "zuba") ?? games[0];
   return (
     <>
       <section className="feature">
@@ -78,9 +78,11 @@ export default function Theatre() {
               <span className="t-title lg">
                 <ZText>{flagship.title.split(":")[0]}</ZText>
               </span>
-              <span className="h-forge-sub">
-                <ZText>{flagship.title.split(":")[1]?.trim() ?? ""}</ZText>
-              </span>
+              {flagship.title.includes(":") && (
+                <span className="h-forge-sub">
+                  <ZText>{flagship.title.split(":")[1].trim()}</ZText>
+                </span>
+              )}
               <span className="h-forge-meta">
                 <span className="chip prod">{flagship.status}</span>
                 <span className="t-label">{flagship.genre}</span>

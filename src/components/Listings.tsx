@@ -1,4 +1,4 @@
-import type { Partner } from "@/lib/site";
+import type { Listing, Partner } from "@/lib/site";
 
 /* Partner logos on an endless, slow scroll. Pauses on hover; static when motion is reduced. */
 export function PartnerMarquee({ items }: { items: Partner[] }) {
@@ -49,5 +49,53 @@ export function PartnerGrid({ items }: { items: Partner[] }) {
         );
       })}
     </ul>
+  );
+}
+
+function ListingMedal({ l }: { l: Listing }) {
+  return (
+    <span className={`lmedal${l.fit === "pad" ? " pad" : ""}`}>
+      <img src={l.logo} alt="" loading="lazy" />
+    </span>
+  );
+}
+
+/* Where $ZUBA is listed: notched tiles with each platform's logo in a glowing medallion. */
+export function ListingGrid({ items, compact = false }: { items: Listing[]; compact?: boolean }) {
+  return (
+    <ul className={`lgrid${compact ? " compact" : ""}`}>
+      {items.map((l) => (
+        <li key={l.id}>
+          <a href={l.url} target="_blank" rel="noopener noreferrer" className="lgrid-tile" aria-label={`$ZUBA on ${l.name} (opens in a new tab)`}>
+            <ListingMedal l={l} />
+            <span className="lgrid-name">{l.name}</span>
+            <span className="lgrid-kind">{l.kind}</span>
+            {!compact && <span className="lgrid-detail">{l.detail}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/* Endless slow strip of platform medallions for the home page. Pauses on hover; static when motion is reduced. */
+export function ListingMarquee({ items }: { items: Listing[] }) {
+  const row = [...items, ...items];
+  return (
+    <div className="lmarquee" aria-label="Where $ZUBA is listed">
+      <ul className="lmarquee-track">
+        {row.map((l, i) => {
+          const dup = i >= items.length;
+          return (
+            <li key={i} className="lmarquee-item" aria-hidden={dup}>
+              <a href={l.url} target="_blank" rel="noopener noreferrer" tabIndex={dup ? -1 : 0} aria-label={`$ZUBA on ${l.name}`}>
+                <ListingMedal l={l} />
+                <span className="lmarquee-name">{l.name}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

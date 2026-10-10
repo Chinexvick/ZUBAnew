@@ -1,9 +1,18 @@
-// Content storage for the admin dashboard.
-// With GITHUB_TOKEN + GITHUB_REPO set (production), changes are committed to the repo and Vercel redeploys.
-// Without them (local development), changes are written straight to disk.
+// Content storage for the admin dashboard. Three modes, picked from the environment:
+//   blob   — BLOB_READ_WRITE_TOKEN set (production): content lives in the private Vercel Blob store and
+//            pages refresh instantly on save. The JSON files in /content are the starting seed.
+//   github — GITHUB_TOKEN + GITHUB_REPO set: changes are committed to the repo and Vercel redeploys.
+//   local  — neither (development): changes are written straight to disk.
 import { promises as fs } from "fs";
 import path from "path";
-import { CONTENT_FILES, type ContentType } from "./content";
+import { blobEnabled, readJson, writeFile, writeJson } from "./blob";
+
+export type ContentType = "devnotes" | "blog";
+
+export const CONTENT_FILES: Record<ContentType, string> = {
+  devnotes: "content/devnotes.json",
+  blog: "content/blog.json",
+};
 
 const GH_API = "https://api.github.com";
 
@@ -14,8 +23,8 @@ function gh() {
   return token && repo ? { token, repo, branch } : null;
 }
 
-export function storageMode() {
-  return gh() ? "github" : "local";
+export function storageMode(): "blob" | "github" | "local" {
+  return blobEnabled() ? "blob" : gh() ? "github" : "local";
 }
 
 async function ghGet(file: string) {
@@ -41,34 +50,50 @@ async function ghPut(file: string, base64: string, message: string) {
   if (!res.ok) throw new Error(`GitHub write failed (${res.status}): ${(await res.text()).slice(0, 200)}`);
 }
 
-export async function readItems(type: ContentType): Promise<unknown[]> {
-  const file = CONTENT_FILES[type];
-  if (gh()) {
-    const r = await ghGet(file);
-    return r ? JSON.parse(r.text) : [];
-  }
+async function readDisk(type: ContentType): Promise<unknown[]> {
   try {
-    return JSON.parse(await fs.readFile(path.join(process.cwd(), file), "utf8"));
+    return JSON.parse(await fs.readFile(path.join(process.cwd(), CONTENT_FILES[type]), "utf8"));
   } catch {
     return [];
   }
 }
 
+export async function readItems(type: ContentType): Promise<unknown[]> {
+  const file = CONTENT_FILES[type];
+  const mode = storageMode();
+  if (mode === "blob") {
+    // Until the first save, the repo's JSON is the source.
+    return (await readJson<unknown[]>(file)) ?? readDisk(type);
+  }
+  if (mode === "github") {
+    const r = await ghGet(file);
+    return r ? JSON.parse(r.text) : [];
+  }
+  return readDisk(type);
+}
+
 export async function writeItems(type: ContentType, items: unknown[], message: string) {
   const file = CONTENT_FILES[type];
+  const mode = storageMode();
+  if (mode === "blob") return writeJson(file, items);
   const text = JSON.stringify(items, null, 2) + "\n";
-  if (gh()) return ghPut(file, Buffer.from(text).toString("base64"), message);
+  if (mode === "github") return ghPut(file, Buffer.from(text).toString("base64"), message);
   await fs.writeFile(path.join(process.cwd(), file), text, "utf8");
 }
 
-export async function saveUpload(name: string, base64: string) {
+export async function saveUpload(name: string, data: Buffer, contentType: string) {
   const safe = name.toLowerCase().replace(/[^a-z0-9.\-]+/g, "-").replace(/^-+|-+$/g, "");
-  const file = `public/uploads/${Date.now()}-${safe}`;
-  if (gh()) {
-    await ghPut(file, base64, `Upload ${safe} from admin`);
+  const file = `uploads/${Date.now()}-${safe}`;
+  const mode = storageMode();
+  if (mode === "blob") {
+    await writeFile(file, data, contentType);
+    return `/api/media/${file}`;
+  }
+  if (mode === "github") {
+    await ghPut(`public/${file}`, data.toString("base64"), `Upload ${safe} from admin`);
   } else {
     await fs.mkdir(path.join(process.cwd(), "public/uploads"), { recursive: true });
-    await fs.writeFile(path.join(process.cwd(), file), Buffer.from(base64, "base64"));
+    await fs.writeFile(path.join(process.cwd(), "public", file), data);
   }
-  return file.replace(/^public/, "");
+  return `/${file}`;
 }

@@ -11,14 +11,17 @@
     "media:download": "node scripts/sync-media.mjs --download"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.1",
     "marked": "^14.1.4",
     "next": "15.5.27",
+    "nodemailer": "^10.1.0",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

@@ -160,7 +160,7 @@ export const whitepaper: Whitepaper = {
         {
           heading: "Games",
           paragraphs: [
-            "Our flagship is ZUBA: Rise of the Ancestors, a metroidvania in which ZUBA restores the shattered Coin of Echoes across five African-inspired realms, unlocking ancestral abilities at forgotten shrines. It is at the prototype stage as part of Phase 03.",
+            "Our flagship game is ZUBA, an endless runner for mobile built on the ZUBA animation. It follows the life story of ZUBA, the white pup in royal violet, and grows alongside the animation as his story is told. It is in production now and expands in Phase 03.",
             "Alongside it, we are developing concepts drawn from legends across the continent: Ninki Nanka: Swamp Legend, Impundulu: Storm Riders, Oware: Clash of Kings and Grootslang: Cave of a Thousand Gems.",
           ],
         },
@@ -227,7 +227,7 @@ export const whitepaper: Whitepaper = {
             rows: [
               ["Theatre Pass", "Season passes, early premieres and behind-the-scenes access to ZUBA films and series", "Planned"],
               ["Story Vault", "Comics, illustrated folktales and lore books", "Planned"],
-              ["Game Key", "Items, early access and season passes in ZUBA games", "Planned (flagship in prototype)"],
+              ["Game Key", "Items, early access and season passes in ZUBA games", "In production (flagship game)"],
               ["Collectibles", "Character and scene NFTs, some with perks in games and stories", "Planned"],
               ["Events", "Tickets to premieres, watch parties, meetups and creator workshops", "Planned"],
               ["Tournaments", "Entry and prize pools for game tournaments and creative contests", "Planned"],

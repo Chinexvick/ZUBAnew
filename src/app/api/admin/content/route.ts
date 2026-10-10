@@ -31,7 +31,8 @@ export async function PUT(req: Request) {
     const items = type === "devnotes" ? cleanNotes(body!.items) : cleanPosts(body!.items);
     const message = (body!.message || `Update ${type} from admin`).slice(0, 120);
     await writeItems(type, items, message);
-    if (storageMode() === "local") {
+    if (storageMode() !== "github") {
+      // Blob and local saves are live immediately; refresh every page that lists content.
       revalidatePath("/", "layout");
     }
     return NextResponse.json({ ok: true, items, mode: storageMode() });

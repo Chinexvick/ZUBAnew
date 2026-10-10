@@ -35,18 +35,32 @@ export const token = {
   ],
 };
 
+export const PAIR = "0xdcc6c7cb227dc0d3544717902dcd92e4bac15a7e";
+
 export type Listing = {
+  id: string;
   name: string;
   kind: string;
   detail: string;
   url: string;
+  /** Official brand logo in /public/listings. */
+  logo: string;
+  /** "fill": the logo is a full-bleed square tile; "pad": transparent mark shown on a light disc. */
+  fit?: "fill" | "pad";
 };
 
-// Where $ZUBA is live today.
+// Where $ZUBA is live today. Trackers index the PancakeSwap pool automatically.
 export const listings: Listing[] = [
-  { name: "PancakeSwap", kind: "Trade", detail: "Swap BNB for $ZUBA", url: site.links.buy },
-  { name: "DEX Screener", kind: "Live chart", detail: "Price, volume and liquidity", url: site.links.chart },
-  { name: "BscScan", kind: "Contract", detail: "0xE1bf…994A4", url: site.links.bscscan },
+  { id: "pancakeswap", name: "PancakeSwap", kind: "Trade", detail: "Swap BNB for $ZUBA", url: site.links.buy, logo: "/listings/pancakeswap.png" },
+  { id: "geckoterminal", name: "CoinGecko DEX", kind: "GeckoTerminal", detail: "Live on CoinGecko's GeckoTerminal", url: `https://www.geckoterminal.com/bsc/pools/${PAIR}`, logo: "/listings/geckoterminal.png" },
+  { id: "dexscreener", name: "DEX Screener", kind: "Live chart", detail: "Price, volume and liquidity", url: site.links.chart, logo: "/listings/dexscreener.png" },
+  { id: "dextools", name: "DEXTools", kind: "Pair explorer", detail: "Trades and pool analytics", url: `https://www.dextools.io/app/en/bnb/pair-explorer/${PAIR}`, logo: "/listings/dextools.png" },
+  { id: "firescreener", name: "FireScreener", kind: "Screener", detail: "BSC token tracker", url: `https://www.firescreener.com/bsc/${CONTRACT}`, logo: "/listings/firescreener.png", fit: "pad" },
+  { id: "coinpaprika", name: "Coinpaprika", kind: "Tracker", detail: "Tracked on DexPaprika by Coinpaprika", url: `https://dexpaprika.com/bsc/token/${CONTRACT.toLowerCase()}`, logo: "/listings/coinpaprika.svg", fit: "pad" },
+  { id: "poocoin", name: "PooCoin", kind: "BSC charts", detail: "Charts and wallet tracker", url: `https://poocoin.app/tokens/${CONTRACT}`, logo: "/listings/poocoin.png", fit: "pad" },
+  { id: "ave", name: "Ave.ai", kind: "Screener", detail: "Multi-chain token data", url: `https://ave.ai/token/${CONTRACT}-bsc`, logo: "/listings/ave.png" },
+  { id: "gmgn", name: "GMGN", kind: "Screener", detail: "Holders and smart-money flow", url: `https://gmgn.ai/bsc/token/${CONTRACT}`, logo: "/listings/gmgn.png" },
+  { id: "bscscan", name: "BscScan", kind: "Contract", detail: "0xE1bf…994A4", url: site.links.bscscan, logo: "/listings/bscscan.png", fit: "pad" },
 ];
 
 // Security documents.

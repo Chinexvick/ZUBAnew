@@ -6,7 +6,8 @@ import { marked } from "marked";
 import type { BlogPost, DevNote } from "@/lib/content";
 import { Delta, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 
-type Tab = "devnotes" | "blog";
+type Tab = "devnotes" | "blog" | "subscribers";
+type Subs = { enabled: boolean; mail: boolean; emails: string[]; notified: Record<string, string> };
 type Item = DevNote | BlogPost;
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -45,8 +46,26 @@ export default function Dashboard({ mode }: { mode: string }) {
   const [busy, setBusy] = useState(false);
   const [toast, setToast] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
   const [preview, setPreview] = useState(false);
+  const [subs, setSubs] = useState<Subs | null>(null);
+  const [emailOnPublish, setEmailOnPublish] = useState(true);
+  const [sending, setSending] = useState<string | null>(null);
+
+  const loadSubs = useCallback(async () => {
+    const res = await fetch("/api/admin/subscribers", { cache: "no-store" });
+    if (res.status === 401) return window.location.reload();
+    if (res.ok) setSubs(await res.json());
+  }, []);
+
+  useEffect(() => {
+    loadSubs();
+  }, [loadSubs]);
 
   const load = useCallback(async (t: Tab) => {
+    if (t === "subscribers") {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     const res = await fetch(`/api/admin/content?type=${t}`, { cache: "no-store" });
     if (res.status === 401) return window.location.reload();
@@ -106,7 +125,12 @@ export default function Dashboard({ mode }: { mode: string }) {
     }
     setToast({
       kind: "ok",
-      text: json.mode === "github" ? "Saved. The live site updates in about a minute." : "Saved to the local content folder.",
+      text:
+        json.mode === "blob"
+          ? "Saved. It's live on the site now."
+          : json.mode === "github"
+            ? "Saved. The live site updates in about a minute."
+            : "Saved to the local content folder.",
     });
     return (json.items as Item[]).sort((a, b) => (a.date < b.date ? 1 : -1));
   }
@@ -122,6 +146,62 @@ export default function Dashboard({ mode }: { mode: string }) {
     setSel(idx >= 0 ? idx : null);
     setDraft(idx >= 0 ? structuredClone(saved[idx]) : null);
     setDirty(false);
+    if (tab === "devnotes" && sel === "new" && idx >= 0 && emailOnPublish && subs?.enabled && subs.mail) {
+      await broadcast(saved[idx].slug, saved[idx].title);
+    }
+  }
+
+  /* Emails a dev note to every subscriber, batch by batch, showing progress. */
+  async function broadcast(slug: string, title: string) {
+    setSending(slug);
+    let offset = 0;
+    let sent = 0;
+    let failed = 0;
+    try {
+      for (;;) {
+        setToast({ kind: "ok", text: `Emailing subscribers about “${title}”… ${sent} sent` });
+        const res = await fetch("/api/admin/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug, offset }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(json.error || "Sending failed.");
+        sent += json.sent;
+        failed += json.failed?.length ?? 0;
+        offset = json.next;
+        if (json.done) break;
+      }
+      setToast({ kind: failed ? "err" : "ok", text: `Emailed ${sent} subscriber${sent === 1 ? "" : "s"}${failed ? `, ${failed} failed` : ""}.` });
+    } catch (e) {
+      setToast({ kind: "err", text: `${(e as Error).message} ${sent} sent before it stopped.` });
+    }
+    setSending(null);
+    loadSubs();
+  }
+
+  async function sendTest(body: Record<string, unknown>) {
+    setBusy(true);
+    const res = await fetch("/api/admin/notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...body, test: true }) });
+    const json = await res.json().catch(() => ({}));
+    setBusy(false);
+    setToast(res.ok ? { kind: "ok", text: "Test email sent to the admin inbox." } : { kind: "err", text: json.error || "Test failed." });
+  }
+
+  async function removeSub(email: string) {
+    if (!window.confirm(`Remove ${email} from the list?`)) return;
+    const res = await fetch(`/api/admin/subscribers?email=${encodeURIComponent(email)}`, { method: "DELETE" });
+    if (res.ok) loadSubs();
+  }
+
+  function downloadCsv() {
+    if (!subs) return;
+    const blob = new Blob(["email\n" + subs.emails.join("\n") + "\n"], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `zuba-subscribers-${today()}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
   }
 
   async function remove() {
@@ -175,9 +255,15 @@ export default function Dashboard({ mode }: { mode: string }) {
         <button className={`admin-tab ${tab === "blog" ? "active" : ""}`} onClick={() => confirmDiscard() && setTab("blog")}>
           <ZText>Blog</ZText>
         </button>
+        <button className={`admin-tab ${tab === "subscribers" ? "active" : ""}`} onClick={() => confirmDiscard() && setTab("subscribers")}>
+          <ZText>Subscribers</ZText>
+          {subs?.enabled && <span className="admin-count">{subs.emails.length}</span>}
+        </button>
         <div className="admin-side-foot">
-          <span className={`chip ${mode === "github" ? "live" : ""}`}>{mode === "github" ? "● Publishing to GitHub" : "Local mode"}</span>
-          <Link href={tab === "devnotes" ? "/dev-notes" : "/blog"} target="_blank" className="prompt">
+          <span className={`chip ${mode !== "local" ? "live" : ""}`}>
+            {mode === "blob" ? "● Live database" : mode === "github" ? "● Publishing to GitHub" : "Local mode"}
+          </span>
+          <Link href={tab === "blog" ? "/blog" : "/dev-notes"} target="_blank" className="prompt">
             View on site ↗
           </Link>
           <button className="prompt" onClick={logout} style={{ background: "none", border: 0, cursor: "pointer", padding: 0 }}>
@@ -186,6 +272,67 @@ export default function Dashboard({ mode }: { mode: string }) {
         </div>
       </aside>
 
+      {tab === "subscribers" ? (
+        <section className="admin-subs">
+          <div className="admin-editor-head">
+            <div>
+              <span className="t-label">Builders&apos; Circle</span>
+              <h1 className="t-title md">
+                <ZText>Subscribers</ZText>
+              </h1>
+            </div>
+            <div className="hero-actions" style={{ marginTop: 0 }}>
+              <button className="btn" onClick={() => sendTest({ welcomeTest: true })} disabled={busy || !subs?.mail}>
+                Send welcome test to me
+              </button>
+              <button className="btn primary" onClick={downloadCsv} disabled={!subs?.emails.length}>
+                Download CSV
+              </button>
+            </div>
+          </div>
+          <Divider variant="notched" align="left" />
+          {!subs ? (
+            <p className="t-muted">Loading…</p>
+          ) : !subs.enabled || !subs.mail ? (
+            <p className="warning">
+              {!subs.enabled ? "The subscriber database (Vercel Blob) is not connected." : "Email (SMTP) is not set up."} The pop-up stays
+              hidden from visitors until both are ready.
+            </p>
+          ) : (
+            <>
+              <div className="admin-stats">
+                <div>
+                  <span className="t-label">Subscribers</span>
+                  <strong>{subs.emails.length}</strong>
+                </div>
+                <div>
+                  <span className="t-label">Notes emailed</span>
+                  <strong>{Object.keys(subs.notified).length}</strong>
+                </div>
+              </div>
+              <p className="t-muted">
+                New dev notes are emailed to everyone here when you publish them (tick &ldquo;Email subscribers&rdquo; in the note editor).
+                People join from the pop-up and the Dev Notes page, and every email carries an unsubscribe link.
+              </p>
+              {subs.emails.length === 0 ? (
+                <p className="t-muted">No subscribers yet.</p>
+              ) : (
+                <ul className="admin-sub-list">
+                  {subs.emails.map((e) => (
+                    <li key={e}>
+                      <span>{e}</span>
+                      <button className="prompt" onClick={() => removeSub(e)} aria-label={`Remove ${e}`}>
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
+        </section>
+      ) : (
+      <>
       <section className="admin-list">
         <div className="admin-list-head">
           <h2 className="t-title sm">
@@ -233,6 +380,33 @@ export default function Dashboard({ mode }: { mode: string }) {
                 </h1>
               </div>
               <div className="hero-actions" style={{ marginTop: 0 }}>
+                {note && sel === "new" && subs?.enabled && subs.mail && (
+                  <label className="admin-check">
+                    <input type="checkbox" checked={emailOnPublish} onChange={(e) => setEmailOnPublish(e.target.checked)} />
+                    Email {subs.emails.length} subscriber{subs.emails.length === 1 ? "" : "s"} on publish
+                  </label>
+                )}
+                {note && typeof sel === "number" && !dirty && subs?.enabled && subs.mail && (
+                  <>
+                    <button className="btn" onClick={() => sendTest({ slug: note.slug })} disabled={busy || !!sending}>
+                      Test email
+                    </button>
+                    <button
+                      className="btn"
+                      disabled={busy || !!sending || !subs.emails.length}
+                      title={subs.notified[note.slug] ? `Already emailed on ${subs.notified[note.slug].slice(0, 10)}` : undefined}
+                      onClick={() =>
+                        window.confirm(
+                          subs.notified[note.slug]
+                            ? `This note was already emailed on ${subs.notified[note.slug].slice(0, 10)}. Send it again to ${subs.emails.length} subscribers?`
+                            : `Email this note to ${subs.emails.length} subscribers now?`
+                        ) && broadcast(note.slug, note.title)
+                      }
+                    >
+                      {sending === note.slug ? "Sending…" : subs.notified[note.slug] ? "Emailed ✓ Resend" : "Email subscribers"}
+                    </button>
+                  </>
+                )}
                 {typeof sel === "number" && (
                   <button className="btn" onClick={remove} disabled={busy} style={{ borderColor: "rgba(255,122,122,.5)", color: "#ffc2c2" }}>
                     Delete
@@ -360,6 +534,8 @@ export default function Dashboard({ mode }: { mode: string }) {
           </div>
         )}
       </section>
+      </>
+      )}
 
       {toast && <div className={`admin-toast ${toast.kind}`}>{toast.text}</div>}
     </div>

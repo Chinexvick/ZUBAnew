@@ -3,10 +3,10 @@ import { media } from "@/content/media";
 import { art } from "@/content/art";
 import { allTitles, games } from "@/content/theatre";
 import { phases } from "@/content/roadmap";
-import { partners, site, token } from "@/lib/site";
+import { listings, partners, site, token } from "@/lib/site";
 import CopyCA from "@/components/CopyCA";
 import TitleRow from "@/components/TitleRow";
-import { PartnerGrid } from "@/components/Listings";
+import { ListingMarquee, PartnerGrid } from "@/components/Listings";
 import { Icon } from "@/components/Icons";
 import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
@@ -17,7 +17,7 @@ const worlds = [
 ];
 
 export default function Home() {
-  const flagship = games.find((g) => g.slug === "zuba-rise-of-the-ancestors") ?? games[0];
+  const flagship = games.find((g) => g.slug === "zuba") ?? games[0];
   return (
     <>
       {/* ============ HERO ============ */}
@@ -116,9 +116,11 @@ export default function Home() {
               <span className="t-title lg">
                 <ZText>{flagship.title.split(":")[0]}</ZText>
               </span>
-              <span className="h-forge-sub">
-                <ZText>{flagship.title.split(":")[1]?.trim() ?? ""}</ZText>
-              </span>
+              {flagship.title.includes(":") && (
+                <span className="h-forge-sub">
+                  <ZText>{flagship.title.split(":")[1].trim()}</ZText>
+                </span>
+              )}
               <span className="h-forge-meta">
                 <span className="chip prod">{flagship.status}</span>
                 <span className="t-label">{flagship.genre}</span>
@@ -210,6 +212,14 @@ export default function Home() {
           <Heading runes="Allies" title="Allies of the Village" size="md" lead="Projects and communities building alongside ZUBA." />
           <PartnerGrid items={partners} />
         </div>
+      </section>
+
+      {/* ============ LISTINGS ============ */}
+      <section className="section h-listings">
+        <div className="container">
+          <Heading runes="Markets" title="Find ZUBA On" size="md" lead="Trade, track and verify $ZUBA across the platforms that list it." />
+        </div>
+        <ListingMarquee items={listings} />
       </section>
 
       {/* ============ JOIN ============ */}

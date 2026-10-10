@@ -7,10 +7,12 @@ import "@/styles/token.css";
 import "@/styles/home.css";
 import "@/styles/codex.css";
 import "@/styles/about.css";
+import "@/styles/subscribe.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import World from "@/components/World";
 import SiteChrome from "@/components/SiteChrome";
+import SubscribePopup from "@/components/Subscribe";
 import { site } from "@/lib/site";
 
 const josefin = Josefin_Sans({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-josefin" });
@@ -38,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteChrome>
           <Footer />
         </SiteChrome>
+        <SubscribePopup />
       </body>
     </html>
   );

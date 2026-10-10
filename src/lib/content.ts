@@ -1,6 +1,7 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { marked } from "marked";
+import { readItems, type ContentType } from "./store";
+
+export type { ContentType };
 
 export type DevNote = {
   slug: string;
@@ -26,18 +27,11 @@ export type BlogPost = {
   body: string; // markdown
 };
 
-export type ContentType = "devnotes" | "blog";
-
-export const CONTENT_FILES: Record<ContentType, string> = {
-  devnotes: "content/devnotes.json",
-  blog: "content/blog.json",
-};
-
 async function readJson<T>(type: ContentType): Promise<T[]> {
-  const file = path.join(process.cwd(), CONTENT_FILES[type]);
   try {
-    return JSON.parse(await fs.readFile(file, "utf8")) as T[];
-  } catch {
+    return (await readItems(type)) as T[];
+  } catch (e) {
+    console.error(`Could not read ${type}`, e);
     return [];
   }
 }

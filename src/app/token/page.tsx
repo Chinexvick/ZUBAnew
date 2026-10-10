@@ -7,6 +7,7 @@ import CopyCA from "@/components/CopyCA";
 import Donut, { donutColors } from "@/components/Donut";
 import UtilityRing from "@/components/UtilityRing";
 import { Icon } from "@/components/Icons";
+import { ListingGrid } from "@/components/Listings";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
@@ -14,10 +15,10 @@ export const metadata: Metadata = {
   description: "The coin that carries a continent's stories: supply, allocation, security, utility and where to find $ZUBA on BNB Chain.",
 };
 
-function Chapter({ n, runes, title, line, children, id, art }: { n: string; runes: string; title: string; line: string; children: React.ReactNode; id: string; art?: string }) {
+function Chapter({ n, runes, title, line, children, id, art, wide }: { n: string; runes: string; title: string; line: string; children: React.ReactNode; id: string; art?: string; wide?: boolean }) {
   return (
     <section className="tchapter" id={id}>
-      <div className="container tchapter-grid">
+      <div className={`container tchapter-grid ${wide ? "wide" : ""}`}>
         <header className="tchapter-head">
           <span className="tchapter-n">Chapter {n}</span>
           <Runes text={runes} />
@@ -191,19 +192,8 @@ export default function TokenPage() {
       </Chapter>
 
       {/* ---------- V. listings ---------- */}
-      <Chapter id="found" n="V" runes="Found" title="Find $ZUBA" line="Trade it, track it and verify it.">
-        <div className="tlist">
-          {listings.map((l) => (
-            <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" className="tlist-item">
-              <span className="tlist-icon">
-                <Icon name={l.kind === "Trade" ? "swap" : l.kind === "Live chart" ? "chart" : "scroll"} size={20} />
-              </span>
-              <span className="tlist-name">{l.name}</span>
-              <span className="tlist-kind">{l.detail}</span>
-              <Icon name="external" size={16} />
-            </a>
-          ))}
-        </div>
+      <Chapter wide id="found" n="V" runes="Found" title="Find $ZUBA" line="Trade it, chart it and verify it on the platforms where $ZUBA is live.">
+        <ListingGrid items={listings} />
       </Chapter>
 
       <section className="section">
