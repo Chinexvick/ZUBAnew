@@ -21,20 +21,19 @@ export default function Home() {
   return (
     <>
       {/* ============ HERO ============ */}
-      <section className="h-hero">
-        <div className="h-hero-bg" style={{ backgroundImage: `url(${art("world-hero")})` }} aria-hidden="true" />
-        <div className="h-hero-veil" aria-hidden="true" />
-        <div className="container h-hero-grid">
-          <div className="h-hero-copy">
+      <section className="h-hero hv">
+        <video className="hv-video" autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.jpg" aria-hidden="true">
+          <source src="/video/hero.mp4" type="video/mp4" />
+        </video>
+        <div className="hv-tone" aria-hidden="true" />
+        <div className="container hv-inner">
+          <div className="hv-copy">
             <p className="t-label rise">Gaming &amp; Animation · BNB Chain</p>
-            <h1 className="t-title xl h-hero-title rise rise-2">
+            <h1 className="t-title xl hv-title rise rise-2">
               <ZText>ZUBA</ZText>
             </h1>
-            <p className="h-hero-tag rise rise-2">
-              <ZText>{site.tagline}</ZText>
-            </p>
-            <p className="h-hero-line rise rise-3">African myths and heroes, built into games and animation the whole world can play.</p>
-            <div className="h-hero-ca rise rise-3">
+            <p className="hv-line rise rise-2">African myths and heroes, built into games and animation the whole world can play.</p>
+            <div className="hv-ca rise rise-3">
               <CopyCA />
             </div>
             <div className="hero-actions rise rise-4">
@@ -45,23 +44,6 @@ export default function Home() {
                 Enter the Theatre
               </Link>
             </div>
-            <Link href="/token#guarded" className="h-trust rise rise-4">
-              <span>
-                <Icon name="shield" size={15} /> Audited
-              </span>
-              <span>
-                <Icon name="id" size={15} /> KYC verified
-              </span>
-            </Link>
-          </div>
-
-          <div className="h-hero-art" aria-hidden="true">
-            <svg className="h-hero-delta" viewBox="0 0 400 380">
-              <path d="M60 268 L200 30 L340 268 Z" />
-              <path d="M20 340 H380" />
-            </svg>
-            <div className="h-hero-glow" />
-            <img className="h-hero-zuba" src={media["zuba-stand-2d-b"]} alt="" />
           </div>
         </div>
         <a href="#worlds" className="h-scroll" aria-label="Scroll to explore">

@@ -655,3 +655,98 @@ a.pgrid-tile:hover,
   .prow-track { animation: none; }
   .prow { overflow-x: auto; }
 }
+
+/* ---------- hero: video background ---------- */
+.hv {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hv-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 40%;
+  z-index: -2;
+  filter: saturate(1.15) contrast(1.05) brightness(0.92);
+}
+/* Night-violet grade: cool shadows, violet midtones, readable left side and soft fade into the page. */
+.hv-tone {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(11, 7, 22, 0.92) 0%, rgba(11, 7, 22, 0.7) 32%, rgba(30, 12, 60, 0.2) 62%, rgba(11, 7, 22, 0.35) 100%),
+    linear-gradient(180deg, rgba(11, 7, 22, 0.55) 0%, transparent 22%, transparent 70%, var(--bg-0) 100%),
+    radial-gradient(ellipse at 65% 45%, rgba(180, 92, 255, 0.18), transparent 60%);
+}
+.hv-tone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #4a1d8f;
+  mix-blend-mode: soft-light;
+  opacity: 0.45;
+}
+.hv-inner {
+  width: 100%;
+  padding-top: calc(var(--nav-h) + 40px);
+  padding-bottom: 90px;
+}
+.hv-copy {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.hv-copy .t-label {
+  color: var(--gold);
+  margin: 0;
+}
+.hv-title {
+  margin: 0;
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.06em;
+}
+.hv-line {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 440px;
+}
+.hv .hero-actions {
+  margin-top: 6px;
+}
+@media (max-width: 760px) {
+  .hv {
+    align-items: flex-end;
+  }
+  .hv-video {
+    object-position: 64% 30%;
+  }
+  .hv-tone {
+    background:
+      linear-gradient(180deg, rgba(11, 7, 22, 0.5) 0%, transparent 25%, rgba(11, 7, 22, 0.55) 50%, rgba(11, 7, 22, 0.94) 72%, var(--bg-0) 100%);
+  }
+  .hv-inner {
+    padding-bottom: 70px;
+  }
+  .hv-copy {
+    gap: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hv-video {
+    display: none;
+  }
+  .hv {
+    background: url(/video/hero-poster.jpg) 60% 40% / cover no-repeat;
+  }
+}
