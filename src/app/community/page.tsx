@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { media } from "@/content/media";
+import { art } from "@/content/art";
 import { socialLinks } from "@/components/Social";
 import CopyCA from "@/components/CopyCA";
 import { Divider, Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
@@ -27,7 +27,7 @@ export default function Community() {
   return (
     <>
       <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: `url(${media["zuba-campfire"]})`, opacity: 0.6 }} aria-hidden="true" />
+        <div className="page-hero-bg" style={{ backgroundImage: `url(${art("anansi-still-2")})`, opacity: 0.6 }} aria-hidden="true" />
         <div className="container">
           <Heading
             as="h1"

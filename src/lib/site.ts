@@ -1,60 +1,79 @@
 // Central site configuration. Edit links, listings and partners here.
 
+export const CONTRACT = "0xE1bf97baCF682AE17cA3E239aB68a7b525f994A4";
+
 export const site = {
   name: "ZUBA",
   tagline: "The Motherland Has Entered the Game",
   description:
-    "ZUBA is the gaming and animation token carrying Africa's stories onto the world stage of anime and games. Community-driven. Story-first. Rooted in the Motherland.",
-  contractAddress: "0xE1bf97baCF682AE17cA3E239aB68a7b525f994A4",
+    "ZUBA is a gaming and animation token on BNB Chain, building African games, films and stories for a global audience. Community-driven. Story-first.",
+  contractAddress: CONTRACT,
+  chain: "BNB Smart Chain (BEP-20)",
   socials: {
     x: { label: "X", handle: "@zubatoken", url: "https://x.com/zubatoken" },
-    // Paste the real invite links here when they are ready.
-    telegram: { label: "Telegram", handle: "ZUBA Village", url: "" },
-    whatsapp: { label: "WhatsApp", handle: "ZUBA Community", url: "" },
+    telegram: { label: "Telegram", handle: "ZUBA Community", url: "https://t.me/zubacommunitychat" },
+    whatsapp: { label: "WhatsApp", handle: "ZUBA Community", url: "https://chat.whatsapp.com/CnHq8ujSJCVEpTtT5ih4cZ" },
   },
+  links: {
+    buy: `https://pancakeswap.finance/swap?outputCurrency=${CONTRACT}`,
+    chart: "https://dexscreener.com/bsc/0xdcc6c7cb227dc0d3544717902dcd92e4bac15a7e",
+    bscscan: `https://bscscan.com/token/${CONTRACT}`,
+    audit: "https://github.com/VBS-Labs/Audit-Report/blob/main/ZUBA%20TOKEN%20CONTRACT%20AUDIT%20REPORT.pdf",
+    kyc: "https://gitlab.com/vital-block-security/Project-KYC-Verification/-/blob/main/ZUBA_TOKEN_KYC_CERTIFICATE.pdf",
+  },
+};
+
+export const token = {
+  symbol: "ZUBA",
+  supply: 500_000_000_000,
+  supplyLabel: "500,000,000,000",
+  supplyShort: "500B",
+  allocation: [
+    { label: "Liquidity & Fair Launch", pct: 85, note: "The trading pool on PancakeSwap, launched fair for everyone." },
+    { label: "Marketing", pct: 10, note: "Listings, creator campaigns, events and community growth." },
+    { label: "Development", pct: 5, note: "Games, animation and the tools that power the ZUBA universe." },
+  ],
 };
 
 export type Listing = {
   name: string;
-  kind: "DEX" | "Tracker" | "CEX";
+  kind: string;
   url: string;
-  status: "live" | "soon";
+  logo?: string;
 };
 
-// Where the token is listed. Set status to "live" and add the url once each listing is real.
+// Where $ZUBA is live today.
 export const listings: Listing[] = [
-  { name: "DEX Screener", kind: "Tracker", url: "", status: "soon" },
-  { name: "DEXTools", kind: "Tracker", url: "", status: "soon" },
-  { name: "CoinGecko", kind: "Tracker", url: "", status: "soon" },
-  { name: "CoinMarketCap", kind: "Tracker", url: "", status: "soon" },
-  { name: "Uniswap", kind: "DEX", url: "", status: "soon" },
-  { name: "PancakeSwap", kind: "DEX", url: "", status: "soon" },
+  { name: "PancakeSwap", kind: "Trade", url: site.links.buy },
+  { name: "DEX Screener", kind: "Live chart", url: site.links.chart },
+  { name: "BscScan", kind: "Contract", url: site.links.bscscan },
 ];
 
-export type Partner = {
-  name: string;
-  logo?: string; // path under /public, e.g. "/partners/acme.png"
-  url?: string;
-  role: string;
-};
+// Security documents.
+export const trust = [
+  { name: "Contract Audit", by: "VBS Labs", url: site.links.audit },
+  { name: "KYC Certificate", by: "Vital Block Security", url: site.links.kyc },
+];
 
-// Partner logos go in /public/partners. Empty slots show as "Open Slot" cards.
+export type Partner = { name: string; logo: string; url?: string };
+
+// Partner logos live in /public/partners.
 export const partners: Partner[] = [
-  { name: "Open Slot", role: "Studio Partner" },
-  { name: "Open Slot", role: "Launch Partner" },
-  { name: "Open Slot", role: "Creator Guild" },
-  { name: "Open Slot", role: "Exchange" },
-  { name: "Open Slot", role: "Media" },
-  { name: "Open Slot", role: "Community" },
+  { name: "Partner", logo: "/partners/partner-1.png" },
+  { name: "Partner", logo: "/partners/partner-2.png" },
+  { name: "LightSpeedCat", logo: "/partners/partner-3.png" },
+  { name: "Phenomenal Cat Coin", logo: "/partners/partner-4.png" },
+  { name: "Partner", logo: "/partners/partner-5.png" },
+  { name: "uTrading", logo: "/partners/partner-6.png" },
 ];
 
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/theatre", label: "Movies & Games" },
+  { href: "/token", label: "Token" },
   { href: "/roadmap", label: "Roadmap" },
   { href: "/dev-notes", label: "Dev Notes" },
   { href: "/blog", label: "Blog" },
-  { href: "/token", label: "Token" },
   { href: "/community", label: "Community" },
 ];

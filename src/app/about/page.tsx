@@ -1,110 +1,78 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { media } from "@/content/media";
-import Shards from "@/components/Shards";
-import { Divider, Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
+import { Icon } from "@/components/Icons";
+import { Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "ZUBA is a gaming and animation token telling the world that Africa belongs on the global stage of anime and games.",
+  description: "ZUBA was created from the heart of African imagination: a gaming and animation universe where African culture meets future technology.",
 };
 
-const values = [
-  { r: "Ubuntu", t: "Ubuntu", d: "I am because we are. ZUBA is community-first: the village builds, the village decides, the village wins." },
-  { r: "Sankofa", t: "Sankofa", d: "Go back and fetch it. We dig into the past to find the stories the world forgot, and bring them forward." },
-  { r: "Craft", t: "Craft", d: "No cheap knock-offs. African stories deserve world-class art, animation and gameplay." },
-  { r: "Open", t: "Open Trail", d: "We build in public. Every step is logged in the Developer Notebook for anyone to read." },
+const building = [
+  { icon: "play", t: "Story-driven games" },
+  { icon: "compete", t: "Action-packed battle mechanics" },
+  { icon: "watch", t: "Animated films and series" },
+  { icon: "own", t: "African characters and creatures" },
+  { icon: "gather", t: "Digital worlds to explore" },
+  { icon: "speak", t: "Community-driven creative studios" },
 ];
 
 export default function About() {
   return (
     <>
-      <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: `url(${media["world-hero"]})` }} aria-hidden="true" />
-        <div className="container">
-          <Heading
-            as="h1"
-            runes="About"
-            title="The Legend of ZUBA"
-            size="xl"
-            lead="A gaming and animation token with one story to tell: Africa has a place in the global world of anime and games, and we're here to claim it."
-          />
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 30 }}>
-        <div className="container split">
-          <div className="stack">
-            <Runes text="Origin" />
-            <h2 className="t-title lg">
-              <ZText>The Origin Story</ZText>
-            </h2>
+      <section className="a-hero">
+        <div className="container a-hero-grid">
+          <div className="a-hero-copy">
+            <Runes text="Who we are" />
+            <h1 className="t-title xl">
+              <ZText>Who We Are</ZText>
+            </h1>
             <Divider variant="notched" align="left" />
             <p className="t-lead">
-              Every great franchise starts with a myth. Ours starts with a small white pup and a gold coin.
+              ZUBA was created from the heart of African imagination: a place where stories are not just told, but felt, seen and played.
             </p>
-            <p>
-              They say that when the elders finished telling a story, the last echo of it fell into a coin of gold. Over a thousand
-              years the coin filled with every legend the continent ever told: tricksters and sky gods, river queens, lion kings and the
-              heroes who fought for a free Africa.
-            </p>
-            <p>
-              Then the world stopped listening. African stories were left out of the cartoons, the consoles and the cinemas. The coin
-              grew quiet.
-            </p>
-            <p>
-              <span className="hl">ZUBA</span> is the pup who heard it hum again. Dressed in the purple and gold of royalty, he carries
-              the coin back to the world, and everyone who holds $ZUBA holds a piece of that story.
-            </p>
-            <p className="t-lore">In Kinyarwanda and Kirundi, izuba means &ldquo;the sun.&rdquo; Every morning it rises over Africa first.</p>
           </div>
-          <Shards src={media["zuba-campfire"]} alt="ZUBA sitting by a campfire with an old griot as story spirits rise from the flames" />
+          <img className="a-hero-zuba" src={media["zuba-griot"]} alt="ZUBA the white pup in a violet griot robe, holding a glowing storybook" />
+        </div>
+      </section>
+
+      <section className="section a-origin">
+        <div className="container a-narrow">
+          <p className="a-big">
+            We grew up on games, cartoons and animated legends that never looked like us, never sounded like us, and never carried our
+            worlds.
+          </p>
+          <p className="t-lead">
+            But Africa has always been full of heroes, monsters, gods, warriors, spirits and stories powerful enough to shake the world.
+          </p>
+          <p className="t-lead">
+            So we built <span className="hl">ZUBA</span>: a gaming and animation universe where African culture meets future technology.
+            Playable worlds, cinematic characters and animated legends inspired by real myths, real cities and real history.
+          </p>
         </div>
       </section>
 
       <section className="section">
-        <div className="container">
-          <Heading runes="Mission" title="The Mission" lead="Three quests, one destination." />
-          <div className="grid cols-3" style={{ marginTop: 40 }}>
-            {[
-              ["Games", "Build and back original games rooted in African myth, history and modern life, playable by the whole world."],
-              ["Animation", "Bring African legends to screens worldwide with animation that matches the best studios on Earth."],
-              ["Ownership", "Let the community that believes in these stories hold a real stake in where they go next."],
-            ].map(([t, d], i) => (
-              <Frame key={t} hoverable>
-                <div className="pillar">
-                  <span className="pillar-num">0{i + 1}</span>
-                  <h3 className="t-title md">
-                    <ZText>{t}</ZText>
-                  </h3>
-                  <Divider variant="simple" align="left" />
-                  <p className="t-muted">{d}</p>
-                </div>
-              </Frame>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container split">
-          <Shards src={media["zuba-game-backdrop"]} alt="Floating ancient African kingdom with stone ancestor masks" />
-          <div className="stack">
-            <Runes text="Why now" />
-            <h2 className="t-title lg">
-              <ZText>Why Africa, Why Now</ZText>
+        <div className="container a-mv">
+          <div className="a-mv-card">
+            <Runes text="Mission" />
+            <h2 className="t-title md">
+              <ZText>Our Mission</ZText>
             </h2>
-            <Divider variant="notched" align="left" />
             <p>
-              Africa is the youngest continent on Earth. Hundreds of millions of gamers, artists and dreamers are coming of age with a
-              phone in their hand and a story in their blood.
+              To build world-class African-inspired games and animated universes that inspire, entertain, and give creatives and players
+              real ownership in the worlds they help grow.
             </p>
+          </div>
+          <div className="a-mv-card">
+            <Runes text="Vision" />
+            <h2 className="t-title md">
+              <ZText>Our Vision</ZText>
+            </h2>
             <p>
-              The world is finally hungry for new myths. Anime proved that culture travels when it&apos;s told with pride and
-              craft. Africa&apos;s turn is here.
-            </p>
-            <p className="t-lead" style={{ color: "#fff" }}>
-              We were never the side quest. <span className="hl">We are the main story.</span>
+              To become the leading blockchain-powered gaming and animation studio emerging from Africa, creating global franchises that
+              stand alongside the biggest names in entertainment.
             </p>
           </div>
         </div>
@@ -112,23 +80,52 @@ export default function About() {
 
       <section className="section">
         <div className="container">
-          <Heading runes="Code" title="The Village Code" lead="The values every ZUBA holder carries." />
-          <div className="values" style={{ marginTop: 40 }}>
-            {values.map((v) => (
-              <Frame key={v.t} hoverable>
-                <div className="stack">
-                  <Runes text={v.r} />
-                  <h3 className="t-title sm">
-                    <ZText>{v.t}</ZText>
-                  </h3>
-                  <p className="t-muted">{v.d}</p>
-                </div>
-              </Frame>
+          <Heading runes="Forge" title="What We Are Building" size="md" />
+          <ul className="a-build">
+            {building.map((b) => (
+              <li key={b.t}>
+                <span className="a-build-icon">
+                  <Icon name={b.icon} size={24} />
+                </span>
+                {b.t}
+              </li>
             ))}
-          </div>
-          <div className="center" style={{ marginTop: 50 }}>
-            <Link href="/roadmap" className="btn primary">
-              See the Quest Line
+          </ul>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container a-why">
+          <Runes text="Why Zuba" />
+          <h2 className="t-title md">
+            <ZText>Why ZUBA Exists</ZText>
+          </h2>
+          <ul>
+            <li>
+              Because African stories deserve <span className="hl">global screens</span>.
+            </li>
+            <li>
+              Because African heroes deserve <span className="hl">global gameplay</span>.
+            </li>
+            <li>
+              Because African imagination deserves <span className="hl">powerful engines</span>.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="section a-manifesto">
+        <div className="container center">
+          <p className="a-not">Not a meme. Not a pump. Not a trend.</p>
+          <p className="t-title xl a-world">
+            <ZText>A World. A Story.</ZText>
+          </p>
+          <div className="hero-actions" style={{ justifyContent: "center", marginTop: 30 }}>
+            <Link href="/whitepaper" className="btn primary">
+              <Icon name="read" size={18} /> Read the Whitepaper
+            </Link>
+            <Link href="/theatre" className="btn">
+              Enter the Theatre
             </Link>
           </div>
         </div>

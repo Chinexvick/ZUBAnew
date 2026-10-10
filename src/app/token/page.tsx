@@ -1,94 +1,219 @@
 import type { Metadata } from "next";
-import { listings, partners, site } from "@/lib/site";
-import { media } from "@/content/media";
+import Link from "next/link";
+import { listings, site, token, trust } from "@/lib/site";
+import { utilities } from "@/content/utilities";
 import CopyCA from "@/components/CopyCA";
-import { ListingGrid, PartnerGrid } from "@/components/Listings";
-import { Divider, Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
+import Donut, { donutColors } from "@/components/Donut";
+import UtilityRing from "@/components/UtilityRing";
+import { Icon } from "@/components/Icons";
+import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
-  title: "Token",
-  description: "The $ZUBA contract address, how to buy, where it's listed and our partners.",
+  title: "The $ZUBA Token",
+  description: "The coin that carries a continent's stories: supply, allocation, security, utility and where to find $ZUBA on BNB Chain.",
 };
 
+function Chapter({ n, runes, title, line, children, id }: { n: string; runes: string; title: string; line: string; children: React.ReactNode; id: string }) {
+  return (
+    <section className="tchapter" id={id}>
+      <div className="container tchapter-grid">
+        <header className="tchapter-head">
+          <span className="tchapter-n">Chapter {n}</span>
+          <Runes text={runes} />
+          <h2 className="t-title lg">
+            <ZText>{title}</ZText>
+          </h2>
+          <Divider variant="simple" align="left" />
+          <p className="t-lead">{line}</p>
+        </header>
+        <div className="tchapter-body">{children}</div>
+      </div>
+    </section>
+  );
+}
+
 const steps = [
-  { t: "Ready Your Wallet", d: "Install a trusted wallet such as MetaMask or Trust Wallet and keep your seed phrase offline. Never share it." },
-  { t: "Load Your Pouch", d: "Fund the wallet with the network's native coin from an exchange or another wallet to pay for the swap and gas." },
-  { t: "Copy the Contract", d: "Copy the official ZUBA contract address from this page. Paste it into the swap so you get the real token." },
-  { t: "Swap & Join", d: "Swap for $ZUBA, add the token to your wallet using the same address, then come and say hello in the village." },
+  { icon: "wallet", t: "Open your wallet", d: "MetaMask, Trust Wallet or any BNB Chain wallet, funded with a little BNB." },
+  { icon: "copy", t: "Copy the contract", d: "Use only the address on this page. It is the one real $ZUBA." },
+  { icon: "swap", t: "Swap on PancakeSwap", d: "Paste the address, choose an amount of BNB and swap. Welcome to the village." },
 ];
 
-export default function Token() {
+export default function TokenPage() {
   return (
     <>
-      <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: `url(${media["oware-backdrop"]})` }} aria-hidden="true" />
+      {/* ---------- item card ---------- */}
+      <section className="tcard-wrap">
         <div className="container">
-          <div className="token-panel">
-            <div className="token-coin" aria-hidden="true">
+          <div className="tcard rise">
+            <div className="tcard-coin" aria-hidden="true">
+              <span className="tcard-orbit" />
               <img src="/brand/zuba-coin.png" alt="" />
             </div>
-            <div className="token-info">
-              <Runes text="Zuba Token" />
-              <h1 className="t-title xl">
+            <div className="tcard-info">
+              <p className="t-label">Legendary item · BNB Chain</p>
+              <h1 className="t-title xl tcard-title">
                 <ZText>$ZUBA</ZText>
               </h1>
-              <Divider variant="notched" align="left" />
-              <p className="t-lead">
-                The key to the village. Hold it, and you hold a piece of the story Africa is about to tell the world.
-              </p>
+              <p className="tcard-line">The coin that carries a continent&apos;s stories.</p>
+              <dl className="tstats">
+                <div>
+                  <dt>Supply</dt>
+                  <dd>{token.supplyShort}</dd>
+                </div>
+                <div>
+                  <dt>Network</dt>
+                  <dd>BNB</dd>
+                </div>
+                <div>
+                  <dt>Liquidity</dt>
+                  <dd>{token.allocation[0].pct}%</dd>
+                </div>
+              </dl>
               <CopyCA />
-              <p className="t-muted" style={{ fontSize: "0.9rem", margin: 0 }}>
-                Official X: <a href={site.socials.x.url} target="_blank" rel="noopener noreferrer" className="hl">{site.socials.x.handle}</a>. Only
-                trust addresses posted here or on our official channels.
-              </p>
+              <div className="hero-actions">
+                <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary">
+                  <Chev /> Buy on PancakeSwap
+                </a>
+                <a href={site.links.chart} target="_blank" rel="noopener noreferrer" className="btn">
+                  Live Chart
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 20 }}>
-        <div className="container">
-          <Heading runes="How to buy" title="How to Join the Quest" lead="Four steps from zero to holder." />
-          <div className="steps" style={{ marginTop: 40 }}>
-            {steps.map((s, i) => (
-              <Frame key={s.t} hoverable>
-                <div className="step">
-                  <span className="medal">{i + 1}</span>
-                  <h3 className="t-title sm">
-                    <ZText>{s.t}</ZText>
-                  </h3>
-                  <p className="t-muted" style={{ margin: 0 }}>
-                    {s.d}
-                  </p>
-                </div>
-              </Frame>
+          <nav className="tindex" aria-label="On this page">
+            {["Forged", "Guarded", "Unlocked", "Join", "Found"].map((w, i) => (
+              <a key={w} href={`#${w.toLowerCase()}`}>
+                <span>{["I", "II", "III", "IV", "V"][i]}</span> {w}
+              </a>
             ))}
-          </div>
-          <p className="warning" style={{ marginTop: 30 }}>
-            ⚠ Scam guard: the ZUBA team will never DM you first, ask for your seed phrase or ask you to send tokens. If in doubt, check
-            the address on this page.
-          </p>
+          </nav>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <Heading runes="Listed" title="Where ZUBA Is Listed" lead="Trackers and exchanges where you can find $ZUBA. New listings light up as they go live." />
-          <ListingGrid items={listings} />
+      {/* ---------- I. supply ---------- */}
+      <Chapter
+        id="forged"
+        n="I"
+        runes="Forged"
+        title="Forged"
+        line={`${token.supplyLabel} $ZUBA were minted once. No more can ever be made, and 85% went to the open market at a fair launch.`}
+      >
+        <div className="tforge">
+          <Donut
+            slices={token.allocation}
+            center={
+              <>
+                <span className="donut-big">500B</span>
+                <span className="donut-small">total supply</span>
+              </>
+            }
+          />
+          <ul className="talloc">
+            {token.allocation.map((a, i) => (
+              <li key={a.label}>
+                <span className="talloc-dot" style={{ background: donutColors[i], boxShadow: `0 0 10px ${donutColors[i]}` }} />
+                <span className="talloc-pct">{a.pct}%</span>
+                <span className="talloc-text">
+                  <strong>{a.label}</strong>
+                  <span>{a.note}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
+      </Chapter>
 
-      <section className="section">
-        <div className="container">
-          <Heading runes="Allies" title="Partners" lead="Studios, platforms and creators building alongside the village." />
-          <PartnerGrid items={partners} />
-          <p className="center t-muted" style={{ marginTop: 26 }}>
-            Want to partner with ZUBA? Reach us on X at{" "}
-            <a href={site.socials.x.url} target="_blank" rel="noopener noreferrer" className="hl">
-              {site.socials.x.handle}
+      {/* ---------- II. security ---------- */}
+      <Chapter id="guarded" n="II" runes="Guarded" title="Guarded" line="Checked by independent security firms, so you don't have to take our word for it.">
+        <div className="tseals">
+          {trust.map((t) => (
+            <a key={t.name} href={t.url} target="_blank" rel="noopener noreferrer" className="tseal">
+              <span className="tseal-badge">
+                <Icon name={t.name.includes("KYC") ? "id" : "shield"} size={30} />
+              </span>
+              <span className="tseal-text">
+                <strong>{t.name}</strong>
+                <span>by {t.by}</span>
+              </span>
+              <Icon name="external" size={18} className="tseal-ext" />
             </a>
-            .
-          </p>
+          ))}
+          <a href={site.links.bscscan} target="_blank" rel="noopener noreferrer" className="tseal">
+            <span className="tseal-badge">
+              <Icon name="scroll" size={30} />
+            </span>
+            <span className="tseal-text">
+              <strong>Public contract</strong>
+              <span>verify it on BscScan</span>
+            </span>
+            <Icon name="external" size={18} className="tseal-ext" />
+          </a>
+        </div>
+      </Chapter>
+
+      {/* ---------- III. utility ---------- */}
+      <section className="tchapter tchapter-wide" id="unlocked">
+        <div className="container">
+          <header className="tchapter-head center">
+            <span className="tchapter-n">Chapter III</span>
+            <Runes text="Unlocked" />
+            <h2 className="t-title lg">
+              <ZText>What the Coin Unlocks</ZText>
+            </h2>
+            <Divider variant="notched" />
+            <p className="t-lead">One key for the whole ZUBA universe. Choose a slot to see what it opens.</p>
+          </header>
+          <UtilityRing items={utilities} />
+        </div>
+      </section>
+
+      {/* ---------- IV. how to buy ---------- */}
+      <Chapter id="join" n="IV" runes="Join" title="Join the Quest" line="Three steps, about two minutes.">
+        <ol className="tsteps">
+          {steps.map((s, i) => (
+            <li key={s.t}>
+              <span className="tstep-n">{i + 1}</span>
+              <span className="tstep-icon">
+                <Icon name={s.icon} size={22} />
+              </span>
+              <strong>{s.t}</strong>
+              <span>{s.d}</span>
+            </li>
+          ))}
+        </ol>
+        <p className="tscam">
+          <Icon name="shield" size={18} /> The team will never DM you first or ask for your seed phrase.
+        </p>
+      </Chapter>
+
+      {/* ---------- V. listings ---------- */}
+      <Chapter id="found" n="V" runes="Found" title="Where to Find ZUBA" line="Trade it, track it and verify it.">
+        <div className="tlist">
+          {listings.map((l) => (
+            <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" className="tlist-item">
+              <span className="tlist-icon">
+                <Icon name={l.kind === "Trade" ? "swap" : l.kind === "Live chart" ? "chart" : "scroll"} size={20} />
+              </span>
+              <span className="tlist-name">{l.name}</span>
+              <span className="tlist-kind">{l.kind}</span>
+              <Icon name="external" size={16} />
+            </a>
+          ))}
+        </div>
+      </Chapter>
+
+      <section className="section center">
+        <div className="container stack" style={{ maxWidth: 640 }}>
+          <Runes text="Whitepaper" />
+          <h2 className="t-title md">
+            <ZText>The Full Story</ZText>
+          </h2>
+          <p className="t-muted">Vision, tokenomics, utility and the road ahead, all in the ZUBA whitepaper.</p>
+          <div>
+            <Link href="/whitepaper" className="btn primary">
+              <Icon name="read" size={18} /> Read the Whitepaper
+            </Link>
+          </div>
         </div>
       </section>
     </>

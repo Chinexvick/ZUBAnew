@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getDevNotes, formatDate } from "@/lib/content";
 import { phases } from "@/content/roadmap";
-import { media } from "@/content/media";
+import { art } from "@/content/art";
 import { Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default async function DevNotes() {
   return (
     <>
       <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: `url(${media["zuba-campfire"]})` }} aria-hidden="true" />
+        <div className="page-hero-bg" style={{ backgroundImage: `url(${art("zuba-game-backdrop")})` }} aria-hidden="true" />
         <div className="container">
           <Heading
             as="h1"

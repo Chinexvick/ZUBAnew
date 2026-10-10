@@ -31,16 +31,18 @@ export function PosterCard({ t }: { t: Title }) {
 }
 
 /* Horizontally scrolling Netflix-style shelf with angular arrow tabs. */
-export default function TitleRow({ title, items }: { title: string; items: Title[] }) {
+export default function TitleRow({ title, items, hideHead }: { title: string; items: Title[]; hideHead?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const scroll = (dir: 1 | -1) => ref.current?.scrollBy({ left: dir * ref.current.clientWidth * 0.8, behavior: "smooth" });
 
   return (
     <section className="shelf">
-      <div className="shelf-head">
-        <h3 className="t-title sm">
-          <ZText>{title}</ZText>
-        </h3>
+      <div className={`shelf-head ${hideHead ? "bare" : ""}`}>
+        {hideHead ? <span className="sr-only">{title}</span> : (
+          <h3 className="t-title sm">
+            <ZText>{title}</ZText>
+          </h3>
+        )}
         <div className="shelf-arrows">
           <button aria-label="Scroll left" className="arrow-tab left" onClick={() => scroll(-1)} />
           <button aria-label="Scroll right" className="arrow-tab right" onClick={() => scroll(1)} />

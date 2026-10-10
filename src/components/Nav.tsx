@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav } from "@/lib/site";
+import { nav, site } from "@/lib/site";
 import { Chev, Keycap, Runes, ZText } from "./ui/Glyphs";
 
 function isActive(pathname: string, href: string) {
@@ -81,9 +81,9 @@ export default function Nav() {
             </span>
           </nav>
 
-          <Link href="/token" className="btn primary nav-cta">
+          <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary nav-cta">
             Buy $ZUBA
-          </Link>
+          </a>
 
           <button className="nav-burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
             <span />
@@ -105,9 +105,12 @@ export default function Nav() {
               </Link>
             );
           })}
-          <Link href="/token" className="btn primary" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
-            Buy $ZUBA
+          <Link href="/whitepaper" className="btn" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
+            Read Whitepaper
           </Link>
+          <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary" tabIndex={open ? 0 : -1}>
+            Buy $ZUBA
+          </a>
         </div>
       </div>
     </>

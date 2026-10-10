@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { nav, site } from "@/lib/site";
 import { SocialRow } from "./Social";
-import { Divider, Runes, ZText } from "./ui/Glyphs";
-import CopyCA from "./CopyCA";
+import { Runes, ZText } from "./ui/Glyphs";
+
+const resources = [
+  { href: "/whitepaper", label: "Whitepaper" },
+  { href: site.links.chart, label: "Live Chart", ext: true },
+  { href: site.links.audit, label: "Audit Report", ext: true },
+  { href: site.links.kyc, label: "KYC Certificate", ext: true },
+];
 
 export default function Footer() {
   return (
@@ -11,20 +17,20 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="stack">
             <Link href="/" className="nav-logo">
-              <img src="/brand/zuba-coin.png" alt="" width={46} height={46} style={{ borderRadius: "50%" }} />
+              <img src="/brand/zuba-coin.png" alt="" width={44} height={44} style={{ borderRadius: "50%" }} />
               <span className="t-title md">
                 <ZText>ZUBA</ZText>
               </span>
             </Link>
-            <p className="t-muted" style={{ maxWidth: 360 }}>
-              {site.description}
+            <p className="t-muted" style={{ maxWidth: 340 }}>
+              African stories, built into games and animation the whole world can play.
             </p>
             <SocialRow />
           </div>
           <div>
-            <h4>The Map</h4>
+            <h4>Explore</h4>
             <ul>
-              {nav.slice(0, 4).map((n) => (
+              {nav.slice(1, 5).map((n) => (
                 <li key={n.href}>
                   <Link href={n.href}>{n.label}</Link>
                 </li>
@@ -32,34 +38,42 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4>The Village</h4>
+            <h4>Village</h4>
             <ul>
-              {nav.slice(4).map((n) => (
+              {nav.slice(5).map((n) => (
                 <li key={n.href}>
                   <Link href={n.href}>{n.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="stack">
-            <h4>Contract</h4>
-            <CopyCA />
-            <p className="t-muted" style={{ fontSize: "0.82rem" }}>
-              Always verify the contract address. ZUBA will never DM you first.
-            </p>
+          <div>
+            <h4>Resources</h4>
+            <ul>
+              {resources.map((r) =>
+                r.ext ? (
+                  <li key={r.label}>
+                    <a href={r.href} target="_blank" rel="noopener noreferrer">
+                      {r.label} ↗
+                    </a>
+                  </li>
+                ) : (
+                  <li key={r.label}>
+                    <Link href={r.href}>{r.label}</Link>
+                  </li>
+                )
+              )}
+            </ul>
           </div>
         </div>
-        <div style={{ marginTop: 50 }}>
-          <Divider variant="notched" />
-          <div className="center" style={{ marginTop: 14 }}>
-            <Runes text="Africa to the world" />
-          </div>
+        <div className="center" style={{ marginTop: 50 }}>
+          <Runes text="Africa to the world" />
         </div>
       </div>
       <div className="footer-bar">
         <div className="container">
-          <span>© {new Date().getFullYear()} ZUBA. Community-driven. Made with pride for the Motherland.</span>
-          <span>Crypto assets are volatile. Nothing here is financial advice.</span>
+          <span>© {new Date().getFullYear()} ZUBA. Community-driven.</span>
+          <span>Crypto is volatile. Nothing here is financial advice.</span>
         </div>
       </div>
     </footer>

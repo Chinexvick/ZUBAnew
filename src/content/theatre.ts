@@ -25,7 +25,8 @@ export type Title = {
   stills: string[];
 };
 
-const img = (key: string) => media[key] ?? "";
+// Prefer the 2D version of each image when it exists.
+const img = (key: string) => media[`${key}-2d`] ?? media[key] ?? "";
 
 export const movies: Title[] = [
   {
@@ -70,48 +71,6 @@ export const movies: Title[] = [
     poster: img("anansi-poster"),
     backdrop: img("anansi-backdrop"),
     stills: [img("anansi-still-1"), img("anansi-still-2")],
-  },
-  {
-    slug: "mami-wata-queen-of-the-deep",
-    kind: "movie",
-    title: "Mami Wata: Queen of the Deep",
-    runes: "Mami Wata",
-    shelf: "Myths & Legends",
-    genre: "Myth · Fantasy · Drama",
-    origin: "West & Central African Coast",
-    status: "In Development",
-    format: "Animated Feature",
-    logline: "The river is dying. One fisher girl dives to the bottom of the world to bargain with its queen.",
-    synopsis:
-      "In a delta village where nets come up empty and the water has turned dark, a fisher girl named Adaeze hears what her grandmother always told her: the river has a queen, and the queen remembers every promise ever broken. She dives into the kingdom beneath the water to plead for her people, and finds out the bargain cuts both ways.",
-    chapters: [
-      {
-        title: "Chapter I · Empty Nets",
-        body: "Adaeze's village has fished the same waters for a hundred generations. Now the fish are gone, the mangroves are grey, and the elders whisper that Mami Wata has turned her face away.",
-      },
-      {
-        title: "Chapter II · The Mirror Gate",
-        body: "Following a white python through the reeds at midnight, Adaeze finds a mirror floating on the water. Her reflection steps aside and lets her through.",
-      },
-      {
-        title: "Chapter III · The Drowned Court",
-        body: "Beneath the delta lies a shining kingdom of shell and bronze, made of every gift ever offered to the water. Its queen is beautiful, dangerous and very tired of being forgotten.",
-      },
-      {
-        title: "Chapter IV · The Covenant",
-        body: "Mami Wata will heal the river, but only if the people above keep their oldest promise: take only what you need and give back what you take. Adaeze must carry that covenant home and make a whole village believe it.",
-      },
-    ],
-    cast: [
-      { name: "Adaeze", role: "Fisher girl, reluctant hero" },
-      { name: "Mami Wata", role: "Queen of the waters" },
-      { name: "Nne Ochanya", role: "Adaeze's grandmother" },
-      { name: "Eke", role: "The white python guide" },
-    ],
-    quote: "The river does not forget. It only waits.",
-    poster: img("mamiwata-poster"),
-    backdrop: img("mamiwata-backdrop"),
-    stills: [img("mamiwata-still-1"), img("mamiwata-still-2")],
   },
   {
     slug: "sundiata-lion-of-manden",

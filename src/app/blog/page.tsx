@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getPosts, formatDate } from "@/lib/content";
-import { media } from "@/content/media";
+import { art } from "@/content/art";
 import { Delta, Frame, Heading, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default async function Blog() {
   return (
     <>
       <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: `url(${media["sundiata-backdrop"]})` }} aria-hidden="true" />
+        <div className="page-hero-bg" style={{ backgroundImage: `url(${art("sundiata-backdrop")})` }} aria-hidden="true" />
         <div className="container">
           <Heading as="h1" runes="Griot" title="The Griot's Scroll" size="xl" lead="News, announcements and stories from the ZUBA village. The griot remembers everything." />
         </div>

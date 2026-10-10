@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { phases } from "@/content/roadmap";
-import { media } from "@/content/media";
+import { art } from "@/content/art";
 import SkillTree from "@/components/SkillTree";
 import { Heading } from "@/components/ui/Glyphs";
 
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function Roadmap() {
   const cleared = phases.filter((p) => p.status === "cleared").length;
-  const art = [media["anansi-backdrop"], media["sundiata-backdrop"], media["zuba-game-backdrop"], media["impundulu-backdrop"], media["world-hero"]];
+  const panelArt = [art("anansi-backdrop"), art("sundiata-backdrop"), art("zuba-game-backdrop"), art("impundulu-backdrop"), art("world-hero")];
   return (
     <>
       <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: `url(${media["world-hero"]})` }} aria-hidden="true" />
+        <div className="page-hero-bg" style={{ backgroundImage: `url(${art("world-hero")})` }} aria-hidden="true" />
         <div className="container">
           <Heading
             as="h1"
@@ -35,7 +35,7 @@ export default function Roadmap() {
         </div>
       </section>
       <div className="container" style={{ paddingBottom: 100 }}>
-        <SkillTree phases={phases} art={art} />
+        <SkillTree phases={phases} art={panelArt} />
         <div className="center" style={{ marginTop: 60 }}>
           <p className="t-muted">Want the day-to-day progress behind each phase?</p>
           <Link href="/dev-notes" className="btn primary">

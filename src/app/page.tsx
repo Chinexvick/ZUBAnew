@@ -1,273 +1,219 @@
 import Link from "next/link";
 import { media } from "@/content/media";
-import { games, movies } from "@/content/theatre";
+import { art } from "@/content/art";
+import { allTitles, games, movies } from "@/content/theatre";
 import { phases } from "@/content/roadmap";
-import { getDevNotes, formatDate } from "@/lib/content";
-import { listings, partners, site } from "@/lib/site";
+import { partners, site, token } from "@/lib/site";
 import CopyCA from "@/components/CopyCA";
 import TitleRow from "@/components/TitleRow";
+import { PartnerMarquee } from "@/components/Listings";
 import { SocialRow } from "@/components/Social";
-import { Chev, Cursor, Delta, Divider, Frame, Heading, Runes, ZText } from "@/components/ui/Glyphs";
-import { PartnerGrid, ListingGrid } from "@/components/Listings";
+import { Icon } from "@/components/Icons";
+import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
-export default async function Home() {
-  const notes = (await getDevNotes()).slice(0, 3);
-  const hero = media["zuba-royal-a"];
+const worlds = [
+  { href: "/theatre#films", label: "Watch", title: "Animated Legends", line: "Gods, tricksters and heroes, drawn by African hands.", img: () => movies[1]?.poster },
+  { href: "/theatre#games", label: "Play", title: "African Games", line: "Myths you don't just hear. You play them.", img: () => games[0]?.poster },
+  { href: "/community", label: "Own", title: "A Village That Owns It", line: "Holders build, vote and grow the universe.", img: () => media["zuba-explorer"] },
+];
 
+export default function Home() {
+  const flagship = games.find((g) => g.slug === "zuba-rise-of-the-ancestors") ?? games[0];
   return (
     <>
       {/* ============ HERO ============ */}
-      <section className="hero">
-        <div className="hero-bg" style={{ backgroundImage: `url(${media["world-hero"]})` }} aria-hidden="true" />
-        <div className="hero-veil" aria-hidden="true" />
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="t-label rise">Tales of the Motherland · Chapter One</p>
-            <Runes text="Zuba" className="hero-runes rise rise-2" />
-            <h1 className="t-title xl hero-title rise rise-2">
+      <section className="h-hero">
+        <div className="h-hero-bg" style={{ backgroundImage: `url(${art("world-hero")})` }} aria-hidden="true" />
+        <div className="h-hero-veil" aria-hidden="true" />
+        <div className="container h-hero-grid">
+          <div className="h-hero-copy">
+            <p className="t-label rise">Gaming &amp; Animation · BNB Chain</p>
+            <h1 className="t-title xl h-hero-title rise rise-2">
               <ZText>ZUBA</ZText>
             </h1>
-            <Divider variant="notched" align="left" />
-            <p className="hero-tag t-title md rise rise-3">
+            <p className="h-hero-tag rise rise-2">
               <ZText>{site.tagline}</ZText>
             </p>
-            <p className="t-lead rise rise-3">
-              A gaming and animation token on a mission: prove to the world that Africa doesn&apos;t just belong in anime and games. It
-              was <span className="hl">always the main character</span>.
-            </p>
-            <div className="hero-ca rise rise-4">
+            <p className="h-hero-line rise rise-3">African myths and heroes, built into games and animation the whole world can play.</p>
+            <div className="h-hero-ca rise rise-3">
               <CopyCA />
             </div>
             <div className="hero-actions rise rise-4">
-              <Link href="/token" className="btn primary">
-                <Chev /> Buy $ZUBA <Chev dir="left" />
+              <Link href="/whitepaper" className="btn primary">
+                <Icon name="read" size={18} /> Read Whitepaper
               </Link>
               <Link href="/theatre" className="btn">
                 Enter the Theatre
               </Link>
             </div>
+            <Link href="/token#guarded" className="h-trust rise rise-4">
+              <span>
+                <Icon name="shield" size={15} /> Audited
+              </span>
+              <span>
+                <Icon name="id" size={15} /> KYC verified
+              </span>
+              <span>{token.supplyShort} supply</span>
+            </Link>
           </div>
 
-          <div className="hero-art">
-            <svg className="hero-delta" viewBox="0 0 400 380" aria-hidden="true">
+          <div className="h-hero-art" aria-hidden="true">
+            <svg className="h-hero-delta" viewBox="0 0 400 380">
               <path d="M60 268 L200 30 L340 268 Z" />
               <path d="M20 340 H380" />
             </svg>
-            <div className="hero-ring" aria-hidden="true" />
-            {hero && <img className="hero-zuba" src={hero} alt="ZUBA, the white pup hero in purple and gold royal African attire, raising the gold ZUBA coin" />}
+            <div className="h-hero-glow" />
+            <img className="h-hero-zuba" src={media["zuba-stand-2d-b"]} alt="" />
           </div>
         </div>
-
-        <nav className="hero-menu" aria-label="Quick start">
-          {[
-            ["/about", "Begin the Journey"],
-            ["/theatre", "Watch the Legends"],
-            ["/roadmap", "Read the Map"],
-            ["/community", "Join the Village"],
-          ].map(([href, label], i) => (
-            <Link key={href} href={href} className={`hero-menu-item ${i === 0 ? "first" : ""}`}>
-              <Chev />
-              <ZText>{label}</ZText>
-              <Chev dir="left" />
-            </Link>
-          ))}
-        </nav>
+        <a href="#worlds" className="h-scroll" aria-label="Scroll to explore">
+          <span />
+        </a>
       </section>
 
-      {/* ============ LEGEND (shrine unlock) ============ */}
-      <section className="section">
+      {/* ============ WORLDS ============ */}
+      <section className="section" id="worlds">
         <div className="container">
-          <div className="shrine">
-            <div className="shrine-crest" aria-hidden="true">
-              <Delta className="shrine-delta" />
-            </div>
-            <div className="shrine-band">
-              <Divider variant="notched" />
-              <Runes text="New Legend" />
-              <h2 className="t-title lg">
-                <ZText>A Legend Unlocked</ZText>
-              </h2>
-              <p className="t-lead">
-                For centuries the world&apos;s greatest stories were told about everyone but us. ZUBA flips the script. We back
-                <span className="hl"> African games</span>, <span className="hl">African animation</span> and the creators who make them,
-                powered by a community that owns the journey.
-              </p>
-              <Divider variant="diamond" />
-              <p className="t-lore">
-                A small pup carried a gold coin across the whole continent. In it echoed every story the elders ever told. Wherever the
-                coin sang, people remembered who they were.
-              </p>
-              <Link href="/about" className="prompt" style={{ marginTop: 6 }}>
-                <span className="keycap round">A</span> Continue the story
+          <Heading runes="Universe" title="One Universe, Three Doors" lead="Everything ZUBA makes lives in one shared world." />
+          <div className="h-worlds">
+            {worlds.map((w) => (
+              <Link key={w.href} href={w.href} className="h-world">
+                <span className="h-world-img" style={{ backgroundImage: `url(${w.img()})` }} />
+                <span className="h-world-shade" />
+                <span className="h-world-text">
+                  <span className="t-label">{w.label}</span>
+                  <span className="t-title md">
+                    <ZText>{w.title}</ZText>
+                  </span>
+                  <span className="h-world-line">{w.line}</span>
+                </span>
               </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ PILLARS ============ */}
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <div className="grid cols-3">
-            {[
-              { k: "Games", r: "Play", t: "Play the Myths", d: "Original games built on African legends, from swamp dragons to lightning birds. Holders help shape what gets built first." },
-              { k: "Animation", r: "Watch", t: "Watch the Legends", d: "Animated stories of gods, tricksters and real-life heroes, drawn with African hands and African pride." },
-              { k: "Community", r: "Own", t: "Own the Journey", d: "No gatekeepers. The village votes, creates, shares and grows together. Ubuntu: I am because we are." },
-            ].map((p, i) => (
-              <Frame key={p.k} hoverable>
-                <div className="pillar">
-                  <span className="pillar-num">0{i + 1}</span>
-                  <Runes text={p.r} />
-                  <h3 className="t-title md">
-                    <ZText>{p.t}</ZText>
-                  </h3>
-                  <Divider variant="simple" />
-                  <p className="t-muted">{p.d}</p>
-                </div>
-              </Frame>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ THEATRE PREVIEW ============ */}
+      {/* ============ NOW SHOWING ============ */}
       <section className="section">
         <div className="container">
-          <Heading
-            runes="Theatre"
-            title="Now Showing"
-            lead="Five films. Five games. All African. Choose a legend and step inside."
-          />
-          <div style={{ marginTop: 40 }}>
-            <TitleRow title="ZUBA Films" items={movies} />
-            <TitleRow title="ZUBA Games" items={games} />
-          </div>
-          <div className="center" style={{ marginTop: 26 }}>
-            <Link href="/theatre" className="btn">
-              Open the Full Theatre
+          <div className="h-row-head">
+            <Heading runes="Theatre" title="Now Showing" size="md" align="left" divider={false} />
+            <Link href="/theatre" className="prompt">
+              See all <Chev />
             </Link>
+          </div>
+          <TitleRow title="Films & Games" items={allTitles} hideHead />
+        </div>
+      </section>
+
+      {/* ============ IN PRODUCTION ============ */}
+      <section className="section">
+        <div className="container">
+          <Link href={`/theatre/games/${flagship.slug}`} className="h-forge">
+            <span className="h-forge-art" style={{ backgroundImage: `url(${flagship.backdrop})` }} />
+            <span className="h-forge-text">
+              <Runes text="Forge" />
+              <span className="t-label">In the Forge · Our flagship game</span>
+              <span className="t-title lg">
+                <ZText>{flagship.title.split(":")[0]}</ZText>
+              </span>
+              <span className="h-forge-sub">
+                <ZText>{flagship.title.split(":")[1]?.trim() ?? ""}</ZText>
+              </span>
+              <span className="h-forge-meta">
+                <span className="chip prod">{flagship.status}</span>
+                <span className="t-label">{flagship.genre}</span>
+              </span>
+              <span className="t-lead">{flagship.logline}</span>
+              <span className="prompt">
+                <span className="keycap round">A</span> Explore the game
+              </span>
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ============ TOKEN ============ */}
+      <section className="section">
+        <div className="container">
+          <div className="h-token">
+            <img src="/brand/zuba-coin.png" alt="" className="h-token-coin" />
+            <div className="h-token-text">
+              <Runes text="Zuba" />
+              <h2 className="t-title lg">
+                <ZText>$ZUBA</ZText>
+              </h2>
+              <p className="t-lead">One coin for the whole universe: films, stories, games, collectibles, events and more.</p>
+              <dl className="tstats">
+                <div>
+                  <dt>Supply</dt>
+                  <dd>{token.supplyShort}</dd>
+                </div>
+                <div>
+                  <dt>Network</dt>
+                  <dd>BNB</dd>
+                </div>
+                <div>
+                  <dt>Liquidity</dt>
+                  <dd>{token.allocation[0].pct}%</dd>
+                </div>
+              </dl>
+              <div className="hero-actions">
+                <Link href="/token" className="btn primary">
+                  Explore the Token
+                </Link>
+                <a href={site.links.chart} target="_blank" rel="noopener noreferrer" className="btn">
+                  Live Chart
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ ROADMAP PREVIEW ============ */}
+      {/* ============ QUEST LINE ============ */}
       <section className="section">
         <div className="container">
-          <Heading runes="Roadmap" title="The Quest Line" lead="Five phases. One destination: Africa on the main stage of global entertainment." />
+          <Heading runes="Roadmap" title="The Quest Line" size="md" lead="Five phases from first spark to the world stage." />
           <div className="quest-strip">
             {phases.map((p) => (
               <Link href={`/roadmap#phase-${p.n}`} key={p.n} className={`quest-node ${p.status}`}>
                 <span className="quest-medal">
-                  {p.status === "locked" ? (
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="5" y="11" width="14" height="10" rx="2" />
-                      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
-                    </svg>
-                  ) : (
-                    <span className="t-title sm">0{p.n}</span>
-                  )}
+                  {p.status === "locked" ? <Icon name="lock" size={22} /> : <span className="t-title sm">0{p.n}</span>}
                   {p.status === "active" && <Cursor />}
                 </span>
                 <span className="quest-name">
                   <ZText>{p.name}</ZText>
                 </span>
-                <span className="quest-state">{p.status === "cleared" ? "Cleared" : p.status === "active" ? "In Progress" : "Locked"}</span>
+                <span className="quest-state">{p.status === "cleared" ? "Cleared" : p.status === "active" ? "In progress" : "Locked"}</span>
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ TOKEN ============ */}
-      <section className="section" id="token">
-        <div className="container">
-          <div className="token-panel">
-            <div className="token-coin" aria-hidden="true">
-              <img src="/brand/zuba-coin.png" alt="" />
-            </div>
-            <div className="token-info">
-              <Runes text="Zuba Token" />
-              <h2 className="t-title lg">
-                <ZText>$ZUBA</ZText>
-              </h2>
-              <Divider variant="notched" align="left" />
-              <p className="t-lead">
-                The key to the village. Copy the contract address below, open your wallet, swap and you&apos;re in. Always check the
-                address before you buy.
-              </p>
-              <CopyCA />
-              <div className="hero-actions">
-                <Link href="/token" className="btn primary">
-                  How to Buy
-                </Link>
-                <a href={site.socials.x.url} target="_blank" rel="noopener noreferrer" className="btn">
-                  Follow {site.socials.x.handle}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 70 }}>
-            <Heading runes="Listed" title="Where to Find ZUBA" size="md" />
-            <ListingGrid items={listings} />
           </div>
         </div>
       </section>
 
       {/* ============ PARTNERS ============ */}
-      <section className="section">
+      <section className="section h-partners">
         <div className="container">
-          <Heading runes="Allies" title="Allies of the Village" size="md" lead="The studios, platforms and creators walking this road with us." />
-          <PartnerGrid items={partners} />
+          <Heading runes="Allies" title="Allies of the Village" size="md" />
         </div>
+        <PartnerMarquee items={partners} />
       </section>
 
-      {/* ============ DEV NOTES ============ */}
+      {/* ============ JOIN ============ */}
       <section className="section">
         <div className="container">
-          <Heading runes="Notebook" title="From the Builders' Notebook" size="md" lead="Straight from the developers: what we shipped and where we're heading." />
-          <div className="grid cols-3" style={{ marginTop: 36 }}>
-            {notes.map((n) => (
-              <Link key={n.slug} href={`/dev-notes/${n.slug}`}>
-                <Frame hoverable>
-                  <div className="mini-note">
-                    <span className="note-stamp">{formatDate(n.date)}</span>
-                    <span className="t-label">
-                      Phase 0{n.phase} · {n.location}
-                    </span>
-                    <h3 className="t-title sm">
-                      <ZText>{n.title}</ZText>
-                    </h3>
-                    <p className="t-muted">{n.summary}</p>
-                  </div>
-                </Frame>
-              </Link>
-            ))}
-          </div>
-          <div className="center" style={{ marginTop: 30 }}>
-            <Link href="/dev-notes" className="btn">
-              Open the Notebook
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ COMMUNITY CTA ============ */}
-      <section className="section">
-        <div className="container">
-          <div className="village-cta" style={{ backgroundImage: `url(${media["zuba-campfire"]})` }}>
-            <div className="village-veil" />
-            <div className="village-copy">
+          <div className="h-join">
+            <div className="h-join-copy">
               <Runes text="Ubuntu" />
               <h2 className="t-title lg">
                 <ZText>Join the Village</ZText>
               </h2>
-              <p className="t-lead">The fire is lit and the griot is ready. Pull up a seat. Every legend needs its people.</p>
+              <Divider variant="simple" align="left" />
+              <p className="t-lead">The fire is lit. Every legend needs its people.</p>
               <SocialRow />
-              <Link href="/community" className="btn primary">
-                Enter the Village
-              </Link>
             </div>
+            <img src={media["zuba-explorer"]} alt="" className="h-join-zuba" />
           </div>
         </div>
       </section>

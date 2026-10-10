@@ -1,5 +1,26 @@
 [
   {
+    "slug": "zuba-gets-a-new-look",
+    "title": "ZUBA Gets a New Look",
+    "date": "2026-10-10",
+    "phase": 2,
+    "status": "cleared",
+    "location": "The Workshop",
+    "summary": "New 2D art across the site, ZUBA in divine royal attire, a rebuilt token page and the first ZUBA whitepaper.",
+    "achievements": [
+      "Redrew ZUBA standing in divine African royal attire, plus fire guardian, explorer and griot looks",
+      "Redid every film and game in a clean 2D African animation style",
+      "Rebuilt the token page: supply, allocation, audit and KYC, utilities and where to trade",
+      "Published the ZUBA whitepaper as an in-game storybook",
+      "Added our partners and live listings: PancakeSwap, DEX Screener and BscScan"
+    ],
+    "next": [
+      "Grow creator partnerships for Phase 02",
+      "Share early concept work from the first game"
+    ],
+    "body": "A legend needs a face the world remembers. This update gave ZUBA a new one.\n\nWe moved the whole site to a clean 2D animation style inspired by the best of African animation, and dressed ZUBA in the gold, white and violet of a guardian of stories.\n\nThe token page now tells the coin's story in five short chapters, and the whitepaper explains why we exist, what we are building and how $ZUBA fits into it. Read it, then tell us what you think in the village."
+  },
+  {
     "slug": "the-village-has-a-home",
     "title": "The Village Has a Home",
     "date": "2026-10-10",
