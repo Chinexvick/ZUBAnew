@@ -1,0 +1,51 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getPost, getPosts, formatDate, renderMarkdown } from "@/lib/content";
+import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
+
+type Params = { slug: string };
+
+export async function generateStaticParams() {
+  return (await getPosts()).map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const p = await getPost((await params).slug);
+  return p ? { title: p.title, description: p.excerpt, openGraph: { images: p.cover ? [p.cover] : [] } } : {};
+}
+
+export default async function PostPage({ params }: { params: Promise<Params> }) {
+  const p = await getPost((await params).slug);
+  if (!p) notFound();
+
+  return (
+    <div className="page">
+      <article className="container article">
+        <Link href="/blog" className="back-link">
+          <Chev dir="left" /> All scrolls
+        </Link>
+        <header className="heading" style={{ marginTop: 30 }}>
+          <Runes text={p.category} />
+          <h1 className="t-title lg">
+            <ZText>{p.title}</ZText>
+          </h1>
+          <Divider variant="notched" align="left" />
+          <p className="t-muted" style={{ margin: 0 }}>
+            {formatDate(p.date)} · {p.author} · {p.category}
+          </p>
+        </header>
+        {p.cover && (
+          <div className="article-cover">
+            <img src={p.cover} alt="" />
+          </div>
+        )}
+        <p className="t-lead" style={{ marginTop: 30 }}>
+          {p.excerpt}
+        </p>
+        <div className="prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(p.body) }} />
+        <Divider variant="diamond" />
+      </article>
+    </div>
+  );
+}

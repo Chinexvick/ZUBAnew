@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "the-village-has-a-home",
+    "title": "The Village Has a Home",
+    "date": "2026-10-10",
+    "phase": 1,
+    "status": "cleared",
+    "location": "Base Camp",
+    "summary": "The official ZUBA website is live, with the Theatre, the Roadmap and this very notebook.",
+    "achievements": [
+      "Launched the official ZUBA website",
+      "Opened the Theatre: 5 film concepts and 5 game concepts",
+      "Published the roadmap: five phases from Awakening to Africa to the World",
+      "Started this Developer Notebook so every holder can follow the build"
+    ],
+    "next": [
+      "Publish partner and listing updates as they go live",
+      "Share the first ZUBA character art in royal attire"
+    ],
+    "body": "Every journey needs a camp. Today we set ours.\n\nThis notebook is where the builders of ZUBA report back to the village. No hype, no fog: what we shipped, what we learned and where we are heading next. Each entry is a marker on the map. Follow the trail and you will always know exactly where we stand.\n\n> Ubuntu: I am because we are.\n\nSee you at the next marker."
+  }
+]

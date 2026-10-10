@@ -47,6 +47,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 html,
@@ -96,6 +97,7 @@ button {
 .world {
   position: fixed;
   inset: 0;
+  overflow: hidden;
   z-index: -1;
   pointer-events: none;
   background:
@@ -231,8 +233,8 @@ button {
 /* Δ letter (greatness symbol) inside titles */
 .delta {
   display: inline-block;
-  width: 0.78em;
-  height: 0.74em;
+  width: 0.74em;
+  height: 0.7em;
   vertical-align: -0.02em;
   margin: 0 0.02em;
 }
@@ -295,32 +297,82 @@ button {
   background: var(--panel);
   border-radius: var(--radius);
   isolation: isolate;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.frame > .frame-stroke {
+.frame-line,
+.frame-inner {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
+  border: 1.6px solid var(--line);
   pointer-events: none;
-  z-index: 2;
-  overflow: visible;
+  z-index: 3;
+  -webkit-mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0) left 50% / 8px 52px no-repeat,
+    linear-gradient(#000 0 0) right 50% / 8px 52px no-repeat,
+    linear-gradient(#000 0 0) 50% 100% / 104px 8px no-repeat;
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0) left 50% / 8px 52px no-repeat,
+    linear-gradient(#000 0 0) right 50% / 8px 52px no-repeat,
+    linear-gradient(#000 0 0) 50% 100% / 104px 8px no-repeat;
+  mask-composite: exclude;
+  transition: border-color 0.25s ease, filter 0.25s ease;
 }
-.frame-stroke rect {
-  fill: none;
-  stroke: var(--line);
+.frame-inner {
+  inset: 7px;
+  border-radius: calc(var(--radius) - 5px);
+  border-color: rgba(200, 110, 255, 0.85);
+  filter: drop-shadow(0 0 5px rgba(190, 90, 255, 0.9));
+}
+.frame-orn {
+  position: absolute;
+  z-index: 3;
+  color: var(--line);
+  pointer-events: none;
+  display: block;
+}
+.frame-orn svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
   stroke-width: 1.6;
+  fill: none;
 }
-.frame.active .frame-stroke rect,
-.frame.hoverable:hover .frame-stroke rect,
-.frame.hoverable:focus-within .frame-stroke rect {
-  stroke: #f1d9ff;
+.frame-orn-b {
+  left: 50%;
+  bottom: -2px;
+  width: 96px;
+  height: 6px;
+  transform: translateX(-50%);
+}
+.frame-orn-l,
+.frame-orn-r {
+  top: 50%;
+  width: 6px;
+  height: 52px;
+  transform: translateY(-50%);
+}
+.frame-orn-l {
+  left: -2px;
+}
+.frame-orn-r {
+  right: -2px;
+}
+.frame.active .frame-line,
+.frame.hoverable:hover .frame-line,
+.frame.hoverable:focus-within .frame-line {
+  border-color: #f1d9ff;
   filter: drop-shadow(0 0 5px rgba(190, 90, 255, 0.95));
+}
+.frame.active .frame-orn,
+.frame.hoverable:hover .frame-orn,
+.frame.hoverable:focus-within .frame-orn {
+  color: #f1d9ff;
 }
 .frame.active,
 .frame.hoverable:hover,
 .frame.hoverable:focus-within {
-  box-shadow: 0 0 34px rgba(150, 50, 255, 0.28);
-}
-.frame.hoverable {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 0 40px rgba(150, 50, 255, 0.25);
 }
 .frame.hoverable:hover {
   transform: translateY(-4px);
@@ -329,6 +381,14 @@ button {
   position: relative;
   z-index: 1;
   padding: 28px;
+}
+.cursor {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  z-index: 5;
+  filter: drop-shadow(0 0 6px rgba(200, 110, 255, 0.95));
+  animation: float 2.4s ease-in-out infinite;
 }
 
 /* ---------- buttons & prompts ---------- */
@@ -657,7 +717,7 @@ button {
   .grid.cols-2,
   .grid.cols-3,
   .grid.cols-4 {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .section {
     padding: 64px 0;
@@ -674,4 +734,21 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Grid/flex children must be allowed to shrink below their content (long contract address, wide tracks). */
+.footer-grid > *,
+.hero-grid > *,
+.token-panel > *,
+.split > *,
+.detail-layout > *,
+.tree-wrap > *,
+.grid > *,
+.detail-hero .container > *,
+.hero-copy > *,
+.token-info > * {
+  min-width: 0;
+}
+.ca {
+  width: 100%;
 }
