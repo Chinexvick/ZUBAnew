@@ -99,3 +99,31 @@ export function ListingMarquee({ items }: { items: Listing[] }) {
     </div>
   );
 }
+
+/* Two endless rows of partner medallions drifting in opposite directions. */
+export function PartnerRows({ items }: { items: Partner[] }) {
+  const half = Math.ceil(items.length / 2);
+  const rows = [items.slice(0, half), items.slice(half)];
+  return (
+    <div className="prows" aria-label="Our partners">
+      {rows.map((row, r) => (
+        <div key={r} className={`prow ${r === 0 ? "ltr" : "rtl"}`}>
+          <ul className="prow-track">
+            {[...row, ...row, ...row, ...row].map((p, i) => {
+              const dup = i >= row.length;
+              const known = p.name !== "Partner";
+              return (
+                <li key={i} className="prow-item" aria-hidden={dup}>
+                  <span className="pgrid-logo">
+                    <img src={p.logo} alt={dup ? "" : known ? `${p.name} logo` : "Partner logo"} loading="lazy" />
+                  </span>
+                  {known && <span className="pgrid-name">{p.name}</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}

@@ -6,7 +6,7 @@ import { phases } from "@/content/roadmap";
 import { listings, partners, site, token } from "@/lib/site";
 import CopyCA from "@/components/CopyCA";
 import TitleRow from "@/components/TitleRow";
-import { ListingMarquee, PartnerGrid } from "@/components/Listings";
+import { ListingMarquee, PartnerRows } from "@/components/Listings";
 import { Icon } from "@/components/Icons";
 import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
@@ -209,7 +209,7 @@ export default function Home() {
       <section className="section h-partners">
         <div className="container">
           <Heading runes="Allies" title="Allies of the Village" size="md" lead="Projects and communities building alongside ZUBA." />
-          <PartnerGrid items={partners} />
+          <PartnerRows items={partners} />
         </div>
       </section>
 

@@ -592,3 +592,66 @@ a.pgrid-tile:hover,
     min-width: 0;
   }
 }
+
+/* ---------- partners: two counter-moving rows ---------- */
+.prows {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 36px;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.prow {
+  overflow: hidden;
+}
+.prow-track {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  will-change: transform;
+  animation: prow-left 48s linear infinite;
+}
+/* The track holds the row four times; moving by half loops seamlessly. */
+.prow.ltr .prow-track {
+  animation-name: prow-right;
+}
+.prow:hover .prow-track {
+  animation-play-state: paused;
+}
+.prow-item {
+  flex: none;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 10px 14px;
+  border-radius: 16px;
+  border: 1.5px solid var(--line-dim);
+  background: rgba(20, 12, 40, 0.6);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.prow-item:hover {
+  border-color: #f1d9ff;
+  box-shadow: 0 0 20px rgba(180, 80, 255, 0.45);
+}
+@keyframes prow-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes prow-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@media (max-width: 640px) {
+  .prow-item { width: 120px; padding: 14px 8px 12px; }
+  .prow-track { gap: 12px; animation-duration: 36s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prow-track { animation: none; }
+  .prow { overflow-x: auto; }
+}
