@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${site.name} · ${site.tagline}`,
     description: site.description,
-    images: [{ url: "/brand/og.jpg", width: 1200, height: 630, alt: "ZUBA" }],
+    images: [{ url: "/brand/og.jpg", width: 1677, height: 938, alt: "ZUBA running through an African city at night beside the gold ZUBA emblem" }],
   },
   twitter: { card: "summary_large_image", site: site.socials.x.handle },
 };
@@ -35,6 +35,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${josefin.variable} ${raleway.variable} ${caveat.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ZUBA",
+              url: "https://www.zubatoken.com",
+              logo: "https://www.zubatoken.com/brand/zuba-coin.png",
+              description: site.description,
+              email: "info@zubatoken.com",
+              sameAs: [site.socials.x.url, site.socials.telegram.url, site.socials.whatsapp.url],
+            }),
+          }}
+        />
         <World />
         <Nav />
         <main>{children}</main>
