@@ -1,24 +1,45 @@
 // Builds src/content/media.ts from scripts/media-sources.txt ("key url" per line).
-//   node scripts/sync-media.mjs            -> point keys at the remote Higgsfield URLs
-//   node scripts/sync-media.mjs --download -> download every image into public/media and point keys at local files
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
+//   node scripts/sync-media.mjs            -> use local WebP copies where present, remote URLs otherwise
+//   node scripts/sync-media.mjs --download -> download missing images, convert to WebP in public/media
+import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from "fs";
 
 const download = process.argv.includes("--download");
 const lines = readFileSync("scripts/media-sources.txt", "utf8").split("\n").map((l) => l.trim()).filter(Boolean);
 const map = {};
-if (download) mkdirSync("public/media", { recursive: true });
+mkdirSync("public/media", { recursive: true });
+
+let sharp = null;
+try {
+  sharp = (await import("sharp")).default;
+} catch {
+  console.warn("sharp not available: images will be kept as PNG");
+}
+
+async function toWebp(buf, out) {
+  await sharp(buf).resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true }).webp({ quality: 82, alphaQuality: 90 }).toFile(out);
+}
 
 for (const line of lines) {
   const [key, url] = line.split(/\s+/);
-  const ext = (url.split(".").pop() || "png").split("?")[0];
-  const local = `public/media/${key}.${ext}`;
-  if (download && !existsSync(local)) {
+  const webp = `public/media/${key}.webp`;
+  const png = `public/media/${key}.png`;
+  if (sharp && !existsSync(webp)) {
+    if (existsSync(png)) {
+      await toWebp(readFileSync(png), webp);
+      unlinkSync(png);
+      console.log("converted", key);
+    } else if (download) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed ${key}: ${res.status}`);
+      await toWebp(Buffer.from(await res.arrayBuffer()), webp);
+      console.log("downloaded", key);
+    }
+  } else if (!sharp && download && !existsSync(png) && !existsSync(webp)) {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Failed ${key}: ${res.status}`);
-    writeFileSync(local, Buffer.from(await res.arrayBuffer()));
-    console.log("downloaded", key);
+    writeFileSync(png, Buffer.from(await res.arrayBuffer()));
   }
-  map[key] = existsSync(local) ? `/media/${key}.${ext}` : url;
+  map[key] = existsSync(webp) ? `/media/${key}.webp` : existsSync(png) ? `/media/${key}.png` : url;
 }
 
 writeFileSync(
