@@ -682,10 +682,10 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 14px;
 }
-/* Ten platforms: keep rows even (5 + 5 when wide, 2 per row on phones). */
-@media (min-width: 1000px) {
+/* Fourteen platforms: keep rows even (7 + 7 when wide, 2 per row on phones). */
+@media (min-width: 1200px) {
   .lgrid:not(.compact) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 }
 .lgrid > li {

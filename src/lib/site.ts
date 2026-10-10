@@ -60,6 +60,10 @@ export const listings: Listing[] = [
   { id: "poocoin", name: "PooCoin", kind: "BSC charts", detail: "Charts and wallet tracker", url: `https://poocoin.app/tokens/${CONTRACT}`, logo: "/listings/poocoin.png", fit: "pad" },
   { id: "ave", name: "Ave.ai", kind: "Screener", detail: "Multi-chain token data", url: `https://ave.ai/token/${CONTRACT}-bsc`, logo: "/listings/ave.png" },
   { id: "gmgn", name: "GMGN", kind: "Screener", detail: "Holders and smart-money flow", url: `https://gmgn.ai/bsc/token/${CONTRACT}`, logo: "/listings/gmgn.png" },
+  { id: "livecoinwatch", name: "LiveCoinWatch", kind: "Price tracker", detail: "Listed as Zubathesuperdog", url: "https://www.livecoinwatch.com/price/Zubathesuperdog-_ZUBA", logo: "/listings/livecoinwatch.png", fit: "pad" },
+  { id: "dexrabbit", name: "DEXRabbit", kind: "Bitquery", detail: "On-chain trades and holders", url: `https://dexrabbit.bitquery.io/bsc/token/${CONTRACT.toLowerCase()}`, logo: "/listings/dexrabbit.png", fit: "pad" },
+  { id: "peniwallet", name: "Peniwallet", kind: "Wallet", detail: "Hold and send $ZUBA in-app", url: "https://apps.apple.com/us/app/peniwallet/id6473462922", logo: "/listings/peniwallet.png" },
+  { id: "giantwallet", name: "Giant Wallet", kind: "Wallet", detail: "Listed in the BNB Chain wallet", url: "https://play.google.com/store/apps/details?id=com.GiantWallet", logo: "/listings/giantwallet.png" },
   { id: "bscscan", name: "BscScan", kind: "Contract", detail: "0xE1bf…994A4", url: site.links.bscscan, logo: "/listings/bscscan.png", fit: "pad" },
 ];
 
