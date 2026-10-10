@@ -29,11 +29,15 @@ export default function Codex({ wp, griot }: { wp: Whitepaper; griot: string }) 
   );
 
   useEffect(() => {
-    const id = decodeURIComponent(location.hash.slice(1));
-    const i = pages.findIndex((p) => p.id === id);
-    if (i > 0) setCur(i);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const sync = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const i = pages.findIndex((p) => p.id === id);
+      if (i >= 0) setCur(i);
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [pages]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -125,7 +129,7 @@ export default function Codex({ wp, griot }: { wp: Whitepaper; griot: string }) 
                   <section key={s.heading} className="codex-sec">
                     <h3>{s.heading}</h3>
                     {s.paragraphs.map((p, pi) => (
-                      <p key={pi} className={si === 0 && pi === 0 ? "dropcap" : undefined}>
+                      <p key={pi} className={si === 0 && pi === 0 && /^[A-Za-z]/.test(p) ? "dropcap" : undefined}>
                         {p}
                       </p>
                     ))}

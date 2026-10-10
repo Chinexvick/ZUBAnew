@@ -467,6 +467,9 @@
 }
 
 @media (max-width: 900px) {
+  .codex-table {
+    min-width: 560px;
+  }
   .codex-book {
     grid-template-columns: minmax(0, 1fr);
     padding: 10px;
