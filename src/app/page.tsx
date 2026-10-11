@@ -10,6 +10,17 @@ import { ListingMarquee, PartnerRows } from "@/components/Listings";
 import { Icon } from "@/components/Icons";
 import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
+const homeFaq = [
+  { q: "What is ZUBA?", a: "ZUBA is a gaming and animation token on BNB Smart Chain. It powers an African universe of games, anime, films and stories, starting with the ZUBA game built on the ZUBA animation." },
+  { q: "How do I buy $ZUBA?", a: "Open a BNB Chain wallet such as MetaMask or Trust Wallet, add a little BNB, then swap for $ZUBA on PancakeSwap using the Buy button on this site. Always check the contract address first." },
+  { q: "What is the official contract address?", a: `${site.contractAddress} on BNB Smart Chain (BEP-20). This is the only real $ZUBA; compare the last characters …994A4 before you trade.` },
+  { q: "What is the total supply?", a: `${token.supplyLabel} $ZUBA. 85% went to liquidity and a fair launch, 10% to marketing and 5% to development.` },
+  { q: "Is ZUBA audited and KYC verified?", a: "Yes. The contract was audited by VBS Labs and the team completed KYC with Vital Block Security. Both reports are linked on the Token page." },
+  { q: "What can I do with $ZUBA?", a: "Use it across the ZUBA universe: early access and items in our games, premieres and stories, collectibles, events and competitions, and our African language app as they launch." },
+  { q: "Where can I follow progress?", a: "The Dev Notes map is updated by the builders as work ships. Subscribe there to get every new note by email, and join us on Telegram and X." },
+  { q: "How can my project partner with ZUBA?", a: "Visit Partner With Us. Studios, game projects, marketers, testers, creators, developers and animators each have their own application." },
+];
+
 const worlds = [
   { href: "/theatre#films", label: "Watch", title: "Animated Legends", line: "Gods, tricksters and heroes, drawn by African hands.", img: () => art("sundiata-still-2") },
   { href: "/theatre#games", label: "Play", title: "African Games", line: "Myths you don't just hear. You play them.", img: () => art("impundulu-still-1") },
@@ -227,6 +238,20 @@ export default function Home() {
               </div>
             </div>
             <img src={media["zuba-explorer"]} alt="" className="h-join-zuba" />
+          </div>
+        </div>
+      </section>
+      {/* ============ FAQ ============ */}
+      <section className="section">
+        <div className="container" style={{ maxWidth: 820 }}>
+          <Heading runes="Questions" title="Questions" size="md" lead="Everything new travellers ask before joining the village." />
+          <div className="pw-faq">
+            {homeFaq.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

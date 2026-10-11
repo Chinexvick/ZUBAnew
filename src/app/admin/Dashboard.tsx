@@ -6,7 +6,8 @@ import { marked } from "marked";
 import type { BlogPost, DevNote } from "@/lib/content";
 import { Delta, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 
-type Tab = "devnotes" | "blog" | "subscribers";
+type Tab = "devnotes" | "blog" | "subscribers" | "applications";
+type Application = { id: string; track: string; trackName: string; at: string; answers: Record<string, string>; labels: Record<string, string> };
 type Subs = { enabled: boolean; mail: boolean; emails: string[]; notified: Record<string, string> };
 type Item = DevNote | BlogPost;
 
@@ -47,6 +48,23 @@ export default function Dashboard({ mode }: { mode: string }) {
   const [toast, setToast] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
   const [preview, setPreview] = useState(false);
   const [subs, setSubs] = useState<Subs | null>(null);
+  const [apps, setApps] = useState<Application[] | null>(null);
+  const [appFilter, setAppFilter] = useState("all");
+
+  const loadApps = useCallback(async () => {
+    const res = await fetch("/api/admin/applications", { cache: "no-store" });
+    if (res.ok) setApps((await res.json()).items);
+  }, []);
+
+  useEffect(() => {
+    loadApps();
+  }, [loadApps]);
+
+  async function removeApp(id: string) {
+    if (!window.confirm("Delete this application?")) return;
+    const res = await fetch(`/api/admin/applications?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+    if (res.ok) loadApps();
+  }
   const [emailOnPublish, setEmailOnPublish] = useState(true);
   const [sending, setSending] = useState<string | null>(null);
 
@@ -61,7 +79,7 @@ export default function Dashboard({ mode }: { mode: string }) {
   }, [loadSubs]);
 
   const load = useCallback(async (t: Tab) => {
-    if (t === "subscribers") {
+    if (t === "subscribers" || t === "applications") {
       setItems([]);
       setLoading(false);
       return;
@@ -257,6 +275,10 @@ export default function Dashboard({ mode }: { mode: string }) {
           <ZText>Subscribers</ZText>
           {subs?.enabled && <span className="admin-count">{subs.emails.length}</span>}
         </button>
+        <button className={`admin-tab ${tab === "applications" ? "active" : ""}`} onClick={() => confirmDiscard() && setTab("applications")}>
+          <ZText>Applications</ZText>
+          {apps && <span className="admin-count">{apps.length}</span>}
+        </button>
         <div className="admin-side-foot">
           <span className={`chip ${mode !== "local" ? "live" : ""}`}>
             {mode === "blob" ? "● Live database" : mode === "github" ? "● Publishing to GitHub" : "Local mode"}
@@ -270,7 +292,62 @@ export default function Dashboard({ mode }: { mode: string }) {
         </div>
       </aside>
 
-      {tab === "subscribers" ? (
+      {tab === "applications" ? (
+        <section className="admin-subs">
+          <div className="admin-editor-head">
+            <div>
+              <span className="t-label">Partner With Us</span>
+              <h1 className="t-title md">
+                <ZText>Applications</ZText>
+              </h1>
+            </div>
+            <div className="hero-actions" style={{ marginTop: 0 }}>
+              <select className="select" value={appFilter} onChange={(e) => setAppFilter(e.target.value)} style={{ width: "auto" }}>
+                <option value="all">All types</option>
+                {Array.from(new Set((apps ?? []).map((a) => a.track))).map((t) => (
+                  <option key={t} value={t}>
+                    {apps!.find((a) => a.track === t)!.trackName}
+                  </option>
+                ))}
+              </select>
+              <button className="btn" onClick={loadApps}>
+                Refresh
+              </button>
+            </div>
+          </div>
+          <Divider variant="notched" align="left" />
+          {!apps ? (
+            <p className="t-muted">Loading…</p>
+          ) : apps.length === 0 ? (
+            <p className="t-muted">No applications yet. Every new one also arrives by email.</p>
+          ) : (
+            <div className="admin-apps">
+              {apps
+                .filter((a) => appFilter === "all" || a.track === appFilter)
+                .map((a) => (
+                  <details key={a.id} className="admin-app">
+                    <summary>
+                      <span className="chip">{a.trackName}</span>
+                      <strong>{a.answers.company || a.answers.name}</strong>
+                      <span className="admin-row-meta">{new Date(a.at).toLocaleString()}</span>
+                    </summary>
+                    <dl>
+                      {Object.entries(a.answers).map(([k, v]) => (
+                        <div key={k}>
+                          <dt>{a.labels[k] ?? k}</dt>
+                          <dd>{/^https?:\/\//.test(v) ? <a href={v} target="_blank" rel="noopener noreferrer">{v}</a> : v}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <button className="prompt" onClick={() => removeApp(a.id)} style={{ background: "none", border: 0, color: "#ffc2c2", cursor: "pointer" }}>
+                      Delete
+                    </button>
+                  </details>
+                ))}
+            </div>
+          )}
+        </section>
+      ) : tab === "subscribers" ? (
         <section className="admin-subs">
           <div className="admin-editor-head">
             <div>

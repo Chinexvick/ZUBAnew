@@ -303,3 +303,10 @@
     grid-column: 1 / -1;
   }
 }
+.admin-apps { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.admin-app { border: 1px solid var(--line-dim); border-radius: 12px; background: rgba(10, 6, 22, 0.5); padding: 12px 16px; }
+.admin-app summary { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; cursor: pointer; }
+.admin-app summary .admin-row-meta { margin-left: auto; }
+.admin-app dl { display: grid; gap: 10px; margin: 14px 0; }
+.admin-app dt { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lav); }
+.admin-app dd { margin: 2px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }

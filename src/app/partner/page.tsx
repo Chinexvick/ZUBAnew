@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { art } from "@/content/art";
-import { site } from "@/lib/site";
 import { Heading, Runes, ZText } from "@/components/ui/Glyphs";
 import PartnerForm from "./PartnerForm";
 
@@ -50,7 +49,7 @@ export default function PartnerPage() {
             <a href="#paths" className="btn primary">
               Choose your path
             </a>
-            <a href={site.socials.telegram.url} className="btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://t.me/buildwithvicky" className="btn" target="_blank" rel="noopener noreferrer">
               Talk to us on Telegram
             </a>
           </div>

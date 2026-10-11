@@ -11,7 +11,7 @@ export const site = {
   chain: "BNB Smart Chain (BEP-20)",
   socials: {
     x: { label: "X", handle: "@zubatoken", url: "https://x.com/zubatoken" },
-    telegram: { label: "Telegram", handle: "ZUBA Community", url: "https://t.me/zubacommunitychat" },
+    telegram: { label: "Telegram", handle: "ZUBA Community", url: "https://t.me/zubatokenchat" },
     whatsapp: { label: "WhatsApp", handle: "ZUBA Community", url: "https://chat.whatsapp.com/CnHq8ujSJCVEpTtT5ih4cZ" },
   },
   links: {

@@ -52,7 +52,7 @@ export default function Community() {
                     <h2 className="t-title md">
                       <ZText>{key === "x" ? "X (Twitter)" : label}</ZText>
                     </h2>
-                    <span className="hl">{key === "telegram" ? "t.me/zubacommunitychat" : key === "whatsapp" ? "Village group chat" : handle}</span>
+                    <span className="hl">{key === "telegram" ? "t.me/zubatokenchat" : key === "whatsapp" ? "Village group chat" : handle}</span>
                     <Divider variant="simple" />
                     <p className="t-muted" style={{ margin: 0 }}>
                       {blurbs[key]}

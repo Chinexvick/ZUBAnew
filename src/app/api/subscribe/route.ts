@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { welcomeEmail } from "@/lib/emails";
 import { mailEnabled, sendMail } from "@/lib/mailer";
+import { adminEmails } from "@/lib/auth";
 import { addSubscriber, allowOnce, normalizeEmail, subscribersEnabled, unsubscribeUrl } from "@/lib/subscribers";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +26,13 @@ export async function POST(req: Request) {
     if (isNew) {
       const unsub = unsubscribeUrl(email);
       await sendMail({ to: email, ...welcomeEmail(unsub), unsubscribeUrl: unsub }).catch((e) => console.error("Welcome email failed", e));
+      const team = Array.from(new Set([process.env.SMTP_USER, ...adminEmails()].filter(Boolean) as string[])).join(", ");
+      await sendMail({
+        to: team,
+        subject: `New Dev Notes subscriber: ${email}`,
+        html: `<p style="font-family:Arial,sans-serif">New Dev Notes subscriber: <b>${email}</b><br>Source: ${source}<br>Time: ${new Date().toISOString()}</p>`,
+        text: `New Dev Notes subscriber: ${email}\nSource: ${source}`,
+      }).catch((e) => console.error("Team notice failed", e));
     }
     return NextResponse.json({ ok: true, already: !isNew });
   } catch (e) {
