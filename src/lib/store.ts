@@ -14,6 +14,8 @@ export const CONTENT_FILES: Record<ContentType, string> = {
   blog: "content/blog.json",
 };
 
+const deletedFile = (type: ContentType) => `content/${type}-deleted.json`;
+
 const GH_API = "https://api.github.com";
 
 function gh() {
@@ -62,8 +64,13 @@ export async function readItems(type: ContentType): Promise<unknown[]> {
   const file = CONTENT_FILES[type];
   const mode = storageMode();
   if (mode === "blob") {
-    // Until the first save, the repo's JSON is the source.
-    return (await readJson<unknown[]>(file)) ?? readDisk(type);
+    // The live store wins; entries added to the repo's JSON later are merged in unless deleted in the admin.
+    const live = await readJson<{ slug: string }[]>(file);
+    if (!live) return readDisk(type);
+    const deleted = new Set((await readJson<string[]>(deletedFile(type))) ?? []);
+    const have = new Set(live.map((i) => i.slug));
+    const extra = ((await readDisk(type)) as { slug: string }[]).filter((i) => !have.has(i.slug) && !deleted.has(i.slug));
+    return [...live, ...extra];
   }
   if (mode === "github") {
     const r = await ghGet(file);
@@ -75,7 +82,17 @@ export async function readItems(type: ContentType): Promise<unknown[]> {
 export async function writeItems(type: ContentType, items: unknown[], message: string) {
   const file = CONTENT_FILES[type];
   const mode = storageMode();
-  if (mode === "blob") return writeJson(file, items);
+  if (mode === "blob") {
+    // Remember entries removed in the admin so repo seeds don't bring them back.
+    const before = ((await readItems(type)) as { slug: string }[]).map((i) => i.slug);
+    const now = new Set((items as { slug: string }[]).map((i) => i.slug));
+    const removed = before.filter((sl) => !now.has(sl));
+    if (removed.length) {
+      const prev = (await readJson<string[]>(deletedFile(type))) ?? [];
+      await writeJson(deletedFile(type), Array.from(new Set([...prev, ...removed])));
+    }
+    return writeJson(file, items);
+  }
   const text = JSON.stringify(items, null, 2) + "\n";
   if (mode === "github") return ghPut(file, Buffer.from(text).toString("base64"), message);
   await fs.writeFile(path.join(process.cwd(), file), text, "utf8");
