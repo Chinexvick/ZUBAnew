@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getDevNote, getDevNotes, formatDate, renderMarkdown } from "@/lib/content";
 import { phases } from "@/content/roadmap";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
+import Share from "@/components/Share";
+import { siteUrl } from "@/lib/mailer";
 
 type Params = { slug: string };
 
@@ -13,7 +15,16 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const n = await getDevNote((await params).slug);
-  return n ? { title: n.title, description: n.summary } : {};
+  if (!n) return {};
+  const url = `/dev-notes/${n.slug}`;
+  const image = "/email/notes-banner.jpg";
+  return {
+    title: n.title,
+    description: n.summary,
+    alternates: { canonical: url },
+    openGraph: { type: "article", title: `Dev Note: ${n.title}`, description: n.summary, url, images: [{ url: image, width: 1200, height: 520, alt: n.title }], publishedTime: n.date },
+    twitter: { card: "summary_large_image", title: `Dev Note: ${n.title}`, description: n.summary, images: [image] },
+  };
 }
 
 const statusLabel = { cleared: "Cleared", "in-progress": "In Progress", planned: "Planned" } as const;
@@ -104,6 +115,7 @@ export default async function DevNotePage({ params }: { params: Promise<Params> 
             </p>
           </div>
         </article>
+        <Share url={`${siteUrl()}/dev-notes/${n.slug}`} title={`Dev Note: ${n.title}`} />
 
         <nav className="hero-actions" style={{ justifyContent: "space-between", marginTop: 30 }}>
           {older ? (

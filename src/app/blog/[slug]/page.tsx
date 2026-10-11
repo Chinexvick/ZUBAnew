@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getPost, getPosts, formatDate, renderMarkdown } from "@/lib/content";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 import { art } from "@/content/art";
+import Share from "@/components/Share";
+import { siteUrl } from "@/lib/mailer";
 
 const FALLBACK = ["anansi-backdrop", "zuba-game-backdrop", "impundulu-backdrop", "oware-backdrop", "grootslang-backdrop"];
 
@@ -15,7 +17,16 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const p = await getPost((await params).slug);
-  return p ? { title: p.title, description: p.excerpt, openGraph: { images: p.cover ? [p.cover] : [] } } : {};
+  if (!p) return {};
+  const image = p.cover || art(FALLBACK[p.slug.length % FALLBACK.length]);
+  const url = `/blog/${p.slug}`;
+  return {
+    title: p.title,
+    description: p.excerpt,
+    alternates: { canonical: url },
+    openGraph: { type: "article", title: p.title, description: p.excerpt, url, images: [{ url: image, alt: p.title }], publishedTime: p.date, authors: [p.author] },
+    twitter: { card: "summary_large_image", title: p.title, description: p.excerpt, images: [image] },
+  };
 }
 
 export default async function PostPage({ params }: { params: Promise<Params> }) {
@@ -45,6 +56,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
           {p.excerpt}
         </p>
         <div className="prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(p.body) }} />
+        <Share url={`${siteUrl()}/blog/${p.slug}`} title={p.title} />
         <Divider variant="diamond" />
         <div className="center stack" style={{ marginTop: 30 }}>
           <Runes text="Next" />

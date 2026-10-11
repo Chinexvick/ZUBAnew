@@ -1973,3 +1973,25 @@
     font-size: 0.9rem;
   }
 }
+
+/* ---------- share ---------- */
+.share {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 34px 0 10px;
+  padding: 18px 20px;
+  border: 1.5px solid var(--line-dim);
+  border-radius: 14px;
+  background: rgba(20, 12, 40, 0.55);
+}
+.share-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.share .btn {
+  padding: 9px 18px;
+  font-size: 0.78rem;
+  gap: 8px;
+}

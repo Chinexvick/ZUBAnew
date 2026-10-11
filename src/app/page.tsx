@@ -188,7 +188,7 @@ export default function Home() {
       </section>
 
       {/* ============ PARTNERS ============ */}
-      <section className="section h-partners">
+      <section className="section h-partners" id="allies">
         <div className="container">
           <Heading runes="Allies" title="Allies of the Village" size="md" lead="Projects and communities building alongside ZUBA." />
           <PartnerRows items={partners} />

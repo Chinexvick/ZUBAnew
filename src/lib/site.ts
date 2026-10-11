@@ -102,4 +102,5 @@ export const nav = [
   { href: "/dev-notes", label: "Dev Notes" },
   { href: "/blog", label: "Blog" },
   { href: "/community", label: "Community" },
+  { href: "/partner", label: "Partner With Us" },
 ];

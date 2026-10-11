@@ -5,7 +5,7 @@ import { getDevNotes, getPosts } from "@/lib/content";
 const BASE = "https://www.zubatoken.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = ["", "/about", "/token", "/whitepaper", "/theatre", "/roadmap", "/dev-notes", "/blog", "/community"].map((p) => ({
+  const pages = ["", "/about", "/token", "/whitepaper", "/theatre", "/roadmap", "/dev-notes", "/blog", "/community", "/partner"].map((p) => ({
     url: `${BASE}${p}`,
     changeFrequency: "weekly" as const,
     priority: p === "" ? 1 : 0.8,
