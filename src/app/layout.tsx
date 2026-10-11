@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import World from "@/components/World";
 import SiteChrome from "@/components/SiteChrome";
 import SubscribePopup from "@/components/Subscribe";
+import Music from "@/components/Music";
 import { site } from "@/lib/site";
 
 const josefin = Josefin_Sans({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-josefin" });
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </SiteChrome>
         <SubscribePopup />
+        <Music />
       </body>
     </html>
   );
