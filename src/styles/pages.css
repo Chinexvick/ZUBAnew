@@ -1995,3 +1995,19 @@
   font-size: 0.78rem;
   gap: 8px;
 }
+
+/* ---------- comments ---------- */
+.cm { margin: 50px 0 20px; scroll-margin-top: calc(var(--nav-h) + 20px); }
+.cm .t-title { margin: 8px 0 0; }
+.cm-list { list-style: none; padding: 0; margin: 24px 0; display: flex; flex-direction: column; gap: 14px; }
+.cm-item { display: flex; gap: 14px; padding: 16px 18px; border: 1.5px solid var(--line-dim); border-radius: 14px; background: rgba(20, 12, 40, 0.55); }
+.cm-item.team { border-color: rgba(255, 182, 39, 0.5); }
+.cm-avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-title); font-weight: 700; color: #fff; background: linear-gradient(160deg, #9b46ff, #4a1d8f); border: 1.5px solid var(--line); }
+.cm-body { min-width: 0; flex: 1; }
+.cm-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem; }
+.cm-meta strong { color: #fff; }
+.cm-body p { margin: 6px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; }
+.cm-del { margin-left: auto; background: none; border: 0; color: #ffc2c2; cursor: pointer; font: inherit; font-size: 0.8rem; }
+.cm-form { display: flex; flex-direction: column; gap: 14px; padding: 20px; border: 1.6px solid var(--line); border-radius: 16px; background: var(--panel); }
+.cm-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.cm-note { font-size: 0.85rem; }

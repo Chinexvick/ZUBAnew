@@ -5,6 +5,7 @@ import { getPost, getPosts, formatDate, renderMarkdown } from "@/lib/content";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 import { art } from "@/content/art";
 import Share from "@/components/Share";
+import Comments from "@/components/Comments";
 import { siteUrl } from "@/lib/mailer";
 
 const FALLBACK = ["anansi-backdrop", "zuba-game-backdrop", "impundulu-backdrop", "oware-backdrop", "grootslang-backdrop"];
@@ -57,6 +58,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
         </p>
         <div className="prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(p.body) }} />
         <Share url={`${siteUrl()}/blog/${p.slug}`} title={p.title} />
+        <Comments kind="blog" slug={p.slug} />
         <Divider variant="diamond" />
         <div className="center stack" style={{ marginTop: 30 }}>
           <Runes text="Next" />

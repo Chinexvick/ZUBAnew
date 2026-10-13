@@ -5,6 +5,7 @@ import { getDevNote, getDevNotes, formatDate, renderMarkdown } from "@/lib/conte
 import { phases } from "@/content/roadmap";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 import Share from "@/components/Share";
+import Comments from "@/components/Comments";
 import { siteUrl } from "@/lib/mailer";
 
 type Params = { slug: string };
@@ -116,6 +117,9 @@ export default async function DevNotePage({ params }: { params: Promise<Params> 
           </div>
         </article>
         <Share url={`${siteUrl()}/dev-notes/${n.slug}`} title={`Dev Note: ${n.title}`} />
+        <div style={{ maxWidth: 820 }}>
+          <Comments kind="devnotes" slug={n.slug} />
+        </div>
 
         <nav className="hero-actions" style={{ justifyContent: "space-between", marginTop: 30 }}>
           {older ? (
