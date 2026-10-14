@@ -49,9 +49,6 @@ export default function PartnerPage() {
             <a href="#paths" className="btn primary">
               Choose your path
             </a>
-            <a href="https://t.me/buildwithvicky" className="btn" target="_blank" rel="noopener noreferrer">
-              Talk to us on Telegram
-            </a>
           </div>
         </div>
       </section>
