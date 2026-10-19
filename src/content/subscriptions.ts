@@ -16,7 +16,8 @@ export const perks = [
   { t: "160 extra Kitendawili riddles", d: "Riddle levels 41 to 200, the hardest riddles of the elders, plus Elder and Sage live rooms." },
   { t: "Every Zuba Boom level", d: "Unlock level 7 and beyond with tougher puzzles and bigger stars." },
   { t: "All Zuba Run cities", d: "Run past chapter 2 into every African city and face every boss." },
-  { t: "Every animated story", d: "Watch all the Premium African folk tales and films in the app." },
+  { t: "Every illustrated story", d: "Read all the Premium folktales, legends and hero stories in the Story Theatre." },
+  { t: "Unlimited hearts", d: "Keep learning without running out of hearts in lessons." },
 ];
 
 export type PremiumRequest = {
