@@ -38,10 +38,11 @@ addEventListener("message", eventListener);
 if (!window._flutter) {
   window._flutter = {};
 }
-_flutter.buildConfig = {"engineRevision":"deb287481e3ce9468f3434937ced4240a70539ca","wasmHashes":{"skwasm_heavy.wasm":"565f5cc1cca6ab120f11934b105f01fec4b58b480c82e0889dca93af8e6f8635","chromium/canvaskit.wasm":"ae8ff1d858140f7b1300ced3fa89fb8c9dce0a400a0f4f1e11f6dcfb3315fdcf","webparagraph/canvaskit.wasm":"0ce1b05082efdc8529550e8a01f6ff0593972d55525035010e26f5600aa9f254","skwasm.wasm":"e540fd5e8303b7b68ec2718cb49e9c421f8ade3075b15e02a7059a62654df9a1","canvaskit.wasm":"fbed517a43e82452404446683f00f2e876d835aed84410695759e67b6bb01cd3","wimp.wasm":"e924eaafd801d41e017d178f3fd5cf8a417f641fe35c9ed34a4e1d7582283e0c","assets/packages/forge2d/lib/src/backend/wasm/box2d.wasm":"33cfc1f30ef9aa3ea869e9ace167c6d7793ba47f75b6c9f8ef63f0ffa7da4c79","main.dart.wasm":"48f4fb4461d91c759388efbd07a0e94acf20319425235ed368c4bec1c22e62e9"},"builds":[{"compileTarget":"dart2wasm","renderer":"skwasm","mainWasmPath":"main.dart.wasm","jsSupportRuntimePath":"main.dart.mjs"},{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"}],"useLocalCanvasKit":true};
+_flutter.buildConfig = {"engineRevision":"deb287481e3ce9468f3434937ced4240a70539ca","wasmHashes":{"skwasm_heavy.wasm":"565f5cc1cca6ab120f11934b105f01fec4b58b480c82e0889dca93af8e6f8635","chromium/canvaskit.wasm":"ae8ff1d858140f7b1300ced3fa89fb8c9dce0a400a0f4f1e11f6dcfb3315fdcf","webparagraph/canvaskit.wasm":"0ce1b05082efdc8529550e8a01f6ff0593972d55525035010e26f5600aa9f254","skwasm.wasm":"e540fd5e8303b7b68ec2718cb49e9c421f8ade3075b15e02a7059a62654df9a1","canvaskit.wasm":"fbed517a43e82452404446683f00f2e876d835aed84410695759e67b6bb01cd3","wimp.wasm":"e924eaafd801d41e017d178f3fd5cf8a417f641fe35c9ed34a4e1d7582283e0c","assets/packages/forge2d/lib/src/backend/wasm/box2d.wasm":"33cfc1f30ef9aa3ea869e9ace167c6d7793ba47f75b6c9f8ef63f0ffa7da4c79","main.dart.wasm":"588ee2b02dca21a0c3ee68d28b633748d41a40747ff58e84d7879a0139be1c75"},"builds":[{"compileTarget":"dart2wasm","renderer":"skwasm","mainWasmPath":"main.dart.wasm","jsSupportRuntimePath":"main.dart.mjs"},{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"}],"useLocalCanvasKit":true};
 
+
+// ZUBA Arcade: the game engine draws on one thread. The multi-threaded mode dropped or overlapped
+// letters on some phones (measured: 12 of 36 test frames lost letters; 0 of 36 on one thread).
 _flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "3588008262" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */
-  }
+  config: { forceSingleThreadedSkwasm: true },
 });

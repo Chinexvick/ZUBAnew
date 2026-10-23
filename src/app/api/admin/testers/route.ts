@@ -10,7 +10,7 @@ export const maxDuration = 60;
 
 /* Emails everyone who applied as a tester that the games are live (zubatoken.com/play).
    Resumable: the addresses already emailed are saved after every send, so nobody gets it twice.
-   Allowed for a signed-in admin, or with the private OPS_KEY (key=... or x-ops-key header).
+   Allowed for a signed-in admin, or with the private OPS_KEY in the x-ops-key header.
      GET            → status: how many testers, how many have an email, who still needs a message
      action=test    → send the invite to the admin address(es) only
      action=send    → send the next batch (call until done) */
@@ -22,7 +22,8 @@ type Tester = { name: string; email: string | null; contact: string; social: str
 async function allowed(req: Request) {
   if (await isAdmin()) return true;
   const key = process.env.OPS_KEY || "";
-  const got = new URL(req.url).searchParams.get("key") || req.headers.get("x-ops-key") || "";
+  // Header only: a key in the address would end up in server and proxy logs.
+  const got = req.headers.get("x-ops-key") || "";
   return key.length >= 32 && got.length === key.length && safeEqual(got, key);
 }
 
