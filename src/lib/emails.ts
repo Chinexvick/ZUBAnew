@@ -64,7 +64,7 @@ function panel(title: string, inner: string) {
 ${inner}</td></tr></table>`;
 }
 
-function layout(opts: { preheader: string; banner: string; bannerAlt: string; body: string; unsubscribe?: string }) {
+function layout(opts: { preheader: string; banner: string; bannerAlt: string; body: string; unsubscribe?: string; reason?: string }) {
   const url = siteUrl();
   const socials = [
     ["X", site.socials.x.url],
@@ -111,7 +111,7 @@ ${runeLine}
 $ZUBA on BNB Smart Chain<br><span style="font-family:Consolas,Menlo,monospace;font-size:11px;color:${C.soft}">${CONTRACT}</span>
 </div>
 <div style="margin-top:14px;font-family:${BODY};font-size:12px;line-height:1.6;color:${C.muted}">
-You're receiving this because you subscribed to ZUBA Dev Notes at <a href="${url}" style="color:${C.soft}">zubatoken.com</a>.
+${opts.reason ?? `You're receiving this because you subscribed to ZUBA Dev Notes at <a href="${url}" style="color:${C.soft}">zubatoken.com</a>.`}
 ${opts.unsubscribe ? `<br><a href="${opts.unsubscribe}" style="color:${C.muted};text-decoration:underline">Unsubscribe</a>` : ""}
 </div>
 <div style="margin-top:10px;font-family:${BODY};font-size:11px;color:#6f6290">Nothing in this email is financial advice.</div>
@@ -222,4 +222,64 @@ ${para(`<span style="color:${C.muted};font-size:14px">If you didn't ask for this
     html,
     text: `Open the ZUBA Workbench (expires in 15 minutes): ${link}\n\nIf you didn't ask for this, ignore this email.`,
   };
+}
+
+/* Invitation for people who applied to be testers: the new games are playable on the website. */
+export function testerInviteEmail(name: string) {
+  const url = siteUrl();
+  const first = (name || "").trim().split(/\s+/)[0] || "tester";
+  const html = layout({
+    preheader: "Six ZUBA games are live on the website. Sign in and help us test them.",
+    banner: "arcade.jpg",
+    bannerAlt: "ZUBA Arcade: Zuba the pup leaping through six African game worlds",
+    reason: `You're receiving this because you applied to be a ZUBA tester at <a href="${url}/partner" style="color:${C.soft}">zubatoken.com/partner</a>.`,
+    body: `${label("Tester call")}
+${heading("The games are ready for you")}
+${para(`Hi ${esc(first)}, thank you for signing up to test ZUBA games. Your first test round is open: <strong style="color:#fff">six games you can play right now in your browser</strong>, no download needed.`)}
+${panel(
+  "What to test",
+  list(
+    [
+      "Zuba Kingdom: build your village, grow your people, rise to Emperor.",
+      "Ayo: the Yoruba seed game. Beat three elders or play live opponents from anywhere in the world.",
+      "Zuba Run, Zuba Boom, Zuba Quiz and Kitendawili riddles.",
+    ],
+    "&#9670;",
+    C.violet
+  )
+)}
+${panel(
+  "How to start",
+  list(
+    [
+      "Open zubatoken.com/play on your phone or computer.",
+      "Sign in with your Zualingo account, or create one in a minute. Your levels and ZUBA are the same on the web and in the app.",
+      "Play, then reply to this email with anything that felt slow, broken or confusing. Screenshots help a lot.",
+    ],
+    "&#9656;",
+    C.gold
+  )
+)}
+<div style="height:28px;line-height:28px">&nbsp;</div>
+${button(`${url}/play`, "Play the games")}
+<p style="margin:22px 0 0;text-align:center;font-family:${BODY};font-size:14px;color:${C.muted}">
+Testers who report bugs are rewarded in $ZUBA, as promised. Thank you for helping us build.
+</p>`,
+  });
+  const text = `TESTER CALL: The games are ready for you
+
+Hi ${first}, thank you for signing up to test ZUBA games. Your first test round is open: six games you can play right now in your browser.
+
+What to test:
+- Zuba Kingdom: build your village, grow your people, rise to Emperor.
+- Ayo: the Yoruba seed game. Beat three elders or play live opponents from anywhere in the world.
+- Zuba Run, Zuba Boom, Zuba Quiz and Kitendawili riddles.
+
+How to start:
+1. Open ${url}/play on your phone or computer.
+2. Sign in with your Zualingo account, or create one in a minute.
+3. Play, then reply to this email with anything that felt slow, broken or confusing.
+
+Testers who report bugs are rewarded in $ZUBA. Thank you for helping us build.`;
+  return { subject: "Tester call: six ZUBA games are live. Come play and test", html, text };
 }

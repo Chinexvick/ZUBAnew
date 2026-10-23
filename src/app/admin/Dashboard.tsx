@@ -52,6 +52,33 @@ export default function Dashboard({ mode }: { mode: string }) {
   const [subs, setSubs] = useState<Subs | null>(null);
   const [apps, setApps] = useState<Application[] | null>(null);
   const [appFilter, setAppFilter] = useState("all");
+  const [invite, setInvite] = useState<{ total: number; withEmail: number; emailed: number; remaining: number; noEmail: { name: string; contact: string }[] } | null>(null);
+  const [inviting, setInviting] = useState(false);
+  const loadInvite = useCallback(async () => {
+    const res = await fetch("/api/admin/testers", { cache: "no-store" });
+    if (res.ok) setInvite(await res.json());
+  }, []);
+  const sendInvites = async (action: "test" | "send") => {
+    setInviting(true);
+    try {
+      for (let i = 0; i < 30; i++) {
+        const res = await fetch("/api/admin/testers", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
+        const j = await res.json();
+        if (!res.ok) throw new Error(j.error || "Failed");
+        if (action === "test") {
+          setToast({ kind: "ok", text: "Test invite sent to your admin email" });
+          break;
+        }
+        setInvite(j);
+        setToast({ kind: "ok", text: `Testers emailed: ${j.emailed} of ${j.withEmail}` });
+        if (j.done) break;
+      }
+    } catch (e) {
+      setToast({ kind: "err", text: (e as Error).message });
+    } finally {
+      setInviting(false);
+    }
+  };
 
   const loadApps = useCallback(async () => {
     const res = await fetch("/api/admin/applications", { cache: "no-store" });
@@ -436,6 +463,25 @@ export default function Dashboard({ mode }: { mode: string }) {
             </div>
           </div>
           <Divider variant="notched" align="left" />
+          <div className="admin-card" style={{ marginBottom: 18, padding: 16, border: "1px solid var(--line-dim)", borderRadius: 14 }}>
+            <strong>Testers: invite them to play the games</strong>
+            <p className="t-muted" style={{ margin: "6px 0 10px" }}>
+              Emails every tester who gave an email address that the games are live at zubatoken.com/play. Nobody is emailed twice.
+              {invite ? ` ${invite.total} testers, ${invite.withEmail} with email, ${invite.emailed} emailed, ${invite.remaining} left.` : ""}
+            </p>
+            <div className="hero-actions" style={{ marginTop: 0 }}>
+              <button className="btn" onClick={loadInvite} disabled={inviting}>Check</button>
+              <button className="btn" onClick={() => sendInvites("test")} disabled={inviting}>Send me a test</button>
+              <button className="btn primary" onClick={() => sendInvites("send")} disabled={inviting || invite?.remaining === 0}>
+                {inviting ? "Sending…" : "Email testers"}
+              </button>
+            </div>
+            {invite && invite.noEmail.length > 0 && (
+              <p className="t-muted" style={{ marginTop: 10, fontSize: "0.9rem" }}>
+                No email (message them on Telegram/WhatsApp): {invite.noEmail.map((t) => `${t.name} (${t.contact})`).join(", ")}
+              </p>
+            )}
+          </div>
           {!apps ? (
             <p className="t-muted">Loading…</p>
           ) : apps.length === 0 ? (

@@ -1,7 +1,7 @@
 import { games } from "@/content/theatre";
 import { Runes, ZText } from "./ui/Glyphs";
 
-/* The ZUBA Arcade banner: five games playable in the browser with a Zualingo account.
+/* The ZUBA Arcade banner: six games playable in the browser with a Zualingo account.
    Links are plain <a> because /play is a separate (Flutter) app, not a Next.js page. */
 export default function ArcadeBanner({ compact = false }: { compact?: boolean }) {
   return (
@@ -14,10 +14,10 @@ export default function ArcadeBanner({ compact = false }: { compact?: boolean })
         <h2 className="t-title lg arcade-title">
           <ZText>ZUBA Arcade</ZText>
         </h2>
-        <p className="arcade-sub">Five games · One account · Real ZUBA</p>
+        <p className="arcade-sub">Six games · One account · Real ZUBA</p>
         {!compact && (
           <p className="t-lead arcade-lead">
-            Build a kingdom, run through the Shadows of Africa, blast stone forts, solve riddles and battle friends in live quizzes. Already on the
+            Build a kingdom, outwit the elders at Ayò, play live opponents worldwide, run through the Shadows of Africa, blast stone forts, solve riddles and battle friends in live quizzes. Already on the
             Zualingo app? Sign in with the same email and password and carry on exactly where you left off.
           </p>
         )}

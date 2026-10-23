@@ -24,7 +24,7 @@ const homeFaq = [
 
 const worlds = [
   { href: "/theatre#films", label: "Watch", title: "Animated Legends", line: "Gods, tricksters and heroes, drawn by African hands.", img: () => art("sundiata-still-2") },
-  { href: "/theatre#games", label: "Play", title: "African Games", line: "Five games, free in your browser. Play them now.", img: () => "/media/games/arcade-banner.webp" },
+  { href: "/theatre#games", label: "Play", title: "African Games", line: "Six games, free in your browser. Play them now.", img: () => "/media/games/arcade-banner.webp" },
   { href: "/community", label: "Own", title: "Owned by Holders", line: "The village backs, shapes and grows the universe.", img: () => art("anansi-still-2") },
 ];
 
