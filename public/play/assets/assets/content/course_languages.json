@@ -1,0 +1,12162 @@
+[
+ {
+  "name": "Yoruba",
+  "code": "yo",
+  "region": "Nigeria · Benin · Togo",
+  "about": "A tonal language of south-west Nigeria with a rich tradition of praise poetry (oriki), proverbs and talking drums. Spoken by tens of millions of people.",
+  "phrases": [
+   [
+    "Ẹ n lẹ́ o",
+    "Hello",
+    "eh n LEH oh"
+   ],
+   [
+    "Ẹ káàárọ̀",
+    "Good morning",
+    "eh KAH-ah-ro"
+   ],
+   [
+    "Ẹ káàsán",
+    "Good afternoon",
+    "eh KAH-ah-sahn"
+   ],
+   [
+    "Ẹ káalẹ́",
+    "Good evening",
+    "eh KAH-ah-leh"
+   ],
+   [
+    "Báwo ni?",
+    "How are you?",
+    "BAH-wo nee"
+   ],
+   [
+    "Mo wà dáadáa",
+    "I am fine",
+    "mo wah DAH-ah-DAH-ah"
+   ],
+   [
+    "Ẹ ṣé",
+    "Thank you",
+    "eh SHEH"
+   ],
+   [
+    "Ẹ ṣé púpọ̀",
+    "Thank you very much",
+    "eh SHEH POO-paw"
+   ],
+   [
+    "Jọ̀ọ́",
+    "Please",
+    "JAW-aw"
+   ],
+   [
+    "Ẹ má bínú",
+    "Sorry",
+    "eh mah BEE-noo"
+   ],
+   [
+    "Ó dàbọ̀",
+    "Goodbye",
+    "oh DAH-baw"
+   ],
+   [
+    "Ó dì ọ̀la",
+    "See you tomorrow",
+    "oh dee AW-lah"
+   ],
+   [
+    "Kí ni orúkọ rẹ?",
+    "What is your name?",
+    "kee nee o-ROO-kaw reh"
+   ],
+   [
+    "Orúkọ mi ni Túndé",
+    "My name is Tunde",
+    "o-ROO-kaw mee nee TOON-deh"
+   ],
+   [
+    "Orúkọ mi ni Fúnmiláyọ̀",
+    "My name is Funmilayo",
+    "o-ROO-kaw mee nee FOON-mee-LAH-yaw"
+   ],
+   [
+    "Inú mi dùn láti pàdé rẹ",
+    "Nice to meet you",
+    "ee-NOO mee doon LAH-tee PAH-deh reh"
+   ],
+   [
+    "Ibo ni o ti wá?",
+    "Where are you from?",
+    "ee-BO nee oh tee WAH"
+   ],
+   [
+    "Mo wá láti Nàìjíríà",
+    "I am from Nigeria",
+    "mo WAH LAH-tee nah-ee-JEE-ree-ah"
+   ],
+   [
+    "Mo ń gbé ní Èkó",
+    "I live in Lagos",
+    "mo n GBEH nee EH-ko"
+   ],
+   [
+    "Ẹ káàbọ̀",
+    "Welcome",
+    "eh KAH-ah-baw"
+   ],
+   [
+    "Ṣé o ń sọ èdè Gẹ̀ẹ́sì?",
+    "Do you speak English?",
+    "sheh oh n saw EH-deh GEH-eh-see"
+   ],
+   [
+    "Mo ń sọ Yorùbá díẹ̀",
+    "I speak a little Yoruba",
+    "mo n saw yo-ROO-bah DEE-eh"
+   ],
+   [
+    "Kò yé mi",
+    "I don't understand",
+    "kaw YEH mee"
+   ],
+   [
+    "Jọ̀ọ́ tún un sọ",
+    "Please say it again",
+    "JAW-aw toon oon saw"
+   ],
+   [
+    "Ẹbí",
+    "Family",
+    "eh-BEE"
+   ],
+   [
+    "Ìyá",
+    "Mother",
+    "EE-yah"
+   ],
+   [
+    "Bàbá",
+    "Father",
+    "BAH-bah"
+   ],
+   [
+    "Ọmọ",
+    "Child",
+    "AW-maw"
+   ],
+   [
+    "Ìyá àgbà",
+    "Grandmother",
+    "EE-yah AH-gbah"
+   ],
+   [
+    "Bàbá àgbà",
+    "Grandfather",
+    "BAH-bah AH-gbah"
+   ],
+   [
+    "Ọkọ",
+    "Husband",
+    "AW-kaw"
+   ],
+   [
+    "Ìyàwó",
+    "Wife",
+    "ee-YAH-wo"
+   ],
+   [
+    "Ọ̀rẹ́",
+    "Friend",
+    "AW-reh"
+   ],
+   [
+    "Ìyá mi nìyí",
+    "This is my mother",
+    "EE-yah mee NEE-yee"
+   ],
+   [
+    "Báwo ni ẹbí rẹ?",
+    "How is your family?",
+    "BAH-wo nee eh-BEE reh"
+   ],
+   [
+    "Wọ́n wà dáadáa",
+    "They are well",
+    "wawn wah DAH-ah-DAH-ah"
+   ],
+   [
+    "Ọ̀kan",
+    "One",
+    "AW-kahn"
+   ],
+   [
+    "Èjì",
+    "Two",
+    "EH-jee"
+   ],
+   [
+    "Ẹ̀ta",
+    "Three",
+    "EH-tah"
+   ],
+   [
+    "Ẹ̀rin",
+    "Four",
+    "EH-reen"
+   ],
+   [
+    "Àrún",
+    "Five",
+    "AH-roon"
+   ],
+   [
+    "Ẹ̀fà",
+    "Six",
+    "EH-fah"
+   ],
+   [
+    "Èje",
+    "Seven",
+    "EH-jeh"
+   ],
+   [
+    "Ẹ̀jọ",
+    "Eight",
+    "EH-jaw"
+   ],
+   [
+    "Ẹ̀sán",
+    "Nine",
+    "EH-sahn"
+   ],
+   [
+    "Ẹ̀wá",
+    "Ten",
+    "EH-wah"
+   ],
+   [
+    "Èló ni?",
+    "How much is it?",
+    "EH-lo nee"
+   ],
+   [
+    "Owó",
+    "Money",
+    "o-WO"
+   ],
+   [
+    "Omi",
+    "Water",
+    "O-mee"
+   ],
+   [
+    "Oúnjẹ",
+    "Food",
+    "o-OON-jeh"
+   ],
+   [
+    "Ìrẹsì",
+    "Rice",
+    "ee-REH-see"
+   ],
+   [
+    "Ẹran",
+    "Meat",
+    "EH-rahn"
+   ],
+   [
+    "Ẹja",
+    "Fish",
+    "EH-jah"
+   ],
+   [
+    "Ọjà",
+    "Market",
+    "AW-jah"
+   ],
+   [
+    "Ebi ń pa mí",
+    "I am hungry",
+    "EH-bee n pah MEE"
+   ],
+   [
+    "Mo fẹ́ omi",
+    "I want water",
+    "mo FEH o-mee"
+   ],
+   [
+    "Oúnjẹ náà dùn",
+    "The food is delicious",
+    "o-OON-jeh NAH-ah doon"
+   ],
+   [
+    "Ó wọ́n jù",
+    "It is too expensive",
+    "oh WAWN joo"
+   ],
+   [
+    "Jọ̀ọ́ dín owó rẹ̀ kù",
+    "Please reduce the price",
+    "JAW-aw deen o-WO reh koo"
+   ],
+   [
+    "Màá rà á",
+    "I will buy it",
+    "MAH-ah RAH ah"
+   ],
+   [
+    "Ilé",
+    "House",
+    "ee-LEH"
+   ],
+   [
+    "Ilẹ̀kùn",
+    "Door",
+    "ee-LEH-koon"
+   ],
+   [
+    "Yàrá",
+    "Room",
+    "YAH-rah"
+   ],
+   [
+    "Ibùsùn",
+    "Bed",
+    "ee-BOO-soon"
+   ],
+   [
+    "Àga",
+    "Chair",
+    "AH-gah"
+   ],
+   [
+    "Ìwé",
+    "Book",
+    "EE-weh"
+   ],
+   [
+    "Ilé-ìwé",
+    "School",
+    "ee-LEH EE-weh"
+   ],
+   [
+    "Wọlé",
+    "Come in",
+    "waw-LEH"
+   ],
+   [
+    "Jókòó",
+    "Sit down",
+    "JO-ko-o"
+   ],
+   [
+    "Ti ilẹ̀kùn",
+    "Close the door",
+    "tee ee-LEH-koon"
+   ],
+   [
+    "Ibo ni ilé ìgbọ̀nsẹ̀ wà?",
+    "Where is the toilet?",
+    "ee-BO nee ee-LEH ee-GBAWN-seh wah"
+   ],
+   [
+    "Mo ń lọ sílé",
+    "I am going home",
+    "mo n law SEE-leh"
+   ],
+   [
+    "Òní",
+    "Today",
+    "AW-nee"
+   ],
+   [
+    "Ọ̀la",
+    "Tomorrow",
+    "AW-lah"
+   ],
+   [
+    "Àná",
+    "Yesterday",
+    "AH-nah"
+   ],
+   [
+    "Àárọ̀",
+    "Morning",
+    "AH-ah-raw"
+   ],
+   [
+    "Alẹ́",
+    "Night",
+    "ah-LEH"
+   ],
+   [
+    "Nísinsìnyí",
+    "Now",
+    "NEE-seen-SEEN-yee"
+   ],
+   [
+    "Lẹ́yìn náà",
+    "Later",
+    "LEH-yeen NAH-ah"
+   ],
+   [
+    "Oòrùn",
+    "Sun",
+    "o-O-roon"
+   ],
+   [
+    "Òjò",
+    "Rain",
+    "AW-jaw"
+   ],
+   [
+    "Ó gbóná",
+    "It is hot",
+    "oh GBO-nah"
+   ],
+   [
+    "Ó tutù",
+    "It is cold",
+    "oh too-TOO"
+   ],
+   [
+    "Aago mélòó ni?",
+    "What time is it?",
+    "AH-ah-go MEH-lo-o nee"
+   ],
+   [
+    "Kí ni?",
+    "What?",
+    "KEE nee"
+   ],
+   [
+    "Ibo?",
+    "Where?",
+    "ee-BO"
+   ],
+   [
+    "Ta ni?",
+    "Who?",
+    "TAH nee"
+   ],
+   [
+    "Kí ló dé?",
+    "Why?",
+    "KEE lo DEH"
+   ],
+   [
+    "Ìgbà wo?",
+    "When?",
+    "EE-gbah wo"
+   ],
+   [
+    "Wá síbí",
+    "Come here",
+    "WAH SEE-bee"
+   ],
+   [
+    "Jẹ́ ká lọ",
+    "Let's go",
+    "JEH kah law"
+   ],
+   [
+    "Dúró",
+    "Wait",
+    "DOO-ro"
+   ],
+   [
+    "Mo fẹ́ jẹun",
+    "I want to eat",
+    "mo FEH jeh-oon"
+   ],
+   [
+    "Mo fẹ́ sùn",
+    "I want to sleep",
+    "mo FEH soon"
+   ],
+   [
+    "Ibo ni ọjà wà?",
+    "Where is the market?",
+    "ee-BO nee AW-jah wah"
+   ],
+   [
+    "Ta ni yẹn?",
+    "Who is that?",
+    "TAH nee yen"
+   ],
+   [
+    "Inú mi dùn",
+    "I am happy",
+    "ee-NOO mee doon"
+   ],
+   [
+    "Ó rẹ̀ mí",
+    "I am tired",
+    "oh REH MEE"
+   ],
+   [
+    "Ara mi kò yá",
+    "I am sick",
+    "AH-rah mee kaw YAH"
+   ],
+   [
+    "Mo nífẹ̀ẹ́ rẹ",
+    "I love you",
+    "mo NEE-feh-eh reh"
+   ],
+   [
+    "Dáadáa",
+    "Good",
+    "DAH-ah-DAH-ah"
+   ],
+   [
+    "Burú",
+    "Bad",
+    "boo-ROO"
+   ],
+   [
+    "Ńlá",
+    "Big",
+    "n-LAH"
+   ],
+   [
+    "Kékeré",
+    "Small",
+    "KEH-keh-REH"
+   ],
+   [
+    "Orí",
+    "Head",
+    "o-REE"
+   ],
+   [
+    "Ọwọ́",
+    "Hand",
+    "aw-WAW"
+   ],
+   [
+    "Ojú",
+    "Eye",
+    "o-JOO"
+   ],
+   [
+    "Orí ń fọ́ mi",
+    "My head hurts",
+    "o-REE n FAW mee"
+   ],
+   [
+    "Ọ̀nà",
+    "Road",
+    "AW-nah"
+   ],
+   [
+    "Ọkọ̀",
+    "Car",
+    "aw-KAW"
+   ],
+   [
+    "Òsì",
+    "Left",
+    "AW-see"
+   ],
+   [
+    "Ọ̀tún",
+    "Right",
+    "AW-toon"
+   ],
+   [
+    "Ó wà nítòsí",
+    "It is near",
+    "oh wah NEE-to-SEE"
+   ],
+   [
+    "Ó jìnnà",
+    "It is far",
+    "oh JEEN-nah"
+   ],
+   [
+    "Dúró síbí",
+    "Stop here",
+    "DOO-ro SEE-bee"
+   ],
+   [
+    "Lọ tààrà",
+    "Go straight",
+    "law TAH-ah-rah"
+   ],
+   [
+    "Ẹ ràn mí lọ́wọ́!",
+    "Help me!",
+    "eh RAHN mee LAW-waw"
+   ],
+   [
+    "Mo ti sọnù",
+    "I am lost",
+    "mo tee saw-NOO"
+   ],
+   [
+    "Pe dókítà",
+    "Call a doctor",
+    "peh DO-kee-tah"
+   ],
+   [
+    "Ìrìn àjò àláàfíà",
+    "Safe journey",
+    "EE-reen AH-jo ah-LAH-ah-FEE-ah"
+   ]
+  ]
+ },
+ {
+  "name": "Hausa",
+  "code": "ha",
+  "region": "Nigeria · Niger · Ghana",
+  "about": "The trade language of the Sahel. Hausa is a first or second language for tens of millions of people and is heard on radio across West Africa.",
+  "phrases": [
+   [
+    "Sannu",
+    "Hello",
+    "SAHN-noo"
+   ],
+   [
+    "Barka da safiya",
+    "Good morning",
+    "BAR-kah dah sah-FEE-yah"
+   ],
+   [
+    "Barka da rana",
+    "Good afternoon",
+    "BAR-kah dah RAH-nah"
+   ],
+   [
+    "Barka da yamma",
+    "Good evening",
+    "BAR-kah dah YAHM-mah"
+   ],
+   [
+    "Yaya dai?",
+    "How are you?",
+    "YAH-yah DIE"
+   ],
+   [
+    "Lafiya lau",
+    "I am fine",
+    "lah-FEE-yah LOW"
+   ],
+   [
+    "Na gode",
+    "Thank you",
+    "nah GO-deh"
+   ],
+   [
+    "Na gode sosai",
+    "Thank you very much",
+    "nah GO-deh so-SIGH"
+   ],
+   [
+    "Don Allah",
+    "Please",
+    "don AHL-lah"
+   ],
+   [
+    "Yi haƙuri",
+    "Sorry",
+    "yee hah-K'OO-ree"
+   ],
+   [
+    "Sai wani lokaci",
+    "Goodbye",
+    "sigh WAH-nee lo-KAH-chee"
+   ],
+   [
+    "Sai gobe",
+    "See you tomorrow",
+    "sigh GO-beh"
+   ],
+   [
+    "Mene ne sunanka?",
+    "What is your name?",
+    "MEH-neh neh soo-NAHN-kah"
+   ],
+   [
+    "Sunana Musa",
+    "My name is Musa",
+    "soo-NAH-nah MOO-sah"
+   ],
+   [
+    "Sunana Hauwa",
+    "My name is Hauwa",
+    "soo-NAH-nah HOW-wah"
+   ],
+   [
+    "Na yi farin cikin haɗuwa da kai",
+    "Nice to meet you",
+    "nah yee fah-REEN CHEE-keen hah-DOO-wah dah KAI"
+   ],
+   [
+    "Daga ina kake?",
+    "Where are you from?",
+    "DAH-gah EE-nah KAH-keh"
+   ],
+   [
+    "Ni daga Najeriya nake",
+    "I am from Nigeria",
+    "nee DAH-gah nah-JEH-ree-yah NAH-keh"
+   ],
+   [
+    "Ina zaune a Kano",
+    "I live in Kano",
+    "EE-nah ZOW-neh ah KAH-no"
+   ],
+   [
+    "Barka da zuwa",
+    "Welcome",
+    "BAR-kah dah ZOO-wah"
+   ],
+   [
+    "Kana jin Turanci?",
+    "Do you speak English?",
+    "KAH-nah jeen too-RAHN-chee"
+   ],
+   [
+    "Ina jin Hausa kaɗan",
+    "I speak a little Hausa",
+    "EE-nah jeen HOW-sah kah-DAHN"
+   ],
+   [
+    "Ban gane ba",
+    "I don't understand",
+    "bahn GAH-neh bah"
+   ],
+   [
+    "Don Allah ka sake faɗa",
+    "Please say it again",
+    "don AHL-lah kah SAH-keh fah-DAH"
+   ],
+   [
+    "Iyali",
+    "Family",
+    "ee-YAH-lee"
+   ],
+   [
+    "Uwa",
+    "Mother",
+    "OO-wah"
+   ],
+   [
+    "Uba",
+    "Father",
+    "OO-bah"
+   ],
+   [
+    "Ɗa",
+    "Child",
+    "DAH"
+   ],
+   [
+    "Kaka (mace)",
+    "Grandmother",
+    "KAH-kah MAH-cheh"
+   ],
+   [
+    "Kaka (namiji)",
+    "Grandfather",
+    "KAH-kah nah-MEE-jee"
+   ],
+   [
+    "Miji",
+    "Husband",
+    "MEE-jee"
+   ],
+   [
+    "Mata",
+    "Wife",
+    "MAH-tah"
+   ],
+   [
+    "Aboki",
+    "Friend",
+    "ah-BO-kee"
+   ],
+   [
+    "Wannan mahaifiyata ce",
+    "This is my mother",
+    "WAHN-nahn mah-high-fee-YAH-tah cheh"
+   ],
+   [
+    "Yaya iyalinka?",
+    "How is your family?",
+    "YAH-yah ee-yah-LEEN-kah"
+   ],
+   [
+    "Suna lafiya",
+    "They are well",
+    "SOO-nah lah-FEE-yah"
+   ],
+   [
+    "Ɗaya",
+    "One",
+    "DAH-yah"
+   ],
+   [
+    "Biyu",
+    "Two",
+    "bee-YOO"
+   ],
+   [
+    "Uku",
+    "Three",
+    "OO-koo"
+   ],
+   [
+    "Huɗu",
+    "Four",
+    "HOO-doo"
+   ],
+   [
+    "Biyar",
+    "Five",
+    "bee-YAHR"
+   ],
+   [
+    "Shida",
+    "Six",
+    "SHEE-dah"
+   ],
+   [
+    "Bakwai",
+    "Seven",
+    "bah-KWAI"
+   ],
+   [
+    "Takwas",
+    "Eight",
+    "tah-KWAHS"
+   ],
+   [
+    "Tara",
+    "Nine",
+    "TAH-rah"
+   ],
+   [
+    "Goma",
+    "Ten",
+    "GO-mah"
+   ],
+   [
+    "Nawa ne?",
+    "How much is it?",
+    "NAH-wah neh"
+   ],
+   [
+    "Kuɗi",
+    "Money",
+    "KOO-dee"
+   ],
+   [
+    "Ruwa",
+    "Water",
+    "ROO-wah"
+   ],
+   [
+    "Abinci",
+    "Food",
+    "ah-BEEN-chee"
+   ],
+   [
+    "Shinkafa",
+    "Rice",
+    "sheen-KAH-fah"
+   ],
+   [
+    "Nama",
+    "Meat",
+    "NAH-mah"
+   ],
+   [
+    "Kifi",
+    "Fish",
+    "KEE-fee"
+   ],
+   [
+    "Kasuwa",
+    "Market",
+    "kah-SOO-wah"
+   ],
+   [
+    "Ina jin yunwa",
+    "I am hungry",
+    "EE-nah jeen YOON-wah"
+   ],
+   [
+    "Ina son ruwa",
+    "I want water",
+    "EE-nah son ROO-wah"
+   ],
+   [
+    "Abincin yana da daɗi",
+    "The food is delicious",
+    "ah-BEEN-cheen YAH-nah dah DAH-dee"
+   ],
+   [
+    "Ya yi tsada sosai",
+    "It is too expensive",
+    "yah yee TSAH-dah so-SIGH"
+   ],
+   [
+    "Don Allah ka rage farashi",
+    "Please reduce the price",
+    "don AHL-lah kah RAH-geh fah-RAH-shee"
+   ],
+   [
+    "Zan saya",
+    "I will buy it",
+    "zahn SAH-yah"
+   ],
+   [
+    "Gida",
+    "House",
+    "GEE-dah"
+   ],
+   [
+    "Ƙofa",
+    "Door",
+    "K'O-fah"
+   ],
+   [
+    "Ɗaki",
+    "Room",
+    "DAH-kee"
+   ],
+   [
+    "Gado",
+    "Bed",
+    "GAH-do"
+   ],
+   [
+    "Kujera",
+    "Chair",
+    "koo-JEH-rah"
+   ],
+   [
+    "Littafi",
+    "Book",
+    "leet-TAH-fee"
+   ],
+   [
+    "Makaranta",
+    "School",
+    "mah-kah-RAHN-tah"
+   ],
+   [
+    "Shigo",
+    "Come in",
+    "SHEE-go"
+   ],
+   [
+    "Zauna",
+    "Sit down",
+    "ZOW-nah"
+   ],
+   [
+    "Rufe ƙofa",
+    "Close the door",
+    "ROO-feh K'O-fah"
+   ],
+   [
+    "Ina banɗaki yake?",
+    "Where is the toilet?",
+    "EE-nah bahn-DAH-kee YAH-keh"
+   ],
+   [
+    "Zan tafi gida",
+    "I am going home",
+    "zahn TAH-fee GEE-dah"
+   ],
+   [
+    "Yau",
+    "Today",
+    "YOW"
+   ],
+   [
+    "Gobe",
+    "Tomorrow",
+    "GO-beh"
+   ],
+   [
+    "Jiya",
+    "Yesterday",
+    "JEE-yah"
+   ],
+   [
+    "Safiya",
+    "Morning",
+    "sah-FEE-yah"
+   ],
+   [
+    "Dare",
+    "Night",
+    "DAH-reh"
+   ],
+   [
+    "Yanzu",
+    "Now",
+    "YAHN-zoo"
+   ],
+   [
+    "Anjima",
+    "Later",
+    "ahn-JEE-mah"
+   ],
+   [
+    "Rana",
+    "Sun",
+    "RAH-nah"
+   ],
+   [
+    "Ruwan sama",
+    "Rain",
+    "ROO-wahn SAH-mah"
+   ],
+   [
+    "Ana zafi",
+    "It is hot",
+    "AH-nah ZAH-fee"
+   ],
+   [
+    "Ana sanyi",
+    "It is cold",
+    "AH-nah SAHN-yee"
+   ],
+   [
+    "Ƙarfe nawa ne?",
+    "What time is it?",
+    "K'AR-feh NAH-wah neh"
+   ],
+   [
+    "Mene ne?",
+    "What?",
+    "MEH-neh neh"
+   ],
+   [
+    "Ina?",
+    "Where?",
+    "EE-nah"
+   ],
+   [
+    "Wane ne?",
+    "Who?",
+    "WAH-neh neh"
+   ],
+   [
+    "Me ya sa?",
+    "Why?",
+    "meh yah SAH"
+   ],
+   [
+    "Yaushe?",
+    "When?",
+    "YOW-sheh"
+   ],
+   [
+    "Zo nan",
+    "Come here",
+    "zo NAHN"
+   ],
+   [
+    "Mu tafi",
+    "Let's go",
+    "moo TAH-fee"
+   ],
+   [
+    "Jira",
+    "Wait",
+    "JEE-rah"
+   ],
+   [
+    "Ina son cin abinci",
+    "I want to eat",
+    "EE-nah son cheen ah-BEEN-chee"
+   ],
+   [
+    "Ina son barci",
+    "I want to sleep",
+    "EE-nah son BAR-chee"
+   ],
+   [
+    "Ina kasuwa take?",
+    "Where is the market?",
+    "EE-nah kah-SOO-wah TAH-keh"
+   ],
+   [
+    "Wane ne wancan?",
+    "Who is that?",
+    "WAH-neh neh wahn-CHAHN"
+   ],
+   [
+    "Ina farin ciki",
+    "I am happy",
+    "EE-nah fah-REEN CHEE-kee"
+   ],
+   [
+    "Na gaji",
+    "I am tired",
+    "nah GAH-jee"
+   ],
+   [
+    "Ba ni da lafiya",
+    "I am sick",
+    "bah nee dah lah-FEE-yah"
+   ],
+   [
+    "Ina son ka",
+    "I love you",
+    "EE-nah SON kah"
+   ],
+   [
+    "Mai kyau",
+    "Good",
+    "my KYOW"
+   ],
+   [
+    "Mummuna",
+    "Bad",
+    "moom-MOO-nah"
+   ],
+   [
+    "Babba",
+    "Big",
+    "BAHB-bah"
+   ],
+   [
+    "Ƙarami",
+    "Small",
+    "K'AH-rah-mee"
+   ],
+   [
+    "Kai",
+    "Head",
+    "KAI"
+   ],
+   [
+    "Hannu",
+    "Hand",
+    "HAHN-noo"
+   ],
+   [
+    "Ido",
+    "Eye",
+    "EE-do"
+   ],
+   [
+    "Kaina yana ciwo",
+    "My head hurts",
+    "KAI-nah YAH-nah CHEE-wo"
+   ],
+   [
+    "Hanya",
+    "Road",
+    "HAHN-yah"
+   ],
+   [
+    "Mota",
+    "Car",
+    "MO-tah"
+   ],
+   [
+    "Hagu",
+    "Left",
+    "HAH-goo"
+   ],
+   [
+    "Dama",
+    "Right",
+    "DAH-mah"
+   ],
+   [
+    "Yana kusa",
+    "It is near",
+    "YAH-nah KOO-sah"
+   ],
+   [
+    "Yana da nisa",
+    "It is far",
+    "YAH-nah dah NEE-sah"
+   ],
+   [
+    "Tsaya nan",
+    "Stop here",
+    "TSAH-yah NAHN"
+   ],
+   [
+    "Tafi kai tsaye",
+    "Go straight",
+    "TAH-fee kai TSAH-yeh"
+   ],
+   [
+    "Taimake ni!",
+    "Help me!",
+    "tie-MAH-keh nee"
+   ],
+   [
+    "Na ɓata",
+    "I am lost",
+    "nah BAH-tah"
+   ],
+   [
+    "Kira likita",
+    "Call a doctor",
+    "KEE-rah lee-KEE-tah"
+   ],
+   [
+    "A sauka lafiya",
+    "Safe journey",
+    "ah SOW-kah lah-FEE-yah"
+   ]
+  ]
+ },
+ {
+  "name": "Igbo",
+  "code": "ig",
+  "region": "Nigeria",
+  "about": "Spoken in south-eastern Nigeria. Igbo is tonal, has many dialects, and is famous for its proverbs, which are said to be the palm oil with which words are eaten.",
+  "phrases": [
+   [
+    "Ndewo",
+    "Hello",
+    "n-DEH-wo"
+   ],
+   [
+    "Ụtụtụ ọma",
+    "Good morning",
+    "oo-too-too AW-mah"
+   ],
+   [
+    "Ehihie ọma",
+    "Good afternoon",
+    "eh-hee-hee-eh AW-mah"
+   ],
+   [
+    "Mgbede ọma",
+    "Good evening",
+    "m-GBEH-deh AW-mah"
+   ],
+   [
+    "Kedu ka ị mere?",
+    "How are you?",
+    "KEH-doo kah ee MEH-reh"
+   ],
+   [
+    "Ọ dị mma",
+    "I am fine",
+    "aw dee m-MAH"
+   ],
+   [
+    "Daalụ",
+    "Thank you",
+    "DAH-ah-loo"
+   ],
+   [
+    "Daalụ nke ukwuu",
+    "Thank you very much",
+    "DAH-ah-loo n-keh oo-KWOO"
+   ],
+   [
+    "Biko",
+    "Please",
+    "BEE-ko"
+   ],
+   [
+    "Ndo",
+    "Sorry",
+    "n-DO"
+   ],
+   [
+    "Ka ọ dị",
+    "Goodbye",
+    "kah aw DEE"
+   ],
+   [
+    "Ka ọ dị echi",
+    "See you tomorrow",
+    "kah aw dee EH-chee"
+   ],
+   [
+    "Kedu aha gị?",
+    "What is your name?",
+    "KEH-doo ah-HAH gee"
+   ],
+   [
+    "Aha m bụ Chinedu",
+    "My name is Chinedu",
+    "ah-HAH m boo chee-NEH-doo"
+   ],
+   [
+    "Aha m bụ Ngozi",
+    "My name is Ngozi",
+    "ah-HAH m boo n-GO-zee"
+   ],
+   [
+    "Obi dị m ụtọ ịhụ gị",
+    "Nice to meet you",
+    "o-BEE dee m oo-TAW ee-HOO gee"
+   ],
+   [
+    "Ebee ka i si?",
+    "Where are you from?",
+    "eh-BEH kah ee SEE"
+   ],
+   [
+    "Esi m Naịjirịa",
+    "I am from Nigeria",
+    "eh-SEE m nah-ee-JEE-ree-ah"
+   ],
+   [
+    "Ebi m n'Enugu",
+    "I live in Enugu",
+    "eh-BEE m n-eh-NOO-goo"
+   ],
+   [
+    "Nnọọ",
+    "Welcome",
+    "n-NAW-aw"
+   ],
+   [
+    "Ị na-asụ Bekee?",
+    "Do you speak English?",
+    "ee nah-ah-SOO beh-KEH"
+   ],
+   [
+    "Ana m asụ obere Igbo",
+    "I speak a little Igbo",
+    "ah-NAH m ah-SOO o-BEH-reh EE-gbo"
+   ],
+   [
+    "Aghọtaghị m",
+    "I don't understand",
+    "ah-ghaw-tah-GHEE m"
+   ],
+   [
+    "Biko kwughachi ya",
+    "Please say it again",
+    "BEE-ko kwoo-ghah-CHEE yah"
+   ],
+   [
+    "Ezinụlọ",
+    "Family",
+    "eh-zee-NOO-law"
+   ],
+   [
+    "Nne",
+    "Mother",
+    "n-NEH"
+   ],
+   [
+    "Nna",
+    "Father",
+    "n-NAH"
+   ],
+   [
+    "Nwa",
+    "Child",
+    "NWAH"
+   ],
+   [
+    "Nne ochie",
+    "Grandmother",
+    "n-NEH o-CHEE-eh"
+   ],
+   [
+    "Nna ochie",
+    "Grandfather",
+    "n-NAH o-CHEE-eh"
+   ],
+   [
+    "Di",
+    "Husband",
+    "DEE"
+   ],
+   [
+    "Nwunye",
+    "Wife",
+    "NWOON-yeh"
+   ],
+   [
+    "Enyi",
+    "Friend",
+    "EN-yee"
+   ],
+   [
+    "Nke a bụ nne m",
+    "This is my mother",
+    "n-KEH ah boo n-NEH m"
+   ],
+   [
+    "Kedu maka ezinụlọ gị?",
+    "How is your family?",
+    "KEH-doo MAH-kah eh-zee-NOO-law gee"
+   ],
+   [
+    "Ha dị mma",
+    "They are well",
+    "hah dee m-MAH"
+   ],
+   [
+    "Otu",
+    "One",
+    "O-too"
+   ],
+   [
+    "Abụọ",
+    "Two",
+    "ah-BWAW"
+   ],
+   [
+    "Atọ",
+    "Three",
+    "ah-TAW"
+   ],
+   [
+    "Anọ",
+    "Four",
+    "ah-NAW"
+   ],
+   [
+    "Ise",
+    "Five",
+    "EE-seh"
+   ],
+   [
+    "Isii",
+    "Six",
+    "ee-SEE-ee"
+   ],
+   [
+    "Asaa",
+    "Seven",
+    "ah-SAH-ah"
+   ],
+   [
+    "Asatọ",
+    "Eight",
+    "ah-sah-TAW"
+   ],
+   [
+    "Itoolu",
+    "Nine",
+    "ee-TOH-loo"
+   ],
+   [
+    "Iri",
+    "Ten",
+    "EE-ree"
+   ],
+   [
+    "Ego ole ka ọ bụ?",
+    "How much is it?",
+    "EH-go O-leh kah aw BOO"
+   ],
+   [
+    "Ego",
+    "Money",
+    "EH-go"
+   ],
+   [
+    "Mmiri",
+    "Water",
+    "m-MEE-ree"
+   ],
+   [
+    "Nri",
+    "Food",
+    "n-REE"
+   ],
+   [
+    "Osikapa",
+    "Rice",
+    "o-see-KAH-pah"
+   ],
+   [
+    "Anụ",
+    "Meat",
+    "ah-NOO"
+   ],
+   [
+    "Azụ",
+    "Fish",
+    "ah-ZOO"
+   ],
+   [
+    "Ahịa",
+    "Market",
+    "ah-HEE-ah"
+   ],
+   [
+    "Agụụ na-agụ m",
+    "I am hungry",
+    "ah-GOO-oo nah-ah-GOO m"
+   ],
+   [
+    "Achọrọ m mmiri",
+    "I want water",
+    "ah-CHAW-raw m m-MEE-ree"
+   ],
+   [
+    "Nri a tọrọ ụtọ",
+    "The food is delicious",
+    "n-REE ah TAW-raw oo-TAW"
+   ],
+   [
+    "Ọ dị oke ọnụ",
+    "It is too expensive",
+    "aw dee O-keh aw-NOO"
+   ],
+   [
+    "Biko belata ọnụ ahịa",
+    "Please reduce the price",
+    "BEE-ko beh-LAH-tah aw-NOO ah-HEE-ah"
+   ],
+   [
+    "Aga m azụta ya",
+    "I will buy it",
+    "ah-GAH m ah-ZOO-tah yah"
+   ],
+   [
+    "Ụlọ",
+    "House",
+    "OO-law"
+   ],
+   [
+    "Ọnụ ụzọ",
+    "Door",
+    "aw-NOO oo-ZAW"
+   ],
+   [
+    "Ọnụ ụlọ",
+    "Room",
+    "aw-NOO OO-law"
+   ],
+   [
+    "Akwa ndina",
+    "Bed",
+    "ah-KWAH n-DEE-nah"
+   ],
+   [
+    "Oche",
+    "Chair",
+    "O-cheh"
+   ],
+   [
+    "Akwụkwọ",
+    "Book",
+    "ah-KWOO-kwaw"
+   ],
+   [
+    "Ụlọ akwụkwọ",
+    "School",
+    "OO-law ah-KWOO-kwaw"
+   ],
+   [
+    "Bata",
+    "Come in",
+    "BAH-tah"
+   ],
+   [
+    "Nọdụ ala",
+    "Sit down",
+    "NAW-doo ah-LAH"
+   ],
+   [
+    "Mechie ọnụ ụzọ",
+    "Close the door",
+    "meh-CHEE-eh aw-NOO oo-ZAW"
+   ],
+   [
+    "Ebee ka ụlọ mposi dị?",
+    "Where is the toilet?",
+    "eh-BEH kah OO-law m-PO-see dee"
+   ],
+   [
+    "Ana m ala ụlọ",
+    "I am going home",
+    "ah-NAH m ah-LAH OO-law"
+   ],
+   [
+    "Taa",
+    "Today",
+    "TAH-ah"
+   ],
+   [
+    "Echi",
+    "Tomorrow",
+    "EH-chee"
+   ],
+   [
+    "Ụnyaahụ",
+    "Yesterday",
+    "oon-YAH-ah-hoo"
+   ],
+   [
+    "Ụtụtụ",
+    "Morning",
+    "oo-TOO-too"
+   ],
+   [
+    "Abalị",
+    "Night",
+    "ah-BAH-lee"
+   ],
+   [
+    "Ugbu a",
+    "Now",
+    "OO-gboo ah"
+   ],
+   [
+    "Emesịa",
+    "Later",
+    "eh-meh-SEE-ah"
+   ],
+   [
+    "Anyanwụ",
+    "Sun",
+    "ahn-YAHN-woo"
+   ],
+   [
+    "Mmiri ozuzo",
+    "Rain",
+    "m-MEE-ree o-ZOO-zo"
+   ],
+   [
+    "Ọ na-ekpo ọkụ",
+    "It is hot",
+    "aw nah-EH-kpo aw-KOO"
+   ],
+   [
+    "Oyi na-atụ",
+    "It is cold",
+    "O-yee nah-ah-TOO"
+   ],
+   [
+    "Kedu oge ọ bụ?",
+    "What time is it?",
+    "KEH-doo O-geh aw BOO"
+   ],
+   [
+    "Gịnị?",
+    "What?",
+    "GEE-nee"
+   ],
+   [
+    "Ebee?",
+    "Where?",
+    "eh-BEH"
+   ],
+   [
+    "Onye?",
+    "Who?",
+    "ON-yeh"
+   ],
+   [
+    "Gịnị mere?",
+    "Why?",
+    "GEE-nee MEH-reh"
+   ],
+   [
+    "Mgbe ole?",
+    "When?",
+    "m-GBEH O-leh"
+   ],
+   [
+    "Bịa ebe a",
+    "Come here",
+    "BEE-ah EH-beh ah"
+   ],
+   [
+    "Ka anyị gaa",
+    "Let's go",
+    "kah AHN-yee GAH-ah"
+   ],
+   [
+    "Chere",
+    "Wait",
+    "CHEH-reh"
+   ],
+   [
+    "Achọrọ m iri nri",
+    "I want to eat",
+    "ah-CHAW-raw m ee-REE n-REE"
+   ],
+   [
+    "Achọrọ m ịrahụ ụra",
+    "I want to sleep",
+    "ah-CHAW-raw m ee-RAH-hoo OO-rah"
+   ],
+   [
+    "Ebee ka ahịa dị?",
+    "Where is the market?",
+    "eh-BEH kah ah-HEE-ah DEE"
+   ],
+   [
+    "Onye bụ onye ahụ?",
+    "Who is that?",
+    "ON-yeh boo ON-yeh ah-HOO"
+   ],
+   [
+    "Obi dị m ụtọ",
+    "I am happy",
+    "o-BEE dee m oo-TAW"
+   ],
+   [
+    "Ike gwụrụ m",
+    "I am tired",
+    "EE-keh GWOO-roo m"
+   ],
+   [
+    "Ahụ adịghị m mma",
+    "I am sick",
+    "ah-HOO ah-dee-GHEE m m-MAH"
+   ],
+   [
+    "A hụrụ m gị n'anya",
+    "I love you",
+    "ah HOO-roo m gee n-AHN-yah"
+   ],
+   [
+    "Ọma",
+    "Good",
+    "AW-mah"
+   ],
+   [
+    "Ọjọọ",
+    "Bad",
+    "aw-JAW-aw"
+   ],
+   [
+    "Ukwu",
+    "Big",
+    "oo-KWOO"
+   ],
+   [
+    "Obere",
+    "Small",
+    "o-BEH-reh"
+   ],
+   [
+    "Isi",
+    "Head",
+    "EE-see"
+   ],
+   [
+    "Aka",
+    "Hand",
+    "AH-kah"
+   ],
+   [
+    "Anya",
+    "Eye",
+    "AHN-yah"
+   ],
+   [
+    "Isi na-awa m",
+    "My head hurts",
+    "EE-see nah-AH-wah m"
+   ],
+   [
+    "Ụzọ",
+    "Road",
+    "oo-ZAW"
+   ],
+   [
+    "Ụgbọ ala",
+    "Car",
+    "oo-GBAW ah-LAH"
+   ],
+   [
+    "Aka ekpe",
+    "Left",
+    "AH-kah EH-kpeh"
+   ],
+   [
+    "Aka nri",
+    "Right",
+    "AH-kah n-REE"
+   ],
+   [
+    "Ọ dị nso",
+    "It is near",
+    "aw dee n-SO"
+   ],
+   [
+    "Ọ dị anya",
+    "It is far",
+    "aw dee AHN-yah"
+   ],
+   [
+    "Kwụsị ebe a",
+    "Stop here",
+    "KWOO-see EH-beh ah"
+   ],
+   [
+    "Gaa n'ihu",
+    "Go straight",
+    "GAH-ah n-EE-hoo"
+   ],
+   [
+    "Nyere m aka!",
+    "Help me!",
+    "NYEH-reh m AH-kah"
+   ],
+   [
+    "Efuola m",
+    "I am lost",
+    "eh-FOO-o-lah m"
+   ],
+   [
+    "Kpọọ dọkịta",
+    "Call a doctor",
+    "KPAW-aw daw-KEE-tah"
+   ],
+   [
+    "Njem ọma",
+    "Safe journey",
+    "n-JEM AW-mah"
+   ]
+  ]
+ },
+ {
+  "name": "Swahili",
+  "code": "sw",
+  "region": "Kenya · Tanzania · Uganda · DR Congo",
+  "about": "A Bantu language with many Arabic loanwords, used as a shared language across East Africa. It is an official language of the African Union.",
+  "phrases": [
+   [
+    "Habari",
+    "Hello",
+    "hah-BAH-ree"
+   ],
+   [
+    "Habari za asubuhi",
+    "Good morning",
+    "hah-BAH-ree zah ah-soo-BOO-hee"
+   ],
+   [
+    "Habari za mchana",
+    "Good afternoon",
+    "hah-BAH-ree zah m-CHAH-nah"
+   ],
+   [
+    "Habari za jioni",
+    "Good evening",
+    "hah-BAH-ree zah jee-O-nee"
+   ],
+   [
+    "Hujambo?",
+    "How are you?",
+    "hoo-JAHM-bo"
+   ],
+   [
+    "Sijambo",
+    "I am fine",
+    "see-JAHM-bo"
+   ],
+   [
+    "Asante",
+    "Thank you",
+    "ah-SAHN-teh"
+   ],
+   [
+    "Asante sana",
+    "Thank you very much",
+    "ah-SAHN-teh SAH-nah"
+   ],
+   [
+    "Tafadhali",
+    "Please",
+    "tah-fah-DHAH-lee"
+   ],
+   [
+    "Samahani",
+    "Sorry",
+    "sah-mah-HAH-nee"
+   ],
+   [
+    "Kwa heri",
+    "Goodbye",
+    "kwah HEH-ree"
+   ],
+   [
+    "Tutaonana kesho",
+    "See you tomorrow",
+    "too-tah-o-NAH-nah KEH-sho"
+   ],
+   [
+    "Jina lako ni nani?",
+    "What is your name?",
+    "JEE-nah LAH-ko nee NAH-nee"
+   ],
+   [
+    "Jina langu ni Juma",
+    "My name is Juma",
+    "JEE-nah LAHN-goo nee JOO-mah"
+   ],
+   [
+    "Jina langu ni Neema",
+    "My name is Neema",
+    "JEE-nah LAHN-goo nee neh-EH-mah"
+   ],
+   [
+    "Nimefurahi kukutana nawe",
+    "Nice to meet you",
+    "nee-meh-foo-RAH-hee koo-koo-TAH-nah NAH-weh"
+   ],
+   [
+    "Unatoka wapi?",
+    "Where are you from?",
+    "oo-nah-TO-kah WAH-pee"
+   ],
+   [
+    "Natoka Kenya",
+    "I am from Kenya",
+    "nah-TO-kah KEN-yah"
+   ],
+   [
+    "Ninaishi Nairobi",
+    "I live in Nairobi",
+    "nee-nah-EE-shee nai-RO-bee"
+   ],
+   [
+    "Karibu",
+    "Welcome",
+    "kah-REE-boo"
+   ],
+   [
+    "Unazungumza Kiingereza?",
+    "Do you speak English?",
+    "oo-nah-zoon-GOOM-zah kee-een-geh-REH-zah"
+   ],
+   [
+    "Ninazungumza Kiswahili kidogo",
+    "I speak a little Swahili",
+    "nee-nah-zoon-GOOM-zah kee-swah-HEE-lee kee-DO-go"
+   ],
+   [
+    "Sielewi",
+    "I don't understand",
+    "see-eh-LEH-wee"
+   ],
+   [
+    "Tafadhali rudia",
+    "Please say it again",
+    "tah-fah-DHAH-lee roo-DEE-ah"
+   ],
+   [
+    "Familia",
+    "Family",
+    "fah-MEE-lee-ah"
+   ],
+   [
+    "Mama",
+    "Mother",
+    "MAH-mah"
+   ],
+   [
+    "Baba",
+    "Father",
+    "BAH-bah"
+   ],
+   [
+    "Mtoto",
+    "Child",
+    "m-TO-to"
+   ],
+   [
+    "Bibi",
+    "Grandmother",
+    "BEE-bee"
+   ],
+   [
+    "Babu",
+    "Grandfather",
+    "BAH-boo"
+   ],
+   [
+    "Mume",
+    "Husband",
+    "MOO-meh"
+   ],
+   [
+    "Mke",
+    "Wife",
+    "m-KEH"
+   ],
+   [
+    "Rafiki",
+    "Friend",
+    "rah-FEE-kee"
+   ],
+   [
+    "Huyu ni mama yangu",
+    "This is my mother",
+    "HOO-yoo nee MAH-mah YAHN-goo"
+   ],
+   [
+    "Familia yako hawajambo?",
+    "How is your family?",
+    "fah-MEE-lee-ah YAH-ko hah-wah-JAHM-bo"
+   ],
+   [
+    "Hawajambo",
+    "They are well",
+    "hah-wah-JAHM-bo"
+   ],
+   [
+    "Moja",
+    "One",
+    "MO-jah"
+   ],
+   [
+    "Mbili",
+    "Two",
+    "m-BEE-lee"
+   ],
+   [
+    "Tatu",
+    "Three",
+    "TAH-too"
+   ],
+   [
+    "Nne",
+    "Four",
+    "n-NEH"
+   ],
+   [
+    "Tano",
+    "Five",
+    "TAH-no"
+   ],
+   [
+    "Sita",
+    "Six",
+    "SEE-tah"
+   ],
+   [
+    "Saba",
+    "Seven",
+    "SAH-bah"
+   ],
+   [
+    "Nane",
+    "Eight",
+    "NAH-neh"
+   ],
+   [
+    "Tisa",
+    "Nine",
+    "TEE-sah"
+   ],
+   [
+    "Kumi",
+    "Ten",
+    "KOO-mee"
+   ],
+   [
+    "Bei gani?",
+    "How much is it?",
+    "BAY GAH-nee"
+   ],
+   [
+    "Pesa",
+    "Money",
+    "PEH-sah"
+   ],
+   [
+    "Maji",
+    "Water",
+    "MAH-jee"
+   ],
+   [
+    "Chakula",
+    "Food",
+    "chah-KOO-lah"
+   ],
+   [
+    "Wali",
+    "Rice",
+    "WAH-lee"
+   ],
+   [
+    "Nyama",
+    "Meat",
+    "NYAH-mah"
+   ],
+   [
+    "Samaki",
+    "Fish",
+    "sah-MAH-kee"
+   ],
+   [
+    "Soko",
+    "Market",
+    "SO-ko"
+   ],
+   [
+    "Nina njaa",
+    "I am hungry",
+    "NEE-nah n-JAH-ah"
+   ],
+   [
+    "Nataka maji",
+    "I want water",
+    "nah-TAH-kah MAH-jee"
+   ],
+   [
+    "Chakula ni kitamu",
+    "The food is delicious",
+    "chah-KOO-lah nee kee-TAH-moo"
+   ],
+   [
+    "Ni ghali sana",
+    "It is too expensive",
+    "nee GHAH-lee SAH-nah"
+   ],
+   [
+    "Tafadhali punguza bei",
+    "Please reduce the price",
+    "tah-fah-DHAH-lee poon-GOO-zah BAY"
+   ],
+   [
+    "Nitanunua",
+    "I will buy it",
+    "nee-tah-noo-NOO-ah"
+   ],
+   [
+    "Nyumba",
+    "House",
+    "NYOOM-bah"
+   ],
+   [
+    "Mlango",
+    "Door",
+    "m-LAHN-go"
+   ],
+   [
+    "Chumba",
+    "Room",
+    "CHOOM-bah"
+   ],
+   [
+    "Kitanda",
+    "Bed",
+    "kee-TAHN-dah"
+   ],
+   [
+    "Kiti",
+    "Chair",
+    "KEE-tee"
+   ],
+   [
+    "Kitabu",
+    "Book",
+    "kee-TAH-boo"
+   ],
+   [
+    "Shule",
+    "School",
+    "SHOO-leh"
+   ],
+   [
+    "Ingia",
+    "Come in",
+    "een-GEE-ah"
+   ],
+   [
+    "Keti",
+    "Sit down",
+    "KEH-tee"
+   ],
+   [
+    "Funga mlango",
+    "Close the door",
+    "FOON-gah m-LAHN-go"
+   ],
+   [
+    "Choo kiko wapi?",
+    "Where is the toilet?",
+    "CHO-o KEE-ko WAH-pee"
+   ],
+   [
+    "Ninaenda nyumbani",
+    "I am going home",
+    "nee-nah-EN-dah nyoom-BAH-nee"
+   ],
+   [
+    "Leo",
+    "Today",
+    "LEH-o"
+   ],
+   [
+    "Kesho",
+    "Tomorrow",
+    "KEH-sho"
+   ],
+   [
+    "Jana",
+    "Yesterday",
+    "JAH-nah"
+   ],
+   [
+    "Asubuhi",
+    "Morning",
+    "ah-soo-BOO-hee"
+   ],
+   [
+    "Usiku",
+    "Night",
+    "oo-SEE-koo"
+   ],
+   [
+    "Sasa",
+    "Now",
+    "SAH-sah"
+   ],
+   [
+    "Baadaye",
+    "Later",
+    "bah-ah-DAH-yeh"
+   ],
+   [
+    "Jua",
+    "Sun",
+    "JOO-ah"
+   ],
+   [
+    "Mvua",
+    "Rain",
+    "m-VOO-ah"
+   ],
+   [
+    "Kuna joto",
+    "It is hot",
+    "KOO-nah JO-to"
+   ],
+   [
+    "Kuna baridi",
+    "It is cold",
+    "KOO-nah bah-REE-dee"
+   ],
+   [
+    "Ni saa ngapi?",
+    "What time is it?",
+    "nee SAH-ah n-GAH-pee"
+   ],
+   [
+    "Nini?",
+    "What?",
+    "NEE-nee"
+   ],
+   [
+    "Wapi?",
+    "Where?",
+    "WAH-pee"
+   ],
+   [
+    "Nani?",
+    "Who?",
+    "NAH-nee"
+   ],
+   [
+    "Kwa nini?",
+    "Why?",
+    "kwah NEE-nee"
+   ],
+   [
+    "Lini?",
+    "When?",
+    "LEE-nee"
+   ],
+   [
+    "Njoo hapa",
+    "Come here",
+    "n-JO-o HAH-pah"
+   ],
+   [
+    "Twende",
+    "Let's go",
+    "TWEN-deh"
+   ],
+   [
+    "Subiri",
+    "Wait",
+    "soo-BEE-ree"
+   ],
+   [
+    "Nataka kula",
+    "I want to eat",
+    "nah-TAH-kah KOO-lah"
+   ],
+   [
+    "Nataka kulala",
+    "I want to sleep",
+    "nah-TAH-kah koo-LAH-lah"
+   ],
+   [
+    "Soko liko wapi?",
+    "Where is the market?",
+    "SO-ko LEE-ko WAH-pee"
+   ],
+   [
+    "Yule ni nani?",
+    "Who is that?",
+    "YOO-leh nee NAH-nee"
+   ],
+   [
+    "Nina furaha",
+    "I am happy",
+    "NEE-nah foo-RAH-hah"
+   ],
+   [
+    "Nimechoka",
+    "I am tired",
+    "nee-meh-CHO-kah"
+   ],
+   [
+    "Mimi ni mgonjwa",
+    "I am sick",
+    "MEE-mee nee m-GON-jwah"
+   ],
+   [
+    "Nakupenda",
+    "I love you",
+    "nah-koo-PEN-dah"
+   ],
+   [
+    "Nzuri",
+    "Good",
+    "n-ZOO-ree"
+   ],
+   [
+    "Mbaya",
+    "Bad",
+    "m-BAH-yah"
+   ],
+   [
+    "Kubwa",
+    "Big",
+    "KOO-bwah"
+   ],
+   [
+    "Ndogo",
+    "Small",
+    "n-DO-go"
+   ],
+   [
+    "Kichwa",
+    "Head",
+    "KEE-chwah"
+   ],
+   [
+    "Mkono",
+    "Hand",
+    "m-KO-no"
+   ],
+   [
+    "Jicho",
+    "Eye",
+    "JEE-cho"
+   ],
+   [
+    "Kichwa kinaniuma",
+    "My head hurts",
+    "KEE-chwah kee-nah-nee-OO-mah"
+   ],
+   [
+    "Barabara",
+    "Road",
+    "bah-rah-BAH-rah"
+   ],
+   [
+    "Gari",
+    "Car",
+    "GAH-ree"
+   ],
+   [
+    "Kushoto",
+    "Left",
+    "koo-SHO-to"
+   ],
+   [
+    "Kulia",
+    "Right",
+    "koo-LEE-ah"
+   ],
+   [
+    "Ni karibu",
+    "It is near",
+    "nee kah-REE-boo"
+   ],
+   [
+    "Ni mbali",
+    "It is far",
+    "nee m-BAH-lee"
+   ],
+   [
+    "Simama hapa",
+    "Stop here",
+    "see-MAH-mah HAH-pah"
+   ],
+   [
+    "Nenda moja kwa moja",
+    "Go straight",
+    "NEN-dah MO-jah kwah MO-jah"
+   ],
+   [
+    "Nisaidie!",
+    "Help me!",
+    "nee-sah-ee-DEE-eh"
+   ],
+   [
+    "Nimepotea",
+    "I am lost",
+    "nee-meh-po-TEH-ah"
+   ],
+   [
+    "Mwite daktari",
+    "Call a doctor",
+    "MWEE-teh dahk-TAH-ree"
+   ],
+   [
+    "Safari njema",
+    "Safe journey",
+    "sah-FAH-ree n-JEH-mah"
+   ]
+  ]
+ },
+ {
+  "name": "Zulu",
+  "code": "zu",
+  "region": "South Africa",
+  "about": "isiZulu is the most widely spoken home language in South Africa. It is known for its clicks, its rich praise songs and the greeting Sawubona, meaning I see you.",
+  "phrases": [
+   [
+    "Sawubona",
+    "Hello",
+    "sah-woo-BO-nah"
+   ],
+   [
+    "Ekuseni okuhle",
+    "Good morning",
+    "eh-koo-SEH-nee o-KOO-shleh"
+   ],
+   [
+    "Ntambama enhle",
+    "Good afternoon",
+    "n-tahm-BAH-mah EN-shleh"
+   ],
+   [
+    "Kusihlwa okuhle",
+    "Good evening",
+    "koo-SEE-shlwah o-KOO-shleh"
+   ],
+   [
+    "Unjani?",
+    "How are you?",
+    "oon-JAH-nee"
+   ],
+   [
+    "Ngiyaphila",
+    "I am fine",
+    "ngee-yah-PEE-lah"
+   ],
+   [
+    "Ngiyabonga",
+    "Thank you",
+    "ngee-yah-BON-gah"
+   ],
+   [
+    "Ngiyabonga kakhulu",
+    "Thank you very much",
+    "ngee-yah-BON-gah kah-KOO-loo"
+   ],
+   [
+    "Ngicela",
+    "Please",
+    "ngee-CHEH-lah"
+   ],
+   [
+    "Uxolo",
+    "Sorry",
+    "oo-|O-lo (click)"
+   ],
+   [
+    "Sala kahle",
+    "Goodbye",
+    "SAH-lah KAH-shleh"
+   ],
+   [
+    "Sobonana kusasa",
+    "See you tomorrow",
+    "so-bo-NAH-nah koo-SAH-sah"
+   ],
+   [
+    "Ngubani igama lakho?",
+    "What is your name?",
+    "ngoo-BAH-nee ee-GAH-mah LAH-ko"
+   ],
+   [
+    "Igama lami nguSipho",
+    "My name is Sipho",
+    "ee-GAH-mah LAH-mee ngoo-SEE-po"
+   ],
+   [
+    "Igama lami nguThandiwe",
+    "My name is Thandiwe",
+    "ee-GAH-mah LAH-mee ngoo-tahn-DEE-weh"
+   ],
+   [
+    "Ngiyajabula ukukwazi",
+    "Nice to meet you",
+    "ngee-yah-jah-BOO-lah oo-koo-KWAH-zee"
+   ],
+   [
+    "Uvelaphi?",
+    "Where are you from?",
+    "oo-veh-LAH-pee"
+   ],
+   [
+    "Ngivela eNingizimu Afrika",
+    "I am from South Africa",
+    "ngee-VEH-lah eh-nee-ngee-ZEE-moo AH-free-kah"
+   ],
+   [
+    "Ngihlala eThekwini",
+    "I live in Durban",
+    "ngee-SHLAH-lah eh-teh-KWEE-nee"
+   ],
+   [
+    "Siyakwamukela",
+    "Welcome",
+    "see-yah-kwah-moo-KEH-lah"
+   ],
+   [
+    "Uyasikhuluma isiNgisi?",
+    "Do you speak English?",
+    "oo-yah-see-koo-LOO-mah ee-see-NGEE-see"
+   ],
+   [
+    "Ngikhuluma isiZulu kancane",
+    "I speak a little Zulu",
+    "ngee-koo-LOO-mah ee-see-ZOO-loo kah-|AH-neh (click)"
+   ],
+   [
+    "Angiqondi",
+    "I don't understand",
+    "ah-ngee-!ON-dee (click)"
+   ],
+   [
+    "Ngicela uphinde",
+    "Please say it again",
+    "ngee-CHEH-lah oo-PEEN-deh"
+   ],
+   [
+    "Umndeni",
+    "Family",
+    "oom-n-DEH-nee"
+   ],
+   [
+    "Umama",
+    "Mother",
+    "oo-MAH-mah"
+   ],
+   [
+    "Ubaba",
+    "Father",
+    "oo-BAH-bah"
+   ],
+   [
+    "Ingane",
+    "Child",
+    "ee-NGAH-neh"
+   ],
+   [
+    "Ugogo",
+    "Grandmother",
+    "oo-GO-go"
+   ],
+   [
+    "Umkhulu",
+    "Grandfather",
+    "oom-KOO-loo"
+   ],
+   [
+    "Umyeni",
+    "Husband",
+    "oom-YEH-nee"
+   ],
+   [
+    "Unkosikazi",
+    "Wife",
+    "oon-ko-see-KAH-zee"
+   ],
+   [
+    "Umngane",
+    "Friend",
+    "oom-NGAH-neh"
+   ],
+   [
+    "Lona ngumama wami",
+    "This is my mother",
+    "LO-nah ngoo-MAH-mah WAH-mee"
+   ],
+   [
+    "Unjani umndeni wakho?",
+    "How is your family?",
+    "oon-JAH-nee oom-n-DEH-nee WAH-ko"
+   ],
+   [
+    "Bayaphila",
+    "They are well",
+    "bah-yah-PEE-lah"
+   ],
+   [
+    "Kunye",
+    "One",
+    "KOON-yeh"
+   ],
+   [
+    "Kubili",
+    "Two",
+    "koo-BEE-lee"
+   ],
+   [
+    "Kuthathu",
+    "Three",
+    "koo-TAH-too"
+   ],
+   [
+    "Kune",
+    "Four",
+    "KOO-neh"
+   ],
+   [
+    "Kuhlanu",
+    "Five",
+    "koo-SHLAH-noo"
+   ],
+   [
+    "Isithupha",
+    "Six",
+    "ee-see-TOO-pah"
+   ],
+   [
+    "Isikhombisa",
+    "Seven",
+    "ee-see-kom-BEE-sah"
+   ],
+   [
+    "Isishiyagalombili",
+    "Eight",
+    "ee-see-shee-yah-gah-lom-BEE-lee"
+   ],
+   [
+    "Isishiyagalolunye",
+    "Nine",
+    "ee-see-shee-yah-gah-lo-LOON-yeh"
+   ],
+   [
+    "Ishumi",
+    "Ten",
+    "ee-SHOO-mee"
+   ],
+   [
+    "Malini?",
+    "How much is it?",
+    "mah-LEE-nee"
+   ],
+   [
+    "Imali",
+    "Money",
+    "ee-MAH-lee"
+   ],
+   [
+    "Amanzi",
+    "Water",
+    "ah-MAHN-zee"
+   ],
+   [
+    "Ukudla",
+    "Food",
+    "oo-KOO-dlah"
+   ],
+   [
+    "Irayisi",
+    "Rice",
+    "ee-rah-YEE-see"
+   ],
+   [
+    "Inyama",
+    "Meat",
+    "een-YAH-mah"
+   ],
+   [
+    "Inhlanzi",
+    "Fish",
+    "een-SHLAHN-zee"
+   ],
+   [
+    "Imakethe",
+    "Market",
+    "ee-mah-KEH-teh"
+   ],
+   [
+    "Ngilambile",
+    "I am hungry",
+    "ngee-lahm-BEE-leh"
+   ],
+   [
+    "Ngifuna amanzi",
+    "I want water",
+    "ngee-FOO-nah ah-MAHN-zee"
+   ],
+   [
+    "Ukudla kumnandi",
+    "The food is delicious",
+    "oo-KOO-dlah koom-NAHN-dee"
+   ],
+   [
+    "Kubiza kakhulu",
+    "It is too expensive",
+    "koo-BEE-zah kah-KOO-loo"
+   ],
+   [
+    "Ngicela wehlise intengo",
+    "Please reduce the price",
+    "ngee-CHEH-lah weh-SHLEE-seh een-TEN-go"
+   ],
+   [
+    "Ngizokuthenga",
+    "I will buy it",
+    "ngee-zo-koo-TEN-gah"
+   ],
+   [
+    "Indlu",
+    "House",
+    "EEN-dloo"
+   ],
+   [
+    "Umnyango",
+    "Door",
+    "oom-NYAHN-go"
+   ],
+   [
+    "Ikamelo",
+    "Room",
+    "ee-kah-MEH-lo"
+   ],
+   [
+    "Umbhede",
+    "Bed",
+    "oom-BEH-deh"
+   ],
+   [
+    "Isihlalo",
+    "Chair",
+    "ee-see-SHLAH-lo"
+   ],
+   [
+    "Incwadi",
+    "Book",
+    "een-|WAH-dee (click)"
+   ],
+   [
+    "Isikole",
+    "School",
+    "ee-see-KO-leh"
+   ],
+   [
+    "Ngena",
+    "Come in",
+    "NGEH-nah"
+   ],
+   [
+    "Hlala phansi",
+    "Sit down",
+    "SHLAH-lah PAHN-see"
+   ],
+   [
+    "Vala umnyango",
+    "Close the door",
+    "VAH-lah oom-NYAHN-go"
+   ],
+   [
+    "Iphi indlu yangasese?",
+    "Where is the toilet?",
+    "EE-pee EEN-dloo yah-ngah-SEH-seh"
+   ],
+   [
+    "Ngiya ekhaya",
+    "I am going home",
+    "NGEE-yah eh-KAH-yah"
+   ],
+   [
+    "Namuhla",
+    "Today",
+    "nah-MOO-shlah"
+   ],
+   [
+    "Kusasa",
+    "Tomorrow",
+    "koo-SAH-sah"
+   ],
+   [
+    "Izolo",
+    "Yesterday",
+    "ee-ZO-lo"
+   ],
+   [
+    "Ekuseni",
+    "Morning",
+    "eh-koo-SEH-nee"
+   ],
+   [
+    "Ebusuku",
+    "Night",
+    "eh-boo-SOO-koo"
+   ],
+   [
+    "Manje",
+    "Now",
+    "MAHN-jeh"
+   ],
+   [
+    "Kamuva",
+    "Later",
+    "kah-MOO-vah"
+   ],
+   [
+    "Ilanga",
+    "Sun",
+    "ee-LAHN-gah"
+   ],
+   [
+    "Imvula",
+    "Rain",
+    "eem-VOO-lah"
+   ],
+   [
+    "Kuyashisa",
+    "It is hot",
+    "koo-yah-SHEE-sah"
+   ],
+   [
+    "Kuyabanda",
+    "It is cold",
+    "koo-yah-BAHN-dah"
+   ],
+   [
+    "Sikhathi sini?",
+    "What time is it?",
+    "see-KAH-tee SEE-nee"
+   ],
+   [
+    "Yini?",
+    "What?",
+    "YEE-nee"
+   ],
+   [
+    "Kuphi?",
+    "Where?",
+    "KOO-pee"
+   ],
+   [
+    "Ubani?",
+    "Who?",
+    "oo-BAH-nee"
+   ],
+   [
+    "Kungani?",
+    "Why?",
+    "koo-NGAH-nee"
+   ],
+   [
+    "Nini?",
+    "When?",
+    "NEE-nee"
+   ],
+   [
+    "Woza lapha",
+    "Come here",
+    "WO-zah LAH-pah"
+   ],
+   [
+    "Asihambe",
+    "Let's go",
+    "ah-see-HAHM-beh"
+   ],
+   [
+    "Linda",
+    "Wait",
+    "LEEN-dah"
+   ],
+   [
+    "Ngifuna ukudla",
+    "I want to eat",
+    "ngee-FOO-nah oo-KOO-dlah"
+   ],
+   [
+    "Ngifuna ukulala",
+    "I want to sleep",
+    "ngee-FOO-nah oo-koo-LAH-lah"
+   ],
+   [
+    "Iphi imakethe?",
+    "Where is the market?",
+    "EE-pee ee-mah-KEH-teh"
+   ],
+   [
+    "Ngubani lowo?",
+    "Who is that?",
+    "ngoo-BAH-nee LO-wo"
+   ],
+   [
+    "Ngijabulile",
+    "I am happy",
+    "ngee-jah-boo-LEE-leh"
+   ],
+   [
+    "Ngikhathele",
+    "I am tired",
+    "ngee-kah-TEH-leh"
+   ],
+   [
+    "Ngiyagula",
+    "I am sick",
+    "ngee-yah-GOO-lah"
+   ],
+   [
+    "Ngiyakuthanda",
+    "I love you",
+    "ngee-yah-koo-TAHN-dah"
+   ],
+   [
+    "Kuhle",
+    "Good",
+    "KOO-shleh"
+   ],
+   [
+    "Kubi",
+    "Bad",
+    "KOO-bee"
+   ],
+   [
+    "Kukhulu",
+    "Big",
+    "koo-KOO-loo"
+   ],
+   [
+    "Kuncane",
+    "Small",
+    "koo-|AH-neh (click)"
+   ],
+   [
+    "Ikhanda",
+    "Head",
+    "ee-KAHN-dah"
+   ],
+   [
+    "Isandla",
+    "Hand",
+    "ee-SAHN-dlah"
+   ],
+   [
+    "Iso",
+    "Eye",
+    "EE-so"
+   ],
+   [
+    "Ngiphethwe yikhanda",
+    "My head hurts",
+    "ngee-PEH-tweh yee-KAHN-dah"
+   ],
+   [
+    "Umgwaqo",
+    "Road",
+    "oom-GWAH-!o (click)"
+   ],
+   [
+    "Imoto",
+    "Car",
+    "ee-MO-to"
+   ],
+   [
+    "Kwesobunxele",
+    "Left",
+    "kweh-so-boon-||EH-leh (click)"
+   ],
+   [
+    "Kwesokudla",
+    "Right",
+    "kweh-so-KOO-dlah"
+   ],
+   [
+    "Kuseduze",
+    "It is near",
+    "koo-seh-DOO-zeh"
+   ],
+   [
+    "Kukude",
+    "It is far",
+    "koo-KOO-deh"
+   ],
+   [
+    "Ima lapha",
+    "Stop here",
+    "EE-mah LAH-pah"
+   ],
+   [
+    "Qhubeka ngqo",
+    "Go straight",
+    "!oo-BEH-kah ng!o (clicks)"
+   ],
+   [
+    "Ngisize!",
+    "Help me!",
+    "ngee-SEE-zeh"
+   ],
+   [
+    "Ngilahlekile",
+    "I am lost",
+    "ngee-lah-shleh-KEE-leh"
+   ],
+   [
+    "Biza udokotela",
+    "Call a doctor",
+    "BEE-zah oo-do-ko-TEH-lah"
+   ],
+   [
+    "Uhambe kahle",
+    "Safe journey",
+    "oo-HAHM-beh KAH-shleh"
+   ]
+  ]
+ },
+ {
+  "name": "Twi",
+  "code": "tw",
+  "region": "Ghana",
+  "about": "A dialect of Akan spoken in southern Ghana. Twi is tied to Adinkra symbols, kente weaving and a day-name tradition where your name comes from your birth day.",
+  "phrases": [
+   [
+    "Ɛte sɛn",
+    "Hello",
+    "eh-teh SEN"
+   ],
+   [
+    "Maakye",
+    "Good morning",
+    "mah-AH-cheh"
+   ],
+   [
+    "Maaha",
+    "Good afternoon",
+    "mah-AH-hah"
+   ],
+   [
+    "Maadwo",
+    "Good evening",
+    "mah-AH-jwo"
+   ],
+   [
+    "Wo ho te sɛn?",
+    "How are you?",
+    "wo ho teh SEN"
+   ],
+   [
+    "Me ho yɛ",
+    "I am fine",
+    "meh ho YEH"
+   ],
+   [
+    "Medaase",
+    "Thank you",
+    "meh-DAH-see"
+   ],
+   [
+    "Medaase paa",
+    "Thank you very much",
+    "meh-DAH-see PAH"
+   ],
+   [
+    "Mepa wo kyɛw",
+    "Please",
+    "meh-PAH wo CHEW"
+   ],
+   [
+    "Kafra",
+    "Sorry",
+    "KAH-frah"
+   ],
+   [
+    "Nantew yie",
+    "Goodbye",
+    "nahn-TEW yee-EH"
+   ],
+   [
+    "Yɛbɛhyia ɔkyena",
+    "See you tomorrow",
+    "yeh-beh-SHIA aw-CHEH-nah"
+   ],
+   [
+    "Wo din de sɛn?",
+    "What is your name?",
+    "wo DEEN deh SEN"
+   ],
+   [
+    "Me din de Kwame",
+    "My name is Kwame",
+    "meh DEEN deh KWAH-meh"
+   ],
+   [
+    "Me din de Akosua",
+    "My name is Akosua",
+    "meh DEEN deh ah-KO-soo-ah"
+   ],
+   [
+    "M'ani agye sɛ mahyia wo",
+    "Nice to meet you",
+    "mah-NEE ah-JEH seh mah-SHIA wo"
+   ],
+   [
+    "Wofiri he?",
+    "Where are you from?",
+    "wo-FEE-ree HEH"
+   ],
+   [
+    "Mefiri Ghana",
+    "I am from Ghana",
+    "meh-FEE-ree GAH-nah"
+   ],
+   [
+    "Mete Kumase",
+    "I live in Kumasi",
+    "meh-TEH koo-MAH-seh"
+   ],
+   [
+    "Akwaaba",
+    "Welcome",
+    "ah-KWAH-bah"
+   ],
+   [
+    "Wote Borɔfo?",
+    "Do you speak English?",
+    "wo-TEH baw-RAW-fo"
+   ],
+   [
+    "Mete Twi kakra",
+    "I speak a little Twi",
+    "meh-TEH TWEE KAH-krah"
+   ],
+   [
+    "Mente aseɛ",
+    "I don't understand",
+    "men-TEH ah-SEH"
+   ],
+   [
+    "Mepa wo kyɛw, ka bio",
+    "Please say it again",
+    "meh-PAH wo CHEW, kah BEE-o"
+   ],
+   [
+    "Abusua",
+    "Family",
+    "ah-BOO-soo-ah"
+   ],
+   [
+    "Maame",
+    "Mother",
+    "MAH-meh"
+   ],
+   [
+    "Agya",
+    "Father",
+    "AH-jah"
+   ],
+   [
+    "Abɔfra",
+    "Child",
+    "ah-BAW-frah"
+   ],
+   [
+    "Nanabaa",
+    "Grandmother",
+    "nah-nah-BAH"
+   ],
+   [
+    "Nanabarima",
+    "Grandfather",
+    "nah-nah-BAH-ree-mah"
+   ],
+   [
+    "Kunu",
+    "Husband",
+    "KOO-noo"
+   ],
+   [
+    "Yere",
+    "Wife",
+    "YEH-reh"
+   ],
+   [
+    "Adamfo",
+    "Friend",
+    "ah-DAHM-fo"
+   ],
+   [
+    "Me maame ni",
+    "This is my mother",
+    "meh MAH-meh nee"
+   ],
+   [
+    "Wo fiefoɔ ho te sɛn?",
+    "How is your family?",
+    "wo fee-eh-FAW ho teh SEN"
+   ],
+   [
+    "Wɔn ho yɛ",
+    "They are well",
+    "wawn ho YEH"
+   ],
+   [
+    "Baako",
+    "One",
+    "BAH-ko"
+   ],
+   [
+    "Mmienu",
+    "Two",
+    "mm-MEE-eh-noo"
+   ],
+   [
+    "Mmiɛnsa",
+    "Three",
+    "mm-MEE-en-sah"
+   ],
+   [
+    "Ɛnan",
+    "Four",
+    "eh-NAHN"
+   ],
+   [
+    "Enum",
+    "Five",
+    "eh-NOOM"
+   ],
+   [
+    "Nsia",
+    "Six",
+    "n-SEE-ah"
+   ],
+   [
+    "Nson",
+    "Seven",
+    "n-SON"
+   ],
+   [
+    "Nwɔtwe",
+    "Eight",
+    "n-WAW-tweh"
+   ],
+   [
+    "Nkron",
+    "Nine",
+    "n-KRON"
+   ],
+   [
+    "Edu",
+    "Ten",
+    "eh-DOO"
+   ],
+   [
+    "Ɛyɛ sɛn?",
+    "How much is it?",
+    "eh-yeh SEN"
+   ],
+   [
+    "Sika",
+    "Money",
+    "SEE-kah"
+   ],
+   [
+    "Nsuo",
+    "Water",
+    "n-SOO-o"
+   ],
+   [
+    "Aduane",
+    "Food",
+    "ah-DWAH-neh"
+   ],
+   [
+    "Ɛmo",
+    "Rice",
+    "eh-MO"
+   ],
+   [
+    "Nam",
+    "Meat",
+    "NAHM"
+   ],
+   [
+    "Apataa",
+    "Fish",
+    "ah-pah-TAH"
+   ],
+   [
+    "Gua",
+    "Market",
+    "GWAH"
+   ],
+   [
+    "Ɛkɔm de me",
+    "I am hungry",
+    "eh-KAWM deh meh"
+   ],
+   [
+    "Mepɛ nsuo",
+    "I want water",
+    "meh-PEH n-SOO-o"
+   ],
+   [
+    "Aduane no yɛ dɛ",
+    "The food is delicious",
+    "ah-DWAH-neh no yeh DEH"
+   ],
+   [
+    "Ne bo yɛ den dodo",
+    "It is too expensive",
+    "neh BO yeh DEN DO-do"
+   ],
+   [
+    "Mepa wo kyɛw, te so",
+    "Please reduce the price",
+    "meh-PAH wo CHEW, teh SO"
+   ],
+   [
+    "Mɛtɔ",
+    "I will buy it",
+    "meh-TAW"
+   ],
+   [
+    "Efie",
+    "House",
+    "eh-FEE-eh"
+   ],
+   [
+    "Ɛpono",
+    "Door",
+    "eh-PO-no"
+   ],
+   [
+    "Dan",
+    "Room",
+    "DAHN"
+   ],
+   [
+    "Mpa",
+    "Bed",
+    "m-PAH"
+   ],
+   [
+    "Akonnwa",
+    "Chair",
+    "ah-KON-wah"
+   ],
+   [
+    "Nwoma",
+    "Book",
+    "n-WO-mah"
+   ],
+   [
+    "Sukuu",
+    "School",
+    "soo-KOO"
+   ],
+   [
+    "Bra mu",
+    "Come in",
+    "brah MOO"
+   ],
+   [
+    "Tena ase",
+    "Sit down",
+    "TEH-nah AH-seh"
+   ],
+   [
+    "To ɛpono no mu",
+    "Close the door",
+    "to eh-PO-no no MOO"
+   ],
+   [
+    "Tiafi wɔ he?",
+    "Where is the toilet?",
+    "tee-AH-fee waw HEH"
+   ],
+   [
+    "Merekɔ fie",
+    "I am going home",
+    "meh-reh-KAW FEE-eh"
+   ],
+   [
+    "Ɛnnɛ",
+    "Today",
+    "en-NEH"
+   ],
+   [
+    "Ɔkyena",
+    "Tomorrow",
+    "aw-CHEH-nah"
+   ],
+   [
+    "Ɛnnora",
+    "Yesterday",
+    "en-NO-rah"
+   ],
+   [
+    "Anɔpa",
+    "Morning",
+    "ah-NAW-pah"
+   ],
+   [
+    "Anadwo",
+    "Night",
+    "ah-NAH-jwo"
+   ],
+   [
+    "Seesei",
+    "Now",
+    "SEH-seh"
+   ],
+   [
+    "Akyire yi",
+    "Later",
+    "ah-CHEE-reh yee"
+   ],
+   [
+    "Owia",
+    "Sun",
+    "o-WEE-ah"
+   ],
+   [
+    "Osuo",
+    "Rain",
+    "o-SOO-o"
+   ],
+   [
+    "Ɛyɛ hyew",
+    "It is hot",
+    "eh-yeh SHEW"
+   ],
+   [
+    "Ɛyɛ nwini",
+    "It is cold",
+    "eh-yeh n-WEE-nee"
+   ],
+   [
+    "Abɔ sɛn?",
+    "What time is it?",
+    "ah-BAW SEN"
+   ],
+   [
+    "Ɛdeɛn?",
+    "What?",
+    "eh-DEN"
+   ],
+   [
+    "Ɛhe?",
+    "Where?",
+    "eh-HEH"
+   ],
+   [
+    "Hwan?",
+    "Who?",
+    "HWAHN"
+   ],
+   [
+    "Adɛn?",
+    "Why?",
+    "ah-DEN"
+   ],
+   [
+    "Daben?",
+    "When?",
+    "dah-BEN"
+   ],
+   [
+    "Bra ha",
+    "Come here",
+    "brah HAH"
+   ],
+   [
+    "Ma yɛnkɔ",
+    "Let's go",
+    "mah yen-KAW"
+   ],
+   [
+    "Twɛn",
+    "Wait",
+    "TWEN"
+   ],
+   [
+    "Mepɛ sɛ medidi",
+    "I want to eat",
+    "meh-PEH seh meh-DEE-dee"
+   ],
+   [
+    "Mepɛ sɛ meda",
+    "I want to sleep",
+    "meh-PEH seh meh-DAH"
+   ],
+   [
+    "Gua no wɔ he?",
+    "Where is the market?",
+    "GWAH no waw HEH"
+   ],
+   [
+    "Hwan ne no?",
+    "Who is that?",
+    "HWAHN neh no"
+   ],
+   [
+    "M'ani agye",
+    "I am happy",
+    "mah-NEE ah-JEH"
+   ],
+   [
+    "Mabrɛ",
+    "I am tired",
+    "mah-BREH"
+   ],
+   [
+    "Me yare",
+    "I am sick",
+    "meh YAH-reh"
+   ],
+   [
+    "Me dɔ wo",
+    "I love you",
+    "meh DAW wo"
+   ],
+   [
+    "Papa",
+    "Good",
+    "PAH-pah"
+   ],
+   [
+    "Bɔne",
+    "Bad",
+    "BAW-neh"
+   ],
+   [
+    "Kɛseɛ",
+    "Big",
+    "KEH-seh"
+   ],
+   [
+    "Ketewa",
+    "Small",
+    "KEH-teh-wah"
+   ],
+   [
+    "Ti",
+    "Head",
+    "TEE"
+   ],
+   [
+    "Nsa",
+    "Hand",
+    "n-SAH"
+   ],
+   [
+    "Ani",
+    "Eye",
+    "ah-NEE"
+   ],
+   [
+    "Me ti yɛ me ya",
+    "My head hurts",
+    "meh TEE yeh meh YAH"
+   ],
+   [
+    "Kwan",
+    "Road",
+    "KWAHN"
+   ],
+   [
+    "Kaa",
+    "Car",
+    "KAH"
+   ],
+   [
+    "Benkum",
+    "Left",
+    "ben-KOOM"
+   ],
+   [
+    "Nifa",
+    "Right",
+    "nee-FAH"
+   ],
+   [
+    "Ɛbɛn",
+    "It is near",
+    "eh-BEN"
+   ],
+   [
+    "Ɛwɔ akyirikyiri",
+    "It is far",
+    "eh-WAW ah-chee-ree-CHEE-ree"
+   ],
+   [
+    "Gyina ha",
+    "Stop here",
+    "JEE-nah HAH"
+   ],
+   [
+    "Kɔ tee",
+    "Go straight",
+    "kaw TEH"
+   ],
+   [
+    "Boa me!",
+    "Help me!",
+    "BO-ah meh"
+   ],
+   [
+    "Mayera",
+    "I am lost",
+    "mah-YEH-rah"
+   ],
+   [
+    "Frɛ dɔkota",
+    "Call a doctor",
+    "freh daw-KO-tah"
+   ],
+   [
+    "Akwantu pa",
+    "Safe journey",
+    "ah-kwahn-TOO PAH"
+   ]
+  ]
+ },
+ {
+  "name": "Amharic",
+  "code": "am",
+  "region": "Ethiopia",
+  "about": "The working language of Ethiopia, written in the ancient Ge'ez script. Amharic belongs to the Semitic family, like Arabic and Hebrew. Shown here in Latin letters.",
+  "phrases": [
+   [
+    "ሰላም",
+    "Hello",
+    "seh-LAHM"
+   ],
+   [
+    "እንደምን አደሩ",
+    "Good morning",
+    "en-deh-MEN ah-deh-ROO"
+   ],
+   [
+    "እንደምን ዋሉ",
+    "Good afternoon",
+    "en-deh-MEN wah-LOO"
+   ],
+   [
+    "እንደምን አመሹ",
+    "Good evening",
+    "en-deh-MEN ah-meh-SHOO"
+   ],
+   [
+    "እንዴት ነህ?",
+    "How are you?",
+    "en-DET neh"
+   ],
+   [
+    "ደህና ነኝ",
+    "I am fine",
+    "deh-NAH nyeh"
+   ],
+   [
+    "አመሰግናለሁ",
+    "Thank you",
+    "ah-meh-seg-nah-LEH-hoo"
+   ],
+   [
+    "በጣም አመሰግናለሁ",
+    "Thank you very much",
+    "beh-TAHM ah-meh-seg-nah-LEH-hoo"
+   ],
+   [
+    "እባክዎ",
+    "Please",
+    "eh-BAH-koh"
+   ],
+   [
+    "ይቅርታ",
+    "Sorry",
+    "yi-ker-TAH"
+   ],
+   [
+    "ደህና ሁን",
+    "Goodbye",
+    "deh-NAH hoon"
+   ],
+   [
+    "ነገ እንገናኝ",
+    "See you tomorrow",
+    "neh-GEH en-geh-NAHNY"
+   ],
+   [
+    "ስምህ ማን ነው?",
+    "What is your name?",
+    "sim-MEH mahn neh-WOO"
+   ],
+   [
+    "ስሜ አበበ ነው",
+    "My name is Abebe",
+    "si-MEH ah-BEH-beh neh-WOO"
+   ],
+   [
+    "ስሜ ትዕግስት ነው",
+    "My name is Tigist",
+    "si-MEH tih-gist neh-WOO"
+   ],
+   [
+    "ስለተዋወቅን ደስ ብሎኛል",
+    "Nice to meet you",
+    "si-leh-teh-wah-WEH-kin des bi-LO-nyahl"
+   ],
+   [
+    "ከየት ነህ?",
+    "Where are you from?",
+    "keh-YET neh"
+   ],
+   [
+    "ከኢትዮጵያ ነኝ",
+    "I am from Ethiopia",
+    "keh-ee-tee-YO-pyah nyeh"
+   ],
+   [
+    "አዲስ አበባ እኖራለሁ",
+    "I live in Addis Ababa",
+    "ah-DEES AH-beh-bah en-no-rah-LEH-hoo"
+   ],
+   [
+    "እንኳን ደህና መጡ",
+    "Welcome",
+    "en-KWAHN deh-NAH meh-TOO"
+   ],
+   [
+    "እንግሊዝኛ ትናገራለህ?",
+    "Do you speak English?",
+    "en-glee-ZEE-nyah ti-nah-geh-RAH-leh"
+   ],
+   [
+    "ትንሽ አማርኛ እናገራለሁ",
+    "I speak a little Amharic",
+    "ti-NISH ahm-AH-ri-nyah eh-nah-geh-rah-LEH-hoo"
+   ],
+   [
+    "አልገባኝም",
+    "I don't understand",
+    "ahl-geh-BAH-nyim"
+   ],
+   [
+    "እባክዎ እንደገና ይድገሙት",
+    "Please say it again",
+    "eh-BAH-koh en-deh-geh-NAH yid-geh-MOOT"
+   ],
+   [
+    "ቤተሰብ",
+    "Family",
+    "beh-teh-SEB"
+   ],
+   [
+    "እናት",
+    "Mother",
+    "eh-NAHT"
+   ],
+   [
+    "አባት",
+    "Father",
+    "ah-BAHT"
+   ],
+   [
+    "ልጅ",
+    "Child",
+    "LIJ"
+   ],
+   [
+    "ሴት አያት",
+    "Grandmother",
+    "SET ah-YAHT"
+   ],
+   [
+    "ወንድ አያት",
+    "Grandfather",
+    "WEND ah-YAHT"
+   ],
+   [
+    "ባል",
+    "Husband",
+    "BAHL"
+   ],
+   [
+    "ሚስት",
+    "Wife",
+    "MEEST"
+   ],
+   [
+    "ጓደኛ",
+    "Friend",
+    "gwah-DEH-nyah"
+   ],
+   [
+    "ይህች እናቴ ናት",
+    "This is my mother",
+    "YIH-ch eh-nah-TEH naht"
+   ],
+   [
+    "ቤተሰብህ እንዴት ነው?",
+    "How is your family?",
+    "beh-teh-seb-BEH en-DET neh-WOO"
+   ],
+   [
+    "ደህና ናቸው",
+    "They are well",
+    "deh-NAH nah-CHEW"
+   ],
+   [
+    "አንድ",
+    "One",
+    "AHND"
+   ],
+   [
+    "ሁለት",
+    "Two",
+    "hoo-LET"
+   ],
+   [
+    "ሶስት",
+    "Three",
+    "SOST"
+   ],
+   [
+    "አራት",
+    "Four",
+    "ah-RAHT"
+   ],
+   [
+    "አምስት",
+    "Five",
+    "AHM-ist"
+   ],
+   [
+    "ስድስት",
+    "Six",
+    "SID-ist"
+   ],
+   [
+    "ሰባት",
+    "Seven",
+    "seh-BAHT"
+   ],
+   [
+    "ስምንት",
+    "Eight",
+    "SIM-int"
+   ],
+   [
+    "ዘጠኝ",
+    "Nine",
+    "zeh-TENY"
+   ],
+   [
+    "አስር",
+    "Ten",
+    "AHS-ir"
+   ],
+   [
+    "ስንት ነው?",
+    "How much is it?",
+    "SINT neh-WOO"
+   ],
+   [
+    "ገንዘብ",
+    "Money",
+    "gen-ZEB"
+   ],
+   [
+    "ውሃ",
+    "Water",
+    "WOO-hah"
+   ],
+   [
+    "ምግብ",
+    "Food",
+    "MI-gib"
+   ],
+   [
+    "ሩዝ",
+    "Rice",
+    "ROOZ"
+   ],
+   [
+    "ስጋ",
+    "Meat",
+    "si-GAH"
+   ],
+   [
+    "ዓሳ",
+    "Fish",
+    "AH-sah"
+   ],
+   [
+    "ገበያ",
+    "Market",
+    "geh-beh-YAH"
+   ],
+   [
+    "ርቦኛል",
+    "I am hungry",
+    "ri-BO-nyahl"
+   ],
+   [
+    "ውሃ እፈልጋለሁ",
+    "I want water",
+    "WOO-hah ef-fel-gah-LEH-hoo"
+   ],
+   [
+    "ምግቡ ጣፋጭ ነው",
+    "The food is delicious",
+    "mi-gi-BOO tah-FAHCH neh-WOO"
+   ],
+   [
+    "በጣም ውድ ነው",
+    "It is too expensive",
+    "beh-TAHM WUD neh-WOO"
+   ],
+   [
+    "እባክዎ ዋጋ ይቀንሱ",
+    "Please reduce the price",
+    "eh-BAH-koh WAH-gah yi-ken-SOO"
+   ],
+   [
+    "እገዛዋለሁ",
+    "I will buy it",
+    "eh-geh-zah-wah-LEH-hoo"
+   ],
+   [
+    "ቤት",
+    "House",
+    "BET"
+   ],
+   [
+    "በር",
+    "Door",
+    "BER"
+   ],
+   [
+    "ክፍል",
+    "Room",
+    "KI-fil"
+   ],
+   [
+    "አልጋ",
+    "Bed",
+    "AHL-gah"
+   ],
+   [
+    "ወንበር",
+    "Chair",
+    "wen-BER"
+   ],
+   [
+    "መጽሐፍ",
+    "Book",
+    "mets-HAHF"
+   ],
+   [
+    "ትምህርት ቤት",
+    "School",
+    "tim-HIRT BET"
+   ],
+   [
+    "ይግቡ",
+    "Come in",
+    "yig-BOO"
+   ],
+   [
+    "ይቀመጡ",
+    "Sit down",
+    "yi-keh-meh-TOO"
+   ],
+   [
+    "በሩን ዝጋ",
+    "Close the door",
+    "beh-ROON ZI-gah"
+   ],
+   [
+    "መጸዳጃ ቤት የት ነው?",
+    "Where is the toilet?",
+    "meh-tseh-dah-JAH BET YET neh-WOO"
+   ],
+   [
+    "ወደ ቤት እሄዳለሁ",
+    "I am going home",
+    "weh-DEH BET eh-heh-dah-LEH-hoo"
+   ],
+   [
+    "ዛሬ",
+    "Today",
+    "ZAH-reh"
+   ],
+   [
+    "ነገ",
+    "Tomorrow",
+    "neh-GEH"
+   ],
+   [
+    "ትናንት",
+    "Yesterday",
+    "ti-NAHNT"
+   ],
+   [
+    "ጠዋት",
+    "Morning",
+    "teh-WAHT"
+   ],
+   [
+    "ሌሊት",
+    "Night",
+    "leh-LEET"
+   ],
+   [
+    "አሁን",
+    "Now",
+    "ah-HOON"
+   ],
+   [
+    "በኋላ",
+    "Later",
+    "beh-HWAH-lah"
+   ],
+   [
+    "ፀሐይ",
+    "Sun",
+    "tseh-HAI"
+   ],
+   [
+    "ዝናብ",
+    "Rain",
+    "zi-NAHB"
+   ],
+   [
+    "ሞቃት ነው",
+    "It is hot",
+    "mo-KAHT neh-WOO"
+   ],
+   [
+    "ቀዝቃዛ ነው",
+    "It is cold",
+    "kez-kah-ZAH neh-WOO"
+   ],
+   [
+    "ስንት ሰዓት ነው?",
+    "What time is it?",
+    "SINT seh-AHT neh-WOO"
+   ],
+   [
+    "ምን?",
+    "What?",
+    "MIN"
+   ],
+   [
+    "የት?",
+    "Where?",
+    "YET"
+   ],
+   [
+    "ማን?",
+    "Who?",
+    "MAHN"
+   ],
+   [
+    "ለምን?",
+    "Why?",
+    "leh-MIN"
+   ],
+   [
+    "መቼ?",
+    "When?",
+    "meh-CHEH"
+   ],
+   [
+    "ወደዚህ ና",
+    "Come here",
+    "weh-deh-ZEEH nah"
+   ],
+   [
+    "እንሂድ",
+    "Let's go",
+    "en-HEED"
+   ],
+   [
+    "ቆይ",
+    "Wait",
+    "KOY"
+   ],
+   [
+    "መብላት እፈልጋለሁ",
+    "I want to eat",
+    "meb-LAHT ef-fel-gah-LEH-hoo"
+   ],
+   [
+    "መተኛት እፈልጋለሁ",
+    "I want to sleep",
+    "meh-teh-NYAHT ef-fel-gah-LEH-hoo"
+   ],
+   [
+    "ገበያው የት ነው?",
+    "Where is the market?",
+    "geh-beh-YAH-woo YET neh-WOO"
+   ],
+   [
+    "ያ ማን ነው?",
+    "Who is that?",
+    "YAH mahn neh-WOO"
+   ],
+   [
+    "ደስተኛ ነኝ",
+    "I am happy",
+    "des-teh-NYAH nyeh"
+   ],
+   [
+    "ደክሞኛል",
+    "I am tired",
+    "dek-MO-nyahl"
+   ],
+   [
+    "ታምሜአለሁ",
+    "I am sick",
+    "tahm-meh-ah-LEH-hoo"
+   ],
+   [
+    "እወድሃለሁ",
+    "I love you",
+    "eh-wed-dah-LEH-hoo"
+   ],
+   [
+    "ጥሩ",
+    "Good",
+    "TI-roo"
+   ],
+   [
+    "መጥፎ",
+    "Bad",
+    "MET-fo"
+   ],
+   [
+    "ትልቅ",
+    "Big",
+    "TI-lik"
+   ],
+   [
+    "ትንሽ",
+    "Small",
+    "ti-NISH"
+   ],
+   [
+    "ራስ",
+    "Head",
+    "RAHS"
+   ],
+   [
+    "እጅ",
+    "Hand",
+    "EJ"
+   ],
+   [
+    "ዓይን",
+    "Eye",
+    "AYN"
+   ],
+   [
+    "ራሴን ያመኛል",
+    "My head hurts",
+    "rah-SEN yah-MEH-nyahl"
+   ],
+   [
+    "መንገድ",
+    "Road",
+    "men-GED"
+   ],
+   [
+    "መኪና",
+    "Car",
+    "meh-KEE-nah"
+   ],
+   [
+    "ግራ",
+    "Left",
+    "GI-rah"
+   ],
+   [
+    "ቀኝ",
+    "Right",
+    "KENY"
+   ],
+   [
+    "ቅርብ ነው",
+    "It is near",
+    "KI-rib neh-WOO"
+   ],
+   [
+    "ሩቅ ነው",
+    "It is far",
+    "ROOK neh-WOO"
+   ],
+   [
+    "እዚህ ቁም",
+    "Stop here",
+    "eh-ZEEH KOOM"
+   ],
+   [
+    "ቀጥ ብለህ ሂድ",
+    "Go straight",
+    "KET bi-LEH HEED"
+   ],
+   [
+    "እርዳኝ!",
+    "Help me!",
+    "er-DAHNY"
+   ],
+   [
+    "ጠፍቻለሁ",
+    "I am lost",
+    "tef-chah-LEH-hoo"
+   ],
+   [
+    "ሐኪም ጥራ",
+    "Call a doctor",
+    "hah-KEEM ti-RAH"
+   ],
+   [
+    "መልካም ጉዞ",
+    "Safe journey",
+    "mel-KAHM goo-ZO"
+   ]
+  ]
+ },
+ {
+  "name": "Xhosa",
+  "code": "xh",
+  "region": "South Africa",
+  "about": "isiXhosa is known for its click sounds, written with the letters c, q and x. It is one of South Africa's official languages and the language of Nelson Mandela.",
+  "phrases": [
+   [
+    "Molo",
+    "Hello",
+    "MO-lo"
+   ],
+   [
+    "Ntsasa entle",
+    "Good morning",
+    "n-TSAH-sah EN-tleh"
+   ],
+   [
+    "Emva kwemini emnandi",
+    "Good afternoon",
+    "EM-vah kweh-MEE-nee em-NAHN-dee"
+   ],
+   [
+    "Ngokuhlwa okumnandi",
+    "Good evening",
+    "ngo-KOO-shlwah o-koom-NAHN-dee"
+   ],
+   [
+    "Unjani?",
+    "How are you?",
+    "oon-JAH-nee"
+   ],
+   [
+    "Ndiphilile",
+    "I am fine",
+    "n-dee-pee-LEE-leh"
+   ],
+   [
+    "Enkosi",
+    "Thank you",
+    "en-KO-see"
+   ],
+   [
+    "Enkosi kakhulu",
+    "Thank you very much",
+    "en-KO-see kah-KOO-loo"
+   ],
+   [
+    "Nceda",
+    "Please",
+    "|EH-dah (click)"
+   ],
+   [
+    "Uxolo",
+    "Sorry",
+    "oo-||O-lo (click)"
+   ],
+   [
+    "Sala kakuhle",
+    "Goodbye",
+    "SAH-lah kah-KOO-shleh"
+   ],
+   [
+    "Sobonana ngomso",
+    "See you tomorrow",
+    "so-bo-NAH-nah NGOM-so"
+   ],
+   [
+    "Ngubani igama lakho?",
+    "What is your name?",
+    "ngoo-BAH-nee ee-GAH-mah LAH-ko"
+   ],
+   [
+    "Igama lam nguLwazi",
+    "My name is Lwazi",
+    "ee-GAH-mah lahm ngoo-LWAH-zee"
+   ],
+   [
+    "Igama lam nguNomsa",
+    "My name is Nomsa",
+    "ee-GAH-mah lahm ngoo-NOM-sah"
+   ],
+   [
+    "Ndiyavuya ukukwazi",
+    "Nice to meet you",
+    "n-dee-yah-VOO-yah oo-koo-KWAH-zee"
+   ],
+   [
+    "Uvela phi?",
+    "Where are you from?",
+    "oo-VEH-lah PEE"
+   ],
+   [
+    "Ndivela eMzantsi Afrika",
+    "I am from South Africa",
+    "n-dee-VEH-lah em-ZAHN-tsee AH-free-kah"
+   ],
+   [
+    "Ndihlala eMthatha",
+    "I live in Mthatha",
+    "n-dee-SHLAH-lah em-TAH-tah"
+   ],
+   [
+    "Wamkelekile",
+    "Welcome",
+    "wahm-keh-leh-KEE-leh"
+   ],
+   [
+    "Uyasithetha isiNgesi?",
+    "Do you speak English?",
+    "oo-yah-see-TEH-tah ee-see-NGEH-see"
+   ],
+   [
+    "Ndithetha isiXhosa kancinci",
+    "I speak a little Xhosa",
+    "n-dee-TEH-tah ee-see-||O-sah kah-|EEN-|ee (clicks)"
+   ],
+   [
+    "Andiqondi",
+    "I don't understand",
+    "ahn-dee-!ON-dee (click)"
+   ],
+   [
+    "Nceda uphinde",
+    "Please say it again",
+    "|EH-dah oo-PEEN-deh (click)"
+   ],
+   [
+    "Usapho",
+    "Family",
+    "oo-SAH-po"
+   ],
+   [
+    "Umama",
+    "Mother",
+    "oo-MAH-mah"
+   ],
+   [
+    "Utata",
+    "Father",
+    "oo-TAH-tah"
+   ],
+   [
+    "Umntwana",
+    "Child",
+    "oom-n-TWAH-nah"
+   ],
+   [
+    "Umakhulu",
+    "Grandmother",
+    "oo-mah-KOO-loo"
+   ],
+   [
+    "Utat'omkhulu",
+    "Grandfather",
+    "oo-tah-tom-KOO-loo"
+   ],
+   [
+    "Umyeni",
+    "Husband",
+    "oom-YEH-nee"
+   ],
+   [
+    "Umfazi",
+    "Wife",
+    "oom-FAH-zee"
+   ],
+   [
+    "Umhlobo",
+    "Friend",
+    "oom-SHLO-bo"
+   ],
+   [
+    "Lo ngumama wam",
+    "This is my mother",
+    "lo ngoo-MAH-mah wahm"
+   ],
+   [
+    "Lunjani usapho lwakho?",
+    "How is your family?",
+    "loon-JAH-nee oo-SAH-po LWAH-ko"
+   ],
+   [
+    "Baphilile",
+    "They are well",
+    "bah-pee-LEE-leh"
+   ],
+   [
+    "Inye",
+    "One",
+    "EEN-yeh"
+   ],
+   [
+    "Zimbini",
+    "Two",
+    "zeem-BEE-nee"
+   ],
+   [
+    "Zintathu",
+    "Three",
+    "zeen-TAH-too"
+   ],
+   [
+    "Zine",
+    "Four",
+    "ZEE-neh"
+   ],
+   [
+    "Zintlanu",
+    "Five",
+    "zeen-TLAH-noo"
+   ],
+   [
+    "Zintandathu",
+    "Six",
+    "zeen-tahn-DAH-too"
+   ],
+   [
+    "Sixhenxe",
+    "Seven",
+    "see-||EN-||eh (clicks)"
+   ],
+   [
+    "Sibhozo",
+    "Eight",
+    "see-BO-zo"
+   ],
+   [
+    "Lithoba",
+    "Nine",
+    "lee-TO-bah"
+   ],
+   [
+    "Lishumi",
+    "Ten",
+    "lee-SHOO-mee"
+   ],
+   [
+    "Yimalini?",
+    "How much is it?",
+    "yee-mah-LEE-nee"
+   ],
+   [
+    "Imali",
+    "Money",
+    "ee-MAH-lee"
+   ],
+   [
+    "Amanzi",
+    "Water",
+    "ah-MAHN-zee"
+   ],
+   [
+    "Ukutya",
+    "Food",
+    "oo-KOO-tyah"
+   ],
+   [
+    "Irayisi",
+    "Rice",
+    "ee-rah-YEE-see"
+   ],
+   [
+    "Inyama",
+    "Meat",
+    "een-YAH-mah"
+   ],
+   [
+    "Intlanzi",
+    "Fish",
+    "een-TLAHN-zee"
+   ],
+   [
+    "Imarike",
+    "Market",
+    "ee-mah-REE-keh"
+   ],
+   [
+    "Ndilambile",
+    "I am hungry",
+    "n-dee-lahm-BEE-leh"
+   ],
+   [
+    "Ndifuna amanzi",
+    "I want water",
+    "n-dee-FOO-nah ah-MAHN-zee"
+   ],
+   [
+    "Ukutya kumnandi",
+    "The food is delicious",
+    "oo-KOO-tyah koom-NAHN-dee"
+   ],
+   [
+    "Kubiza kakhulu",
+    "It is too expensive",
+    "koo-BEE-zah kah-KOO-loo"
+   ],
+   [
+    "Nceda wehlise ixabiso",
+    "Please reduce the price",
+    "|EH-dah weh-SHLEE-seh ee-||ah-BEE-so (clicks)"
+   ],
+   [
+    "Ndiza kuyithenga",
+    "I will buy it",
+    "n-DEE-zah koo-yee-TEN-gah"
+   ],
+   [
+    "Indlu",
+    "House",
+    "EEN-dloo"
+   ],
+   [
+    "Ucango",
+    "Door",
+    "oo-|AHN-go (click)"
+   ],
+   [
+    "Igumbi",
+    "Room",
+    "ee-GOOM-bee"
+   ],
+   [
+    "Ibhedi",
+    "Bed",
+    "ee-BEH-dee"
+   ],
+   [
+    "Isitulo",
+    "Chair",
+    "ee-see-TOO-lo"
+   ],
+   [
+    "Incwadi",
+    "Book",
+    "een-|WAH-dee (click)"
+   ],
+   [
+    "Isikolo",
+    "School",
+    "ee-see-KO-lo"
+   ],
+   [
+    "Ngena",
+    "Come in",
+    "NGEH-nah"
+   ],
+   [
+    "Hlala phantsi",
+    "Sit down",
+    "SHLAH-lah PAHN-tsee"
+   ],
+   [
+    "Vala ucango",
+    "Close the door",
+    "VAH-lah oo-|AHN-go (click)"
+   ],
+   [
+    "Iphi indlu yangasese?",
+    "Where is the toilet?",
+    "EE-pee EEN-dloo yah-ngah-SEH-seh"
+   ],
+   [
+    "Ndiya ekhaya",
+    "I am going home",
+    "n-DEE-yah eh-KAH-yah"
+   ],
+   [
+    "Namhlanje",
+    "Today",
+    "nahm-SHLAHN-jeh"
+   ],
+   [
+    "Ngomso",
+    "Tomorrow",
+    "NGOM-so"
+   ],
+   [
+    "Izolo",
+    "Yesterday",
+    "ee-ZO-lo"
+   ],
+   [
+    "Kusasa",
+    "Morning",
+    "koo-SAH-sah"
+   ],
+   [
+    "Ebusuku",
+    "Night",
+    "eh-boo-SOO-koo"
+   ],
+   [
+    "Ngoku",
+    "Now",
+    "NGO-koo"
+   ],
+   [
+    "Kamva",
+    "Later",
+    "KAHM-vah"
+   ],
+   [
+    "Ilanga",
+    "Sun",
+    "ee-LAHN-gah"
+   ],
+   [
+    "Imvula",
+    "Rain",
+    "eem-VOO-lah"
+   ],
+   [
+    "Kushushu",
+    "It is hot",
+    "koo-SHOO-shoo"
+   ],
+   [
+    "Kuyabanda",
+    "It is cold",
+    "koo-yah-BAHN-dah"
+   ],
+   [
+    "Ngubani ixesha?",
+    "What time is it?",
+    "ngoo-BAH-nee ee-||EH-shah (click)"
+   ],
+   [
+    "Yintoni?",
+    "What?",
+    "yeen-TO-nee"
+   ],
+   [
+    "Phi?",
+    "Where?",
+    "PEE"
+   ],
+   [
+    "Ngubani?",
+    "Who?",
+    "ngoo-BAH-nee"
+   ],
+   [
+    "Kutheni?",
+    "Why?",
+    "koo-TEH-nee"
+   ],
+   [
+    "Nini?",
+    "When?",
+    "NEE-nee"
+   ],
+   [
+    "Yiza apha",
+    "Come here",
+    "YEE-zah AH-pah"
+   ],
+   [
+    "Masihambe",
+    "Let's go",
+    "mah-see-HAHM-beh"
+   ],
+   [
+    "Linda",
+    "Wait",
+    "LEEN-dah"
+   ],
+   [
+    "Ndifuna ukutya",
+    "I want to eat",
+    "n-dee-FOO-nah oo-KOO-tyah"
+   ],
+   [
+    "Ndifuna ukulala",
+    "I want to sleep",
+    "n-dee-FOO-nah oo-koo-LAH-lah"
+   ],
+   [
+    "Iphi imarike?",
+    "Where is the market?",
+    "EE-pee ee-mah-REE-keh"
+   ],
+   [
+    "Ngubani lowo?",
+    "Who is that?",
+    "ngoo-BAH-nee LO-wo"
+   ],
+   [
+    "Ndonwabile",
+    "I am happy",
+    "n-don-wah-BEE-leh"
+   ],
+   [
+    "Ndidiniwe",
+    "I am tired",
+    "n-dee-dee-NEE-weh"
+   ],
+   [
+    "Ndiyagula",
+    "I am sick",
+    "n-dee-yah-GOO-lah"
+   ],
+   [
+    "Ndiyakuthanda",
+    "I love you",
+    "n-dee-yah-koo-TAHN-dah"
+   ],
+   [
+    "Kuhle",
+    "Good",
+    "KOO-shleh"
+   ],
+   [
+    "Kubi",
+    "Bad",
+    "KOO-bee"
+   ],
+   [
+    "Kukhulu",
+    "Big",
+    "koo-KOO-loo"
+   ],
+   [
+    "Kuncinci",
+    "Small",
+    "koo-|EEN-|ee (clicks)"
+   ],
+   [
+    "Intloko",
+    "Head",
+    "een-TLO-ko"
+   ],
+   [
+    "Isandla",
+    "Hand",
+    "ee-SAHN-dlah"
+   ],
+   [
+    "Iliso",
+    "Eye",
+    "ee-LEE-so"
+   ],
+   [
+    "Intloko iyandiqaqamba",
+    "My head hurts",
+    "een-TLO-ko ee-yahn-dee-!ah-!AHM-bah (clicks)"
+   ],
+   [
+    "Indlela",
+    "Road",
+    "een-DLEH-lah"
+   ],
+   [
+    "Imoto",
+    "Car",
+    "ee-MO-to"
+   ],
+   [
+    "Ekhohlo",
+    "Left",
+    "eh-KO-shlo"
+   ],
+   [
+    "Ekunene",
+    "Right",
+    "eh-koo-NEH-neh"
+   ],
+   [
+    "Kufuphi",
+    "It is near",
+    "koo-FOO-pee"
+   ],
+   [
+    "Kukude",
+    "It is far",
+    "koo-KOO-deh"
+   ],
+   [
+    "Yima apha",
+    "Stop here",
+    "YEE-mah AH-pah"
+   ],
+   [
+    "Qhubeka ngqo",
+    "Go straight",
+    "!oo-BEH-kah ng!o (clicks)"
+   ],
+   [
+    "Ndincede!",
+    "Help me!",
+    "n-deen-|EH-deh (click)"
+   ],
+   [
+    "Ndilahlekile",
+    "I am lost",
+    "n-dee-lah-shleh-KEE-leh"
+   ],
+   [
+    "Biza ugqirha",
+    "Call a doctor",
+    "BEE-zah oo-g!EE-rhah (click)"
+   ],
+   [
+    "Uhambe kakuhle",
+    "Safe journey",
+    "oo-HAHM-beh kah-KOO-shleh"
+   ]
+  ]
+ },
+ {
+  "name": "Shona",
+  "code": "sn",
+  "region": "Zimbabwe",
+  "about": "The main language of Zimbabwe, spoken by most of its people. Shona is the language of the builders of Great Zimbabwe and of the mbira thumb piano.",
+  "phrases": [
+   [
+    "Mhoroi",
+    "Hello",
+    "m-HO-roy"
+   ],
+   [
+    "Mangwanani",
+    "Good morning",
+    "mahng-gwah-NAH-nee"
+   ],
+   [
+    "Masikati",
+    "Good afternoon",
+    "mah-see-KAH-tee"
+   ],
+   [
+    "Manheru",
+    "Good evening",
+    "mahn-HEH-roo"
+   ],
+   [
+    "Makadii?",
+    "How are you?",
+    "mah-kah-DEE-ee"
+   ],
+   [
+    "Ndiripo",
+    "I am fine",
+    "n-dee-REE-po"
+   ],
+   [
+    "Ndatenda",
+    "Thank you",
+    "n-dah-TEN-dah"
+   ],
+   [
+    "Ndatenda zvikuru",
+    "Thank you very much",
+    "n-dah-TEN-dah zvee-KOO-roo"
+   ],
+   [
+    "Ndapota",
+    "Please",
+    "n-dah-PO-tah"
+   ],
+   [
+    "Ndine urombo",
+    "Sorry",
+    "n-DEE-neh oo-ROM-bo"
+   ],
+   [
+    "Chisarai zvakanaka",
+    "Goodbye",
+    "chee-sah-RAI zvah-kah-NAH-kah"
+   ],
+   [
+    "Tichaonana mangwana",
+    "See you tomorrow",
+    "tee-chah-o-NAH-nah mahng-GWAH-nah"
+   ],
+   [
+    "Unonzi ani?",
+    "What is your name?",
+    "oo-NON-zee AH-nee"
+   ],
+   [
+    "Ndinonzi Tendai",
+    "My name is Tendai",
+    "n-dee-NON-zee ten-DAI"
+   ],
+   [
+    "Ndinonzi Rudo",
+    "My name is Rudo",
+    "n-dee-NON-zee ROO-do"
+   ],
+   [
+    "Ndafara kukuziva",
+    "Nice to meet you",
+    "n-dah-FAH-rah koo-koo-ZEE-vah"
+   ],
+   [
+    "Unobva kupi?",
+    "Where are you from?",
+    "oo-NO-bvah KOO-pee"
+   ],
+   [
+    "Ndinobva kuZimbabwe",
+    "I am from Zimbabwe",
+    "n-dee-NO-bvah koo-zeem-BAH-bweh"
+   ],
+   [
+    "Ndinogara kuHarare",
+    "I live in Harare",
+    "n-dee-no-GAH-rah koo-hah-RAH-reh"
+   ],
+   [
+    "Mauya",
+    "Welcome",
+    "mah-OO-yah"
+   ],
+   [
+    "Unotaura Chirungu here?",
+    "Do you speak English?",
+    "oo-no-TOW-rah chee-ROON-goo HEH-reh"
+   ],
+   [
+    "Ndinotaura chiShona zvishoma",
+    "I speak a little Shona",
+    "n-dee-no-TOW-rah chee-SHO-nah zvee-SHO-mah"
+   ],
+   [
+    "Handinzwisisi",
+    "I don't understand",
+    "hahn-deen-zwee-SEE-see"
+   ],
+   [
+    "Ndapota dzokorora",
+    "Please say it again",
+    "n-dah-PO-tah dzo-ko-RO-rah"
+   ],
+   [
+    "Mhuri",
+    "Family",
+    "m-HOO-ree"
+   ],
+   [
+    "Amai",
+    "Mother",
+    "ah-MAI"
+   ],
+   [
+    "Baba",
+    "Father",
+    "BAH-bah"
+   ],
+   [
+    "Mwana",
+    "Child",
+    "MWAH-nah"
+   ],
+   [
+    "Ambuya",
+    "Grandmother",
+    "ahm-BOO-yah"
+   ],
+   [
+    "Sekuru",
+    "Grandfather",
+    "seh-KOO-roo"
+   ],
+   [
+    "Murume",
+    "Husband",
+    "moo-ROO-meh"
+   ],
+   [
+    "Mukadzi",
+    "Wife",
+    "moo-KAH-dzee"
+   ],
+   [
+    "Shamwari",
+    "Friend",
+    "shah-MWAH-ree"
+   ],
+   [
+    "Uyu ndimai vangu",
+    "This is my mother",
+    "OO-yoo n-dee-MAI VAHN-goo"
+   ],
+   [
+    "Mhuri yenyu yakadii?",
+    "How is your family?",
+    "m-HOO-ree YEN-yoo yah-kah-DEE-ee"
+   ],
+   [
+    "Varipo",
+    "They are well",
+    "vah-REE-po"
+   ],
+   [
+    "Poshi",
+    "One",
+    "PO-shee"
+   ],
+   [
+    "Piri",
+    "Two",
+    "PEE-ree"
+   ],
+   [
+    "Tatu",
+    "Three",
+    "TAH-too"
+   ],
+   [
+    "Ina",
+    "Four",
+    "EE-nah"
+   ],
+   [
+    "Shanu",
+    "Five",
+    "SHAH-noo"
+   ],
+   [
+    "Tanhatu",
+    "Six",
+    "tahn-HAH-too"
+   ],
+   [
+    "Nomwe",
+    "Seven",
+    "NOM-weh"
+   ],
+   [
+    "Sere",
+    "Eight",
+    "SEH-reh"
+   ],
+   [
+    "Pfumbamwe",
+    "Nine",
+    "pfoom-BAHM-weh"
+   ],
+   [
+    "Gumi",
+    "Ten",
+    "GOO-mee"
+   ],
+   [
+    "Imarii?",
+    "How much is it?",
+    "ee-mah-REE-ee"
+   ],
+   [
+    "Mari",
+    "Money",
+    "MAH-ree"
+   ],
+   [
+    "Mvura",
+    "Water",
+    "m-VOO-rah"
+   ],
+   [
+    "Chikafu",
+    "Food",
+    "chee-KAH-foo"
+   ],
+   [
+    "Mupunga",
+    "Rice",
+    "moo-POON-gah"
+   ],
+   [
+    "Nyama",
+    "Meat",
+    "NYAH-mah"
+   ],
+   [
+    "Hove",
+    "Fish",
+    "HO-veh"
+   ],
+   [
+    "Musika",
+    "Market",
+    "moo-SEE-kah"
+   ],
+   [
+    "Ndine nzara",
+    "I am hungry",
+    "n-DEE-neh n-ZAH-rah"
+   ],
+   [
+    "Ndinoda mvura",
+    "I want water",
+    "n-dee-NO-dah m-VOO-rah"
+   ],
+   [
+    "Chikafu chinonaka",
+    "The food is delicious",
+    "chee-KAH-foo chee-no-NAH-kah"
+   ],
+   [
+    "Chinodhura zvikuru",
+    "It is too expensive",
+    "chee-no-DHOO-rah zvee-KOO-roo"
+   ],
+   [
+    "Ndapota deredzai mutengo",
+    "Please reduce the price",
+    "n-dah-PO-tah deh-reh-DZAI moo-TEN-go"
+   ],
+   [
+    "Ndichachitenga",
+    "I will buy it",
+    "n-dee-chah-chee-TEN-gah"
+   ],
+   [
+    "Imba",
+    "House",
+    "EEM-bah"
+   ],
+   [
+    "Musuwo",
+    "Door",
+    "moo-SOO-wo"
+   ],
+   [
+    "Kamuri",
+    "Room",
+    "kah-MOO-ree"
+   ],
+   [
+    "Mubhedha",
+    "Bed",
+    "moo-BHEH-dhah"
+   ],
+   [
+    "Chigaro",
+    "Chair",
+    "chee-GAH-ro"
+   ],
+   [
+    "Bhuku",
+    "Book",
+    "BHOO-koo"
+   ],
+   [
+    "Chikoro",
+    "School",
+    "chee-KO-ro"
+   ],
+   [
+    "Pindai",
+    "Come in",
+    "peen-DAI"
+   ],
+   [
+    "Garai pasi",
+    "Sit down",
+    "gah-RAI PAH-see"
+   ],
+   [
+    "Vhara musuwo",
+    "Close the door",
+    "VHAH-rah moo-SOO-wo"
+   ],
+   [
+    "Chimbuzi chiri kupi?",
+    "Where is the toilet?",
+    "cheem-BOO-zee CHEE-ree KOO-pee"
+   ],
+   [
+    "Ndiri kuenda kumba",
+    "I am going home",
+    "n-DEE-ree koo-EN-dah KOOM-bah"
+   ],
+   [
+    "Nhasi",
+    "Today",
+    "n-HAH-see"
+   ],
+   [
+    "Mangwana",
+    "Tomorrow",
+    "mahng-GWAH-nah"
+   ],
+   [
+    "Nezuro",
+    "Yesterday",
+    "neh-ZOO-ro"
+   ],
+   [
+    "Pamangwanani",
+    "Morning",
+    "pah-mahng-gwah-NAH-nee"
+   ],
+   [
+    "Usiku",
+    "Night",
+    "oo-SEE-koo"
+   ],
+   [
+    "Zvino",
+    "Now",
+    "ZVEE-no"
+   ],
+   [
+    "Gare gare",
+    "Later",
+    "GAH-reh GAH-reh"
+   ],
+   [
+    "Zuva",
+    "Sun",
+    "ZOO-vah"
+   ],
+   [
+    "Mvura yekunaya",
+    "Rain",
+    "m-VOO-rah yeh-koo-NAH-yah"
+   ],
+   [
+    "Kunopisa",
+    "It is hot",
+    "koo-no-PEE-sah"
+   ],
+   [
+    "Kunotonhora",
+    "It is cold",
+    "koo-no-ton-HO-rah"
+   ],
+   [
+    "Inguva ngani?",
+    "What time is it?",
+    "een-GOO-vah n-GAH-nee"
+   ],
+   [
+    "Chii?",
+    "What?",
+    "CHEE-ee"
+   ],
+   [
+    "Kupi?",
+    "Where?",
+    "KOO-pee"
+   ],
+   [
+    "Ani?",
+    "Who?",
+    "AH-nee"
+   ],
+   [
+    "Sei?",
+    "Why?",
+    "SAY"
+   ],
+   [
+    "Rini?",
+    "When?",
+    "REE-nee"
+   ],
+   [
+    "Uya pano",
+    "Come here",
+    "OO-yah PAH-no"
+   ],
+   [
+    "Ngatiendei",
+    "Let's go",
+    "ngah-tee-en-DAY"
+   ],
+   [
+    "Mira",
+    "Wait",
+    "MEE-rah"
+   ],
+   [
+    "Ndinoda kudya",
+    "I want to eat",
+    "n-dee-NO-dah KOO-dyah"
+   ],
+   [
+    "Ndinoda kurara",
+    "I want to sleep",
+    "n-dee-NO-dah koo-RAH-rah"
+   ],
+   [
+    "Musika uri kupi?",
+    "Where is the market?",
+    "moo-SEE-kah OO-ree KOO-pee"
+   ],
+   [
+    "Ndiani uyo?",
+    "Who is that?",
+    "n-dee-AH-nee OO-yo"
+   ],
+   [
+    "Ndinofara",
+    "I am happy",
+    "n-dee-no-FAH-rah"
+   ],
+   [
+    "Ndaneta",
+    "I am tired",
+    "n-dah-NEH-tah"
+   ],
+   [
+    "Ndinorwara",
+    "I am sick",
+    "n-dee-no-RWAH-rah"
+   ],
+   [
+    "Ndinokuda",
+    "I love you",
+    "n-dee-no-KOO-dah"
+   ],
+   [
+    "Zvakanaka",
+    "Good",
+    "zvah-kah-NAH-kah"
+   ],
+   [
+    "Zvakaipa",
+    "Bad",
+    "zvah-kah-EE-pah"
+   ],
+   [
+    "Guru",
+    "Big",
+    "GOO-roo"
+   ],
+   [
+    "Diki",
+    "Small",
+    "DEE-kee"
+   ],
+   [
+    "Musoro",
+    "Head",
+    "moo-SO-ro"
+   ],
+   [
+    "Ruoko",
+    "Hand",
+    "roo-O-ko"
+   ],
+   [
+    "Ziso",
+    "Eye",
+    "ZEE-so"
+   ],
+   [
+    "Musoro wangu uri kurwadza",
+    "My head hurts",
+    "moo-SO-ro WAHN-goo OO-ree koo-RWAH-dzah"
+   ],
+   [
+    "Mugwagwa",
+    "Road",
+    "moo-GWAH-gwah"
+   ],
+   [
+    "Motokari",
+    "Car",
+    "mo-to-KAH-ree"
+   ],
+   [
+    "Kuruboshwe",
+    "Left",
+    "koo-roo-BO-shweh"
+   ],
+   [
+    "Kurudyi",
+    "Right",
+    "koo-ROO-dyee"
+   ],
+   [
+    "Pari pedyo",
+    "It is near",
+    "PAH-ree PEH-dyo"
+   ],
+   [
+    "Iri kure",
+    "It is far",
+    "EE-ree KOO-reh"
+   ],
+   [
+    "Mira pano",
+    "Stop here",
+    "MEE-rah PAH-no"
+   ],
+   [
+    "Enda wakananga",
+    "Go straight",
+    "EN-dah wah-kah-NAHN-gah"
+   ],
+   [
+    "Ndibatsirei!",
+    "Help me!",
+    "n-dee-bah-tsee-RAY"
+   ],
+   [
+    "Ndarasika",
+    "I am lost",
+    "n-dah-rah-SEE-kah"
+   ],
+   [
+    "Daidza chiremba",
+    "Call a doctor",
+    "dai-DZAH chee-REM-bah"
+   ],
+   [
+    "Rwendo rwakanaka",
+    "Safe journey",
+    "RWEN-do rwah-kah-NAH-kah"
+   ]
+  ]
+ },
+ {
+  "name": "Wolof",
+  "code": "wo",
+  "region": "Senegal · Gambia · Mauritania",
+  "about": "The most widely spoken language in Senegal and a lingua franca in Dakar. Wolof has no grammatical gender and is famous in West African music and griot song.",
+  "phrases": [
+   [
+    "Salaam aleekum",
+    "Hello",
+    "sah-LAHM ah-LEH-koom"
+   ],
+   [
+    "Naka suba si?",
+    "Good morning",
+    "NAH-kah SOO-bah see"
+   ],
+   [
+    "Naka bëccëg bi?",
+    "Good afternoon",
+    "NAH-kah BUH-chug bee"
+   ],
+   [
+    "Naka ngoon si?",
+    "Good evening",
+    "NAH-kah NGOHN see"
+   ],
+   [
+    "Na nga def?",
+    "How are you?",
+    "nahng-gah DEF"
+   ],
+   [
+    "Maa ngi fi rekk",
+    "I am fine",
+    "MAHN-gee fee REK"
+   ],
+   [
+    "Jërëjëf",
+    "Thank you",
+    "juh-ruh-JEF"
+   ],
+   [
+    "Jërëjëf lool",
+    "Thank you very much",
+    "juh-ruh-JEF LOHL"
+   ],
+   [
+    "Su la neexee",
+    "Please",
+    "soo lah NEH-heh"
+   ],
+   [
+    "Baal ma",
+    "Sorry",
+    "BAHL mah"
+   ],
+   [
+    "Ba beneen yoon",
+    "Goodbye",
+    "bah beh-NEHN YOHN"
+   ],
+   [
+    "Ba ëllëg",
+    "See you tomorrow",
+    "bah UL-lug"
+   ],
+   [
+    "Naka nga tudd?",
+    "What is your name?",
+    "NAH-kah ngah TOOD"
+   ],
+   [
+    "Moussa laa tudd",
+    "My name is Moussa",
+    "MOO-sah lah TOOD"
+   ],
+   [
+    "Fatou laa tudd",
+    "My name is Fatou",
+    "FAH-too lah TOOD"
+   ],
+   [
+    "Bég naa ci xam la",
+    "Nice to meet you",
+    "BEG nah chee HAHM lah"
+   ],
+   [
+    "Fan nga joge?",
+    "Where are you from?",
+    "FAHN ngah JO-geh"
+   ],
+   [
+    "Senegaal laa joge",
+    "I am from Senegal",
+    "seh-neh-GAHL lah JO-geh"
+   ],
+   [
+    "Ndakaaru laa dëkk",
+    "I live in Dakar",
+    "n-dah-KAH-roo lah DUK"
+   ],
+   [
+    "Dalal ak jàmm",
+    "Welcome",
+    "DAH-lahl ahk JAHM"
+   ],
+   [
+    "Ndax dangay wax angale?",
+    "Do you speak English?",
+    "n-DAHH DAHN-gai wahh AHN-gah-leh"
+   ],
+   [
+    "Dama wax tuuti Wolof",
+    "I speak a little Wolof",
+    "DAH-mah wahh TOO-tee WO-lof"
+   ],
+   [
+    "Dégguma",
+    "I don't understand",
+    "DEG-goo-mah"
+   ],
+   [
+    "Baal ma, waxaat ko",
+    "Please say it again",
+    "BAHL mah, wah-HAHT ko"
+   ],
+   [
+    "Njaboot",
+    "Family",
+    "n-jah-BOHT"
+   ],
+   [
+    "Yaay",
+    "Mother",
+    "YAI"
+   ],
+   [
+    "Baay",
+    "Father",
+    "BAI"
+   ],
+   [
+    "Xale",
+    "Child",
+    "HAH-leh"
+   ],
+   [
+    "Maam ju jigéen",
+    "Grandmother",
+    "MAHM joo jee-GEHN"
+   ],
+   [
+    "Maam ju góor",
+    "Grandfather",
+    "MAHM joo GOHR"
+   ],
+   [
+    "Jëkkër",
+    "Husband",
+    "JUK-kur"
+   ],
+   [
+    "Jabar",
+    "Wife",
+    "JAH-bahr"
+   ],
+   [
+    "Xarit",
+    "Friend",
+    "HAH-reet"
+   ],
+   [
+    "Kii mooy sama yaay",
+    "This is my mother",
+    "KEE mohy SAH-mah YAI"
+   ],
+   [
+    "Naka sa njaboot?",
+    "How is your family?",
+    "NAH-kah sah n-jah-BOHT"
+   ],
+   [
+    "Ñu ngi fi",
+    "They are well",
+    "NYOON-gee fee"
+   ],
+   [
+    "Benn",
+    "One",
+    "BEN"
+   ],
+   [
+    "Ñaar",
+    "Two",
+    "NYAHR"
+   ],
+   [
+    "Ñett",
+    "Three",
+    "NYET"
+   ],
+   [
+    "Ñeent",
+    "Four",
+    "NYEHNT"
+   ],
+   [
+    "Juróom",
+    "Five",
+    "joo-ROHM"
+   ],
+   [
+    "Juróom benn",
+    "Six",
+    "joo-ROHM BEN"
+   ],
+   [
+    "Juróom ñaar",
+    "Seven",
+    "joo-ROHM NYAHR"
+   ],
+   [
+    "Juróom ñett",
+    "Eight",
+    "joo-ROHM NYET"
+   ],
+   [
+    "Juróom ñeent",
+    "Nine",
+    "joo-ROHM NYEHNT"
+   ],
+   [
+    "Fukk",
+    "Ten",
+    "FOOK"
+   ],
+   [
+    "Ñaata la?",
+    "How much is it?",
+    "NYAH-tah lah"
+   ],
+   [
+    "Xaalis",
+    "Money",
+    "HAH-lees"
+   ],
+   [
+    "Ndox",
+    "Water",
+    "n-DOHH"
+   ],
+   [
+    "Ñam",
+    "Food",
+    "NYAHM"
+   ],
+   [
+    "Ceeb",
+    "Rice",
+    "CHEHB"
+   ],
+   [
+    "Yàpp",
+    "Meat",
+    "YAHP"
+   ],
+   [
+    "Jën",
+    "Fish",
+    "JUN"
+   ],
+   [
+    "Marse",
+    "Market",
+    "MAHR-seh"
+   ],
+   [
+    "Dama xiif",
+    "I am hungry",
+    "DAH-mah HEEF"
+   ],
+   [
+    "Dama bëgg ndox",
+    "I want water",
+    "DAH-mah BUG n-DOHH"
+   ],
+   [
+    "Ñam wi neex na",
+    "The food is delicious",
+    "NYAHM wee NEHH nah"
+   ],
+   [
+    "Dafa seer lool",
+    "It is too expensive",
+    "DAH-fah SEHR LOHL"
+   ],
+   [
+    "Wàññi ko tuuti",
+    "Please reduce the price",
+    "WAHN-nyee ko TOO-tee"
+   ],
+   [
+    "Dinaa ko jënd",
+    "I will buy it",
+    "dee-NAH ko JUND"
+   ],
+   [
+    "Kër",
+    "House",
+    "KUR"
+   ],
+   [
+    "Bunt",
+    "Door",
+    "BOONT"
+   ],
+   [
+    "Néeg",
+    "Room",
+    "NEHG"
+   ],
+   [
+    "Lal",
+    "Bed",
+    "LAHL"
+   ],
+   [
+    "Siis",
+    "Chair",
+    "SEES"
+   ],
+   [
+    "Téere",
+    "Book",
+    "TEH-reh"
+   ],
+   [
+    "Lekkool",
+    "School",
+    "lek-KOHL"
+   ],
+   [
+    "Duggal",
+    "Come in",
+    "DOOG-gahl"
+   ],
+   [
+    "Toogal",
+    "Sit down",
+    "TOH-gahl"
+   ],
+   [
+    "Tëj bunt bi",
+    "Close the door",
+    "TUJ BOONT bee"
+   ],
+   [
+    "Fan la wanag wi nekk?",
+    "Where is the toilet?",
+    "FAHN lah WAH-nahg wee NEK"
+   ],
+   [
+    "Dama dem kër",
+    "I am going home",
+    "DAH-mah DEM KUR"
+   ],
+   [
+    "Tey",
+    "Today",
+    "TAY"
+   ],
+   [
+    "Ëllëg",
+    "Tomorrow",
+    "UL-lug"
+   ],
+   [
+    "Démb",
+    "Yesterday",
+    "DEMB"
+   ],
+   [
+    "Suba",
+    "Morning",
+    "SOO-bah"
+   ],
+   [
+    "Guddi",
+    "Night",
+    "GOOD-dee"
+   ],
+   [
+    "Léegi",
+    "Now",
+    "LEH-gee"
+   ],
+   [
+    "Ci ginnaaw",
+    "Later",
+    "chee geen-NAHW"
+   ],
+   [
+    "Jant",
+    "Sun",
+    "JAHNT"
+   ],
+   [
+    "Taw",
+    "Rain",
+    "TOW"
+   ],
+   [
+    "Dafa tàng",
+    "It is hot",
+    "DAH-fah TAHNG"
+   ],
+   [
+    "Dafa sedd",
+    "It is cold",
+    "DAH-fah SED"
+   ],
+   [
+    "Ban waxtu la?",
+    "What time is it?",
+    "bahn WAHH-too lah"
+   ],
+   [
+    "Lan?",
+    "What?",
+    "LAHN"
+   ],
+   [
+    "Fan?",
+    "Where?",
+    "FAHN"
+   ],
+   [
+    "Kan?",
+    "Who?",
+    "KAHN"
+   ],
+   [
+    "Lu tax?",
+    "Why?",
+    "loo TAHH"
+   ],
+   [
+    "Kañ?",
+    "When?",
+    "KAHNY"
+   ],
+   [
+    "Kaay fii",
+    "Come here",
+    "KAI FEE"
+   ],
+   [
+    "Nanu dem",
+    "Let's go",
+    "NAH-noo DEM"
+   ],
+   [
+    "Xaaral",
+    "Wait",
+    "HAH-rahl"
+   ],
+   [
+    "Dama bëgg lekk",
+    "I want to eat",
+    "DAH-mah BUG LEK"
+   ],
+   [
+    "Dama bëgg nelaw",
+    "I want to sleep",
+    "DAH-mah BUG NEH-low"
+   ],
+   [
+    "Fan la marse bi nekk?",
+    "Where is the market?",
+    "FAHN lah MAHR-seh bee NEK"
+   ],
+   [
+    "Kan la kooku?",
+    "Who is that?",
+    "KAHN lah KOH-koo"
+   ],
+   [
+    "Dama contaan",
+    "I am happy",
+    "DAH-mah kon-TAHN"
+   ],
+   [
+    "Dama sonn",
+    "I am tired",
+    "DAH-mah SON"
+   ],
+   [
+    "Dama feebar",
+    "I am sick",
+    "DAH-mah FEH-bahr"
+   ],
+   [
+    "Dama la bëgg",
+    "I love you",
+    "DAH-mah lah BUG"
+   ],
+   [
+    "Baax",
+    "Good",
+    "BAHH"
+   ],
+   [
+    "Bon",
+    "Bad",
+    "BON"
+   ],
+   [
+    "Mag",
+    "Big",
+    "MAHG"
+   ],
+   [
+    "Tuuti",
+    "Small",
+    "TOO-tee"
+   ],
+   [
+    "Bopp",
+    "Head",
+    "BOP"
+   ],
+   [
+    "Loxo",
+    "Hand",
+    "LO-ho"
+   ],
+   [
+    "Bët",
+    "Eye",
+    "BUT"
+   ],
+   [
+    "Sama bopp day metti",
+    "My head hurts",
+    "SAH-mah BOP dai MET-tee"
+   ],
+   [
+    "Yoon",
+    "Road",
+    "YOHN"
+   ],
+   [
+    "Oto",
+    "Car",
+    "O-to"
+   ],
+   [
+    "Càmmoñ",
+    "Left",
+    "CHAHM-mony"
+   ],
+   [
+    "Ndijoor",
+    "Right",
+    "n-dee-JOHR"
+   ],
+   [
+    "Dafa jege",
+    "It is near",
+    "DAH-fah JEH-geh"
+   ],
+   [
+    "Dafa sore",
+    "It is far",
+    "DAH-fah SO-reh"
+   ],
+   [
+    "Taxawal fii",
+    "Stop here",
+    "tah-HAH-wahl FEE"
+   ],
+   [
+    "Dem ci kanam",
+    "Go straight",
+    "DEM chee KAH-nahm"
+   ],
+   [
+    "Dimbalima!",
+    "Help me!",
+    "deem-bah-LEE-mah"
+   ],
+   [
+    "Dama réer",
+    "I am lost",
+    "DAH-mah REHR"
+   ],
+   [
+    "Woowal doktoor",
+    "Call a doctor",
+    "WOH-wahl dok-TOHR"
+   ],
+   [
+    "Yoon wu baax",
+    "Safe journey",
+    "YOHN woo BAHH"
+   ]
+  ]
+ },
+ {
+  "name": "Somali",
+  "code": "so",
+  "region": "Somalia · Djibouti · Ethiopia · Kenya",
+  "about": "A Cushitic language and the national language of Somalia, with a strong tradition of oral poetry. Somali has used a Latin alphabet since 1972.",
+  "phrases": [
+   [
+    "Salaam alaykum",
+    "Hello",
+    "sah-LAHM ah-LAI-koom"
+   ],
+   [
+    "Subax wanaagsan",
+    "Good morning",
+    "SOO-bah wah-NAHG-sahn"
+   ],
+   [
+    "Galab wanaagsan",
+    "Good afternoon",
+    "GAH-lahb wah-NAHG-sahn"
+   ],
+   [
+    "Fiid wanaagsan",
+    "Good evening",
+    "FEED wah-NAHG-sahn"
+   ],
+   [
+    "Iska warran?",
+    "How are you?",
+    "ees-kah WAHR-rahn"
+   ],
+   [
+    "Waan fiicanahay",
+    "I am fine",
+    "wahn fee-chah-NAH-hai"
+   ],
+   [
+    "Mahadsanid",
+    "Thank you",
+    "mah-HAD-sah-need"
+   ],
+   [
+    "Aad baad u mahadsan tahay",
+    "Thank you very much",
+    "AHD bahd oo mah-HAD-sahn TAH-hai"
+   ],
+   [
+    "Fadlan",
+    "Please",
+    "FAHD-lahn"
+   ],
+   [
+    "Raalli ahaw",
+    "Sorry",
+    "RAHL-lee ah-HOW"
+   ],
+   [
+    "Nabad gelyo",
+    "Goodbye",
+    "NAH-bahd GEL-yo"
+   ],
+   [
+    "Berri is arag",
+    "See you tomorrow",
+    "BER-ree ees AH-rahg"
+   ],
+   [
+    "Magacaa?",
+    "What is your name?",
+    "mah-gah-CHAH"
+   ],
+   [
+    "Magacaygu waa Cabdi",
+    "My name is Abdi",
+    "mah-gah-CHAI-goo wah AHB-dee"
+   ],
+   [
+    "Magacaygu waa Hodan",
+    "My name is Hodan",
+    "mah-gah-CHAI-goo wah HO-dahn"
+   ],
+   [
+    "Ku farxsanahay inaan ku barto",
+    "Nice to meet you",
+    "koo fahrh-sah-NAH-hai ee-NAHN koo BAHR-to"
+   ],
+   [
+    "Xagee baad ka timid?",
+    "Where are you from?",
+    "hah-GEH bahd kah tee-MEED"
+   ],
+   [
+    "Waxaan ka imid Soomaaliya",
+    "I am from Somalia",
+    "wah-HAHN kah ee-MEED so-MAH-lee-yah"
+   ],
+   [
+    "Waxaan ku noolahay Muqdisho",
+    "I live in Mogadishu",
+    "wah-HAHN koo no-LAH-hai mook-DEE-sho"
+   ],
+   [
+    "Soo dhawoow",
+    "Welcome",
+    "so dhah-WOH"
+   ],
+   [
+    "Ma ku hadashaa Ingiriisi?",
+    "Do you speak English?",
+    "mah koo hah-dah-SHAH een-gee-REE-see"
+   ],
+   [
+    "Waxaan ku hadlaa Af-Soomaali yar",
+    "I speak a little Somali",
+    "wah-HAHN koo hahd-LAH ahf-so-MAH-lee YAHR"
+   ],
+   [
+    "Ma fahmin",
+    "I don't understand",
+    "mah FAH-meen"
+   ],
+   [
+    "Fadlan ku celi",
+    "Please say it again",
+    "FAHD-lahn koo CHEH-lee"
+   ],
+   [
+    "Qoys",
+    "Family",
+    "KOYS"
+   ],
+   [
+    "Hooyo",
+    "Mother",
+    "HO-yo"
+   ],
+   [
+    "Aabe",
+    "Father",
+    "AH-beh"
+   ],
+   [
+    "Ilmo",
+    "Child",
+    "EEL-mo"
+   ],
+   [
+    "Ayeeyo",
+    "Grandmother",
+    "ah-YEH-yo"
+   ],
+   [
+    "Awoowe",
+    "Grandfather",
+    "ah-WO-weh"
+   ],
+   [
+    "Ninkayga",
+    "Husband",
+    "neen-KAI-gah"
+   ],
+   [
+    "Xaaskayga",
+    "Wife",
+    "hahs-KAI-gah"
+   ],
+   [
+    "Saaxiib",
+    "Friend",
+    "sah-HEEB"
+   ],
+   [
+    "Tani waa hooyaday",
+    "This is my mother",
+    "TAH-nee wah ho-YAH-dai"
+   ],
+   [
+    "Qoyskaagu sidee yahay?",
+    "How is your family?",
+    "koys-KAH-goo see-DEH YAH-hai"
+   ],
+   [
+    "Way fiican yihiin",
+    "They are well",
+    "wai FEE-chahn yee-HEEN"
+   ],
+   [
+    "Kow",
+    "One",
+    "KOW"
+   ],
+   [
+    "Laba",
+    "Two",
+    "LAH-bah"
+   ],
+   [
+    "Saddex",
+    "Three",
+    "SAHD-deh"
+   ],
+   [
+    "Afar",
+    "Four",
+    "AH-fahr"
+   ],
+   [
+    "Shan",
+    "Five",
+    "SHAHN"
+   ],
+   [
+    "Lix",
+    "Six",
+    "LEEH"
+   ],
+   [
+    "Toddoba",
+    "Seven",
+    "TOD-do-bah"
+   ],
+   [
+    "Siddeed",
+    "Eight",
+    "seed-DEHD"
+   ],
+   [
+    "Sagaal",
+    "Nine",
+    "sah-GAHL"
+   ],
+   [
+    "Toban",
+    "Ten",
+    "TO-bahn"
+   ],
+   [
+    "Waa imisa?",
+    "How much is it?",
+    "wah EE-mee-sah"
+   ],
+   [
+    "Lacag",
+    "Money",
+    "LAH-chahg"
+   ],
+   [
+    "Biyo",
+    "Water",
+    "BEE-yo"
+   ],
+   [
+    "Cunto",
+    "Food",
+    "OON-to"
+   ],
+   [
+    "Bariis",
+    "Rice",
+    "bah-REES"
+   ],
+   [
+    "Hilib",
+    "Meat",
+    "HEE-leeb"
+   ],
+   [
+    "Kalluun",
+    "Fish",
+    "kahl-LOON"
+   ],
+   [
+    "Suuq",
+    "Market",
+    "SOOK"
+   ],
+   [
+    "Waan gaajaysanahay",
+    "I am hungry",
+    "wahn gah-jai-sah-NAH-hai"
+   ],
+   [
+    "Biyo ayaan rabaa",
+    "I want water",
+    "BEE-yo ah-YAHN rah-BAH"
+   ],
+   [
+    "Cuntadu way macaan tahay",
+    "The food is delicious",
+    "oon-TAH-doo wai mah-AHN TAH-hai"
+   ],
+   [
+    "Aad bay qaali u tahay",
+    "It is too expensive",
+    "AHD bai KAH-lee oo TAH-hai"
+   ],
+   [
+    "Fadlan qiimaha dhimi",
+    "Please reduce the price",
+    "FAHD-lahn KEE-mah-hah DHEE-mee"
+   ],
+   [
+    "Waan iibsan doonaa",
+    "I will buy it",
+    "wahn EEB-sahn do-NAH"
+   ],
+   [
+    "Guri",
+    "House",
+    "GOO-ree"
+   ],
+   [
+    "Albaab",
+    "Door",
+    "ahl-BAHB"
+   ],
+   [
+    "Qol",
+    "Room",
+    "KOL"
+   ],
+   [
+    "Sariir",
+    "Bed",
+    "sah-REER"
+   ],
+   [
+    "Kursi",
+    "Chair",
+    "KOOR-see"
+   ],
+   [
+    "Buug",
+    "Book",
+    "BOOG"
+   ],
+   [
+    "Dugsi",
+    "School",
+    "DOOG-see"
+   ],
+   [
+    "Soo gal",
+    "Come in",
+    "so GAHL"
+   ],
+   [
+    "Fadhiiso",
+    "Sit down",
+    "fah-DHEE-so"
+   ],
+   [
+    "Albaabka xir",
+    "Close the door",
+    "ahl-BAHB-kah HEER"
+   ],
+   [
+    "Musqushu xagee bay ku taal?",
+    "Where is the toilet?",
+    "moos-KOO-shoo hah-GEH bai koo TAHL"
+   ],
+   [
+    "Guriga ayaan aadayaa",
+    "I am going home",
+    "goo-REE-gah ah-YAHN ah-dah-YAH"
+   ],
+   [
+    "Maanta",
+    "Today",
+    "MAHN-tah"
+   ],
+   [
+    "Berri",
+    "Tomorrow",
+    "BER-ree"
+   ],
+   [
+    "Shalay",
+    "Yesterday",
+    "SHAH-lai"
+   ],
+   [
+    "Subax",
+    "Morning",
+    "SOO-bah"
+   ],
+   [
+    "Habeen",
+    "Night",
+    "hah-BEHN"
+   ],
+   [
+    "Hadda",
+    "Now",
+    "HAHD-dah"
+   ],
+   [
+    "Goor dambe",
+    "Later",
+    "GOHR DAHM-beh"
+   ],
+   [
+    "Qorrax",
+    "Sun",
+    "KOR-rah"
+   ],
+   [
+    "Roob",
+    "Rain",
+    "ROHB"
+   ],
+   [
+    "Waa kulayl",
+    "It is hot",
+    "wah koo-LAIL"
+   ],
+   [
+    "Waa qabow",
+    "It is cold",
+    "wah kah-BOW"
+   ],
+   [
+    "Saacaddu waa immisa?",
+    "What time is it?",
+    "sah-AHD-doo wah EEM-mee-sah"
+   ],
+   [
+    "Maxay?",
+    "What?",
+    "MAH-hai"
+   ],
+   [
+    "Xagee?",
+    "Where?",
+    "hah-GEH"
+   ],
+   [
+    "Yaa?",
+    "Who?",
+    "YAH"
+   ],
+   [
+    "Waayo?",
+    "Why?",
+    "WAH-yo"
+   ],
+   [
+    "Goorma?",
+    "When?",
+    "GOHR-mah"
+   ],
+   [
+    "Halkan kaalay",
+    "Come here",
+    "HAHL-kahn KAH-lai"
+   ],
+   [
+    "Aan tagno",
+    "Let's go",
+    "ahn TAHG-no"
+   ],
+   [
+    "Sug",
+    "Wait",
+    "SOOG"
+   ],
+   [
+    "Waxaan rabaa inaan wax cuno",
+    "I want to eat",
+    "wah-HAHN rah-BAH ee-NAHN wahh OO-no"
+   ],
+   [
+    "Waxaan rabaa inaan seexdo",
+    "I want to sleep",
+    "wah-HAHN rah-BAH ee-NAHN SEHH-do"
+   ],
+   [
+    "Suuqu xagee buu ku yaal?",
+    "Where is the market?",
+    "SOO-koo hah-GEH boo koo YAHL"
+   ],
+   [
+    "Kaasi waa kuma?",
+    "Who is that?",
+    "KAH-see wah KOO-mah"
+   ],
+   [
+    "Waan faraxsanahay",
+    "I am happy",
+    "wahn fah-rahh-sah-NAH-hai"
+   ],
+   [
+    "Waan daalanahay",
+    "I am tired",
+    "wahn dah-lah-NAH-hai"
+   ],
+   [
+    "Waan xanuunsanahay",
+    "I am sick",
+    "wahn hah-noon-sah-NAH-hai"
+   ],
+   [
+    "Waan ku jeclahay",
+    "I love you",
+    "wahn koo jech-LAH-hai"
+   ],
+   [
+    "Wanaagsan",
+    "Good",
+    "wah-NAHG-sahn"
+   ],
+   [
+    "Xun",
+    "Bad",
+    "HOON"
+   ],
+   [
+    "Weyn",
+    "Big",
+    "WAYN"
+   ],
+   [
+    "Yar",
+    "Small",
+    "YAHR"
+   ],
+   [
+    "Madax",
+    "Head",
+    "MAH-dah"
+   ],
+   [
+    "Gacan",
+    "Hand",
+    "GAH-chahn"
+   ],
+   [
+    "Il",
+    "Eye",
+    "EEL"
+   ],
+   [
+    "Madaxa ayaa i xanuunaya",
+    "My head hurts",
+    "MAH-dah-hah ah-YAH ee hah-noo-NAH-yah"
+   ],
+   [
+    "Waddo",
+    "Road",
+    "WAHD-do"
+   ],
+   [
+    "Baabuur",
+    "Car",
+    "bah-BOOR"
+   ],
+   [
+    "Bidix",
+    "Left",
+    "BEE-deeh"
+   ],
+   [
+    "Midig",
+    "Right",
+    "MEE-deeg"
+   ],
+   [
+    "Waa dhow",
+    "It is near",
+    "wah DHOW"
+   ],
+   [
+    "Waa fog",
+    "It is far",
+    "wah FOG"
+   ],
+   [
+    "Halkan joogso",
+    "Stop here",
+    "HAHL-kahn JOHG-so"
+   ],
+   [
+    "Toos u soco",
+    "Go straight",
+    "TOHS oo SO-cho"
+   ],
+   [
+    "I caawi!",
+    "Help me!",
+    "ee AH-wee"
+   ],
+   [
+    "Waan lumay",
+    "I am lost",
+    "wahn LOO-mai"
+   ],
+   [
+    "Dhakhtar u yeer",
+    "Call a doctor",
+    "dhahh-TAHR oo YEHR"
+   ],
+   [
+    "Safar wanaagsan",
+    "Safe journey",
+    "SAH-fahr wah-NAHG-sahn"
+   ]
+  ]
+ },
+ {
+  "name": "Oromo",
+  "code": "om",
+  "region": "Ethiopia · Kenya",
+  "about": "Afaan Oromoo is one of the most widely spoken languages in Africa and is written in a Latin alphabet. It is the language of the Oromo people and the gadaa system of governance.",
+  "phrases": [
+   [
+    "Akkam",
+    "Hello",
+    "AHK-kahm"
+   ],
+   [
+    "Akkam bultan?",
+    "Good morning",
+    "AHK-kahm BOOL-tahn"
+   ],
+   [
+    "Akkam ooltan?",
+    "Good afternoon",
+    "AHK-kahm OHL-tahn"
+   ],
+   [
+    "Galgala gaarii",
+    "Good evening",
+    "GAHL-gah-lah GAH-ree"
+   ],
+   [
+    "Akkam jirta?",
+    "How are you?",
+    "AHK-kahm JEER-tah"
+   ],
+   [
+    "Nagaan jira",
+    "I am fine",
+    "nah-GAHN JEE-rah"
+   ],
+   [
+    "Galatoomi",
+    "Thank you",
+    "gah-lah-TOH-mee"
+   ],
+   [
+    "Baay'ee galatoomi",
+    "Thank you very much",
+    "BAH-yeh gah-lah-TOH-mee"
+   ],
+   [
+    "Maaloo",
+    "Please",
+    "MAH-loh"
+   ],
+   [
+    "Dhiifama",
+    "Sorry",
+    "dhee-FAH-mah"
+   ],
+   [
+    "Nagaatti",
+    "Goodbye",
+    "nah-GAHT-tee"
+   ],
+   [
+    "Boru wal agarra",
+    "See you tomorrow",
+    "BO-roo wahl ah-GAHR-rah"
+   ],
+   [
+    "Maqaan kee eenyu?",
+    "What is your name?",
+    "mah-KAHN keh EHN-yoo"
+   ],
+   [
+    "Maqaan koo Gammachuu",
+    "My name is Gemechu",
+    "mah-KAHN koh gahm-mah-CHOO"
+   ],
+   [
+    "Maqaan koo Caaltuu",
+    "My name is Chaltu",
+    "mah-KAHN koh ch'AHL-too"
+   ],
+   [
+    "Si beekuu kootti gammadeera",
+    "Nice to meet you",
+    "see BEH-koo KOHT-tee gahm-mah-DEH-rah"
+   ],
+   [
+    "Eessaa dhufte?",
+    "Where are you from?",
+    "EH-sah DHOOF-teh"
+   ],
+   [
+    "Itoophiyaa irraan dhufe",
+    "I am from Ethiopia",
+    "ee-to-PEE-yah eer-RAHN DHOO-feh"
+   ],
+   [
+    "Adaamaa keessan jiraadha",
+    "I live in Adama",
+    "ah-DAH-mah KEHS-sahn jee-RAH-dhah"
+   ],
+   [
+    "Baga nagaan dhufte",
+    "Welcome",
+    "BAH-gah nah-GAHN DHOOF-teh"
+   ],
+   [
+    "Afaan Ingiliffaa dubbattaa?",
+    "Do you speak English?",
+    "ah-FAHN een-gee-LEEF-fah doob-BAHT-tah"
+   ],
+   [
+    "Afaan Oromoo xiqqoo nan dubbadha",
+    "I speak a little Oromo",
+    "ah-FAHN o-RO-mo t'EEK-koh nahn doob-BAH-dhah"
+   ],
+   [
+    "Hin hubanne",
+    "I don't understand",
+    "heen hoo-BAHN-neh"
+   ],
+   [
+    "Maaloo irra deebi'i",
+    "Please say it again",
+    "MAH-loh EER-rah deh-BEE-ee"
+   ],
+   [
+    "Maatii",
+    "Family",
+    "MAH-tee"
+   ],
+   [
+    "Haadha",
+    "Mother",
+    "HAH-dhah"
+   ],
+   [
+    "Abbaa",
+    "Father",
+    "AHB-bah"
+   ],
+   [
+    "Daa'ima",
+    "Child",
+    "DAH-ee-mah"
+   ],
+   [
+    "Akkoo",
+    "Grandmother",
+    "AHK-koh"
+   ],
+   [
+    "Akaakayyuu",
+    "Grandfather",
+    "ah-kah-KAI-yoo"
+   ],
+   [
+    "Abbaa manaa",
+    "Husband",
+    "AHB-bah MAH-nah"
+   ],
+   [
+    "Haadha manaa",
+    "Wife",
+    "HAH-dhah MAH-nah"
+   ],
+   [
+    "Hiriyaa",
+    "Friend",
+    "hee-REE-yah"
+   ],
+   [
+    "Kun haadha koo ti",
+    "This is my mother",
+    "koon HAH-dhah koh tee"
+   ],
+   [
+    "Maatiin kee akkam jiru?",
+    "How is your family?",
+    "MAH-teen keh AHK-kahm JEE-roo"
+   ],
+   [
+    "Nagaan jiru",
+    "They are well",
+    "nah-GAHN JEE-roo"
+   ],
+   [
+    "Tokko",
+    "One",
+    "TOK-ko"
+   ],
+   [
+    "Lama",
+    "Two",
+    "LAH-mah"
+   ],
+   [
+    "Sadii",
+    "Three",
+    "sah-DEE"
+   ],
+   [
+    "Afur",
+    "Four",
+    "AH-foor"
+   ],
+   [
+    "Shan",
+    "Five",
+    "SHAHN"
+   ],
+   [
+    "Ja'a",
+    "Six",
+    "JAH-ah"
+   ],
+   [
+    "Torba",
+    "Seven",
+    "TOR-bah"
+   ],
+   [
+    "Saddeet",
+    "Eight",
+    "sahd-DEHT"
+   ],
+   [
+    "Sagal",
+    "Nine",
+    "SAH-gahl"
+   ],
+   [
+    "Kudhan",
+    "Ten",
+    "KOO-dhahn"
+   ],
+   [
+    "Meeqa?",
+    "How much is it?",
+    "MEH-kah"
+   ],
+   [
+    "Maallaqa",
+    "Money",
+    "MAHL-lah-kah"
+   ],
+   [
+    "Bishaan",
+    "Water",
+    "bee-SHAHN"
+   ],
+   [
+    "Nyaata",
+    "Food",
+    "NYAH-tah"
+   ],
+   [
+    "Ruuzii",
+    "Rice",
+    "ROO-zee"
+   ],
+   [
+    "Foon",
+    "Meat",
+    "FOHN"
+   ],
+   [
+    "Qurxummii",
+    "Fish",
+    "koor-t'oom-MEE"
+   ],
+   [
+    "Gabaa",
+    "Market",
+    "GAH-bah"
+   ],
+   [
+    "Beela'eera",
+    "I am hungry",
+    "beh-lah-EH-rah"
+   ],
+   [
+    "Bishaan barbaada",
+    "I want water",
+    "bee-SHAHN bahr-BAH-dah"
+   ],
+   [
+    "Nyaanni mi'aawaa dha",
+    "The food is delicious",
+    "NYAHN-nee mee-AH-wah dhah"
+   ],
+   [
+    "Baay'ee qaala'aa dha",
+    "It is too expensive",
+    "BAH-yeh KAH-lah-ah dhah"
+   ],
+   [
+    "Maaloo gatii hir'isi",
+    "Please reduce the price",
+    "MAH-loh GAH-tee heer-EE-see"
+   ],
+   [
+    "Nan bita",
+    "I will buy it",
+    "nahn BEE-tah"
+   ],
+   [
+    "Mana",
+    "House",
+    "MAH-nah"
+   ],
+   [
+    "Balbala",
+    "Door",
+    "bahl-BAH-lah"
+   ],
+   [
+    "Kutaa",
+    "Room",
+    "KOO-tah"
+   ],
+   [
+    "Siree",
+    "Bed",
+    "SEE-reh"
+   ],
+   [
+    "Teessoo",
+    "Chair",
+    "TEHS-soh"
+   ],
+   [
+    "Kitaaba",
+    "Book",
+    "kee-TAH-bah"
+   ],
+   [
+    "Mana barumsaa",
+    "School",
+    "MAH-nah bah-ROOM-sah"
+   ],
+   [
+    "Ol seeni",
+    "Come in",
+    "ol SEH-nee"
+   ],
+   [
+    "Taa'i",
+    "Sit down",
+    "TAH-ee"
+   ],
+   [
+    "Balbala cufi",
+    "Close the door",
+    "bahl-BAH-lah ch'OO-fee"
+   ],
+   [
+    "Mana fincaanii eessa?",
+    "Where is the toilet?",
+    "MAH-nah feen-CH'AH-nee EHS-sah"
+   ],
+   [
+    "Gara manaa deemaa jira",
+    "I am going home",
+    "GAH-rah MAH-nah DEH-mah JEE-rah"
+   ],
+   [
+    "Har'a",
+    "Today",
+    "HAHR-ah"
+   ],
+   [
+    "Boru",
+    "Tomorrow",
+    "BO-roo"
+   ],
+   [
+    "Kaleessa",
+    "Yesterday",
+    "kah-LEHS-sah"
+   ],
+   [
+    "Ganama",
+    "Morning",
+    "gah-NAH-mah"
+   ],
+   [
+    "Halkan",
+    "Night",
+    "HAHL-kahn"
+   ],
+   [
+    "Amma",
+    "Now",
+    "AHM-mah"
+   ],
+   [
+    "Booda",
+    "Later",
+    "BOH-dah"
+   ],
+   [
+    "Aduu",
+    "Sun",
+    "AH-doo"
+   ],
+   [
+    "Rooba",
+    "Rain",
+    "ROH-bah"
+   ],
+   [
+    "Ho'aa dha",
+    "It is hot",
+    "HO-ah dhah"
+   ],
+   [
+    "Qorraa dha",
+    "It is cold",
+    "KOR-rah dhah"
+   ],
+   [
+    "Sa'aatii meeqa?",
+    "What time is it?",
+    "sah-AH-tee MEH-kah"
+   ],
+   [
+    "Maal?",
+    "What?",
+    "MAHL"
+   ],
+   [
+    "Eessa?",
+    "Where?",
+    "EHS-sah"
+   ],
+   [
+    "Eenyu?",
+    "Who?",
+    "EHN-yoo"
+   ],
+   [
+    "Maaliif?",
+    "Why?",
+    "MAH-leef"
+   ],
+   [
+    "Yoom?",
+    "When?",
+    "YOHM"
+   ],
+   [
+    "As koottu",
+    "Come here",
+    "ahs KOHT-too"
+   ],
+   [
+    "Haa deemnu",
+    "Let's go",
+    "hah DEHM-noo"
+   ],
+   [
+    "Eegi",
+    "Wait",
+    "EH-gee"
+   ],
+   [
+    "Nyaachuu barbaada",
+    "I want to eat",
+    "NYAH-choo bahr-BAH-dah"
+   ],
+   [
+    "Rafuu barbaada",
+    "I want to sleep",
+    "RAH-foo bahr-BAH-dah"
+   ],
+   [
+    "Gabaan eessa?",
+    "Where is the market?",
+    "GAH-bahn EHS-sah"
+   ],
+   [
+    "Sun eenyu?",
+    "Who is that?",
+    "soon EHN-yoo"
+   ],
+   [
+    "Gammadeera",
+    "I am happy",
+    "gahm-mah-DEH-rah"
+   ],
+   [
+    "Dadhabeera",
+    "I am tired",
+    "dah-dhah-BEH-rah"
+   ],
+   [
+    "Dhukkubsadheera",
+    "I am sick",
+    "dhook-koob-sah-DHEH-rah"
+   ],
+   [
+    "Sin jaalladha",
+    "I love you",
+    "seen jahl-LAH-dhah"
+   ],
+   [
+    "Gaarii",
+    "Good",
+    "GAH-ree"
+   ],
+   [
+    "Hamaa",
+    "Bad",
+    "HAH-mah"
+   ],
+   [
+    "Guddaa",
+    "Big",
+    "GOOD-dah"
+   ],
+   [
+    "Xiqqaa",
+    "Small",
+    "t'EEK-kah"
+   ],
+   [
+    "Mataa",
+    "Head",
+    "MAH-tah"
+   ],
+   [
+    "Harka",
+    "Hand",
+    "HAHR-kah"
+   ],
+   [
+    "Ija",
+    "Eye",
+    "EE-jah"
+   ],
+   [
+    "Mataan na dhukkuba",
+    "My head hurts",
+    "MAH-tahn nah dhook-KOO-bah"
+   ],
+   [
+    "Karaa",
+    "Road",
+    "KAH-rah"
+   ],
+   [
+    "Konkolaataa",
+    "Car",
+    "kon-ko-LAH-tah"
+   ],
+   [
+    "Bitaa",
+    "Left",
+    "BEE-tah"
+   ],
+   [
+    "Mirga",
+    "Right",
+    "MEER-gah"
+   ],
+   [
+    "Dhiyoo dha",
+    "It is near",
+    "DHEE-yoh dhah"
+   ],
+   [
+    "Fagoo dha",
+    "It is far",
+    "FAH-goh dhah"
+   ],
+   [
+    "As dhaabi",
+    "Stop here",
+    "ahs DHAH-bee"
+   ],
+   [
+    "Kallattiin deemi",
+    "Go straight",
+    "kahl-LAHT-teen DEH-mee"
+   ],
+   [
+    "Na gargaari!",
+    "Help me!",
+    "nah gahr-GAH-ree"
+   ],
+   [
+    "Badeera",
+    "I am lost",
+    "bah-DEH-rah"
+   ],
+   [
+    "Ogeessa fayyaa waami",
+    "Call a doctor",
+    "o-GEHS-sah FAI-yah WAH-mee"
+   ],
+   [
+    "Karaa nagaa",
+    "Safe journey",
+    "KAH-rah NAH-gah"
+   ]
+  ]
+ },
+ {
+  "name": "Lingala",
+  "code": "ln",
+  "region": "DR Congo · Republic of Congo",
+  "about": "A Bantu language of the Congo River basin, spread by traders and music. Lingala is the language of Congolese rumba and soukous.",
+  "phrases": [
+   [
+    "Mbote",
+    "Hello",
+    "m-BO-teh"
+   ],
+   [
+    "Mbote ya ntɔ́ngó",
+    "Good morning",
+    "m-BO-teh yah n-TAWN-GO"
+   ],
+   [
+    "Mbote ya moí",
+    "Good afternoon",
+    "m-BO-teh yah mo-EE"
+   ],
+   [
+    "Mbote ya mpókwa",
+    "Good evening",
+    "m-BO-teh yah m-PO-kwah"
+   ],
+   [
+    "Ozali malamu?",
+    "How are you?",
+    "o-ZAH-lee mah-LAH-moo"
+   ],
+   [
+    "Nazali malamu",
+    "I am fine",
+    "nah-ZAH-lee mah-LAH-moo"
+   ],
+   [
+    "Matɔ́ndi",
+    "Thank you",
+    "mah-TAWN-dee"
+   ],
+   [
+    "Matɔ́ndi mingi",
+    "Thank you very much",
+    "mah-TAWN-dee MEEN-gee"
+   ],
+   [
+    "Nabondeli yo",
+    "Please",
+    "nah-bon-DEH-lee yo"
+   ],
+   [
+    "Limbisa ngai",
+    "Sorry",
+    "leem-BEE-sah NGAI"
+   ],
+   [
+    "Tikala malamu",
+    "Goodbye",
+    "tee-KAH-lah mah-LAH-moo"
+   ],
+   [
+    "Tokomonana lóbí",
+    "See you tomorrow",
+    "to-ko-mo-NAH-nah LO-BEE"
+   ],
+   [
+    "Nkómbó na yo nde nani?",
+    "What is your name?",
+    "n-KOM-BO nah yo n-deh NAH-nee"
+   ],
+   [
+    "Nkómbó na ngai Elonga",
+    "My name is Elonga",
+    "n-KOM-BO nah NGAI eh-LON-gah"
+   ],
+   [
+    "Nkómbó na ngai Bolingo",
+    "My name is Bolingo",
+    "n-KOM-BO nah NGAI bo-LEEN-go"
+   ],
+   [
+    "Nasepeli koyeba yo",
+    "Nice to meet you",
+    "nah-seh-PEH-lee ko-YEH-bah yo"
+   ],
+   [
+    "Outi wapi?",
+    "Where are you from?",
+    "o-OO-tee WAH-pee"
+   ],
+   [
+    "Nauti na Kongo",
+    "I am from Congo",
+    "nah-OO-tee nah KON-go"
+   ],
+   [
+    "Nafandi na Kinshasa",
+    "I live in Kinshasa",
+    "nah-FAHN-dee nah keen-SHAH-sah"
+   ],
+   [
+    "Boyei malamu",
+    "Welcome",
+    "bo-YAY mah-LAH-moo"
+   ],
+   [
+    "Olobaka Lingelesi?",
+    "Do you speak English?",
+    "o-lo-BAH-kah leen-geh-LEH-see"
+   ],
+   [
+    "Nalobaka Lingála moke",
+    "I speak a little Lingala",
+    "nah-lo-BAH-kah leen-GAH-lah MO-keh"
+   ],
+   [
+    "Nayoki te",
+    "I don't understand",
+    "nah-YO-kee teh"
+   ],
+   [
+    "Nabondeli yo, loba lisusu",
+    "Please say it again",
+    "nah-bon-DEH-lee yo, LO-bah lee-SOO-soo"
+   ],
+   [
+    "Libota",
+    "Family",
+    "lee-BO-tah"
+   ],
+   [
+    "Mama",
+    "Mother",
+    "MAH-mah"
+   ],
+   [
+    "Tata",
+    "Father",
+    "TAH-tah"
+   ],
+   [
+    "Mwána",
+    "Child",
+    "MWAH-nah"
+   ],
+   [
+    "Nkɔ́kɔ mwási",
+    "Grandmother",
+    "n-KAW-kaw MWAH-see"
+   ],
+   [
+    "Nkɔ́kɔ mobáli",
+    "Grandfather",
+    "n-KAW-kaw mo-BAH-lee"
+   ],
+   [
+    "Mobáli",
+    "Husband",
+    "mo-BAH-lee"
+   ],
+   [
+    "Mwási",
+    "Wife",
+    "MWAH-see"
+   ],
+   [
+    "Moninga",
+    "Friend",
+    "mo-NEEN-gah"
+   ],
+   [
+    "Oyo ezali mama na ngai",
+    "This is my mother",
+    "O-yo eh-ZAH-lee MAH-mah nah NGAI"
+   ],
+   [
+    "Libota na yo ezali malamu?",
+    "How is your family?",
+    "lee-BO-tah nah yo eh-ZAH-lee mah-LAH-moo"
+   ],
+   [
+    "Bazali malamu",
+    "They are well",
+    "bah-ZAH-lee mah-LAH-moo"
+   ],
+   [
+    "Mɔ̌kɔ́",
+    "One",
+    "MAW-kaw"
+   ],
+   [
+    "Míbalé",
+    "Two",
+    "MEE-bah-LEH"
+   ],
+   [
+    "Mísáto",
+    "Three",
+    "MEE-SAH-to"
+   ],
+   [
+    "Mínei",
+    "Four",
+    "MEE-nay"
+   ],
+   [
+    "Mítáno",
+    "Five",
+    "MEE-TAH-no"
+   ],
+   [
+    "Motóbá",
+    "Six",
+    "mo-TO-BAH"
+   ],
+   [
+    "Nsambo",
+    "Seven",
+    "n-SAHM-bo"
+   ],
+   [
+    "Mwambe",
+    "Eight",
+    "MWAHM-beh"
+   ],
+   [
+    "Libwa",
+    "Nine",
+    "LEE-bwah"
+   ],
+   [
+    "Zómi",
+    "Ten",
+    "ZO-mee"
+   ],
+   [
+    "Ntalo bóni?",
+    "How much is it?",
+    "n-TAH-lo BO-nee"
+   ],
+   [
+    "Mbóngo",
+    "Money",
+    "m-BON-go"
+   ],
+   [
+    "Mái",
+    "Water",
+    "MAH-ee"
+   ],
+   [
+    "Bilei",
+    "Food",
+    "bee-LAY"
+   ],
+   [
+    "Lósó",
+    "Rice",
+    "LO-SO"
+   ],
+   [
+    "Mosuni",
+    "Meat",
+    "mo-SOO-nee"
+   ],
+   [
+    "Mbisi",
+    "Fish",
+    "m-BEE-see"
+   ],
+   [
+    "Zándo",
+    "Market",
+    "ZAHN-do"
+   ],
+   [
+    "Nazali na nzala",
+    "I am hungry",
+    "nah-ZAH-lee nah n-ZAH-lah"
+   ],
+   [
+    "Nalingi mái",
+    "I want water",
+    "nah-LEEN-gee MAH-ee"
+   ],
+   [
+    "Bilei ezali elengi",
+    "The food is delicious",
+    "bee-LAY eh-ZAH-lee eh-LEN-gee"
+   ],
+   [
+    "Ezali ntalo makasi",
+    "It is too expensive",
+    "eh-ZAH-lee n-TAH-lo mah-KAH-see"
+   ],
+   [
+    "Nabondeli yo, kitisa ntalo",
+    "Please reduce the price",
+    "nah-bon-DEH-lee yo, kee-TEE-sah n-TAH-lo"
+   ],
+   [
+    "Nakosomba yango",
+    "I will buy it",
+    "nah-ko-SOM-bah YAHN-go"
+   ],
+   [
+    "Ndáko",
+    "House",
+    "n-DAH-ko"
+   ],
+   [
+    "Ekuke",
+    "Door",
+    "eh-KOO-keh"
+   ],
+   [
+    "Súku",
+    "Room",
+    "SOO-koo"
+   ],
+   [
+    "Mbétó",
+    "Bed",
+    "m-BEH-TO"
+   ],
+   [
+    "Kíti",
+    "Chair",
+    "KEE-tee"
+   ],
+   [
+    "Búku",
+    "Book",
+    "BOO-koo"
+   ],
+   [
+    "Kelási",
+    "School",
+    "keh-LAH-see"
+   ],
+   [
+    "Kɔtá",
+    "Come in",
+    "kaw-TAH"
+   ],
+   [
+    "Fánda",
+    "Sit down",
+    "FAHN-dah"
+   ],
+   [
+    "Kanga ekuke",
+    "Close the door",
+    "KAHN-gah eh-KOO-keh"
+   ],
+   [
+    "Kabinɛ ezali wapi?",
+    "Where is the toilet?",
+    "kah-bee-NEH eh-ZAH-lee WAH-pee"
+   ],
+   [
+    "Nazali kokende na ndáko",
+    "I am going home",
+    "nah-ZAH-lee ko-KEN-deh nah n-DAH-ko"
+   ],
+   [
+    "Lɛlɔ́",
+    "Today",
+    "leh-LAW"
+   ],
+   [
+    "Lóbí",
+    "Tomorrow",
+    "LO-BEE"
+   ],
+   [
+    "Lóbí eleki",
+    "Yesterday",
+    "LO-BEE eh-LEH-kee"
+   ],
+   [
+    "Ntɔ́ngó",
+    "Morning",
+    "n-TAWN-GO"
+   ],
+   [
+    "Butú",
+    "Night",
+    "boo-TOO"
+   ],
+   [
+    "Sikawa",
+    "Now",
+    "see-KAH-wah"
+   ],
+   [
+    "Na nsima",
+    "Later",
+    "nah n-SEE-mah"
+   ],
+   [
+    "Moí",
+    "Sun",
+    "mo-EE"
+   ],
+   [
+    "Mbúla",
+    "Rain",
+    "m-BOO-lah"
+   ],
+   [
+    "Molunge ezali",
+    "It is hot",
+    "mo-LOON-geh eh-ZAH-lee"
+   ],
+   [
+    "Mpiɔ ezali",
+    "It is cold",
+    "m-PEE-aw eh-ZAH-lee"
+   ],
+   [
+    "Ngonga bóni?",
+    "What time is it?",
+    "n-GON-gah BO-nee"
+   ],
+   [
+    "Nini?",
+    "What?",
+    "NEE-nee"
+   ],
+   [
+    "Wapi?",
+    "Where?",
+    "WAH-pee"
+   ],
+   [
+    "Nani?",
+    "Who?",
+    "NAH-nee"
+   ],
+   [
+    "Mpo na nini?",
+    "Why?",
+    "m-PO nah NEE-nee"
+   ],
+   [
+    "Ntángo níni?",
+    "When?",
+    "n-TAHN-go NEE-nee"
+   ],
+   [
+    "Yaka awa",
+    "Come here",
+    "YAH-kah AH-wah"
+   ],
+   [
+    "Tókende",
+    "Let's go",
+    "TO-ken-deh"
+   ],
+   [
+    "Zela",
+    "Wait",
+    "ZEH-lah"
+   ],
+   [
+    "Nalingi kolya",
+    "I want to eat",
+    "nah-LEEN-gee KOL-yah"
+   ],
+   [
+    "Nalingi kolala",
+    "I want to sleep",
+    "nah-LEEN-gee ko-LAH-lah"
+   ],
+   [
+    "Zándo ezali wapi?",
+    "Where is the market?",
+    "ZAHN-do eh-ZAH-lee WAH-pee"
+   ],
+   [
+    "Oyo nani?",
+    "Who is that?",
+    "O-yo NAH-nee"
+   ],
+   [
+    "Nasepeli",
+    "I am happy",
+    "nah-seh-PEH-lee"
+   ],
+   [
+    "Nalɛmbi",
+    "I am tired",
+    "nah-LEM-bee"
+   ],
+   [
+    "Nazali kobɛla",
+    "I am sick",
+    "nah-ZAH-lee ko-BEH-lah"
+   ],
+   [
+    "Nalingi yo",
+    "I love you",
+    "nah-LEEN-gee yo"
+   ],
+   [
+    "Malamu",
+    "Good",
+    "mah-LAH-moo"
+   ],
+   [
+    "Mabe",
+    "Bad",
+    "MAH-beh"
+   ],
+   [
+    "Monene",
+    "Big",
+    "mo-NEH-neh"
+   ],
+   [
+    "Moke",
+    "Small",
+    "MO-keh"
+   ],
+   [
+    "Motó",
+    "Head",
+    "mo-TO"
+   ],
+   [
+    "Lobɔ́kɔ",
+    "Hand",
+    "lo-BAW-kaw"
+   ],
+   [
+    "Liso",
+    "Eye",
+    "LEE-so"
+   ],
+   [
+    "Motó ezali kosala ngai mpási",
+    "My head hurts",
+    "mo-TO eh-ZAH-lee ko-SAH-lah NGAI m-PAH-see"
+   ],
+   [
+    "Nzelá",
+    "Road",
+    "n-zeh-LAH"
+   ],
+   [
+    "Motúka",
+    "Car",
+    "mo-TOO-kah"
+   ],
+   [
+    "Lobɔ́kɔ ya mwási",
+    "Left",
+    "lo-BAW-kaw yah MWAH-see"
+   ],
+   [
+    "Lobɔ́kɔ ya mobáli",
+    "Right",
+    "lo-BAW-kaw yah mo-BAH-lee"
+   ],
+   [
+    "Ezali penepene",
+    "It is near",
+    "eh-ZAH-lee peh-neh-PEH-neh"
+   ],
+   [
+    "Ezali mosika",
+    "It is far",
+    "eh-ZAH-lee mo-SEE-kah"
+   ],
+   [
+    "Tɛlɛmá awa",
+    "Stop here",
+    "teh-leh-MAH AH-wah"
+   ],
+   [
+    "Kende liboso",
+    "Go straight",
+    "KEN-deh lee-BO-so"
+   ],
+   [
+    "Salisa ngai!",
+    "Help me!",
+    "sah-LEE-sah NGAI"
+   ],
+   [
+    "Nabungi",
+    "I am lost",
+    "nah-BOON-gee"
+   ],
+   [
+    "Benga monganga",
+    "Call a doctor",
+    "BEN-gah mon-GAHN-gah"
+   ],
+   [
+    "Mobembo malamu",
+    "Safe journey",
+    "mo-BEM-bo mah-LAH-moo"
+   ]
+  ]
+ },
+ {
+  "name": "Kinyarwanda",
+  "code": "rw",
+  "region": "Rwanda",
+  "about": "The national language of Rwanda, spoken by almost everyone in the country. It is a Bantu language where greetings change with the time of day.",
+  "phrases": [
+   [
+    "Muraho",
+    "Hello",
+    "moo-RAH-ho"
+   ],
+   [
+    "Mwaramutse",
+    "Good morning",
+    "mwah-rah-MOO-tseh"
+   ],
+   [
+    "Mwiriwe",
+    "Good afternoon",
+    "mwee-REE-weh"
+   ],
+   [
+    "Umugoroba mwiza",
+    "Good evening",
+    "oo-moo-go-RO-bah MWEE-zah"
+   ],
+   [
+    "Amakuru?",
+    "How are you?",
+    "ah-mah-KOO-roo"
+   ],
+   [
+    "Ni meza",
+    "I am fine",
+    "nee MEH-zah"
+   ],
+   [
+    "Murakoze",
+    "Thank you",
+    "moo-rah-KO-zeh"
+   ],
+   [
+    "Murakoze cyane",
+    "Thank you very much",
+    "moo-rah-KO-zeh CHAH-neh"
+   ],
+   [
+    "Ndakwinginze",
+    "Please",
+    "n-dah-kween-GEEN-zeh"
+   ],
+   [
+    "Mbabarira",
+    "Sorry",
+    "m-bah-bah-REE-rah"
+   ],
+   [
+    "Murabeho",
+    "Goodbye",
+    "moo-rah-BEH-ho"
+   ],
+   [
+    "Tuzabonana ejo",
+    "See you tomorrow",
+    "too-zah-bo-NAH-nah EH-jo"
+   ],
+   [
+    "Witwa nde?",
+    "What is your name?",
+    "WEET-wah n-DEH"
+   ],
+   [
+    "Nitwa Mugisha",
+    "My name is Mugisha",
+    "NEET-wah moo-GEE-shah"
+   ],
+   [
+    "Nitwa Uwase",
+    "My name is Uwase",
+    "NEET-wah oo-WAH-seh"
+   ],
+   [
+    "Nishimiye kukumenya",
+    "Nice to meet you",
+    "nee-shee-MEE-yeh koo-koo-MEN-yah"
+   ],
+   [
+    "Uturuka he?",
+    "Where are you from?",
+    "oo-too-ROO-kah HEH"
+   ],
+   [
+    "Nturuka mu Rwanda",
+    "I am from Rwanda",
+    "n-too-ROO-kah moo RWAHN-dah"
+   ],
+   [
+    "Ntuye i Kigali",
+    "I live in Kigali",
+    "n-TOO-yeh ee kee-GAH-lee"
+   ],
+   [
+    "Murakaza neza",
+    "Welcome",
+    "moo-rah-KAH-zah NEH-zah"
+   ],
+   [
+    "Uvuga Icyongereza?",
+    "Do you speak English?",
+    "oo-VOO-gah ee-chon-geh-REH-zah"
+   ],
+   [
+    "Mvuga Ikinyarwanda gike",
+    "I speak a little Kinyarwanda",
+    "m-VOO-gah ee-keen-yah-RWAHN-dah GEE-keh"
+   ],
+   [
+    "Sinumva",
+    "I don't understand",
+    "see-NOOM-vah"
+   ],
+   [
+    "Ndakwinginze, subiramo",
+    "Please say it again",
+    "n-dah-kween-GEEN-zeh, soo-bee-RAH-mo"
+   ],
+   [
+    "Umuryango",
+    "Family",
+    "oo-moor-YAHN-go"
+   ],
+   [
+    "Mama",
+    "Mother",
+    "MAH-mah"
+   ],
+   [
+    "Papa",
+    "Father",
+    "PAH-pah"
+   ],
+   [
+    "Umwana",
+    "Child",
+    "oom-WAH-nah"
+   ],
+   [
+    "Nyogokuru",
+    "Grandmother",
+    "nyo-go-KOO-roo"
+   ],
+   [
+    "Sogokuru",
+    "Grandfather",
+    "so-go-KOO-roo"
+   ],
+   [
+    "Umugabo",
+    "Husband",
+    "oo-moo-GAH-bo"
+   ],
+   [
+    "Umugore",
+    "Wife",
+    "oo-moo-GO-reh"
+   ],
+   [
+    "Inshuti",
+    "Friend",
+    "een-SHOO-tee"
+   ],
+   [
+    "Uyu ni mama",
+    "This is my mother",
+    "OO-yoo nee MAH-mah"
+   ],
+   [
+    "Umuryango wawe umeze ute?",
+    "How is your family?",
+    "oo-moor-YAHN-go WAH-weh oo-MEH-zeh OO-teh"
+   ],
+   [
+    "Bameze neza",
+    "They are well",
+    "bah-MEH-zeh NEH-zah"
+   ],
+   [
+    "Rimwe",
+    "One",
+    "REEM-weh"
+   ],
+   [
+    "Kabiri",
+    "Two",
+    "kah-BEE-ree"
+   ],
+   [
+    "Gatatu",
+    "Three",
+    "gah-TAH-too"
+   ],
+   [
+    "Kane",
+    "Four",
+    "KAH-neh"
+   ],
+   [
+    "Gatanu",
+    "Five",
+    "gah-TAH-noo"
+   ],
+   [
+    "Gatandatu",
+    "Six",
+    "gah-tahn-DAH-too"
+   ],
+   [
+    "Karindwi",
+    "Seven",
+    "kah-REEN-dwee"
+   ],
+   [
+    "Umunani",
+    "Eight",
+    "oo-moo-NAH-nee"
+   ],
+   [
+    "Icyenda",
+    "Nine",
+    "ee-CHEN-dah"
+   ],
+   [
+    "Icumi",
+    "Ten",
+    "ee-CHOO-mee"
+   ],
+   [
+    "Ni angahe?",
+    "How much is it?",
+    "nee ahn-GAH-heh"
+   ],
+   [
+    "Amafaranga",
+    "Money",
+    "ah-mah-fah-RAHN-gah"
+   ],
+   [
+    "Amazi",
+    "Water",
+    "ah-MAH-zee"
+   ],
+   [
+    "Ibiryo",
+    "Food",
+    "ee-BEER-yo"
+   ],
+   [
+    "Umuceri",
+    "Rice",
+    "oo-moo-CHEH-ree"
+   ],
+   [
+    "Inyama",
+    "Meat",
+    "een-YAH-mah"
+   ],
+   [
+    "Ifi",
+    "Fish",
+    "EE-fee"
+   ],
+   [
+    "Isoko",
+    "Market",
+    "ee-SO-ko"
+   ],
+   [
+    "Ndashonje",
+    "I am hungry",
+    "n-dah-SHON-jeh"
+   ],
+   [
+    "Ndashaka amazi",
+    "I want water",
+    "n-dah-SHAH-kah ah-MAH-zee"
+   ],
+   [
+    "Ibiryo biraryoshye",
+    "The food is delicious",
+    "ee-BEER-yo bee-rahr-YO-shyeh"
+   ],
+   [
+    "Birahenze cyane",
+    "It is too expensive",
+    "bee-rah-HEN-zeh CHAH-neh"
+   ],
+   [
+    "Ndakwinginze, gabanya igiciro",
+    "Please reduce the price",
+    "n-dah-kween-GEEN-zeh, gah-BAHN-yah ee-gee-CHEE-ro"
+   ],
+   [
+    "Ndabigura",
+    "I will buy it",
+    "n-dah-bee-GOO-rah"
+   ],
+   [
+    "Inzu",
+    "House",
+    "EEN-zoo"
+   ],
+   [
+    "Urugi",
+    "Door",
+    "oo-ROO-gee"
+   ],
+   [
+    "Icyumba",
+    "Room",
+    "ee-CHOOM-bah"
+   ],
+   [
+    "Igitanda",
+    "Bed",
+    "ee-gee-TAHN-dah"
+   ],
+   [
+    "Intebe",
+    "Chair",
+    "een-TEH-beh"
+   ],
+   [
+    "Igitabo",
+    "Book",
+    "ee-gee-TAH-bo"
+   ],
+   [
+    "Ishuri",
+    "School",
+    "ee-SHOO-ree"
+   ],
+   [
+    "Injira",
+    "Come in",
+    "een-JEE-rah"
+   ],
+   [
+    "Icara",
+    "Sit down",
+    "ee-CHAH-rah"
+   ],
+   [
+    "Funga urugi",
+    "Close the door",
+    "FOON-gah oo-ROO-gee"
+   ],
+   [
+    "Ubwiherero buri he?",
+    "Where is the toilet?",
+    "oo-bwee-heh-REH-ro BOO-ree HEH"
+   ],
+   [
+    "Ndatashye",
+    "I am going home",
+    "n-dah-TAH-shyeh"
+   ],
+   [
+    "Uyu munsi",
+    "Today",
+    "OO-yoo MOON-see"
+   ],
+   [
+    "Ejo",
+    "Tomorrow",
+    "EH-jo"
+   ],
+   [
+    "Ejo hashize",
+    "Yesterday",
+    "EH-jo hah-SHEE-zeh"
+   ],
+   [
+    "Mu gitondo",
+    "Morning",
+    "moo gee-TON-do"
+   ],
+   [
+    "Nijoro",
+    "Night",
+    "nee-JO-ro"
+   ],
+   [
+    "Ubu",
+    "Now",
+    "OO-boo"
+   ],
+   [
+    "Nyuma",
+    "Later",
+    "NYOO-mah"
+   ],
+   [
+    "Izuba",
+    "Sun",
+    "ee-ZOO-bah"
+   ],
+   [
+    "Imvura",
+    "Rain",
+    "eem-VOO-rah"
+   ],
+   [
+    "Harashyushye",
+    "It is hot",
+    "hah-rah-SHYOO-shyeh"
+   ],
+   [
+    "Harakonje",
+    "It is cold",
+    "hah-rah-KON-jeh"
+   ],
+   [
+    "Ni saa ngahe?",
+    "What time is it?",
+    "nee SAH n-GAH-heh"
+   ],
+   [
+    "Iki?",
+    "What?",
+    "EE-kee"
+   ],
+   [
+    "He?",
+    "Where?",
+    "HEH"
+   ],
+   [
+    "Nde?",
+    "Who?",
+    "n-DEH"
+   ],
+   [
+    "Kubera iki?",
+    "Why?",
+    "koo-BEH-rah EE-kee"
+   ],
+   [
+    "Ryari?",
+    "When?",
+    "RYAH-ree"
+   ],
+   [
+    "Ngwino hano",
+    "Come here",
+    "NGWEE-no HAH-no"
+   ],
+   [
+    "Tugende",
+    "Let's go",
+    "too-GEN-deh"
+   ],
+   [
+    "Tegereza",
+    "Wait",
+    "teh-geh-REH-zah"
+   ],
+   [
+    "Ndashaka kurya",
+    "I want to eat",
+    "n-dah-SHAH-kah KOOR-yah"
+   ],
+   [
+    "Ndashaka kuryama",
+    "I want to sleep",
+    "n-dah-SHAH-kah koor-YAH-mah"
+   ],
+   [
+    "Isoko riri he?",
+    "Where is the market?",
+    "ee-SO-ko REE-ree HEH"
+   ],
+   [
+    "Uriya ni nde?",
+    "Who is that?",
+    "oo-REE-yah nee n-DEH"
+   ],
+   [
+    "Ndishimye",
+    "I am happy",
+    "n-dee-SHEEM-yeh"
+   ],
+   [
+    "Ndananiwe",
+    "I am tired",
+    "n-dah-nah-NEE-weh"
+   ],
+   [
+    "Ndarwaye",
+    "I am sick",
+    "n-dah-RWAH-yeh"
+   ],
+   [
+    "Ndagukunda",
+    "I love you",
+    "n-dah-goo-KOON-dah"
+   ],
+   [
+    "Byiza",
+    "Good",
+    "BYEE-zah"
+   ],
+   [
+    "Bibi",
+    "Bad",
+    "BEE-bee"
+   ],
+   [
+    "Kinini",
+    "Big",
+    "kee-NEE-nee"
+   ],
+   [
+    "Gito",
+    "Small",
+    "GEE-to"
+   ],
+   [
+    "Umutwe",
+    "Head",
+    "oo-MOO-tweh"
+   ],
+   [
+    "Ikiganza",
+    "Hand",
+    "ee-kee-GAHN-zah"
+   ],
+   [
+    "Ijisho",
+    "Eye",
+    "ee-JEE-sho"
+   ],
+   [
+    "Umutwe urandya",
+    "My head hurts",
+    "oo-MOO-tweh oo-RAHN-dyah"
+   ],
+   [
+    "Umuhanda",
+    "Road",
+    "oo-moo-HAHN-dah"
+   ],
+   [
+    "Imodoka",
+    "Car",
+    "ee-mo-DO-kah"
+   ],
+   [
+    "Ibumoso",
+    "Left",
+    "ee-boo-MO-so"
+   ],
+   [
+    "Iburyo",
+    "Right",
+    "ee-BOOR-yo"
+   ],
+   [
+    "Ni hafi",
+    "It is near",
+    "nee HAH-fee"
+   ],
+   [
+    "Ni kure",
+    "It is far",
+    "nee KOO-reh"
+   ],
+   [
+    "Hagarara hano",
+    "Stop here",
+    "hah-gah-RAH-rah HAH-no"
+   ],
+   [
+    "Komeza imbere",
+    "Go straight",
+    "ko-MEH-zah eem-BEH-reh"
+   ],
+   [
+    "Mfasha!",
+    "Help me!",
+    "m-FAH-shah"
+   ],
+   [
+    "Narayobye",
+    "I am lost",
+    "nah-rah-YO-byeh"
+   ],
+   [
+    "Hamagara muganga",
+    "Call a doctor",
+    "hah-mah-GAH-rah moo-GAHN-gah"
+   ],
+   [
+    "Urugendo ruhire",
+    "Safe journey",
+    "oo-roo-GEN-do roo-HEE-reh"
+   ]
+  ]
+ },
+ {
+  "name": "Luganda",
+  "code": "lg",
+  "region": "Uganda",
+  "about": "The language of the Baganda people and the most widely spoken language in Uganda's capital, Kampala. Greetings in Luganda are warm and detailed.",
+  "phrases": [
+   [
+    "Gyebale ko",
+    "Hello",
+    "jeh-BAH-leh ko"
+   ],
+   [
+    "Wasuze otya?",
+    "Good morning",
+    "wah-SOO-zeh O-tyah"
+   ],
+   [
+    "Osiibye otya?",
+    "Good afternoon",
+    "o-SEE-byeh O-tyah"
+   ],
+   [
+    "Akawungeezi akalungi",
+    "Good evening",
+    "ah-kah-woon-GEH-zee ah-kah-LOON-gee"
+   ],
+   [
+    "Oli otya?",
+    "How are you?",
+    "O-lee O-tyah"
+   ],
+   [
+    "Bulungi",
+    "I am fine",
+    "boo-LOON-gee"
+   ],
+   [
+    "Weebale",
+    "Thank you",
+    "weh-BAH-leh"
+   ],
+   [
+    "Weebale nnyo",
+    "Thank you very much",
+    "weh-BAH-leh NNYO"
+   ],
+   [
+    "Nkwegayiridde",
+    "Please",
+    "n-kweh-gah-yee-REED-deh"
+   ],
+   [
+    "Nsonyiwa",
+    "Sorry",
+    "n-so-NYEE-wah"
+   ],
+   [
+    "Weeraba",
+    "Goodbye",
+    "weh-RAH-bah"
+   ],
+   [
+    "Tunaalabagana enkya",
+    "See you tomorrow",
+    "too-nah-lah-bah-GAH-nah EN-chah"
+   ],
+   [
+    "Erinnya lyo ggwe ani?",
+    "What is your name?",
+    "eh-REEN-nyah lyo GGWEH AH-nee"
+   ],
+   [
+    "Erinnya lyange nze Mukasa",
+    "My name is Mukasa",
+    "eh-REEN-nyah LYAHN-geh n-ZEH moo-KAH-sah"
+   ],
+   [
+    "Erinnya lyange nze Nakato",
+    "My name is Nakato",
+    "eh-REEN-nyah LYAHN-geh n-ZEH nah-KAH-to"
+   ],
+   [
+    "Nsanyuse okukulaba",
+    "Nice to meet you",
+    "n-sah-NYOO-seh o-koo-koo-LAH-bah"
+   ],
+   [
+    "Ova wa?",
+    "Where are you from?",
+    "O-vah WAH"
+   ],
+   [
+    "Nva Uganda",
+    "I am from Uganda",
+    "n-VAH oo-GAHN-dah"
+   ],
+   [
+    "Mbeera Kampala",
+    "I live in Kampala",
+    "m-BEH-rah kahm-PAH-lah"
+   ],
+   [
+    "Tukusanyukidde",
+    "Welcome",
+    "too-koo-sah-nyoo-KEED-deh"
+   ],
+   [
+    "Oyogera Olungereza?",
+    "Do you speak English?",
+    "o-yo-GEH-rah o-loon-geh-REH-zah"
+   ],
+   [
+    "Njogera Oluganda katono",
+    "I speak a little Luganda",
+    "n-jo-GEH-rah o-loo-GAHN-dah kah-TO-no"
+   ],
+   [
+    "Sitegedde",
+    "I don't understand",
+    "see-teh-GED-deh"
+   ],
+   [
+    "Nkwegayiridde, ddamu",
+    "Please say it again",
+    "n-kweh-gah-yee-REED-deh, DDAH-moo"
+   ],
+   [
+    "Amaka",
+    "Family",
+    "ah-MAH-kah"
+   ],
+   [
+    "Maama",
+    "Mother",
+    "MAH-mah"
+   ],
+   [
+    "Taata",
+    "Father",
+    "TAH-tah"
+   ],
+   [
+    "Omwana",
+    "Child",
+    "om-WAH-nah"
+   ],
+   [
+    "Jjajja omukazi",
+    "Grandmother",
+    "JAH-jah o-moo-KAH-zee"
+   ],
+   [
+    "Jjajja omusajja",
+    "Grandfather",
+    "JAH-jah o-moo-SAH-jah"
+   ],
+   [
+    "Omwami",
+    "Husband",
+    "om-WAH-mee"
+   ],
+   [
+    "Mukyala",
+    "Wife",
+    "moo-CHAH-lah"
+   ],
+   [
+    "Mukwano",
+    "Friend",
+    "moo-KWAH-no"
+   ],
+   [
+    "Ono ye maama wange",
+    "This is my mother",
+    "O-no yeh MAH-mah WAHN-geh"
+   ],
+   [
+    "Ab'awaka bali batya?",
+    "How is your family?",
+    "ah-bah-WAH-kah BAH-lee BAH-tyah"
+   ],
+   [
+    "Bali bulungi",
+    "They are well",
+    "BAH-lee boo-LOON-gee"
+   ],
+   [
+    "Emu",
+    "One",
+    "EH-moo"
+   ],
+   [
+    "Bbiri",
+    "Two",
+    "BBEE-ree"
+   ],
+   [
+    "Ssatu",
+    "Three",
+    "SSAH-too"
+   ],
+   [
+    "Nnya",
+    "Four",
+    "NNYAH"
+   ],
+   [
+    "Ttaano",
+    "Five",
+    "TTAH-no"
+   ],
+   [
+    "Mukaaga",
+    "Six",
+    "moo-KAH-gah"
+   ],
+   [
+    "Musanvu",
+    "Seven",
+    "moo-SAHN-voo"
+   ],
+   [
+    "Munaana",
+    "Eight",
+    "moo-NAH-nah"
+   ],
+   [
+    "Mwenda",
+    "Nine",
+    "MWEN-dah"
+   ],
+   [
+    "Kkumi",
+    "Ten",
+    "KKOO-mee"
+   ],
+   [
+    "Ssente mmeka?",
+    "How much is it?",
+    "SSEN-teh MMEH-kah"
+   ],
+   [
+    "Ssente",
+    "Money",
+    "SSEN-teh"
+   ],
+   [
+    "Amazzi",
+    "Water",
+    "ah-MAHZ-zee"
+   ],
+   [
+    "Emmere",
+    "Food",
+    "em-MEH-reh"
+   ],
+   [
+    "Omuceere",
+    "Rice",
+    "o-moo-CHEH-reh"
+   ],
+   [
+    "Ennyama",
+    "Meat",
+    "en-NYAH-mah"
+   ],
+   [
+    "Ekyennyanja",
+    "Fish",
+    "eh-chen-NYAHN-jah"
+   ],
+   [
+    "Akatale",
+    "Market",
+    "ah-kah-TAH-leh"
+   ],
+   [
+    "Enjala ennuma",
+    "I am hungry",
+    "en-JAH-lah en-NOO-mah"
+   ],
+   [
+    "Njagala amazzi",
+    "I want water",
+    "n-jah-GAH-lah ah-MAHZ-zee"
+   ],
+   [
+    "Emmere ewooma",
+    "The food is delicious",
+    "em-MEH-reh eh-WO-mah"
+   ],
+   [
+    "Ebbeeyi esukka",
+    "It is too expensive",
+    "eb-BEH-yee eh-SOOK-kah"
+   ],
+   [
+    "Nkwegayiridde, kendeeza ku bbeeyi",
+    "Please reduce the price",
+    "n-kweh-gah-yee-REED-deh, ken-DEH-zah koo BBEH-yee"
+   ],
+   [
+    "Nja kukigula",
+    "I will buy it",
+    "n-jah koo-chee-GOO-lah"
+   ],
+   [
+    "Ennyumba",
+    "House",
+    "en-NYOOM-bah"
+   ],
+   [
+    "Oluggi",
+    "Door",
+    "o-LOOG-gee"
+   ],
+   [
+    "Ekisenge",
+    "Room",
+    "eh-chee-SEN-geh"
+   ],
+   [
+    "Ekitanda",
+    "Bed",
+    "eh-chee-TAHN-dah"
+   ],
+   [
+    "Entebe",
+    "Chair",
+    "en-TEH-beh"
+   ],
+   [
+    "Ekitabo",
+    "Book",
+    "eh-chee-TAH-bo"
+   ],
+   [
+    "Essomero",
+    "School",
+    "es-so-MEH-ro"
+   ],
+   [
+    "Yingira",
+    "Come in",
+    "yeen-GEE-rah"
+   ],
+   [
+    "Tuula",
+    "Sit down",
+    "TOO-lah"
+   ],
+   [
+    "Ggalawo oluggi",
+    "Close the door",
+    "GGAH-lah-wo o-LOOG-gee"
+   ],
+   [
+    "Kaabuyonjo eri ludda wa?",
+    "Where is the toilet?",
+    "kah-boo-YON-jo EH-ree LOOD-dah WAH"
+   ],
+   [
+    "Ŋŋenda ewaka",
+    "I am going home",
+    "NGEN-dah eh-WAH-kah"
+   ],
+   [
+    "Leero",
+    "Today",
+    "LEH-ro"
+   ],
+   [
+    "Enkya",
+    "Tomorrow",
+    "EN-chah"
+   ],
+   [
+    "Jjo",
+    "Yesterday",
+    "JJO"
+   ],
+   [
+    "Ku makya",
+    "Morning",
+    "koo MAH-chah"
+   ],
+   [
+    "Ekiro",
+    "Night",
+    "eh-CHEE-ro"
+   ],
+   [
+    "Kati",
+    "Now",
+    "KAH-tee"
+   ],
+   [
+    "Oluvannyuma",
+    "Later",
+    "o-loo-vahn-NYOO-mah"
+   ],
+   [
+    "Enjuba",
+    "Sun",
+    "en-JOO-bah"
+   ],
+   [
+    "Enkuba",
+    "Rain",
+    "en-KOO-bah"
+   ],
+   [
+    "Bbugumu",
+    "It is hot",
+    "bboo-GOO-moo"
+   ],
+   [
+    "Bunnyogovu",
+    "It is cold",
+    "boon-nyo-GO-voo"
+   ],
+   [
+    "Ssaawa mmeka?",
+    "What time is it?",
+    "SSAH-wah MMEH-kah"
+   ],
+   [
+    "Ki?",
+    "What?",
+    "CHEE"
+   ],
+   [
+    "Wa?",
+    "Where?",
+    "WAH"
+   ],
+   [
+    "Ani?",
+    "Who?",
+    "AH-nee"
+   ],
+   [
+    "Lwaki?",
+    "Why?",
+    "LWAH-chee"
+   ],
+   [
+    "Ddi?",
+    "When?",
+    "DDEE"
+   ],
+   [
+    "Jjangu wano",
+    "Come here",
+    "JAHN-goo WAH-no"
+   ],
+   [
+    "Tugende",
+    "Let's go",
+    "too-GEN-deh"
+   ],
+   [
+    "Linda",
+    "Wait",
+    "LEEN-dah"
+   ],
+   [
+    "Njagala okulya",
+    "I want to eat",
+    "n-jah-GAH-lah o-KOOL-yah"
+   ],
+   [
+    "Njagala okwebaka",
+    "I want to sleep",
+    "n-jah-GAH-lah o-kweh-BAH-kah"
+   ],
+   [
+    "Akatale kali ludda wa?",
+    "Where is the market?",
+    "ah-kah-TAH-leh KAH-lee LOOD-dah WAH"
+   ],
+   [
+    "Oyo ye ani?",
+    "Who is that?",
+    "O-yo yeh AH-nee"
+   ],
+   [
+    "Nsanyuse",
+    "I am happy",
+    "n-sah-NYOO-seh"
+   ],
+   [
+    "Nkooye",
+    "I am tired",
+    "n-KO-yeh"
+   ],
+   [
+    "Ndwadde",
+    "I am sick",
+    "n-DWAHD-deh"
+   ],
+   [
+    "Nkwagala",
+    "I love you",
+    "n-kwah-GAH-lah"
+   ],
+   [
+    "Kirungi",
+    "Good",
+    "chee-ROON-gee"
+   ],
+   [
+    "Kibi",
+    "Bad",
+    "CHEE-bee"
+   ],
+   [
+    "Kinene",
+    "Big",
+    "chee-NEH-neh"
+   ],
+   [
+    "Kitono",
+    "Small",
+    "chee-TO-no"
+   ],
+   [
+    "Omutwe",
+    "Head",
+    "o-MOO-tweh"
+   ],
+   [
+    "Omukono",
+    "Hand",
+    "o-moo-KO-no"
+   ],
+   [
+    "Eriiso",
+    "Eye",
+    "eh-REE-so"
+   ],
+   [
+    "Omutwe gunnuma",
+    "My head hurts",
+    "o-MOO-tweh goon-NOO-mah"
+   ],
+   [
+    "Ekkubo",
+    "Road",
+    "ek-KOO-bo"
+   ],
+   [
+    "Emmotoka",
+    "Car",
+    "em-mo-TO-kah"
+   ],
+   [
+    "Ku kkono",
+    "Left",
+    "koo KKO-no"
+   ],
+   [
+    "Ku ddyo",
+    "Right",
+    "koo DDYO"
+   ],
+   [
+    "Kiri kumpi",
+    "It is near",
+    "CHEE-ree KOOM-pee"
+   ],
+   [
+    "Kiri wala",
+    "It is far",
+    "CHEE-ree WAH-lah"
+   ],
+   [
+    "Yimirira wano",
+    "Stop here",
+    "yee-mee-REE-rah WAH-no"
+   ],
+   [
+    "Genda butereevu",
+    "Go straight",
+    "GEN-dah boo-teh-REH-voo"
+   ],
+   [
+    "Nnyamba!",
+    "Help me!",
+    "NNYAHM-bah"
+   ],
+   [
+    "Mbuze",
+    "I am lost",
+    "m-BOO-zeh"
+   ],
+   [
+    "Yita omusawo",
+    "Call a doctor",
+    "YEE-tah o-moo-SAH-wo"
+   ],
+   [
+    "Olugendo olulungi",
+    "Safe journey",
+    "o-loo-GEN-do o-loo-LOON-gee"
+   ]
+  ]
+ },
+ {
+  "name": "Sesotho",
+  "code": "st",
+  "region": "Lesotho · South Africa",
+  "about": "The national language of Lesotho and one of South Africa's official languages. Sesotho is known for its proverbs, called maele, and the colourful Basotho blanket.",
+  "phrases": [
+   [
+    "Lumela",
+    "Hello",
+    "loo-MEH-lah"
+   ],
+   [
+    "Hoseng ho hotle",
+    "Good morning",
+    "ho-SENG ho HO-tleh"
+   ],
+   [
+    "Motšehare o motle",
+    "Good afternoon",
+    "mo-tseh-HAH-reh o MO-tleh"
+   ],
+   [
+    "Mantsiboea a matle",
+    "Good evening",
+    "mahn-tsee-BWEH-ah ah MAH-tleh"
+   ],
+   [
+    "U phela joang?",
+    "How are you?",
+    "oo PEH-lah JWAHNG"
+   ],
+   [
+    "Ke phela hantle",
+    "I am fine",
+    "keh PEH-lah HAHN-tleh"
+   ],
+   [
+    "Kea leboha",
+    "Thank you",
+    "KEH-ah leh-BO-hah"
+   ],
+   [
+    "Kea leboha haholo",
+    "Thank you very much",
+    "KEH-ah leh-BO-hah hah-HO-lo"
+   ],
+   [
+    "Ka kopo",
+    "Please",
+    "kah KO-po"
+   ],
+   [
+    "Ke kopa tšoarelo",
+    "Sorry",
+    "keh KO-pah tswah-REH-lo"
+   ],
+   [
+    "Sala hantle",
+    "Goodbye",
+    "SAH-lah HAHN-tleh"
+   ],
+   [
+    "Re tla bonana hosane",
+    "See you tomorrow",
+    "reh tlah bo-NAH-nah ho-SAH-neh"
+   ],
+   [
+    "Lebitso la hao ke mang?",
+    "What is your name?",
+    "leh-BEE-tso lah HAH-o keh MAHNG"
+   ],
+   [
+    "Lebitso la ka ke Thabo",
+    "My name is Thabo",
+    "leh-BEE-tso lah kah keh TAH-bo"
+   ],
+   [
+    "Lebitso la ka ke Palesa",
+    "My name is Palesa",
+    "leh-BEE-tso lah kah keh pah-LEH-sah"
+   ],
+   [
+    "Ke thabela ho u tseba",
+    "Nice to meet you",
+    "keh tah-BEH-lah ho oo TSEH-bah"
+   ],
+   [
+    "U tsoa kae?",
+    "Where are you from?",
+    "oo TSWAH KAI"
+   ],
+   [
+    "Ke tsoa Lesotho",
+    "I am from Lesotho",
+    "keh TSWAH leh-SOO-too"
+   ],
+   [
+    "Ke lula Maseru",
+    "I live in Maseru",
+    "keh LOO-lah mah-SEH-roo"
+   ],
+   [
+    "Rea u amohela",
+    "Welcome",
+    "REH-ah oo ah-mo-HEH-lah"
+   ],
+   [
+    "Na u bua Senyesemane?",
+    "Do you speak English?",
+    "nah oo BOO-ah sen-yeh-seh-MAH-neh"
+   ],
+   [
+    "Ke bua Sesotho hanyane",
+    "I speak a little Sesotho",
+    "keh BOO-ah seh-SOO-too hahn-YAH-neh"
+   ],
+   [
+    "Ha ke utloisise",
+    "I don't understand",
+    "hah keh oo-tlwee-SEE-seh"
+   ],
+   [
+    "Ka kopo, pheta",
+    "Please say it again",
+    "kah KO-po, PEH-tah"
+   ],
+   [
+    "Lelapa",
+    "Family",
+    "leh-LAH-pah"
+   ],
+   [
+    "'Mè",
+    "Mother",
+    "MMEH"
+   ],
+   [
+    "Ntate",
+    "Father",
+    "n-TAH-teh"
+   ],
+   [
+    "Ngoana",
+    "Child",
+    "NGWAH-nah"
+   ],
+   [
+    "Nkhono",
+    "Grandmother",
+    "n-KO-no"
+   ],
+   [
+    "Ntate-moholo",
+    "Grandfather",
+    "n-TAH-teh mo-HO-lo"
+   ],
+   [
+    "Monna",
+    "Husband",
+    "MON-nah"
+   ],
+   [
+    "Mosali",
+    "Wife",
+    "mo-SAH-lee"
+   ],
+   [
+    "Motsoalle",
+    "Friend",
+    "mo-tswahl-LEH"
+   ],
+   [
+    "Enoa ke 'mè oa ka",
+    "This is my mother",
+    "EH-nwah keh MMEH wah kah"
+   ],
+   [
+    "Lelapa la hao le joang?",
+    "How is your family?",
+    "leh-LAH-pah lah HAH-o leh JWAHNG"
+   ],
+   [
+    "Ba phela hantle",
+    "They are well",
+    "bah PEH-lah HAHN-tleh"
+   ],
+   [
+    "Nngoe",
+    "One",
+    "NNGWEH"
+   ],
+   [
+    "Peli",
+    "Two",
+    "PEH-lee"
+   ],
+   [
+    "Tharo",
+    "Three",
+    "TAH-ro"
+   ],
+   [
+    "'Ne",
+    "Four",
+    "NEH"
+   ],
+   [
+    "Hlano",
+    "Five",
+    "SHLAH-no"
+   ],
+   [
+    "Tšeletseng",
+    "Six",
+    "tseh-leh-TSENG"
+   ],
+   [
+    "Supileng",
+    "Seven",
+    "soo-pee-LENG"
+   ],
+   [
+    "Robeli",
+    "Eight",
+    "ro-BEH-lee"
+   ],
+   [
+    "Robong",
+    "Nine",
+    "ro-BONG"
+   ],
+   [
+    "Leshome",
+    "Ten",
+    "leh-SHO-meh"
+   ],
+   [
+    "Ke bokae?",
+    "How much is it?",
+    "keh bo-KAI"
+   ],
+   [
+    "Chelete",
+    "Money",
+    "cheh-LEH-teh"
+   ],
+   [
+    "Metsi",
+    "Water",
+    "MEH-tsee"
+   ],
+   [
+    "Lijo",
+    "Food",
+    "DEE-jo"
+   ],
+   [
+    "Raese",
+    "Rice",
+    "rah-EH-seh"
+   ],
+   [
+    "Nama",
+    "Meat",
+    "NAH-mah"
+   ],
+   [
+    "Tlhapi",
+    "Fish",
+    "TLAH-pee"
+   ],
+   [
+    "'Maraka",
+    "Market",
+    "mah-RAH-kah"
+   ],
+   [
+    "Ke lapile",
+    "I am hungry",
+    "keh lah-PEE-leh"
+   ],
+   [
+    "Ke batla metsi",
+    "I want water",
+    "keh BAH-tlah MEH-tsee"
+   ],
+   [
+    "Lijo li monate",
+    "The food is delicious",
+    "DEE-jo dee mo-NAH-teh"
+   ],
+   [
+    "Ho bitsa haholo",
+    "It is too expensive",
+    "ho BEE-tsah hah-HO-lo"
+   ],
+   [
+    "Ka kopo, theola theko",
+    "Please reduce the price",
+    "kah KO-po, teh-O-lah TEH-ko"
+   ],
+   [
+    "Ke tla e reka",
+    "I will buy it",
+    "keh tlah eh REH-kah"
+   ],
+   [
+    "Ntlo",
+    "House",
+    "n-TLO"
+   ],
+   [
+    "Monyako",
+    "Door",
+    "mon-YAH-ko"
+   ],
+   [
+    "Kamore",
+    "Room",
+    "kah-MO-reh"
+   ],
+   [
+    "Bethe",
+    "Bed",
+    "BEH-teh"
+   ],
+   [
+    "Setulo",
+    "Chair",
+    "seh-TOO-lo"
+   ],
+   [
+    "Buka",
+    "Book",
+    "BOO-kah"
+   ],
+   [
+    "Sekolo",
+    "School",
+    "seh-KO-lo"
+   ],
+   [
+    "Kena",
+    "Come in",
+    "KEH-nah"
+   ],
+   [
+    "Lula fatše",
+    "Sit down",
+    "LOO-lah FAH-tseh"
+   ],
+   [
+    "Koala monyako",
+    "Close the door",
+    "KWAH-lah mon-YAH-ko"
+   ],
+   [
+    "Ntloana e kae?",
+    "Where is the toilet?",
+    "n-TLWAH-nah eh KAI"
+   ],
+   [
+    "Ke ea hae",
+    "I am going home",
+    "keh EH-ah HAI"
+   ],
+   [
+    "Kajeno",
+    "Today",
+    "kah-JEH-no"
+   ],
+   [
+    "Hosane",
+    "Tomorrow",
+    "ho-SAH-neh"
+   ],
+   [
+    "Maobane",
+    "Yesterday",
+    "mah-o-BAH-neh"
+   ],
+   [
+    "Hoseng",
+    "Morning",
+    "ho-SENG"
+   ],
+   [
+    "Bosiu",
+    "Night",
+    "bo-SEE-oo"
+   ],
+   [
+    "Hona joale",
+    "Now",
+    "HO-nah JWAH-leh"
+   ],
+   [
+    "Hamorao",
+    "Later",
+    "hah-mo-RAH-o"
+   ],
+   [
+    "Letsatsi",
+    "Sun",
+    "leh-TSAH-tsee"
+   ],
+   [
+    "Pula",
+    "Rain",
+    "POO-lah"
+   ],
+   [
+    "Ho a chesa",
+    "It is hot",
+    "ho ah CHEH-sah"
+   ],
+   [
+    "Ho a bata",
+    "It is cold",
+    "ho ah BAH-tah"
+   ],
+   [
+    "Ke nako mang?",
+    "What time is it?",
+    "keh NAH-ko MAHNG"
+   ],
+   [
+    "Eng?",
+    "What?",
+    "ENG"
+   ],
+   [
+    "Kae?",
+    "Where?",
+    "KAI"
+   ],
+   [
+    "Mang?",
+    "Who?",
+    "MAHNG"
+   ],
+   [
+    "Hobaneng?",
+    "Why?",
+    "ho-bah-NENG"
+   ],
+   [
+    "Neng?",
+    "When?",
+    "NENG"
+   ],
+   [
+    "Tloo mona",
+    "Come here",
+    "TLO MO-nah"
+   ],
+   [
+    "A re tsamaee",
+    "Let's go",
+    "ah reh tsah-MAH-eh"
+   ],
+   [
+    "Ema",
+    "Wait",
+    "EH-mah"
+   ],
+   [
+    "Ke batla ho ja",
+    "I want to eat",
+    "keh BAH-tlah ho JAH"
+   ],
+   [
+    "Ke batla ho robala",
+    "I want to sleep",
+    "keh BAH-tlah ho ro-BAH-lah"
+   ],
+   [
+    "'Maraka o kae?",
+    "Where is the market?",
+    "mah-RAH-kah o KAI"
+   ],
+   [
+    "Eo ke mang?",
+    "Who is that?",
+    "EH-o keh MAHNG"
+   ],
+   [
+    "Ke thabile",
+    "I am happy",
+    "keh tah-BEE-leh"
+   ],
+   [
+    "Ke khathetse",
+    "I am tired",
+    "keh kah-TEH-tseh"
+   ],
+   [
+    "Ke a kula",
+    "I am sick",
+    "keh ah KOO-lah"
+   ],
+   [
+    "Kea u rata",
+    "I love you",
+    "KEH-ah oo RAH-tah"
+   ],
+   [
+    "Hotle",
+    "Good",
+    "HO-tleh"
+   ],
+   [
+    "Hobe",
+    "Bad",
+    "HO-beh"
+   ],
+   [
+    "Kholo",
+    "Big",
+    "KO-lo"
+   ],
+   [
+    "Nyenyane",
+    "Small",
+    "nyeh-NYAH-neh"
+   ],
+   [
+    "Hlooho",
+    "Head",
+    "SHLO-ho"
+   ],
+   [
+    "Letsoho",
+    "Hand",
+    "leh-TSO-ho"
+   ],
+   [
+    "Leihlo",
+    "Eye",
+    "leh-EE-shlo"
+   ],
+   [
+    "Hlooho ea ka e a opa",
+    "My head hurts",
+    "SHLO-ho eh-ah kah eh ah O-pah"
+   ],
+   [
+    "Tsela",
+    "Road",
+    "TSEH-lah"
+   ],
+   [
+    "Koloi",
+    "Car",
+    "ko-LOY"
+   ],
+   [
+    "Ka ho le letšehali",
+    "Left",
+    "kah ho leh leh-tseh-HAH-lee"
+   ],
+   [
+    "Ka ho le letona",
+    "Right",
+    "kah ho leh leh-TO-nah"
+   ],
+   [
+    "Ho haufi",
+    "It is near",
+    "ho hah-OO-fee"
+   ],
+   [
+    "Ho hole",
+    "It is far",
+    "ho HO-leh"
+   ],
+   [
+    "Ema mona",
+    "Stop here",
+    "EH-mah MO-nah"
+   ],
+   [
+    "Tsamaea ka kotloloho",
+    "Go straight",
+    "tsah-MAH-yah kah ko-tlo-LO-ho"
+   ],
+   [
+    "Nthuse!",
+    "Help me!",
+    "n-TOO-seh"
+   ],
+   [
+    "Ke lahlehile",
+    "I am lost",
+    "keh lah-shleh-HEE-leh"
+   ],
+   [
+    "Bitsa ngaka",
+    "Call a doctor",
+    "BEE-tsah NGAH-kah"
+   ],
+   [
+    "Tsamaea hantle",
+    "Safe journey",
+    "tsah-MAH-yah HAHN-tleh"
+   ]
+  ]
+ },
+ {
+  "name": "Afrikaans",
+  "code": "af",
+  "region": "South Africa · Namibia",
+  "about": "A language that grew in southern Africa from Dutch, shaped by Khoi, Malay and African influences. It is spoken by millions in South Africa and Namibia.",
+  "phrases": [
+   [
+    "Hallo",
+    "Hello",
+    "HAH-lo"
+   ],
+   [
+    "Goeiemôre",
+    "Good morning",
+    "KHOOY-eh-MAW-reh"
+   ],
+   [
+    "Goeiemiddag",
+    "Good afternoon",
+    "KHOOY-eh-MID-dakh"
+   ],
+   [
+    "Goeienaand",
+    "Good evening",
+    "KHOOY-eh-NAHNT"
+   ],
+   [
+    "Hoe gaan dit?",
+    "How are you?",
+    "hoo KHAHN dit"
+   ],
+   [
+    "Dit gaan goed",
+    "I am fine",
+    "dit khahn KHOOT"
+   ],
+   [
+    "Dankie",
+    "Thank you",
+    "DUN-kee"
+   ],
+   [
+    "Baie dankie",
+    "Thank you very much",
+    "BAH-yeh DUN-kee"
+   ],
+   [
+    "Asseblief",
+    "Please",
+    "AH-seh-bleef"
+   ],
+   [
+    "Jammer",
+    "Sorry",
+    "YAH-mer"
+   ],
+   [
+    "Totsiens",
+    "Goodbye",
+    "tot-SEENS"
+   ],
+   [
+    "Sien jou môre",
+    "See you tomorrow",
+    "seen yoh MAW-reh"
+   ],
+   [
+    "Wat is jou naam?",
+    "What is your name?",
+    "vut is yoh NAHM"
+   ],
+   [
+    "My naam is Pieter",
+    "My name is Pieter",
+    "may nahm is PEE-ter"
+   ],
+   [
+    "My naam is Annelie",
+    "My name is Annelie",
+    "may nahm is AH-neh-lee"
+   ],
+   [
+    "Aangename kennis",
+    "Nice to meet you",
+    "AHN-kheh-nah-meh KEN-nis"
+   ],
+   [
+    "Waar kom jy vandaan?",
+    "Where are you from?",
+    "vahr kom yay fun-DAHN"
+   ],
+   [
+    "Ek kom van Suid-Afrika",
+    "I am from South Africa",
+    "ek kom fun SAYT-ah-free-kah"
+   ],
+   [
+    "Ek woon in Kaapstad",
+    "I live in Cape Town",
+    "ek VOH-un in KAHP-stut"
+   ],
+   [
+    "Welkom",
+    "Welcome",
+    "VEL-kom"
+   ],
+   [
+    "Praat jy Engels?",
+    "Do you speak English?",
+    "praht yay ENG-uls"
+   ],
+   [
+    "Ek praat 'n bietjie Afrikaans",
+    "I speak a little Afrikaans",
+    "ek praht uh BEE-kee ah-free-KAHNS"
+   ],
+   [
+    "Ek verstaan nie",
+    "I don't understand",
+    "ek fer-STAHN nee"
+   ],
+   [
+    "Sê dit asseblief weer",
+    "Please say it again",
+    "seh dit AH-seh-bleef VEER"
+   ],
+   [
+    "Familie",
+    "Family",
+    "fah-MEE-lee"
+   ],
+   [
+    "Ma",
+    "Mother",
+    "MAH"
+   ],
+   [
+    "Pa",
+    "Father",
+    "PAH"
+   ],
+   [
+    "Kind",
+    "Child",
+    "KINT"
+   ],
+   [
+    "Ouma",
+    "Grandmother",
+    "OH-mah"
+   ],
+   [
+    "Oupa",
+    "Grandfather",
+    "OH-pah"
+   ],
+   [
+    "Man",
+    "Husband",
+    "MUN"
+   ],
+   [
+    "Vrou",
+    "Wife",
+    "FROH"
+   ],
+   [
+    "Vriend",
+    "Friend",
+    "FREENT"
+   ],
+   [
+    "Dit is my ma",
+    "This is my mother",
+    "dit is may MAH"
+   ],
+   [
+    "Hoe gaan dit met jou familie?",
+    "How is your family?",
+    "hoo khahn dit met yoh fah-MEE-lee"
+   ],
+   [
+    "Dit gaan goed met hulle",
+    "They are well",
+    "dit khahn khoot met HUL-leh"
+   ],
+   [
+    "Een",
+    "One",
+    "EE-un"
+   ],
+   [
+    "Twee",
+    "Two",
+    "TVEE-uh"
+   ],
+   [
+    "Drie",
+    "Three",
+    "DREE"
+   ],
+   [
+    "Vier",
+    "Four",
+    "FEER"
+   ],
+   [
+    "Vyf",
+    "Five",
+    "FAYF"
+   ],
+   [
+    "Ses",
+    "Six",
+    "SES"
+   ],
+   [
+    "Sewe",
+    "Seven",
+    "SEE-veh"
+   ],
+   [
+    "Agt",
+    "Eight",
+    "AKHT"
+   ],
+   [
+    "Nege",
+    "Nine",
+    "NEE-kheh"
+   ],
+   [
+    "Tien",
+    "Ten",
+    "TEEN"
+   ],
+   [
+    "Hoeveel kos dit?",
+    "How much is it?",
+    "hoo-FEEL kos dit"
+   ],
+   [
+    "Geld",
+    "Money",
+    "KHELT"
+   ],
+   [
+    "Water",
+    "Water",
+    "VAH-ter"
+   ],
+   [
+    "Kos",
+    "Food",
+    "KOS"
+   ],
+   [
+    "Rys",
+    "Rice",
+    "RAYS"
+   ],
+   [
+    "Vleis",
+    "Meat",
+    "FLAYS"
+   ],
+   [
+    "Vis",
+    "Fish",
+    "FIS"
+   ],
+   [
+    "Mark",
+    "Market",
+    "MARK"
+   ],
+   [
+    "Ek is honger",
+    "I am hungry",
+    "ek is HONG-er"
+   ],
+   [
+    "Ek wil water hê",
+    "I want water",
+    "ek vil VAH-ter HEH"
+   ],
+   [
+    "Die kos is heerlik",
+    "The food is delicious",
+    "dee kos is HEER-lik"
+   ],
+   [
+    "Dit is te duur",
+    "It is too expensive",
+    "dit is teh DEER"
+   ],
+   [
+    "Maak dit asseblief goedkoper",
+    "Please reduce the price",
+    "mahk dit AH-seh-bleef khoot-KOO-per"
+   ],
+   [
+    "Ek sal dit koop",
+    "I will buy it",
+    "ek sul dit KOO-up"
+   ],
+   [
+    "Huis",
+    "House",
+    "HAYS"
+   ],
+   [
+    "Deur",
+    "Door",
+    "DEER"
+   ],
+   [
+    "Kamer",
+    "Room",
+    "KAH-mer"
+   ],
+   [
+    "Bed",
+    "Bed",
+    "BET"
+   ],
+   [
+    "Stoel",
+    "Chair",
+    "STOOL"
+   ],
+   [
+    "Boek",
+    "Book",
+    "BOOK"
+   ],
+   [
+    "Skool",
+    "School",
+    "SKOO-ul"
+   ],
+   [
+    "Kom in",
+    "Come in",
+    "kom IN"
+   ],
+   [
+    "Gaan sit",
+    "Sit down",
+    "khahn SIT"
+   ],
+   [
+    "Maak die deur toe",
+    "Close the door",
+    "mahk dee DEER too"
+   ],
+   [
+    "Waar is die toilet?",
+    "Where is the toilet?",
+    "vahr is dee toy-LET"
+   ],
+   [
+    "Ek gaan huis toe",
+    "I am going home",
+    "ek khahn HAYS too"
+   ],
+   [
+    "Vandag",
+    "Today",
+    "fun-DAKH"
+   ],
+   [
+    "Môre",
+    "Tomorrow",
+    "MAW-reh"
+   ],
+   [
+    "Gister",
+    "Yesterday",
+    "KHIS-ter"
+   ],
+   [
+    "Oggend",
+    "Morning",
+    "OKH-ent"
+   ],
+   [
+    "Nag",
+    "Night",
+    "NAKH"
+   ],
+   [
+    "Nou",
+    "Now",
+    "NOH"
+   ],
+   [
+    "Later",
+    "Later",
+    "LAH-ter"
+   ],
+   [
+    "Son",
+    "Sun",
+    "SON"
+   ],
+   [
+    "Reën",
+    "Rain",
+    "REE-en"
+   ],
+   [
+    "Dit is warm",
+    "It is hot",
+    "dit is VURM"
+   ],
+   [
+    "Dit is koud",
+    "It is cold",
+    "dit is KOHT"
+   ],
+   [
+    "Hoe laat is dit?",
+    "What time is it?",
+    "hoo LAHT is dit"
+   ],
+   [
+    "Wat?",
+    "What?",
+    "VUT"
+   ],
+   [
+    "Waar?",
+    "Where?",
+    "VAHR"
+   ],
+   [
+    "Wie?",
+    "Who?",
+    "VEE"
+   ],
+   [
+    "Hoekom?",
+    "Why?",
+    "HOO-kom"
+   ],
+   [
+    "Wanneer?",
+    "When?",
+    "vun-NEER"
+   ],
+   [
+    "Kom hier",
+    "Come here",
+    "kom HEER"
+   ],
+   [
+    "Kom ons gaan",
+    "Let's go",
+    "kom ons KHAHN"
+   ],
+   [
+    "Wag",
+    "Wait",
+    "VAKH"
+   ],
+   [
+    "Ek wil eet",
+    "I want to eat",
+    "ek vil EE-ut"
+   ],
+   [
+    "Ek wil slaap",
+    "I want to sleep",
+    "ek vil SLAHP"
+   ],
+   [
+    "Waar is die mark?",
+    "Where is the market?",
+    "vahr is dee MARK"
+   ],
+   [
+    "Wie is dit?",
+    "Who is that?",
+    "vee is DIT"
+   ],
+   [
+    "Ek is gelukkig",
+    "I am happy",
+    "ek is kheh-LUK-kikh"
+   ],
+   [
+    "Ek is moeg",
+    "I am tired",
+    "ek is MOOKH"
+   ],
+   [
+    "Ek is siek",
+    "I am sick",
+    "ek is SEEK"
+   ],
+   [
+    "Ek is lief vir jou",
+    "I love you",
+    "ek is LEEF fer yoh"
+   ],
+   [
+    "Goed",
+    "Good",
+    "KHOOT"
+   ],
+   [
+    "Sleg",
+    "Bad",
+    "SLEKH"
+   ],
+   [
+    "Groot",
+    "Big",
+    "KHROO-ut"
+   ],
+   [
+    "Klein",
+    "Small",
+    "KLAYN"
+   ],
+   [
+    "Kop",
+    "Head",
+    "KOP"
+   ],
+   [
+    "Hand",
+    "Hand",
+    "HUNT"
+   ],
+   [
+    "Oog",
+    "Eye",
+    "OO-ukh"
+   ],
+   [
+    "My kop is seer",
+    "My head hurts",
+    "may kop is SEER"
+   ],
+   [
+    "Pad",
+    "Road",
+    "PUT"
+   ],
+   [
+    "Motor",
+    "Car",
+    "MOO-tor"
+   ],
+   [
+    "Links",
+    "Left",
+    "LINKS"
+   ],
+   [
+    "Regs",
+    "Right",
+    "REKHS"
+   ],
+   [
+    "Dit is naby",
+    "It is near",
+    "dit is NAH-bay"
+   ],
+   [
+    "Dit is ver",
+    "It is far",
+    "dit is FER"
+   ],
+   [
+    "Stop hier",
+    "Stop here",
+    "stop HEER"
+   ],
+   [
+    "Gaan reguit",
+    "Go straight",
+    "khahn REKH-ayt"
+   ],
+   [
+    "Help my!",
+    "Help me!",
+    "HELP may"
+   ],
+   [
+    "Ek is verdwaal",
+    "I am lost",
+    "ek is fer-DVAHL"
+   ],
+   [
+    "Bel 'n dokter",
+    "Call a doctor",
+    "bel uh DOK-ter"
+   ],
+   [
+    "Veilige reis",
+    "Safe journey",
+    "FAY-lee-kheh RAYS"
+   ]
+  ]
+ },
+ {
+  "name": "Setswana",
+  "code": "tn",
+  "region": "Botswana · South Africa",
+  "about": "The national language of Botswana, spoken in southern Africa. Setswana is a tonal Bantu language known for the greeting Dumela and its many proverbs.",
+  "phrases": [
+   [
+    "Dumela",
+    "Hello",
+    "doo-MEH-lah"
+   ],
+   [
+    "O tsogile jang?",
+    "Good morning",
+    "o tso-HEE-leh JAHNG"
+   ],
+   [
+    "O tlhotse jang?",
+    "Good afternoon",
+    "o TLO-tseh JAHNG"
+   ],
+   [
+    "Dumela mo maitseboeng",
+    "Good evening",
+    "doo-MEH-lah mo mai-tseh-BWENG"
+   ],
+   [
+    "O kae?",
+    "How are you?",
+    "o KAI"
+   ],
+   [
+    "Ke teng",
+    "I am fine",
+    "keh TENG"
+   ],
+   [
+    "Ke a leboga",
+    "Thank you",
+    "keh ah leh-BO-hah"
+   ],
+   [
+    "Ke a leboga thata",
+    "Thank you very much",
+    "keh ah leh-BO-hah TAH-tah"
+   ],
+   [
+    "Tsweetswee",
+    "Please",
+    "tsweh-TSWEH"
+   ],
+   [
+    "Intshwarele",
+    "Sorry",
+    "een-tshwah-REH-leh"
+   ],
+   [
+    "Sala sentle",
+    "Goodbye",
+    "SAH-lah SEN-tleh"
+   ],
+   [
+    "Re tla bonana kamoso",
+    "See you tomorrow",
+    "reh tlah bo-NAH-nah kah-MO-so"
+   ],
+   [
+    "Leina la gago ke mang?",
+    "What is your name?",
+    "LAY-nah lah HAH-ho keh MAHNG"
+   ],
+   [
+    "Leina la me ke Kabelo",
+    "My name is Kabelo",
+    "LAY-nah lah meh keh kah-BEH-lo"
+   ],
+   [
+    "Leina la me ke Masego",
+    "My name is Masego",
+    "LAY-nah lah meh keh mah-SEH-ho"
+   ],
+   [
+    "Ke itumelela go go itse",
+    "Nice to meet you",
+    "keh ee-too-meh-LEH-lah ho ho EE-tseh"
+   ],
+   [
+    "O tswa kae?",
+    "Where are you from?",
+    "o TSWAH KAI"
+   ],
+   [
+    "Ke tswa kwa Botswana",
+    "I am from Botswana",
+    "keh TSWAH kwah bo-TSWAH-nah"
+   ],
+   [
+    "Ke nna kwa Gaborone",
+    "I live in Gaborone",
+    "keh NNAH kwah hah-bo-RO-neh"
+   ],
+   [
+    "O amogetswe",
+    "Welcome",
+    "o ah-mo-HEH-tsweh"
+   ],
+   [
+    "A o bua Sekgoa?",
+    "Do you speak English?",
+    "ah o BOO-ah seh-KHWAH"
+   ],
+   [
+    "Ke bua Setswana go le gonnye",
+    "I speak a little Setswana",
+    "keh BOO-ah seh-TSWAH-nah ho leh HON-nyeh"
+   ],
+   [
+    "Ga ke tlhaloganye",
+    "I don't understand",
+    "hah keh tlah-lo-HAHN-yeh"
+   ],
+   [
+    "Tsweetswee, boeletsa",
+    "Please say it again",
+    "tsweh-TSWEH, bweh-LEH-tsah"
+   ],
+   [
+    "Lelapa",
+    "Family",
+    "leh-LAH-pah"
+   ],
+   [
+    "Mmê",
+    "Mother",
+    "MMEH"
+   ],
+   [
+    "Rre",
+    "Father",
+    "RREH"
+   ],
+   [
+    "Ngwana",
+    "Child",
+    "NGWAH-nah"
+   ],
+   [
+    "Nkoko",
+    "Grandmother",
+    "n-KO-ko"
+   ],
+   [
+    "Rremogolo",
+    "Grandfather",
+    "rreh-mo-HO-lo"
+   ],
+   [
+    "Monna",
+    "Husband",
+    "MON-nah"
+   ],
+   [
+    "Mosadi",
+    "Wife",
+    "mo-SAH-dee"
+   ],
+   [
+    "Tsala",
+    "Friend",
+    "TSAH-lah"
+   ],
+   [
+    "Yo ke mmê",
+    "This is my mother",
+    "yo keh MMEH"
+   ],
+   [
+    "Ba lelapa la gago ba kae?",
+    "How is your family?",
+    "bah leh-LAH-pah lah HAH-ho bah KAI"
+   ],
+   [
+    "Ba teng",
+    "They are well",
+    "bah TENG"
+   ],
+   [
+    "Nngwe",
+    "One",
+    "NNGWEH"
+   ],
+   [
+    "Pedi",
+    "Two",
+    "PEH-dee"
+   ],
+   [
+    "Tharo",
+    "Three",
+    "TAH-ro"
+   ],
+   [
+    "Nne",
+    "Four",
+    "NNEH"
+   ],
+   [
+    "Tlhano",
+    "Five",
+    "TLAH-no"
+   ],
+   [
+    "Thataro",
+    "Six",
+    "tah-TAH-ro"
+   ],
+   [
+    "Supa",
+    "Seven",
+    "SOO-pah"
+   ],
+   [
+    "Robedi",
+    "Eight",
+    "ro-BEH-dee"
+   ],
+   [
+    "Robongwe",
+    "Nine",
+    "ro-BONG-weh"
+   ],
+   [
+    "Lesome",
+    "Ten",
+    "leh-SO-meh"
+   ],
+   [
+    "Ke bokae?",
+    "How much is it?",
+    "keh bo-KAI"
+   ],
+   [
+    "Madi",
+    "Money",
+    "MAH-dee"
+   ],
+   [
+    "Metsi",
+    "Water",
+    "MEH-tsee"
+   ],
+   [
+    "Dijo",
+    "Food",
+    "DEE-jo"
+   ],
+   [
+    "Raese",
+    "Rice",
+    "rah-EH-seh"
+   ],
+   [
+    "Nama",
+    "Meat",
+    "NAH-mah"
+   ],
+   [
+    "Tlhapi",
+    "Fish",
+    "TLAH-pee"
+   ],
+   [
+    "Mmaraka",
+    "Market",
+    "mmah-RAH-kah"
+   ],
+   [
+    "Ke tshwerwe ke tlala",
+    "I am hungry",
+    "keh TSHWEH-rweh keh TLAH-lah"
+   ],
+   [
+    "Ke batla metsi",
+    "I want water",
+    "keh BAH-tlah MEH-tsee"
+   ],
+   [
+    "Dijo di monate",
+    "The food is delicious",
+    "DEE-jo dee mo-NAH-teh"
+   ],
+   [
+    "Go a tura thata",
+    "It is too expensive",
+    "ho ah TOO-rah TAH-tah"
+   ],
+   [
+    "Tsweetswee, fokotsa tlhwatlhwa",
+    "Please reduce the price",
+    "tsweh-TSWEH, fo-KO-tsah TLHWAH-tlhwah"
+   ],
+   [
+    "Ke tla e reka",
+    "I will buy it",
+    "keh tlah eh REH-kah"
+   ],
+   [
+    "Ntlo",
+    "House",
+    "n-TLO"
+   ],
+   [
+    "Kgoro",
+    "Door",
+    "KHO-ro"
+   ],
+   [
+    "Phaposi",
+    "Room",
+    "pah-PO-see"
+   ],
+   [
+    "Bolao",
+    "Bed",
+    "bo-LAH-o"
+   ],
+   [
+    "Setulo",
+    "Chair",
+    "seh-TOO-lo"
+   ],
+   [
+    "Buka",
+    "Book",
+    "BOO-kah"
+   ],
+   [
+    "Sekolo",
+    "School",
+    "seh-KO-lo"
+   ],
+   [
+    "Tsena",
+    "Come in",
+    "TSEH-nah"
+   ],
+   [
+    "Nna fa fatshe",
+    "Sit down",
+    "NNAH fah FAH-tseh"
+   ],
+   [
+    "Tswala kgoro",
+    "Close the door",
+    "TSWAH-lah KHO-ro"
+   ],
+   [
+    "Ntlwana ya boithomelo e kae?",
+    "Where is the toilet?",
+    "n-TLWAH-nah yah bo-ee-to-MEH-lo eh KAI"
+   ],
+   [
+    "Ke ya gae",
+    "I am going home",
+    "keh yah HAI"
+   ],
+   [
+    "Gompieno",
+    "Today",
+    "hom-pee-EH-no"
+   ],
+   [
+    "Kamoso",
+    "Tomorrow",
+    "kah-MO-so"
+   ],
+   [
+    "Maabane",
+    "Yesterday",
+    "mah-ah-BAH-neh"
+   ],
+   [
+    "Mo mosong",
+    "Morning",
+    "mo mo-SONG"
+   ],
+   [
+    "Bosigo",
+    "Night",
+    "bo-SEE-ho"
+   ],
+   [
+    "Jaanong",
+    "Now",
+    "jah-NONG"
+   ],
+   [
+    "Moragonyana",
+    "Later",
+    "mo-rah-hon-YAH-nah"
+   ],
+   [
+    "Letsatsi",
+    "Sun",
+    "leh-TSAH-tsee"
+   ],
+   [
+    "Pula",
+    "Rain",
+    "POO-lah"
+   ],
+   [
+    "Go a fisa",
+    "It is hot",
+    "ho ah FEE-sah"
+   ],
+   [
+    "Go a tsididi",
+    "It is cold",
+    "ho ah tsee-DEE-dee"
+   ],
+   [
+    "Ke nako mang?",
+    "What time is it?",
+    "keh NAH-ko MAHNG"
+   ],
+   [
+    "Eng?",
+    "What?",
+    "ENG"
+   ],
+   [
+    "Kae?",
+    "Where?",
+    "KAI"
+   ],
+   [
+    "Mang?",
+    "Who?",
+    "MAHNG"
+   ],
+   [
+    "Ka ntlha yang?",
+    "Why?",
+    "kah n-TLAH YAHNG"
+   ],
+   [
+    "Leng?",
+    "When?",
+    "LENG"
+   ],
+   [
+    "Tla kwano",
+    "Come here",
+    "tlah KWAH-no"
+   ],
+   [
+    "A re tsamaye",
+    "Let's go",
+    "ah reh tsah-MAH-yeh"
+   ],
+   [
+    "Ema",
+    "Wait",
+    "EH-mah"
+   ],
+   [
+    "Ke batla go ja",
+    "I want to eat",
+    "keh BAH-tlah ho JAH"
+   ],
+   [
+    "Ke batla go robala",
+    "I want to sleep",
+    "keh BAH-tlah ho ro-BAH-lah"
+   ],
+   [
+    "Mmaraka o kae?",
+    "Where is the market?",
+    "mmah-RAH-kah o KAI"
+   ],
+   [
+    "Yole ke mang?",
+    "Who is that?",
+    "YO-leh keh MAHNG"
+   ],
+   [
+    "Ke itumetse",
+    "I am happy",
+    "keh ee-too-MEH-tseh"
+   ],
+   [
+    "Ke lapile",
+    "I am tired",
+    "keh lah-PEE-leh"
+   ],
+   [
+    "Ke a lwala",
+    "I am sick",
+    "keh ah LWAH-lah"
+   ],
+   [
+    "Ke a go rata",
+    "I love you",
+    "keh ah ho RAH-tah"
+   ],
+   [
+    "Molemo",
+    "Good",
+    "mo-LEH-mo"
+   ],
+   [
+    "Bosula",
+    "Bad",
+    "bo-SOO-lah"
+   ],
+   [
+    "Kgolo",
+    "Big",
+    "KHO-lo"
+   ],
+   [
+    "Nnye",
+    "Small",
+    "NNYEH"
+   ],
+   [
+    "Tlhogo",
+    "Head",
+    "TLO-ho"
+   ],
+   [
+    "Seatla",
+    "Hand",
+    "seh-AH-tlah"
+   ],
+   [
+    "Leitlho",
+    "Eye",
+    "lay-EE-tlo"
+   ],
+   [
+    "Tlhogo e a mpotlhoka",
+    "My head hurts",
+    "TLO-ho eh ah m-po-TLO-kah"
+   ],
+   [
+    "Tsela",
+    "Road",
+    "TSEH-lah"
+   ],
+   [
+    "Koloi",
+    "Car",
+    "ko-LOY"
+   ],
+   [
+    "Molema",
+    "Left",
+    "mo-LEH-mah"
+   ],
+   [
+    "Moja",
+    "Right",
+    "MO-jah"
+   ],
+   [
+    "Go gaufi",
+    "It is near",
+    "ho hah-OO-fee"
+   ],
+   [
+    "Go kgakala",
+    "It is far",
+    "ho khah-KAH-lah"
+   ],
+   [
+    "Ema fa",
+    "Stop here",
+    "EH-mah FAH"
+   ],
+   [
+    "Tsamaya o tlhamaletse",
+    "Go straight",
+    "tsah-MAH-yah o tlah-mah-LEH-tseh"
+   ],
+   [
+    "Nthusa!",
+    "Help me!",
+    "n-TOO-sah"
+   ],
+   [
+    "Ke latlhegile",
+    "I am lost",
+    "keh lah-tleh-HEE-leh"
+   ],
+   [
+    "Bitsa ngaka",
+    "Call a doctor",
+    "BEE-tsah NGAH-kah"
+   ],
+   [
+    "Tsamaya sentle",
+    "Safe journey",
+    "tsah-MAH-yah SEN-tleh"
+   ]
+  ]
+ },
+ {
+  "name": "Chichewa",
+  "code": "ny",
+  "region": "Malawi · Zambia · Mozambique",
+  "about": "The national language of Malawi, also spoken in Zambia and Mozambique, where it is called Nyanja. Chichewa is a Bantu language with a rich storytelling tradition.",
+  "phrases": [
+   [
+    "Moni",
+    "Hello",
+    "MO-nee"
+   ],
+   [
+    "Mwadzuka bwanji?",
+    "Good morning",
+    "mwah-DZOO-kah BWAHN-jee"
+   ],
+   [
+    "Mwaswera bwanji?",
+    "Good afternoon",
+    "mwah-SWEH-rah BWAHN-jee"
+   ],
+   [
+    "Madzulo abwino",
+    "Good evening",
+    "mah-DZOO-lo ah-BWEE-no"
+   ],
+   [
+    "Muli bwanji?",
+    "How are you?",
+    "MOO-lee BWAHN-jee"
+   ],
+   [
+    "Ndili bwino",
+    "I am fine",
+    "n-DEE-lee BWEE-no"
+   ],
+   [
+    "Zikomo",
+    "Thank you",
+    "zee-KO-mo"
+   ],
+   [
+    "Zikomo kwambiri",
+    "Thank you very much",
+    "zee-KO-mo kwahm-BEE-ree"
+   ],
+   [
+    "Chonde",
+    "Please",
+    "CHON-deh"
+   ],
+   [
+    "Pepani",
+    "Sorry",
+    "peh-PAH-nee"
+   ],
+   [
+    "Tsalani bwino",
+    "Goodbye",
+    "tsah-LAH-nee BWEE-no"
+   ],
+   [
+    "Tionana mawa",
+    "See you tomorrow",
+    "tee-o-NAH-nah MAH-wah"
+   ],
+   [
+    "Dzina lanu ndani?",
+    "What is your name?",
+    "DZEE-nah LAH-noo n-DAH-nee"
+   ],
+   [
+    "Dzina langa ndine Kondwani",
+    "My name is Kondwani",
+    "DZEE-nah LAHN-gah n-DEE-neh kon-DWAH-nee"
+   ],
+   [
+    "Dzina langa ndine Chikondi",
+    "My name is Chikondi",
+    "DZEE-nah LAHN-gah n-DEE-neh chee-KON-dee"
+   ],
+   [
+    "Ndakondwa kukudziwani",
+    "Nice to meet you",
+    "n-dah-KON-dwah koo-koo-dzee-WAH-nee"
+   ],
+   [
+    "Mumachokera kuti?",
+    "Where are you from?",
+    "moo-mah-cho-KEH-rah KOO-tee"
+   ],
+   [
+    "Ndimachokera ku Malawi",
+    "I am from Malawi",
+    "n-dee-mah-cho-KEH-rah koo mah-LAH-wee"
+   ],
+   [
+    "Ndimakhala ku Lilongwe",
+    "I live in Lilongwe",
+    "n-dee-mah-KAH-lah koo lee-LONG-weh"
+   ],
+   [
+    "Takulandirani",
+    "Welcome",
+    "tah-koo-lahn-dee-RAH-nee"
+   ],
+   [
+    "Mumalankhula Chingerezi?",
+    "Do you speak English?",
+    "moo-mah-lahn-KOO-lah cheen-geh-REH-zee"
+   ],
+   [
+    "Ndimalankhula Chichewa pang'ono",
+    "I speak a little Chichewa",
+    "n-dee-mah-lahn-KOO-lah chee-CHEH-wah pahng-O-no"
+   ],
+   [
+    "Sindikumva",
+    "I don't understand",
+    "seen-dee-KOOM-vah"
+   ],
+   [
+    "Chonde, bwerezani",
+    "Please say it again",
+    "CHON-deh, bweh-reh-ZAH-nee"
+   ],
+   [
+    "Banja",
+    "Family",
+    "BAHN-jah"
+   ],
+   [
+    "Mayi",
+    "Mother",
+    "MAH-yee"
+   ],
+   [
+    "Bambo",
+    "Father",
+    "BAHM-bo"
+   ],
+   [
+    "Mwana",
+    "Child",
+    "MWAH-nah"
+   ],
+   [
+    "Agogo aakazi",
+    "Grandmother",
+    "ah-GO-go ah-ah-KAH-zee"
+   ],
+   [
+    "Agogo aamuna",
+    "Grandfather",
+    "ah-GO-go ah-ah-MOO-nah"
+   ],
+   [
+    "Mwamuna",
+    "Husband",
+    "mwah-MOO-nah"
+   ],
+   [
+    "Mkazi",
+    "Wife",
+    "m-KAH-zee"
+   ],
+   [
+    "Bwenzi",
+    "Friend",
+    "BWEN-zee"
+   ],
+   [
+    "Uyu ndi mayi anga",
+    "This is my mother",
+    "OO-yoo n-dee MAH-yee AHN-gah"
+   ],
+   [
+    "Banja lanu lili bwanji?",
+    "How is your family?",
+    "BAHN-jah LAH-noo LEE-lee BWAHN-jee"
+   ],
+   [
+    "Ali bwino",
+    "They are well",
+    "AH-lee BWEE-no"
+   ],
+   [
+    "Chimodzi",
+    "One",
+    "chee-MO-dzee"
+   ],
+   [
+    "Ziwiri",
+    "Two",
+    "zee-WEE-ree"
+   ],
+   [
+    "Zitatu",
+    "Three",
+    "zee-TAH-too"
+   ],
+   [
+    "Zinayi",
+    "Four",
+    "zee-NAH-yee"
+   ],
+   [
+    "Zisanu",
+    "Five",
+    "zee-SAH-noo"
+   ],
+   [
+    "Zisanu ndi chimodzi",
+    "Six",
+    "zee-SAH-noo n-dee chee-MO-dzee"
+   ],
+   [
+    "Zisanu ndi ziwiri",
+    "Seven",
+    "zee-SAH-noo n-dee zee-WEE-ree"
+   ],
+   [
+    "Zisanu ndi zitatu",
+    "Eight",
+    "zee-SAH-noo n-dee zee-TAH-too"
+   ],
+   [
+    "Zisanu ndi zinayi",
+    "Nine",
+    "zee-SAH-noo n-dee zee-NAH-yee"
+   ],
+   [
+    "Khumi",
+    "Ten",
+    "KOO-mee"
+   ],
+   [
+    "Ndi ndalama zingati?",
+    "How much is it?",
+    "n-dee n-dah-LAH-mah zeen-GAH-tee"
+   ],
+   [
+    "Ndalama",
+    "Money",
+    "n-dah-LAH-mah"
+   ],
+   [
+    "Madzi",
+    "Water",
+    "MAH-dzee"
+   ],
+   [
+    "Chakudya",
+    "Food",
+    "chah-KOO-dyah"
+   ],
+   [
+    "Mpunga",
+    "Rice",
+    "m-POON-gah"
+   ],
+   [
+    "Nyama",
+    "Meat",
+    "NYAH-mah"
+   ],
+   [
+    "Nsomba",
+    "Fish",
+    "n-SOM-bah"
+   ],
+   [
+    "Msika",
+    "Market",
+    "m-SEE-kah"
+   ],
+   [
+    "Ndili ndi njala",
+    "I am hungry",
+    "n-DEE-lee n-dee n-JAH-lah"
+   ],
+   [
+    "Ndikufuna madzi",
+    "I want water",
+    "n-dee-koo-FOO-nah MAH-dzee"
+   ],
+   [
+    "Chakudya ndi chokoma",
+    "The food is delicious",
+    "chah-KOO-dyah n-dee cho-KO-mah"
+   ],
+   [
+    "Ndi zodula kwambiri",
+    "It is too expensive",
+    "n-dee zo-DOO-lah kwahm-BEE-ree"
+   ],
+   [
+    "Chonde, chepetsani mtengo",
+    "Please reduce the price",
+    "CHON-deh, cheh-peh-TSAH-nee m-TEN-go"
+   ],
+   [
+    "Ndigula",
+    "I will buy it",
+    "n-dee-GOO-lah"
+   ],
+   [
+    "Nyumba",
+    "House",
+    "NYOOM-bah"
+   ],
+   [
+    "Chitseko",
+    "Door",
+    "chee-TSEH-ko"
+   ],
+   [
+    "Chipinda",
+    "Room",
+    "chee-PEEN-dah"
+   ],
+   [
+    "Bedi",
+    "Bed",
+    "BEH-dee"
+   ],
+   [
+    "Mpando",
+    "Chair",
+    "m-PAHN-do"
+   ],
+   [
+    "Buku",
+    "Book",
+    "BOO-koo"
+   ],
+   [
+    "Sukulu",
+    "School",
+    "soo-KOO-loo"
+   ],
+   [
+    "Lowani",
+    "Come in",
+    "lo-WAH-nee"
+   ],
+   [
+    "Khalani pansi",
+    "Sit down",
+    "kah-LAH-nee PAHN-see"
+   ],
+   [
+    "Tsekani chitseko",
+    "Close the door",
+    "tseh-KAH-nee chee-TSEH-ko"
+   ],
+   [
+    "Chimbudzi chili kuti?",
+    "Where is the toilet?",
+    "cheem-BOO-dzee CHEE-lee KOO-tee"
+   ],
+   [
+    "Ndikupita kunyumba",
+    "I am going home",
+    "n-dee-koo-PEE-tah koo-NYOOM-bah"
+   ],
+   [
+    "Lero",
+    "Today",
+    "LEH-ro"
+   ],
+   [
+    "Mawa",
+    "Tomorrow",
+    "MAH-wah"
+   ],
+   [
+    "Dzulo",
+    "Yesterday",
+    "DZOO-lo"
+   ],
+   [
+    "M'mawa",
+    "Morning",
+    "m-MAH-wah"
+   ],
+   [
+    "Usiku",
+    "Night",
+    "oo-SEE-koo"
+   ],
+   [
+    "Tsopano",
+    "Now",
+    "tso-PAH-no"
+   ],
+   [
+    "Pambuyo pake",
+    "Later",
+    "pahm-BOO-yo PAH-keh"
+   ],
+   [
+    "Dzuwa",
+    "Sun",
+    "DZOO-wah"
+   ],
+   [
+    "Mvula",
+    "Rain",
+    "m-VOO-lah"
+   ],
+   [
+    "Kukutentha",
+    "It is hot",
+    "koo-koo-TEN-tah"
+   ],
+   [
+    "Kukuzizira",
+    "It is cold",
+    "koo-koo-zee-ZEE-rah"
+   ],
+   [
+    "Nthawi yanji?",
+    "What time is it?",
+    "n-TAH-wee YAHN-jee"
+   ],
+   [
+    "Chiyani?",
+    "What?",
+    "chee-YAH-nee"
+   ],
+   [
+    "Kuti?",
+    "Where?",
+    "KOO-tee"
+   ],
+   [
+    "Ndani?",
+    "Who?",
+    "n-DAH-nee"
+   ],
+   [
+    "Chifukwa chiyani?",
+    "Why?",
+    "chee-FOO-kwah chee-YAH-nee"
+   ],
+   [
+    "Liti?",
+    "When?",
+    "LEE-tee"
+   ],
+   [
+    "Bwera kuno",
+    "Come here",
+    "BWEH-rah KOO-no"
+   ],
+   [
+    "Tiyeni",
+    "Let's go",
+    "tee-YEH-nee"
+   ],
+   [
+    "Dikirani",
+    "Wait",
+    "dee-kee-RAH-nee"
+   ],
+   [
+    "Ndikufuna kudya",
+    "I want to eat",
+    "n-dee-koo-FOO-nah KOO-dyah"
+   ],
+   [
+    "Ndikufuna kugona",
+    "I want to sleep",
+    "n-dee-koo-FOO-nah koo-GO-nah"
+   ],
+   [
+    "Msika uli kuti?",
+    "Where is the market?",
+    "m-SEE-kah OO-lee KOO-tee"
+   ],
+   [
+    "Uyo ndani?",
+    "Who is that?",
+    "OO-yo n-DAH-nee"
+   ],
+   [
+    "Ndine wokondwa",
+    "I am happy",
+    "n-DEE-neh wo-KON-dwah"
+   ],
+   [
+    "Ndatopa",
+    "I am tired",
+    "n-dah-TO-pah"
+   ],
+   [
+    "Ndikudwala",
+    "I am sick",
+    "n-dee-koo-DWAH-lah"
+   ],
+   [
+    "Ndimakukonda",
+    "I love you",
+    "n-dee-mah-koo-KON-dah"
+   ],
+   [
+    "Zabwino",
+    "Good",
+    "zah-BWEE-no"
+   ],
+   [
+    "Zoipa",
+    "Bad",
+    "zo-EE-pah"
+   ],
+   [
+    "Chachikulu",
+    "Big",
+    "chah-chee-KOO-loo"
+   ],
+   [
+    "Chaching'ono",
+    "Small",
+    "chah-cheeng-O-no"
+   ],
+   [
+    "Mutu",
+    "Head",
+    "MOO-too"
+   ],
+   [
+    "Dzanja",
+    "Hand",
+    "DZAHN-jah"
+   ],
+   [
+    "Diso",
+    "Eye",
+    "DEE-so"
+   ],
+   [
+    "Mutu ukundipweteka",
+    "My head hurts",
+    "MOO-too oo-koon-dee-pweh-TEH-kah"
+   ],
+   [
+    "Msewu",
+    "Road",
+    "m-SEH-woo"
+   ],
+   [
+    "Galimoto",
+    "Car",
+    "gah-lee-MO-to"
+   ],
+   [
+    "Kumanzere",
+    "Left",
+    "koo-mahn-ZEH-reh"
+   ],
+   [
+    "Kumanja",
+    "Right",
+    "koo-MAHN-jah"
+   ],
+   [
+    "Ndi pafupi",
+    "It is near",
+    "n-dee pah-FOO-pee"
+   ],
+   [
+    "Ndi kutali",
+    "It is far",
+    "n-dee koo-TAH-lee"
+   ],
+   [
+    "Imani apa",
+    "Stop here",
+    "ee-MAH-nee AH-pah"
+   ],
+   [
+    "Pitani molunjika",
+    "Go straight",
+    "pee-TAH-nee mo-loon-JEE-kah"
+   ],
+   [
+    "Ndithandizeni!",
+    "Help me!",
+    "n-dee-tahn-dee-ZEH-nee"
+   ],
+   [
+    "Ndasochera",
+    "I am lost",
+    "n-dah-so-CHEH-rah"
+   ],
+   [
+    "Itanani dokotala",
+    "Call a doctor",
+    "ee-tah-NAH-nee do-ko-TAH-lah"
+   ],
+   [
+    "Ulendo wabwino",
+    "Safe journey",
+    "oo-LEN-do wah-BWEE-no"
+   ]
+  ]
+ },
+ {
+  "name": "Malagasy",
+  "code": "mg",
+  "region": "Madagascar",
+  "about": "The national language of Madagascar. It belongs to the Austronesian family, brought by settlers who crossed the Indian Ocean more than a thousand years ago.",
+  "phrases": [
+   [
+    "Manao ahoana",
+    "Hello",
+    "mah-NOW ah-WOHN"
+   ],
+   [
+    "Manao ahoana tompoko",
+    "Good morning",
+    "mah-NOW ah-WOHN TOOM-pook"
+   ],
+   [
+    "Tolakandro mahafinaritra",
+    "Good afternoon",
+    "too-lah-KAHN-droo mah-hah-fee-NAH-reetch"
+   ],
+   [
+    "Hariva mahafinaritra",
+    "Good evening",
+    "hah-REEV mah-hah-fee-NAH-reetch"
+   ],
+   [
+    "Fahasalamana?",
+    "How are you?",
+    "fah-sah-lah-MAH-nah"
+   ],
+   [
+    "Tsara fa misaotra",
+    "I am fine",
+    "TSAH-rah fah mee-SOWTCH"
+   ],
+   [
+    "Misaotra",
+    "Thank you",
+    "mee-SOWTCH"
+   ],
+   [
+    "Misaotra betsaka",
+    "Thank you very much",
+    "mee-SOWTCH BETS-ahk"
+   ],
+   [
+    "Azafady",
+    "Please",
+    "ah-zah-FAH-dee"
+   ],
+   [
+    "Miala tsiny",
+    "Sorry",
+    "mee-AH-lah TSEEN"
+   ],
+   [
+    "Veloma",
+    "Goodbye",
+    "veh-LOOM"
+   ],
+   [
+    "Mandra-pihaona rahampitso",
+    "See you tomorrow",
+    "mahn-drah-pee-OWN rah-ahm-PEETS"
+   ],
+   [
+    "Iza no anaranao?",
+    "What is your name?",
+    "EE-zah noo ah-nah-rah-NOW"
+   ],
+   [
+    "Rakoto no anarako",
+    "My name is Rakoto",
+    "rah-KOOT noo ah-NAH-rah-koo"
+   ],
+   [
+    "Rasoa no anarako",
+    "My name is Rasoa",
+    "rah-SOO noo ah-NAH-rah-koo"
+   ],
+   [
+    "Faly mahafantatra anao",
+    "Nice to meet you",
+    "FAH-lee mah-fahn-TAHTCH ah-NOW"
+   ],
+   [
+    "Avy aiza ianao?",
+    "Where are you from?",
+    "AH-vee AI-zah ee-ah-NOW"
+   ],
+   [
+    "Avy any Madagasikara aho",
+    "I am from Madagascar",
+    "AH-vee AHN-ee mah-dah-gahs-KAHR AH-oo"
+   ],
+   [
+    "Mipetraka any Antananarivo aho",
+    "I live in Antananarivo",
+    "mee-PETCH-rahk AHN-ee ahn-tah-nah-nah-REEV AH-oo"
+   ],
+   [
+    "Tongasoa",
+    "Welcome",
+    "toong-gah-SOO"
+   ],
+   [
+    "Miteny anglisy ve ianao?",
+    "Do you speak English?",
+    "mee-TEN ahng-LEES veh ee-ah-NOW"
+   ],
+   [
+    "Mahay teny malagasy kely aho",
+    "I speak a little Malagasy",
+    "mah-HAI TEN mah-lah-GAHS KEL AH-oo"
+   ],
+   [
+    "Tsy azoko",
+    "I don't understand",
+    "tsee AH-zoo-koo"
+   ],
+   [
+    "Azafady, avereno",
+    "Please say it again",
+    "ah-zah-FAH-dee, ah-veh-REN"
+   ],
+   [
+    "Fianakaviana",
+    "Family",
+    "fee-ah-nah-kah-vee-AHN"
+   ],
+   [
+    "Reny",
+    "Mother",
+    "REN"
+   ],
+   [
+    "Ray",
+    "Father",
+    "RAI"
+   ],
+   [
+    "Zaza",
+    "Child",
+    "ZAH-zah"
+   ],
+   [
+    "Renibe",
+    "Grandmother",
+    "reh-nee-BEH"
+   ],
+   [
+    "Raibe",
+    "Grandfather",
+    "rai-BEH"
+   ],
+   [
+    "Vady lahy",
+    "Husband",
+    "VAH-dee LAH-ee"
+   ],
+   [
+    "Vady vavy",
+    "Wife",
+    "VAH-dee VAH-vee"
+   ],
+   [
+    "Namana",
+    "Friend",
+    "nah-MAH-nah"
+   ],
+   [
+    "Ity no reniko",
+    "This is my mother",
+    "ee-TEE noo REN-ee-koo"
+   ],
+   [
+    "Manao ahoana ny fianakavianao?",
+    "How is your family?",
+    "mah-NOW ah-WOHN nee fee-ah-nah-kah-vee-ah-NOW"
+   ],
+   [
+    "Salama izy ireo",
+    "They are well",
+    "sah-LAHM EE-zee ee-REH-oo"
+   ],
+   [
+    "Iray",
+    "One",
+    "ee-RAI"
+   ],
+   [
+    "Roa",
+    "Two",
+    "ROO"
+   ],
+   [
+    "Telo",
+    "Three",
+    "TEL"
+   ],
+   [
+    "Efatra",
+    "Four",
+    "EF-ahtch"
+   ],
+   [
+    "Dimy",
+    "Five",
+    "DEEM"
+   ],
+   [
+    "Enina",
+    "Six",
+    "EN-een"
+   ],
+   [
+    "Fito",
+    "Seven",
+    "FEET"
+   ],
+   [
+    "Valo",
+    "Eight",
+    "VAHL"
+   ],
+   [
+    "Sivy",
+    "Nine",
+    "SEEV"
+   ],
+   [
+    "Folo",
+    "Ten",
+    "FOOL"
+   ],
+   [
+    "Ohatrinona?",
+    "How much is it?",
+    "oo-ah-TCHEE-noo-nah"
+   ],
+   [
+    "Vola",
+    "Money",
+    "VOO-lah"
+   ],
+   [
+    "Rano",
+    "Water",
+    "RAH-noo"
+   ],
+   [
+    "Sakafo",
+    "Food",
+    "sah-KAH-foo"
+   ],
+   [
+    "Vary",
+    "Rice",
+    "VAHR"
+   ],
+   [
+    "Hena",
+    "Meat",
+    "HEN"
+   ],
+   [
+    "Trondro",
+    "Fish",
+    "TCHOON-droo"
+   ],
+   [
+    "Tsena",
+    "Market",
+    "TSEN"
+   ],
+   [
+    "Noana aho",
+    "I am hungry",
+    "noo-AHN AH-oo"
+   ],
+   [
+    "Mila rano aho",
+    "I want water",
+    "MEE-lah RAH-noo AH-oo"
+   ],
+   [
+    "Matsiro ny sakafo",
+    "The food is delicious",
+    "maht-SEER nee sah-KAH-foo"
+   ],
+   [
+    "Lafo loatra",
+    "It is too expensive",
+    "LAH-foo loo-AHTCH"
+   ],
+   [
+    "Azafady, ahenao ny vidiny",
+    "Please reduce the price",
+    "ah-zah-FAH-dee, ah-heh-NOW nee VEE-deen"
+   ],
+   [
+    "Hividy azy aho",
+    "I will buy it",
+    "hee-VEED AH-zee AH-oo"
+   ],
+   [
+    "Trano",
+    "House",
+    "TCHAH-noo"
+   ],
+   [
+    "Varavarana",
+    "Door",
+    "vah-rah-VAH-rahn"
+   ],
+   [
+    "Efitrano",
+    "Room",
+    "eh-fee-TCHAH-noo"
+   ],
+   [
+    "Fandriana",
+    "Bed",
+    "fahn-dree-AHN"
+   ],
+   [
+    "Seza",
+    "Chair",
+    "SEH-zah"
+   ],
+   [
+    "Boky",
+    "Book",
+    "BOOK"
+   ],
+   [
+    "Sekoly",
+    "School",
+    "seh-KOOL"
+   ],
+   [
+    "Midira",
+    "Come in",
+    "mee-DEER"
+   ],
+   [
+    "Mipetraha",
+    "Sit down",
+    "mee-peh-TCHAH-hah"
+   ],
+   [
+    "Hidio ny varavarana",
+    "Close the door",
+    "hee-DEE-oo nee vah-rah-VAH-rahn"
+   ],
+   [
+    "Aiza ny trano fivoahana?",
+    "Where is the toilet?",
+    "AI-zah nee TCHAH-noo fee-voo-AHN"
+   ],
+   [
+    "Hody aho",
+    "I am going home",
+    "HOO-dee AH-oo"
+   ],
+   [
+    "Androany",
+    "Today",
+    "ahn-droo-AHN"
+   ],
+   [
+    "Rahampitso",
+    "Tomorrow",
+    "rah-ahm-PEETS"
+   ],
+   [
+    "Omaly",
+    "Yesterday",
+    "oo-MAHL"
+   ],
+   [
+    "Maraina",
+    "Morning",
+    "mah-RAIN"
+   ],
+   [
+    "Alina",
+    "Night",
+    "AH-leen"
+   ],
+   [
+    "Izao",
+    "Now",
+    "ee-ZOW"
+   ],
+   [
+    "Rehefa afaka kelikely",
+    "Later",
+    "reh-HEF AH-fahk kel-ee-KEL"
+   ],
+   [
+    "Masoandro",
+    "Sun",
+    "mah-soo-AHN-droo"
+   ],
+   [
+    "Orana",
+    "Rain",
+    "OO-rahn"
+   ],
+   [
+    "Mafana",
+    "It is hot",
+    "mah-FAHN"
+   ],
+   [
+    "Mangatsiaka",
+    "It is cold",
+    "mahn-gaht-see-AHK"
+   ],
+   [
+    "Amin'ny firy izao?",
+    "What time is it?",
+    "ah-meen-nee FEER ee-ZOW"
+   ],
+   [
+    "Inona?",
+    "What?",
+    "EE-noo-nah"
+   ],
+   [
+    "Aiza?",
+    "Where?",
+    "AI-zah"
+   ],
+   [
+    "Iza?",
+    "Who?",
+    "EE-zah"
+   ],
+   [
+    "Nahoana?",
+    "Why?",
+    "nah-OW-nah"
+   ],
+   [
+    "Rahoviana?",
+    "When?",
+    "rah-oo-vee-AHN"
+   ],
+   [
+    "Mankanesa aty",
+    "Come here",
+    "mahn-kah-NEH-sah ah-TEE"
+   ],
+   [
+    "Andao isika",
+    "Let's go",
+    "ahn-DOW ee-SEEK"
+   ],
+   [
+    "Andraso",
+    "Wait",
+    "ahn-DRAH-soo"
+   ],
+   [
+    "Te hihinana aho",
+    "I want to eat",
+    "teh hee-HEE-nahn AH-oo"
+   ],
+   [
+    "Te hatory aho",
+    "I want to sleep",
+    "teh hah-TOOR AH-oo"
+   ],
+   [
+    "Aiza ny tsena?",
+    "Where is the market?",
+    "AI-zah nee TSEN"
+   ],
+   [
+    "Iza io?",
+    "Who is that?",
+    "EE-zah EE-oo"
+   ],
+   [
+    "Faly aho",
+    "I am happy",
+    "FAH-lee AH-oo"
+   ],
+   [
+    "Reraka aho",
+    "I am tired",
+    "REH-rahk AH-oo"
+   ],
+   [
+    "Marary aho",
+    "I am sick",
+    "mah-RAHR AH-oo"
+   ],
+   [
+    "Tiako ianao",
+    "I love you",
+    "TEE-koo ee-ah-NOW"
+   ],
+   [
+    "Tsara",
+    "Good",
+    "TSAH-rah"
+   ],
+   [
+    "Ratsy",
+    "Bad",
+    "RAHTS"
+   ],
+   [
+    "Lehibe",
+    "Big",
+    "leh-ee-BEH"
+   ],
+   [
+    "Kely",
+    "Small",
+    "KEL"
+   ],
+   [
+    "Loha",
+    "Head",
+    "LOO"
+   ],
+   [
+    "Tanana",
+    "Hand",
+    "TAH-nahn"
+   ],
+   [
+    "Maso",
+    "Eye",
+    "MAH-soo"
+   ],
+   [
+    "Marary ny lohako",
+    "My head hurts",
+    "mah-RAHR nee LOO-ah-koo"
+   ],
+   [
+    "Lalana",
+    "Road",
+    "LAH-lahn"
+   ],
+   [
+    "Fiara",
+    "Car",
+    "fee-AHR"
+   ],
+   [
+    "Havia",
+    "Left",
+    "hah-VEE"
+   ],
+   [
+    "Havanana",
+    "Right",
+    "hah-VAH-nahn"
+   ],
+   [
+    "Akaiky",
+    "It is near",
+    "ah-KAI-kee"
+   ],
+   [
+    "Lavitra",
+    "It is far",
+    "LAH-veetch"
+   ],
+   [
+    "Mijanòna eto",
+    "Stop here",
+    "mee-jah-NOON EH-too"
+   ],
+   [
+    "Mandehana mahitsy",
+    "Go straight",
+    "mahn-deh-HAHN mah-EETS"
+   ],
+   [
+    "Vonjeo aho!",
+    "Help me!",
+    "voon-ZEH-oo AH-oo"
+   ],
+   [
+    "Very aho",
+    "I am lost",
+    "VEH-ree AH-oo"
+   ],
+   [
+    "Antsoy ny dokotera",
+    "Call a doctor",
+    "ahnt-SOO-ee nee doo-koo-TEH-rah"
+   ],
+   [
+    "Mandehana soa aman-tsara",
+    "Safe journey",
+    "mahn-deh-HAHN SOO ah-mahnt-SAH-rah"
+   ]
+  ]
+ }
+]

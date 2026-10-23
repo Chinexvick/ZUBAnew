@@ -14,7 +14,7 @@ export function PosterCard({ t }: { t: Title }) {
         <span className="poster-shade" />
         <span className="poster-status">{t.status.split(" · ")[0]}</span>
         <span className="poster-play" aria-hidden="true">
-          View
+          {t.play ? "Play" : "View"}
         </span>
       </span>
       <span className="poster-meta">

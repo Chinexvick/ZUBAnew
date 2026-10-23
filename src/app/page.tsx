@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { media } from "@/content/media";
 import { art } from "@/content/art";
-import { allTitles, games } from "@/content/theatre";
+import { allTitles } from "@/content/theatre";
+import ArcadeBanner from "@/components/ArcadeBanner";
 import { phases } from "@/content/roadmap";
 import { listings, partners, site, token } from "@/lib/site";
 import CopyCA from "@/components/CopyCA";
@@ -11,7 +12,7 @@ import { Icon } from "@/components/Icons";
 import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Glyphs";
 
 const homeFaq = [
-  { q: "What is ZUBA?", a: "ZUBA is a gaming and animation token on BNB Smart Chain. It powers an African universe of games, anime, films and stories, starting with the ZUBA game built on the ZUBA animation." },
+  { q: "What is ZUBA?", a: "ZUBA is a gaming and animation token on BNB Smart Chain. It powers an African universe of games, anime, films and stories, starting with ZUBA Arcade: five African games you can play free in your browser at zubatoken.com/play." },
   { q: "How do I buy $ZUBA?", a: "Open a BNB Chain wallet such as MetaMask or Trust Wallet, add a little BNB, then swap for $ZUBA on PancakeSwap using the Buy button on this site. Always check the contract address first." },
   { q: "What is the official contract address?", a: `${site.contractAddress} on BNB Smart Chain (BEP-20). This is the only real $ZUBA; compare the last characters …994A4 before you trade.` },
   { q: "What is the total supply?", a: `${token.supplyLabel} $ZUBA. 85% went to liquidity and a fair launch, 10% to marketing and 5% to development.` },
@@ -23,12 +24,11 @@ const homeFaq = [
 
 const worlds = [
   { href: "/theatre#films", label: "Watch", title: "Animated Legends", line: "Gods, tricksters and heroes, drawn by African hands.", img: () => art("sundiata-still-2") },
-  { href: "/theatre#games", label: "Play", title: "African Games", line: "Myths you don't just hear. You play them.", img: () => art("impundulu-still-1") },
+  { href: "/theatre#games", label: "Play", title: "African Games", line: "Five games, free in your browser. Play them now.", img: () => "/media/games/arcade-banner.webp" },
   { href: "/community", label: "Own", title: "Owned by Holders", line: "The village backs, shapes and grows the universe.", img: () => art("anansi-still-2") },
 ];
 
 export default function Home() {
-  const flagship = games.find((g) => g.slug === "zuba") ?? games[0];
   return (
     <>
       {/* ============ HERO ============ */}
@@ -93,36 +93,14 @@ export default function Home() {
               See all titles <Chev />
             </Link>
           </div>
-          <TitleRow title="Films & Games" items={allTitles.filter((t) => t.slug !== flagship.slug)} hideHead />
+          <TitleRow title="Films & Games" items={allTitles} hideHead />
         </div>
       </section>
 
       {/* ============ IN PRODUCTION ============ */}
       <section className="section">
         <div className="container">
-          <Link href={`/theatre/games/${flagship.slug}`} className="h-forge">
-            <span className="h-forge-art" style={{ backgroundImage: `url(${flagship.backdrop})` }} />
-            <span className="h-forge-text">
-              <Runes text="Forge" />
-              <span className="t-label">Our flagship game</span>
-              <span className="t-title lg">
-                <ZText>{flagship.title.split(":")[0]}</ZText>
-              </span>
-              {flagship.title.includes(":") && (
-                <span className="h-forge-sub">
-                  <ZText>{flagship.title.split(":")[1].trim()}</ZText>
-                </span>
-              )}
-              <span className="h-forge-meta">
-                <span className="chip prod">{flagship.status}</span>
-                <span className="t-label">{flagship.genre}</span>
-              </span>
-              <span className="t-lead">{flagship.logline}</span>
-              <span className="prompt">
-                <span className="keycap round">A</span> Explore the game
-              </span>
-            </span>
-          </Link>
+          <ArcadeBanner />
         </div>
       </section>
 

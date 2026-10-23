@@ -10,6 +10,14 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 }
 
+function PlayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ marginRight: 2 }}>
+      <path d="M7 4.5v15l12.5-7.5z" fill="currentColor" />
+    </svg>
+  );
+}
+
 export default function Nav() {
   const pathname = usePathname();
   const router = useRouter();
@@ -81,6 +89,9 @@ export default function Nav() {
             </span>
           </nav>
 
+          <a href="/play" className="btn nav-cta nav-play" title="Play ZUBA games in your browser">
+            <PlayIcon /> Play
+          </a>
           <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary nav-cta">
             Buy $ZUBA
           </a>
@@ -105,7 +116,10 @@ export default function Nav() {
               </Link>
             );
           })}
-          <Link href="/whitepaper" className="btn" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
+          <a href="/play" className="btn primary" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
+            <PlayIcon /> Play the Games
+          </a>
+          <Link href="/whitepaper" className="btn" tabIndex={open ? 0 : -1}>
             Read Whitepaper
           </Link>
           <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary" tabIndex={open ? 0 : -1}>
