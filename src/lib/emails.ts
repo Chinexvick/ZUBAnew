@@ -1,7 +1,7 @@
 // Email templates in the ZUBA look: night-violet panels, rune lines, gold quest labels.
 // Table layout + inline styles so they hold up in Gmail, Outlook and Apple Mail.
 import type { DevNote } from "./content";
-import { CONTRACT, site } from "./site";
+import { CA_LIVE, CONTRACT, site } from "./site";
 import { siteUrl } from "./mailer";
 
 const C = {
@@ -108,7 +108,7 @@ ${opts.body}
 ${runeLine}
 <div style="margin-top:16px">${socials}</div>
 <div style="margin-top:16px;font-family:${BODY};font-size:12px;line-height:1.6;color:${C.muted}">
-$ZUBA on BNB Smart Chain<br><span style="font-family:Consolas,Menlo,monospace;font-size:11px;color:${C.soft}">${CONTRACT}</span>
+$ZUBA on BNB Smart Chain<br><span style="font-family:Consolas,Menlo,monospace;font-size:11px;color:${C.soft}">${CA_LIVE ? CONTRACT : "Contract address coming soon"}</span>
 </div>
 <div style="margin-top:14px;font-family:${BODY};font-size:12px;line-height:1.6;color:${C.muted}">
 You're receiving this because you subscribed to ZUBA Dev Notes at <a href="${url}" style="color:${C.soft}">zubatoken.com</a>.
@@ -163,7 +163,7 @@ What lands in your inbox:
 Open the Dev Notes map: ${url}/dev-notes
 Whitepaper: ${url}/whitepaper
 
-$ZUBA contract (BNB Smart Chain): ${CONTRACT}
+$ZUBA contract (BNB Smart Chain): ${CA_LIVE ? CONTRACT : "coming soon"}
 Unsubscribe: ${unsubscribe}`;
   return { subject: "Quest accepted: you're in the ZUBA Builders' Circle", html, text };
 }

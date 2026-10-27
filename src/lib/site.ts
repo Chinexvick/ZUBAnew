@@ -2,6 +2,9 @@
 
 export const CONTRACT = "0xE1bf97baCF682AE17cA3E239aB68a7b525f994A4";
 
+/* The new contract is not live yet: the site shows "Coming soon" wherever the CA appears. */
+export const CA_LIVE = false;
+
 export const site = {
   name: "ZUBA",
   tagline: "The Motherland Has Entered the Game",
