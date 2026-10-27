@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { games, movies } from "@/content/theatre";
 import TitleRow from "@/components/TitleRow";
+import ArcadeBanner from "@/components/ArcadeBanner";
 import { Chev, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 
 export const metadata: Metadata = {
@@ -11,7 +12,6 @@ export const metadata: Metadata = {
 
 export default function Theatre() {
   const featured = movies[0];
-  const flagship = games.find((g) => g.slug === "zuba") ?? games[0];
   return (
     <>
       <section className="feature">
@@ -61,40 +61,19 @@ export default function Theatre() {
 
         <Divider variant="notched" />
 
-        <section id="games" style={{ marginTop: 50, scrollMarginTop: 120 }}>
+        <section id="games" style={{ marginTop: 50, scrollMarginTop: 120 }} data-music-off>
           <header className="heading" style={{ marginBottom: 24 }}>
             <Runes text="Games" />
             <h2 className="t-title lg">
               <ZText>Games</ZText>
             </h2>
             <p className="t-muted" style={{ margin: 0 }}>
-              Don&apos;t just hear the legends. Soon, you&apos;ll play them.
+              Don&apos;t just hear the legends. Play them, free, right here in your browser.
             </p>
           </header>
-          <Link href={`/theatre/games/${flagship.slug}`} className="h-forge th-flagship">
-            <span className="h-forge-art" style={{ backgroundImage: `url(${flagship.backdrop})` }} />
-            <span className="h-forge-text">
-              <span className="t-label">Our flagship game</span>
-              <span className="t-title lg">
-                <ZText>{flagship.title.split(":")[0]}</ZText>
-              </span>
-              {flagship.title.includes(":") && (
-                <span className="h-forge-sub">
-                  <ZText>{flagship.title.split(":")[1].trim()}</ZText>
-                </span>
-              )}
-              <span className="h-forge-meta">
-                <span className="chip prod">{flagship.status}</span>
-                <span className="t-label">{flagship.genre}</span>
-              </span>
-              <span className="t-lead">{flagship.logline}</span>
-              <span className="btn primary" style={{ alignSelf: "flex-start" }}>
-                <Chev /> View the Game
-              </span>
-            </span>
-          </Link>
+          <ArcadeBanner />
           <div style={{ marginTop: 36 }}>
-            <TitleRow title="Legends in the Forge" items={games.filter((g) => g.slug !== flagship.slug)} />
+            <TitleRow title="Play Now" items={games} />
           </div>
         </section>
       </div>

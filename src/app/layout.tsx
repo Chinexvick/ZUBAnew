@@ -9,6 +9,7 @@ import "@/styles/codex.css";
 import "@/styles/about.css";
 import "@/styles/subscribe.css";
 import "@/styles/partner.css";
+import "@/styles/arcade.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import World from "@/components/World";

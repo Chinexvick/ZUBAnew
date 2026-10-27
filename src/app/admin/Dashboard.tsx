@@ -5,8 +5,10 @@ import Link from "next/link";
 import { marked } from "marked";
 import type { BlogPost, DevNote } from "@/lib/content";
 import { Delta, Divider, Runes, ZText } from "@/components/ui/Glyphs";
+import { plans } from "@/content/subscriptions";
 
-type Tab = "devnotes" | "blog" | "subscribers" | "applications";
+type Tab = "devnotes" | "blog" | "subscribers" | "applications" | "premium";
+type PremiumReq = { id: string; email: string; name: string; plan: string; method: string; reference: string; at: string; status: "pending" | "issued"; issuedAt?: string };
 type Application = { id: string; track: string; trackName: string; at: string; answers: Record<string, string>; labels: Record<string, string> };
 type Subs = { enabled: boolean; mail: boolean; emails: string[]; notified: Record<string, string> };
 type Item = DevNote | BlogPost;
@@ -50,6 +52,33 @@ export default function Dashboard({ mode }: { mode: string }) {
   const [subs, setSubs] = useState<Subs | null>(null);
   const [apps, setApps] = useState<Application[] | null>(null);
   const [appFilter, setAppFilter] = useState("all");
+  const [invite, setInvite] = useState<{ total: number; withEmail: number; emailed: number; remaining: number; noEmail: { name: string; contact: string }[] } | null>(null);
+  const [inviting, setInviting] = useState(false);
+  const loadInvite = useCallback(async () => {
+    const res = await fetch("/api/admin/testers", { cache: "no-store" });
+    if (res.ok) setInvite(await res.json());
+  }, []);
+  const sendInvites = async (action: "test" | "send") => {
+    setInviting(true);
+    try {
+      for (let i = 0; i < 30; i++) {
+        const res = await fetch("/api/admin/testers", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
+        const j = await res.json();
+        if (!res.ok) throw new Error(j.error || "Failed");
+        if (action === "test") {
+          setToast({ kind: "ok", text: "Test invite sent to your admin email" });
+          break;
+        }
+        setInvite(j);
+        setToast({ kind: "ok", text: `Testers emailed: ${j.emailed} of ${j.withEmail}` });
+        if (j.done) break;
+      }
+    } catch (e) {
+      setToast({ kind: "err", text: (e as Error).message });
+    } finally {
+      setInviting(false);
+    }
+  };
 
   const loadApps = useCallback(async () => {
     const res = await fetch("/api/admin/applications", { cache: "no-store" });
@@ -59,6 +88,36 @@ export default function Dashboard({ mode }: { mode: string }) {
   useEffect(() => {
     loadApps();
   }, [loadApps]);
+
+  const [prem, setPrem] = useState<{ items: PremiumReq[]; keySet: boolean } | null>(null);
+  const [premBusy, setPremBusy] = useState<string | null>(null);
+  const [manual, setManual] = useState({ email: "", plan: "month" });
+  const loadPrem = useCallback(async () => {
+    const res = await fetch("/api/admin/premium", { cache: "no-store" });
+    if (res.ok) setPrem(await res.json());
+  }, []);
+  useEffect(() => {
+    loadPrem();
+  }, [loadPrem]);
+
+  async function issuePremium(body: { id?: string; email?: string; plan?: string }, label: string) {
+    if (!window.confirm(`Send a one-time Premium code to ${label}?`)) return;
+    setPremBusy(body.id ?? "manual");
+    const res = await fetch("/api/admin/premium", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const j = await res.json().catch(() => ({}));
+    setPremBusy(null);
+    if (res.ok) {
+      setToast({ kind: "ok", text: j.emailed ? `Code ${j.code} emailed to ${j.email}.` : `Code ${j.code} created for ${j.email}, but the email failed. Send it to them yourself.` });
+      if (!body.id) setManual({ email: "", plan: manual.plan });
+      loadPrem();
+    } else setToast({ kind: "err", text: j.error || "Could not issue the code." });
+  }
+
+  async function removePrem(id: string) {
+    if (!window.confirm("Delete this request?")) return;
+    const res = await fetch(`/api/admin/premium?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+    if (res.ok) loadPrem();
+  }
 
   async function removeApp(id: string) {
     if (!window.confirm("Delete this application?")) return;
@@ -79,7 +138,7 @@ export default function Dashboard({ mode }: { mode: string }) {
   }, [loadSubs]);
 
   const load = useCallback(async (t: Tab) => {
-    if (t === "subscribers" || t === "applications") {
+    if (t === "subscribers" || t === "applications" || t === "premium") {
       setItems([]);
       setLoading(false);
       return;
@@ -279,6 +338,10 @@ export default function Dashboard({ mode }: { mode: string }) {
           <ZText>Applications</ZText>
           {apps && <span className="admin-count">{apps.length}</span>}
         </button>
+        <button className={`admin-tab ${tab === "premium" ? "active" : ""}`} onClick={() => confirmDiscard() && setTab("premium")}>
+          <ZText>Premium</ZText>
+          {prem && <span className="admin-count">{prem.items.filter((x) => x.status === "pending").length}</span>}
+        </button>
         <div className="admin-side-foot">
           <span className={`chip ${mode !== "local" ? "live" : ""}`}>
             {mode === "blob" ? "● Live database" : mode === "github" ? "● Publishing to GitHub" : "Local mode"}
@@ -292,7 +355,91 @@ export default function Dashboard({ mode }: { mode: string }) {
         </div>
       </aside>
 
-      {tab === "applications" ? (
+      {tab === "premium" ? (
+        <section className="admin-subs">
+          <div className="admin-editor-head">
+            <div>
+              <span className="t-label">Zualingo app</span>
+              <h1 className="t-title md">
+                <ZText>Premium Codes</ZText>
+              </h1>
+            </div>
+            <div className="hero-actions" style={{ marginTop: 0 }}>
+              <button className="btn" onClick={loadPrem}>
+                Refresh
+              </button>
+            </div>
+          </div>
+          <Divider variant="notched" align="left" />
+          {prem && !prem.keySet && <p className="warning">ZUALINGO_ADMIN_KEY is not set on this site, so codes cannot be issued yet.</p>}
+          <details className="admin-app" open>
+            <summary>
+              <strong>Send a code directly</strong>
+              <span className="admin-row-meta">for a payment you received some other way</span>
+            </summary>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 12 }}>
+              <input className="input" type="email" placeholder="buyer's Zualingo email" value={manual.email} onChange={(e) => setManual({ ...manual, email: e.target.value })} style={{ flex: "2 1 220px" }} />
+              <select className="select" value={manual.plan} onChange={(e) => setManual({ ...manual, plan: e.target.value })} style={{ flex: "1 1 140px" }}>
+                {plans.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name} ({p.days} days)
+                  </option>
+                ))}
+              </select>
+              <button className="btn primary" disabled={!manual.email || premBusy === "manual"} onClick={() => issuePremium({ email: manual.email, plan: manual.plan }, manual.email)}>
+                {premBusy === "manual" ? "Sending…" : "Send code"}
+              </button>
+            </div>
+          </details>
+          {!prem ? (
+            <p className="t-muted">Loading…</p>
+          ) : prem.items.length === 0 ? (
+            <p className="t-muted">No Premium requests yet. Each new one also arrives by email.</p>
+          ) : (
+            <div className="admin-apps">
+              {prem.items.map((r) => (
+                <details key={r.id} className="admin-app">
+                  <summary>
+                    <span className={`chip ${r.status === "issued" ? "live" : ""}`}>{r.status === "issued" ? "Code sent" : "Pending"}</span>
+                    <strong>{r.email}</strong>
+                    <span className="admin-row-meta">
+                      {plans.find((p) => p.id === r.plan)?.name ?? r.plan} · {r.method} · {new Date(r.at).toLocaleString()}
+                    </span>
+                  </summary>
+                  <dl>
+                    {r.name && (
+                      <div>
+                        <dt>Name</dt>
+                        <dd>{r.name}</dd>
+                      </div>
+                    )}
+                    <div>
+                      <dt>Payment reference</dt>
+                      <dd>{r.reference || "Not given yet"}</dd>
+                    </div>
+                    {r.issuedAt && (
+                      <div>
+                        <dt>Code sent</dt>
+                        <dd>{new Date(r.issuedAt).toLocaleString()}</dd>
+                      </div>
+                    )}
+                  </dl>
+                  <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+                    {r.status === "pending" && (
+                      <button className="btn primary" disabled={premBusy === r.id} onClick={() => issuePremium({ id: r.id }, r.email)}>
+                        {premBusy === r.id ? "Sending…" : "Payment confirmed: send code"}
+                      </button>
+                    )}
+                    <button className="prompt" onClick={() => removePrem(r.id)} style={{ background: "none", border: 0, color: "#ffc2c2", cursor: "pointer" }}>
+                      Delete
+                    </button>
+                  </div>
+                </details>
+              ))}
+            </div>
+          )}
+        </section>
+      ) : tab === "applications" ? (
         <section className="admin-subs">
           <div className="admin-editor-head">
             <div>
@@ -316,6 +463,25 @@ export default function Dashboard({ mode }: { mode: string }) {
             </div>
           </div>
           <Divider variant="notched" align="left" />
+          <div className="admin-card" style={{ marginBottom: 18, padding: 16, border: "1px solid var(--line-dim)", borderRadius: 14 }}>
+            <strong>Testers: invite them to play the games</strong>
+            <p className="t-muted" style={{ margin: "6px 0 10px" }}>
+              Emails every tester who gave an email address that the games are live at zubatoken.com/play. Nobody is emailed twice.
+              {invite ? ` ${invite.total} testers, ${invite.withEmail} with email, ${invite.emailed} emailed, ${invite.remaining} left.` : ""}
+            </p>
+            <div className="hero-actions" style={{ marginTop: 0 }}>
+              <button className="btn" onClick={loadInvite} disabled={inviting}>Check</button>
+              <button className="btn" onClick={() => sendInvites("test")} disabled={inviting}>Send me a test</button>
+              <button className="btn primary" onClick={() => sendInvites("send")} disabled={inviting || invite?.remaining === 0}>
+                {inviting ? "Sending…" : "Email testers"}
+              </button>
+            </div>
+            {invite && invite.noEmail.length > 0 && (
+              <p className="t-muted" style={{ marginTop: 10, fontSize: "0.9rem" }}>
+                No email (message them on Telegram/WhatsApp): {invite.noEmail.map((t) => `${t.name} (${t.contact})`).join(", ")}
+              </p>
+            )}
+          </div>
           {!apps ? (
             <p className="t-muted">Loading…</p>
           ) : apps.length === 0 ? (

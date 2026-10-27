@@ -1,0 +1,166 @@
+/* ZUBA Arcade banner (theatre, home) */
+.arcade {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1.5px solid var(--line-dim);
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.arcade:hover {
+  border-color: #f1d9ff;
+  box-shadow: 0 0 46px rgba(170, 70, 255, 0.35);
+}
+.arcade-art {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: 70% center;
+  z-index: -2;
+  transform: scale(1.02);
+  transition: transform 6s ease;
+}
+.arcade:hover .arcade-art {
+  transform: scale(1.06);
+}
+.arcade-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(14, 6, 32, 0.92) 0%, rgba(14, 6, 32, 0.72) 38%, rgba(14, 6, 32, 0.05) 70%),
+    linear-gradient(0deg, rgba(14, 6, 32, 0.75) 0%, transparent 35%);
+}
+.arcade-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 560px;
+  padding: 46px clamp(22px, 4vw, 54px);
+}
+.arcade-title {
+  margin: 0;
+}
+.arcade-sub {
+  margin: -6px 0 0;
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #ffd85a;
+}
+.arcade-lead {
+  margin: 0;
+}
+.arcade-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.arcade-play {
+  gap: 8px;
+  animation: arcade-pulse 2.4s ease-in-out infinite;
+}
+@keyframes arcade-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 216, 90, 0.0); }
+  50% { box-shadow: 0 0 28px 4px rgba(255, 216, 90, 0.45); }
+}
+.arcade-games {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 10px 0 0;
+  flex-wrap: wrap;
+}
+.arcade-games a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 74px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  line-height: 1.2;
+}
+.arcade-games img {
+  width: 74px;
+  height: 99px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.25s, border-color 0.25s;
+}
+.arcade-games a:hover img,
+.arcade-games a:focus-visible img {
+  transform: translateY(-4px) scale(1.04);
+  border-color: #ffd85a;
+}
+.arcade.compact {
+  min-height: 440px;
+}
+@media (max-width: 820px) {
+  .arcade {
+    min-height: 0;
+    align-items: flex-end;
+  }
+  .arcade-art {
+    background-position: 72% top;
+    -webkit-mask: linear-gradient(180deg, #000 55%, transparent 92%);
+    mask: linear-gradient(180deg, #000 55%, transparent 92%);
+    bottom: auto;
+    height: 300px;
+  }
+  .arcade-shade {
+    background: linear-gradient(0deg, rgba(14, 6, 32, 1) 0%, rgba(14, 6, 32, 0.9) 55%, transparent 80%);
+  }
+  .arcade-copy {
+    padding-top: 230px;
+  }
+  .arcade-games a,
+  .arcade-games img {
+    width: 62px;
+  }
+  .arcade-games img {
+    height: 84px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arcade-play {
+    animation: none;
+  }
+  .arcade-art,
+  .arcade:hover .arcade-art {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Game page note under the Play button */
+.play-note {
+  margin: 4px 0 0;
+  max-width: 540px;
+  font-size: 0.9rem;
+}
+
+/* Play button in the top bar */
+.nav-play {
+  gap: 6px;
+  margin-left: auto;
+  margin-right: 8px;
+}
+@media (max-width: 560px) {
+  .nav-play {
+    display: none;
+  }
+}
+@media (min-width: 561px) {
+  .nav-play + .nav-cta {
+    margin-left: 0;
+  }
+}

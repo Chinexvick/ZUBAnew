@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/play/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="ZUBA Arcade: play Zuba Kingdom, Zuba Run, Zuba Boom, Zuba Quiz and Kitendawili in your browser. Same account and ZUBA as the Zualingo app.">
+  <meta name="theme-color" content="#12062A">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ZUBA Arcade">
+  <meta property="og:title" content="ZUBA Arcade">
+  <meta property="og:description" content="African games in your browser. Build a kingdom, run, blast forts, solve riddles, battle friends. Earn ZUBA.">
+  <meta property="og:image" content="https://www.zubatoken.com/media/games/arcade-og.jpg">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>ZUBA Arcade</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html, body { margin: 0; height: 100%; background: #12062A; overscroll-behavior: none; }
+    #zloader { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+      background: radial-gradient(circle at 50% 40%, #3a1a7a 0%, #12062A 65%); color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; z-index: 10; transition: opacity .3s; }
+    #zloader img { width: 96px; height: 96px; animation: zbob 1.4s ease-in-out infinite alternate; }
+    #zloader .t { font-weight: 900; letter-spacing: 4px; font-size: 22px; color: #FDE53A; }
+    #zloader .s { font-size: 13px; opacity: .75; font-weight: 700; }
+    #zloader .bar { width: 180px; height: 6px; border-radius: 6px; background: rgba(255,255,255,.15); overflow: hidden; }
+    #zloader .bar i { display: block; height: 100%; width: 40%; border-radius: 6px; background: #FDE53A; animation: zslide 1.1s ease-in-out infinite; }
+    @keyframes zbob { from { transform: translateY(-6px) } to { transform: translateY(6px) } }
+    @keyframes zslide { 0% { transform: translateX(-110%) } 100% { transform: translateX(260%) } }
+  </style>
+</head>
+<body>
+  <div id="zloader">
+    <img src="icons/Icon-192.png" alt="">
+    <div class="t">ZUBA ARCADE</div>
+    <div class="bar"><i></i></div>
+    <div class="s">Loading the games…</div>
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

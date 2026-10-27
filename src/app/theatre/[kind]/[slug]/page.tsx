@@ -60,13 +60,23 @@ export default async function TitlePage({ params }: { params: Promise<Params> })
             </div>
             <p className="t-lead">{t.logline}</p>
             <div className="hero-actions">
-              <a href="#story" className="btn primary">
-                <Chev /> {isMovie ? "Read the Storyline" : "Explore the Game"}
+              {t.play ? (
+                <a href={`/play?game=${t.play}`} className="btn primary">
+                  <Chev /> Play Now
+                </a>
+              ) : null}
+              <a href="#story" className={t.play ? "btn" : "btn primary"}>
+                {!t.play && <Chev />} {isMovie ? "Read the Storyline" : "Explore the Game"}
               </a>
               <a href="#gallery" className="btn">
                 View Gallery
               </a>
             </div>
+            {t.play && (
+              <p className="t-muted play-note">
+                Free in your browser. Sign in with your Zualingo account, or create one in a minute. Your levels and ZUBA are the same on the web and in the app.
+              </p>
+            )}
           </div>
         </div>
       </section>
