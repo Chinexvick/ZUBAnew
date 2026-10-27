@@ -187,7 +187,7 @@ export const whitepaper: Whitepaper = {
             rows: [
               ["Name / symbol", "ZUBA / $ZUBA"],
               ["Network", "BNB Smart Chain (BEP-20)"],
-              ["Contract", "0xE1bf97baCF682AE17cA3E239aB68a7b525f994A4"],
+              ["Contract", "New contract address coming soon"],
               ["Total supply", "500,000,000,000"],
             ],
           },
