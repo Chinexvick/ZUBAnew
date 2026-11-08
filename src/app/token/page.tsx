@@ -64,14 +64,14 @@ export default function TokenPage() {
                   <dd>{token.supplyShort}</dd>
                 </div>
                 <div>
-                  <dt>Fair launch</dt>
+                  <dt>Airdrop &amp; trading</dt>
                   <dd>{token.allocation[0].pct}%</dd>
                 </div>
                 <div>
                   <dt>Security</dt>
                   <dd>
                     <a href="#guarded" className="tstats-link">
-                      Audited ✓
+                      KYC ✓
                     </a>
                   </dd>
                 </div>
@@ -103,7 +103,7 @@ export default function TokenPage() {
         n="I"
         runes="Forged"
         title="Forged"
-        line={`${token.supplyLabel} $ZUBA were minted once. No more can ever be made, and 85% went to the open market at a fair launch.`}
+        line={`${token.supplyLabel} $ZUBA were minted once. No more can ever be made, and 85% goes to the community through airdrops and trading.`}
       >
         <div className="tforge">
           <Donut
@@ -131,7 +131,7 @@ export default function TokenPage() {
       </Chapter>
 
       {/* ---------- II. security ---------- */}
-      <Chapter id="guarded" n="II" runes="Guarded" title="Guarded" line="Checked by independent security firms, so you don't have to take our word for it.">
+      <Chapter id="guarded" n="II" runes="Guarded" title="Guarded" line="Our team is KYC verified by Vital Block Security, so you know who is building.">
         <div className="tseals">
           {trust.map((t) => (
             <a key={t.name} href={t.url} target="_blank" rel="noopener noreferrer" className="tseal">

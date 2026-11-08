@@ -21,7 +21,6 @@ export const site = {
     buy: `https://pancakeswap.finance/swap?outputCurrency=${CONTRACT}`,
     chart: `https://dexscreener.com/bsc/${CONTRACT}`,
     bscscan: `https://bscscan.com/token/${CONTRACT}`,
-    audit: "https://github.com/VBS-Labs/Audit-Report/blob/main/ZUBA%20TOKEN%20CONTRACT%20AUDIT%20REPORT.pdf",
     kyc: "https://gitlab.com/vital-block-security/Project-KYC-Verification/-/blob/main/ZUBA_TOKEN_KYC_CERTIFICATE.pdf",
   },
 };
@@ -32,7 +31,7 @@ export const token = {
   supplyLabel: "600,000,000,000",
   supplyShort: "600B",
   allocation: [
-    { label: "Liquidity & Fair Launch", pct: 85, note: "The trading pool on PancakeSwap, launched fair for everyone." },
+    { label: "Airdrop & Trading", pct: 85, note: "Community airdrops and the open trading pool on PancakeSwap." },
     { label: "Marketing", pct: 10, note: "Listings, creator campaigns, events and community growth." },
     { label: "Development", pct: 5, note: "Games, animation and the tools that power the ZUBA universe." },
   ],
@@ -71,7 +70,6 @@ export const listings: Listing[] = [
 
 // Security documents.
 export const trust = [
-  { name: "Contract Audit", by: "VBS Labs", url: site.links.audit },
   { name: "KYC Certificate", by: "Vital Block Security", url: site.links.kyc },
 ];
 

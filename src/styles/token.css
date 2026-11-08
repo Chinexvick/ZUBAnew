@@ -831,7 +831,8 @@
 .lmarquee-item {
   flex: none;
 }
-.lmarquee-item a {
+.lmarquee-item a,
+.lmarquee-item > div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -937,4 +938,7 @@
     align-items: center;
     padding-bottom: 0;
   }
+}
+.lgrid-tile.static {
+  cursor: default;
 }

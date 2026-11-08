@@ -6,7 +6,6 @@ import { Runes, ZText } from "./ui/Glyphs";
 const resources = [
   { href: "/whitepaper", label: "Whitepaper" },
   { href: site.links.chart, label: "Live Chart", ext: true },
-  { href: site.links.audit, label: "Audit Report", ext: true },
   { href: site.links.kyc, label: "KYC Certificate", ext: true },
 ];
 
