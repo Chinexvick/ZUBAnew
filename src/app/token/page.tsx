@@ -37,7 +37,7 @@ function Chapter({ n, runes, title, line, children, id, art, wide }: { n: string
 
 const steps = [
   { icon: "wallet", t: "Open your wallet", d: "MetaMask, Trust Wallet or any BNB Chain wallet, funded with a little BNB." },
-  { icon: "copy", t: "Check the contract", d: "This is the only real $ZUBA. Compare the last characters: …994A4." },
+  { icon: "copy", t: "Check the contract", d: "This is the only real $ZUBA. Compare the last characters: …421aE." },
   { icon: "swap", t: "Swap on PancakeSwap", d: "Tap the button below. $ZUBA is pre-filled; choose an amount of BNB and swap." },
 ];
 
@@ -110,7 +110,7 @@ export default function TokenPage() {
             slices={token.allocation}
             center={
               <>
-                <span className="donut-big">500B</span>
+                <span className="donut-big">{token.supplyShort}</span>
                 <span className="donut-small">total supply</span>
               </>
             }

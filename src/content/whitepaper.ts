@@ -27,7 +27,7 @@ export const whitepaper: Whitepaper = {
   facts: [
     { label: "Token", value: "$ZUBA" },
     { label: "Network", value: "BNB Smart Chain" },
-    { label: "Total supply", value: "500,000,000,000" },
+    { label: "Total supply", value: "600,000,000,000" },
   ],
   chapters: [
     {
@@ -187,8 +187,8 @@ export const whitepaper: Whitepaper = {
             rows: [
               ["Name / symbol", "ZUBA / $ZUBA"],
               ["Network", "BNB Smart Chain (BEP-20)"],
-              ["Contract", "New contract address coming soon"],
-              ["Total supply", "500,000,000,000"],
+              ["Contract", "0x914F09c21C399837A3694d57260a71a27E9421aE"],
+              ["Total supply", "600,000,000,000"],
             ],
           },
         },
