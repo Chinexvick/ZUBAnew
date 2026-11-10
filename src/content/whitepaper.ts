@@ -27,7 +27,7 @@ export const whitepaper: Whitepaper = {
   facts: [
     { label: "Token", value: "$ZUBA" },
     { label: "Network", value: "BNB Smart Chain" },
-    { label: "Total supply", value: "500,000,000,000" },
+    { label: "Total supply", value: "600,000,000,000" },
   ],
   chapters: [
     {
@@ -187,26 +187,26 @@ export const whitepaper: Whitepaper = {
             rows: [
               ["Name / symbol", "ZUBA / $ZUBA"],
               ["Network", "BNB Smart Chain (BEP-20)"],
-              ["Contract", "0xE1bf97baCF682AE17cA3E239aB68a7b525f994A4"],
-              ["Total supply", "500,000,000,000"],
+              ["Contract", "0x914F09c21C399837A3694d57260a71a27E9421aE"],
+              ["Total supply", "600,000,000,000"],
             ],
           },
         },
         {
           heading: "Allocation",
-          paragraphs: ["The supply was allocated with the community first: the large majority went to the open market at a fair launch."],
+          paragraphs: ["The supply was allocated with the community first: the large majority goes to the community through airdrops and open trading."],
           table: {
             columns: ["Allocation", "Share", "Tokens", "Purpose"],
             rows: [
-              ["Liquidity & fair launch", "85%", "425,000,000,000", "The trading pool on PancakeSwap, open to everyone"],
-              ["Marketing", "10%", "50,000,000,000", "Listings, creator campaigns, events, community growth"],
-              ["Development", "5%", "25,000,000,000", "Games, animation and the tools that power the universe"],
+              ["Airdrop & trading", "85%", "510,000,000,000", "Community airdrops and the open trading pool on PancakeSwap"],
+              ["Marketing", "10%", "60,000,000,000", "Listings, creator campaigns, events, community growth"],
+              ["Development", "5%", "30,000,000,000", "Games, animation and the tools that power the universe"],
             ],
           },
         },
         {
           heading: "Security and transparency",
-          paragraphs: ["The ZUBA contract has been audited by VBS Labs, and the project has completed KYC verification with Vital Block Security. Both documents are linked from our website, and the contract is public on BscScan for anyone to inspect."],
+          paragraphs: ["The ZUBA team has completed KYC verification with Vital Block Security. The certificate is linked from our website, and the contract is public on BscScan for anyone to inspect."],
           bullets: [
             "Always copy the contract address from the official website or official channels.",
             "The team will never DM you first or ask for your seed phrase.",

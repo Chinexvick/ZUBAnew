@@ -4,7 +4,7 @@ import { art } from "@/content/art";
 import { allTitles } from "@/content/theatre";
 import ArcadeBanner from "@/components/ArcadeBanner";
 import { phases } from "@/content/roadmap";
-import { listings, partners, site, token } from "@/lib/site";
+import { CA_LIVE, listings, partners, site, token } from "@/lib/site";
 import CopyCA from "@/components/CopyCA";
 import TitleRow from "@/components/TitleRow";
 import { ListingMarquee, PartnerRows } from "@/components/Listings";
@@ -14,9 +14,9 @@ import { Chev, Cursor, Divider, Heading, Runes, ZText } from "@/components/ui/Gl
 const homeFaq = [
   { q: "What is ZUBA?", a: "ZUBA is a gaming and animation token on BNB Smart Chain. It powers an African universe of games, anime, films and stories, starting with ZUBA Arcade: five African games you can play free in your browser at zubatoken.com/play." },
   { q: "How do I buy $ZUBA?", a: "Open a BNB Chain wallet such as MetaMask or Trust Wallet, add a little BNB, then swap for $ZUBA on PancakeSwap using the Buy button on this site. Always check the contract address first." },
-  { q: "What is the official contract address?", a: `${site.contractAddress} on BNB Smart Chain (BEP-20). This is the only real $ZUBA; compare the last characters …994A4 before you trade.` },
-  { q: "What is the total supply?", a: `${token.supplyLabel} $ZUBA. 85% went to liquidity and a fair launch, 10% to marketing and 5% to development.` },
-  { q: "Is ZUBA audited and KYC verified?", a: "Yes. The contract was audited by VBS Labs and the team completed KYC with Vital Block Security. Both reports are linked on the Token page." },
+  { q: "What is the official contract address?", a: CA_LIVE ? `${site.contractAddress} on BNB Smart Chain (BEP-20). This is the only real $ZUBA; compare the last characters before you trade.` : "Our new contract address is coming soon. It will be announced here, on X @zubatoken and in our Telegram. Until then, don't trust any address shared in DMs." },
+  { q: "What is the total supply?", a: `${token.supplyLabel} $ZUBA. 85% goes to airdrops and trading, 10% to marketing and 5% to development.` },
+  { q: "Is the ZUBA team KYC verified?", a: "Yes. The team completed KYC with Vital Block Security. The certificate is linked on the Token page." },
   { q: "What can I do with $ZUBA?", a: "Use it across the ZUBA universe: early access and items in our games, premieres and stories, collectibles, events and competitions, and our African language app as they launch." },
   { q: "Where can I follow progress?", a: "The Dev Notes map is updated by the builders as work ships. Subscribe there to get every new note by email, and join us on Telegram and X." },
   { q: "How can my project partner with ZUBA?", a: "Visit Partner With Us. Studios, game projects, marketers, testers, creators, developers and animators each have their own application." },
@@ -121,14 +121,14 @@ export default function Home() {
                   <dd>{token.supplyShort}</dd>
                 </div>
                 <div>
-                  <dt>Fair launch</dt>
+                  <dt>Airdrop &amp; trading</dt>
                   <dd>{token.allocation[0].pct}%</dd>
                 </div>
                 <div>
                   <dt>Security</dt>
                   <dd>
                     <Link href="/token#guarded" className="tstats-link">
-                      Audited ✓
+                      KYC ✓
                     </Link>
                   </dd>
                 </div>

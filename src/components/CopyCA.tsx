@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { site } from "@/lib/site";
+import { CA_LIVE, site } from "@/lib/site";
 
 export default function CopyCA({ compact }: { compact?: boolean }) {
   const [done, setDone] = useState(false);
@@ -21,6 +21,14 @@ export default function CopyCA({ compact }: { compact?: boolean }) {
     setDone(true);
     setTimeout(() => setDone(false), 1800);
   }
+
+  if (!CA_LIVE)
+    return (
+      <div className="ca" style={compact ? { maxWidth: 520 } : undefined}>
+        <span className="ca-tag">CA</span>
+        <span className="ca-addr ca-soon">Coming soon</span>
+      </div>
+    );
 
   return (
     <div className="ca" style={compact ? { maxWidth: 520 } : undefined}>

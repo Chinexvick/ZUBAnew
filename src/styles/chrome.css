@@ -341,3 +341,4 @@
     display: inline;
   }
 }
+.ca-soon { color: var(--gold); font-family: var(--font-title); letter-spacing: 0.14em; text-transform: uppercase; }

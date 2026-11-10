@@ -37,7 +37,7 @@ function Chapter({ n, runes, title, line, children, id, art, wide }: { n: string
 
 const steps = [
   { icon: "wallet", t: "Open your wallet", d: "MetaMask, Trust Wallet or any BNB Chain wallet, funded with a little BNB." },
-  { icon: "copy", t: "Check the contract", d: "This is the only real $ZUBA. Compare the last characters: …994A4." },
+  { icon: "copy", t: "Check the contract", d: "This is the only real $ZUBA. Compare the last characters: …421aE." },
   { icon: "swap", t: "Swap on PancakeSwap", d: "Tap the button below. $ZUBA is pre-filled; choose an amount of BNB and swap." },
 ];
 
@@ -64,14 +64,14 @@ export default function TokenPage() {
                   <dd>{token.supplyShort}</dd>
                 </div>
                 <div>
-                  <dt>Fair launch</dt>
+                  <dt>Airdrop &amp; trading</dt>
                   <dd>{token.allocation[0].pct}%</dd>
                 </div>
                 <div>
                   <dt>Security</dt>
                   <dd>
                     <a href="#guarded" className="tstats-link">
-                      Audited ✓
+                      KYC ✓
                     </a>
                   </dd>
                 </div>
@@ -103,14 +103,14 @@ export default function TokenPage() {
         n="I"
         runes="Forged"
         title="Forged"
-        line={`${token.supplyLabel} $ZUBA were minted once. No more can ever be made, and 85% went to the open market at a fair launch.`}
+        line={`${token.supplyLabel} $ZUBA were minted once. No more can ever be made, and 85% goes to the community through airdrops and trading.`}
       >
         <div className="tforge">
           <Donut
             slices={token.allocation}
             center={
               <>
-                <span className="donut-big">500B</span>
+                <span className="donut-big">{token.supplyShort}</span>
                 <span className="donut-small">total supply</span>
               </>
             }
@@ -131,7 +131,7 @@ export default function TokenPage() {
       </Chapter>
 
       {/* ---------- II. security ---------- */}
-      <Chapter id="guarded" n="II" runes="Guarded" title="Guarded" line="Checked by independent security firms, so you don't have to take our word for it.">
+      <Chapter id="guarded" n="II" runes="Guarded" title="Guarded" line="Our team is KYC verified by Vital Block Security, so you know who is building.">
         <div className="tseals">
           {trust.map((t) => (
             <a key={t.name} href={t.url} target="_blank" rel="noopener noreferrer" className="tseal">

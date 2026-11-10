@@ -66,12 +66,13 @@ export function ListingGrid({ items, compact = false }: { items: Listing[]; comp
     <ul className={`lgrid${compact ? " compact" : ""}`}>
       {items.map((l) => (
         <li key={l.id}>
-          <a href={l.url} target="_blank" rel="noopener noreferrer" className="lgrid-tile" aria-label={`$ZUBA on ${l.name} (opens in a new tab)`}>
+          {/* Logos only for now: platform links are switched off until they list the new contract. */}
+          <div className="lgrid-tile static">
             <ListingMedal l={l} />
             <span className="lgrid-name">{l.name}</span>
             <span className="lgrid-kind">{l.kind}</span>
             {!compact && <span className="lgrid-detail">{l.detail}</span>}
-          </a>
+          </div>
         </li>
       ))}
     </ul>
@@ -88,10 +89,10 @@ export function ListingMarquee({ items }: { items: Listing[] }) {
           const dup = i >= items.length;
           return (
             <li key={i} className="lmarquee-item" aria-hidden={dup}>
-              <a href={l.url} target="_blank" rel="noopener noreferrer" tabIndex={dup ? -1 : 0} aria-label={`$ZUBA on ${l.name}`}>
+              <div>
                 <ListingMedal l={l} />
                 <span className="lmarquee-name">{l.name}</span>
-              </a>
+              </div>
             </li>
           );
         })}

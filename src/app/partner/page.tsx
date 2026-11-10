@@ -14,7 +14,7 @@ const why = [
   { t: "A universe, not a one-off", d: "ZUBA is building films, games, stories and tools under one African universe. Partners plug into all of it." },
   { t: "A community that shows up", d: "Holders, players and creators who watch premieres, play builds, and share what they love." },
   { t: "Token-powered collaboration", d: "$ZUBA lets us reward testers, fund creators, and share upside with partners on-chain." },
-  { t: "Audited and KYC verified", d: "Our contract is audited and the team is KYC verified, so partners know who they are building with." },
+  { t: "KYC verified team", d: "The ZUBA team is KYC verified by Vital Block Security, so partners know who they are building with." },
 ];
 
 const steps = [
