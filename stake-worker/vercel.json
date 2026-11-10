@@ -1,0 +1,4 @@
+{
+  "functions": { "api/tick.js": { "maxDuration": 60, "memory": 1024 } },
+  "crons": [{ "path": "/api/tick?mode=all", "schedule": "17 3 * * *" }]
+}

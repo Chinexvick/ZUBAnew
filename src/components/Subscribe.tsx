@@ -123,7 +123,7 @@ export function SubscribeCard() {
 export default function SubscribePopup() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const hidden = pathname.startsWith("/admin") || pathname.startsWith("/unsubscribe");
+  const hidden = pathname.startsWith("/admin") || pathname.startsWith("/unsubscribe") || pathname.startsWith("/stake");
 
   useEffect(() => {
     if (hidden) return;

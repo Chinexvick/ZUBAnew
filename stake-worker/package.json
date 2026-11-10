@@ -1,0 +1,7 @@
+{
+  "name": "zuba-stake-worker",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "dependencies": { "@noble/hashes": "^2.4.0", "ethers": "^6.17.0", "pg": "^8.23.1" }
+}
