@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import QRCode from "qrcode";
 
 /* ---------- types (what /api/stake returns) ---------- */
@@ -155,13 +156,17 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
     document.body.style.overflow = "hidden";
     return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [onClose]);
-  return (
+  // drawn at the top level of the staking page, so nothing on the page can sit on top of it
+  const host = typeof document === "undefined" ? null : document.getElementById("sk-portal");
+  if (!host) return null;
+  return createPortal(
     <div className="sk-modal" role="dialog" aria-modal="true" aria-label={title} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div className="sk-sheet">
         <header><h2>{title}</h2><button type="button" className="sk-x" onClick={onClose} aria-label="Close"><Ico n="x" /></button></header>
         {children}
       </div>
-    </div>
+    </div>,
+    host,
   );
 }
 function Rows({ items }: { items: [string, React.ReactNode, string?][] }) {
@@ -257,6 +262,7 @@ function Shell({ children, test }: { children: React.ReactNode; test?: boolean }
         {test && <div className="sk-test"><b>Testnet</b> Tokens here have no value.</div>}
         {children}
       </div>
+      <div id="sk-portal" />
     </div>
   );
 }
