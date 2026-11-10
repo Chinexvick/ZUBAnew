@@ -227,6 +227,22 @@
 .sk-steps .done { color: var(--mint); }
 .sk-steps .done span { border-color: rgba(125, 240, 178, 0.5); color: var(--mint); }
 
+/* ---- sign-in page copy ---- */
+.sk-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.sk-points li { display: flex; gap: 14px; align-items: flex-start; padding: 20px; border-radius: 18px; border: 1px solid var(--hair); background: var(--glass); color: #c9a8ff; }
+.sk-points div { display: flex; flex-direction: column; gap: 4px; }
+.sk-points b { color: var(--txt); font-weight: 600; font-size: 0.95rem; }
+.sk-points span { color: var(--dim); font-size: 0.84rem; line-height: 1.5; }
+.sk-sec-head { display: flex; flex-direction: column; gap: 4px; padding-top: 18px; }
+.sk-faq { display: flex; flex-direction: column; border: 1px solid var(--hair); border-radius: 18px; background: var(--glass); overflow: hidden; }
+.sk-faq details + details { border-top: 1px solid var(--hair); }
+.sk-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 20px; cursor: pointer; list-style: none; font-weight: 600; font-size: 0.95rem; color: var(--txt); }
+.sk-faq summary::-webkit-details-marker { display: none; }
+.sk-faq summary::after { content: ""; flex: none; width: 7px; height: 7px; border-right: 1.5px solid var(--dim); border-bottom: 1.5px solid var(--dim); transform: rotate(45deg); transition: transform 0.2s; }
+.sk-faq details[open] summary::after { transform: rotate(225deg); }
+.sk-faq p { padding: 0 20px 18px; color: var(--dim); font-size: 0.88rem; line-height: 1.6; max-width: 70ch; }
+.sk-sub-copy { color: var(--dim); font-size: 0.86rem; margin-top: -8px !important; }
+
 /* ---- dialogs ---- */
 .sk-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; background: rgba(6, 3, 14, 0.8); animation: sk-fade 0.18s ease both; }
 .sk-sheet { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 18px; padding: 24px; border-radius: 24px; background: #17102e; border: 1px solid var(--hair-2); box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.06); animation: sk-pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.1) both; }
@@ -282,6 +298,7 @@
   .sk-tabs { position: fixed; z-index: 60; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); align-self: auto; justify-content: space-between; padding: 6px; border-radius: 22px; background: #120a26; border-color: var(--hair-2); }
   .sk-tabs button { flex: 1; flex-direction: column; gap: 4px; height: 54px; padding: 0 2px; font-size: 0.58rem; letter-spacing: 0.06em; border-radius: 16px; }
   .sk-tiers { grid-template-columns: 1fr 1fr; }
+  .sk-points { grid-template-columns: 1fr; }
   .sk-locks { grid-template-columns: 1fr 1fr; }
   .sk-rows li { grid-template-columns: 1fr auto; row-gap: 10px; }
   .sk-rows li .sk-track { grid-column: 1 / -1; grid-row: 2; }

@@ -268,6 +268,13 @@ function Shell({ children, test }: { children: React.ReactNode; test?: boolean }
 }
 
 /* ---------- signed out ---------- */
+const FAQ: [string, string][] = [
+  ["How are rewards calculated?", "A fixed amount of ZUBA is shared between all stakers each day, in proportion to the size and lock period of each stake."],
+  ["When do rewards start?", "A stake starts earning from the next full day and is paid daily after that."],
+  ["Can I unstake early?", "Flexible stakes can be unstaked at any time. Locked stakes are released when the lock period ends."],
+  ["How do withdrawals work?", "Withdrawals go to an address you have saved, on BNB Smart Chain, and are confirmed with your authenticator code."],
+  ["Which token and network?", "ZUBA (BEP-20) on BNB Smart Chain only."],
+];
 function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -286,7 +293,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
         <div className="sk-landing-copy">
           <span className="sk-eyebrow">ZUBA Staking</span>
           <h1 className="sk-display">Stake ZUBA.<br /><em>Earn daily.</em></h1>
-          <p className="sk-lead">Lock longer, earn a larger share.</p>
+          <p className="sk-lead">Deposit ZUBA, choose a lock period and earn rewards every day. The longer you lock, the larger your share.</p>
           <dl className="sk-facts">
             <div><dt>Total staked</dt><dd className="sk-num">{compact(p.totalStaked)}</dd></div>
             <div><dt>Stakers</dt><dd className="sk-num">{p.stakers}</dd></div>
@@ -302,6 +309,12 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
           <p className="sk-fine sk-center">Use your Zualingo account. <a href="/play">Create one</a></p>
         </form>
       </div>
+      <ul className="sk-points">
+        <li><Ico n="down" s={20} /><div><b>No wallet connection</b><span>Deposit to your own address. Nothing to sign.</span></div></li>
+        <li><Ico n="check" s={20} /><div><b>Paid daily</b><span>Rewards land in your balance every day.</span></div></li>
+        <li><Ico n="shield" s={20} /><div><b>Protected withdrawals</b><span>Two-factor and saved addresses on every payout.</span></div></li>
+      </ul>
+      <div className="sk-sec-head"><h2 className="sk-h1">Choose your lock</h2><p className="sk-muted">Rates update daily with the amount staked.</p></div>
       <div className="sk-tiers">
         {Object.keys(apy).map((d) => (
           <div key={d} className={`sk-tier ${d === "180" ? "top" : ""}`}>
@@ -312,6 +325,10 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
         ))}
       </div>
       <p className="sk-fine sk-center">Variable rate, capped at {pub.maxApy}% APY.</p>
+      <div className="sk-sec-head"><h2 className="sk-h1">Questions</h2></div>
+      <div className="sk-faq">
+        {FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
     </>
   );
 }
@@ -330,7 +347,7 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
       {step === 1 && !secret && (
         <>
           <h2 className="sk-h1">Secure your account</h2>
-          <p className="sk-muted">Two-factor authentication is required for withdrawals.</p>
+          <p className="sk-muted">Set up two-factor authentication to protect your balance. You will use it to confirm every withdrawal.</p>
           <Err>{a.err}</Err>
           <button type="button" className="sk-btn primary" disabled={a.busy} onClick={() => a.run<{ secret: string; url: string }>({ kind: "2fa_setup" }, (r) => setSecret(r))}>{a.busy ? "Preparing…" : "Set up authenticator"}</button>
         </>
@@ -359,7 +376,7 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
       {step === 2 && (
         <>
           <h2 className="sk-h1">Your deposit address</h2>
-          <p className="sk-muted">One address, unique to your account.</p>
+          <p className="sk-muted">You get one deposit address. It is unique to your account and never changes.</p>
           <Err>{a.err}</Err>
           <button type="button" className="sk-btn primary" disabled={a.busy} onClick={() => a.run({ kind: "address" })}>{a.busy ? "Generating…" : "Generate address"}</button>
         </>
@@ -410,7 +427,7 @@ function Overview({ me, go, refresh, say }: { me: Me; go: (t: string) => void; r
   return (
     <>
       <Card title="Stakes" aside={me.positions.length > 0 && <button type="button" className="sk-ghost" onClick={() => go("stake")}><Ico n="plus" s={15} /> New</button>}>
-        <Positions me={me} refresh={refresh} say={say} empty={<div className="sk-empty"><p>{funded ? "Nothing staked yet." : "No balance yet."}</p><button type="button" className="sk-btn primary" onClick={() => go(funded ? "stake" : "deposit")}>{funded ? "Stake" : "Deposit"}</button></div>} />
+        <Positions me={me} refresh={refresh} say={say} empty={<div className="sk-empty"><p>{funded ? "Your balance is not earning yet. Stake it to start receiving daily rewards." : "Deposit ZUBA to start earning daily rewards."}</p><button type="button" className="sk-btn primary" onClick={() => go(funded ? "stake" : "deposit")}>{funded ? "Stake" : "Deposit"}</button></div>} />
       </Card>
       {me.history.length > 0 && (
         <Card title="Recent activity" aside={<button type="button" className="sk-ghost" onClick={() => go("history")}>View all <Ico n="chev" s={14} /></button>}>
@@ -479,7 +496,7 @@ function Deposit({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
         {!me.depositsOpen && <p className="sk-note warn">Deposits open soon.</p>}
       </Card>
       <Card title="Deposits">
-        {!me.deposits.length ? <p className="sk-muted">No deposits yet.</p> : (
+        {!me.deposits.length ? <p className="sk-muted">Deposits appear here as soon as the network sees them.</p> : (
           <ul className="sk-rows">
             {me.deposits.map((d) => (
               <li key={d.tx}>
@@ -509,6 +526,7 @@ function Stake({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
   return (
     <>
       <Card title="Stake" className="sk-narrow-l">
+        <p className="sk-sub-copy">Rewards are paid to your balance every day.</p>
         <Field label="Amount" htmlFor="stk-amt" hint={<>Available <b className="sk-num">{nice(me.balance.available, 2)}</b></>}>
           <Amount id="stk-amt" value={amount} onChange={setAmount} max={me.balance.available} symbol={sym} />
         </Field>
@@ -557,6 +575,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
     <>
       <div className="sk-two wide-left">
         <Card title="Withdraw">
+          <p className="sk-sub-copy">Sent to one of your saved addresses on BNB Smart Chain.</p>
           <Field label="Amount" htmlFor="stk-wamt" hint={<>Available <b className="sk-num">{nice(me.balance.available, 2)}</b></>}>
             <Amount id="stk-wamt" value={amount} onChange={setAmount} max={me.balance.available} symbol={sym} />
           </Field>
@@ -578,7 +597,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
         </Card>
         <Card title="Addresses" aside={me.addresses.length < me.limits.maxAddresses && <button type="button" className="sk-ghost" onClick={() => setAdding(true)}><Ico n="plus" s={15} /> Add</button>}>
           <Err>{rm.err}</Err>
-          {!me.addresses.length ? <p className="sk-muted">No saved addresses.</p> : (
+          {!me.addresses.length ? <p className="sk-muted">Save the wallet addresses you withdraw to.</p> : (
             <ul className="sk-rows tight">
               {me.addresses.map((x) => (
                 <li key={x.address}>
