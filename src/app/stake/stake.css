@@ -62,7 +62,8 @@
 .sk-ghost { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 6px 2px; color: #dcc4ff; font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; }
 .sk-ghost:hover:not(:disabled) { color: #fff; }
 .sk-ghost:disabled { opacity: 0.35; cursor: not-allowed; }
-.sk :is(button, a, input):focus-visible { outline: 2px solid #e3c8ff; outline-offset: 2px; }
+.sk :is(button, a):focus-visible { outline: 2px solid #e3c8ff; outline-offset: 2px; }
+.sk input:focus-visible { outline: none; }
 
 .sk-field { display: flex; flex-direction: column; gap: 8px; }
 .sk-field-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 0.8rem; color: var(--dim); }
