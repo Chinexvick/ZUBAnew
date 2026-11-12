@@ -54,9 +54,11 @@ const handlers = {
   },
 
   // ---- staking ----------------------------------------------------------------------------------------
-  async stake(c, u, p) {
+  async stake(c, u, p, ctx) {
     const amount = baseUnits(p.amount);
     if (!Number.isInteger(p.lock) || lockWeight(p.lock) === null) bad(400, 'Choose one of the lock options');
+    // A fixed stake cannot be undone until its term ends, so a stolen password alone must not be able to make one.
+    if (p.lock > 0) await code(ctx, u, p.code);
     return { id: await D.stake(c, u, amount, p.lock) };
   },
   async unstake(c, u, p) {

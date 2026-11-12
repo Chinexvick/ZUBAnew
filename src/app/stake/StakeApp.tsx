@@ -518,6 +518,7 @@ function Stake({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
   const [amount, setAmount] = useState("");
   const [lock, setLock] = useState(90);
   const [review, setReview] = useState(false);
+  const [code, setCode] = useState("");
   const a = useAction(refresh);
   const sym = me.token.symbol, amt = Number(amount) || 0, apy = me.apy[String(lock)] ?? 0;
   const yearly = (amt * apy) / 100;
@@ -549,9 +550,10 @@ function Stake({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
         <Modal title="Confirm stake" onClose={() => setReview(false)}>
           <div className="sk-big"><b className="sk-num">{nice(amount, 2)}</b><span>{sym}</span></div>
           <Rows items={[["Lock", lockName(lock)], ["Unlocks", unlock], ["Est. APY", `${apy}%`], ["Est. daily", `+${f(yearly / 365)} ${sym}`, "gold"]]} />
-          {lock > 0 && <p className="sk-fine">Locked stakes can&apos;t be withdrawn early.</p>}
+          {lock > 0 && <p className="sk-fine">Fixed stakes can&apos;t be unstaked before the term ends.</p>}
+          {lock > 0 && <Field label="Authenticator code" htmlFor="stk-sc"><CodeInput id="stk-sc" value={code} onChange={setCode} autoFocus /></Field>}
           <Err>{a.err}</Err>
-          <button type="button" className="sk-btn primary wide" disabled={a.busy} onClick={async () => { if (await a.run({ kind: "stake", amount, lock })) { setReview(false); setAmount(""); say("Staked"); } }}>{a.busy ? "Staking…" : "Confirm"}</button>
+          <button type="button" className="sk-btn primary wide" disabled={a.busy || (lock > 0 && code.length !== 6)} onClick={async () => { if (await a.run(lock > 0 ? { kind: "stake", amount, lock, code } : { kind: "stake", amount, lock })) { setReview(false); setAmount(""); setCode(""); say("Staked"); } }}>{a.busy ? "Staking…" : "Confirm"}</button>
         </Modal>
       )}
     </>

@@ -133,7 +133,7 @@ async function act(sess: Session, b: Record<string, unknown>) {
   // if the worker is behind, do not pile more on: say so instead
   const waiting = (await db().query("select count(*)::int as n from (select 1 from stake_requests where status = 'new' limit 200) q")).rows[0].n;
   if (waiting >= 200) fail(503, "ZUBA Staking is busy right now. Please try again in a minute.");
-  const sensitive = ["2fa_setup", "2fa_enable", "whitelist_add", "withdraw"].includes(kind);
+  const sensitive = ["2fa_setup", "2fa_enable", "whitelist_add", "withdraw"].includes(kind) || (kind === "stake" && b.lock !== 0);
   if (sensitive && (await limited(`act:s:${id}`, 30, 3600))) fail(429, "Too many tries. Try again later.");
   const s = await shared();
   const amount = (v: unknown) => {
@@ -148,7 +148,10 @@ async function act(sess: Session, b: Record<string, unknown>) {
     }
     case "2fa_enable": return ask(id, kind, { code: code(b.code) });
     case "address": return ask(id, kind, {});
-    case "stake": return ask(id, kind, { amount: amount(b.amount), lock: Number.isInteger(b.lock) ? b.lock : fail(400, "Choose a lock option") });
+    case "stake": {
+      const lock = Number.isInteger(b.lock) ? (b.lock as number) : fail(400, "Choose a lock option");
+      return ask(id, kind, lock > 0 ? { amount: amount(b.amount), lock, code: code(b.code) } : { amount: amount(b.amount), lock });
+    }
     case "unstake": return ask(id, kind, { id: posInt(b.id) });
     case "whitelist_add": return ask(id, kind, { address: address(b.address), code: code(b.code) });
     case "whitelist_remove": return ask(id, kind, { address: address(b.address) });
