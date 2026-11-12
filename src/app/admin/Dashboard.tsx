@@ -360,7 +360,17 @@ export default function Dashboard({ mode }: { mode: string }) {
       </aside>
 
       {tab === "staking" ? (
-        <StakingAdmin />
+        <section className="admin-subs">
+          <div className="admin-editor-head">
+            <div>
+              <span className="t-label">$ZUBA</span>
+              <h1 className="t-title md">
+                <ZText>Staking</ZText>
+              </h1>
+            </div>
+          </div>
+          <StakingAdmin />
+        </section>
       ) : tab === "premium" ? (
         <section className="admin-subs">
           <div className="admin-editor-head">
