@@ -310,3 +310,7 @@
 @media (prefers-reduced-motion: reduce) {
   .sk *, .sk *::before { animation: none !important; transition: none !important; }
 }
+
+/* ---- inside the Workbench ---- */
+.sk-admin { padding: 8px 0 40px; display: flex; flex-direction: column; gap: 18px; --num: var(--font-title); --mono: ui-monospace, Menlo, monospace; }
+.sk-big.left { justify-content: flex-start; padding: 0; }

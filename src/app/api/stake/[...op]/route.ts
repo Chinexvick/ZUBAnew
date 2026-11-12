@@ -13,7 +13,6 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 40;
 
 const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer", "X-Frame-Options": "DENY" } });
-const admins = () => (process.env.STAKE_ADMIN_IDS || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
 
 async function session(): Promise<Session> {
   const s = await readSession((await cookies()).get(COOKIE)?.value);
@@ -78,16 +77,8 @@ async function getMe(sess: Session) {
   // on the test set-up there is no always-on worker: looking at the dashboard wakes it
   if (process.env.STAKE_WORKER_URL && (lag === null || lag > 10)) after(() => kickWorker("chain", 35_000));
   const now = Date.now();
-  const isAdmin = admins().includes(id);
-  let admin: unknown = null;
-  if (isAdmin) {
-    const queue = await q.query("select id, user_id, to_address, amount, status, created_at from stake_withdrawals where status in ('review', 'queued', 'sending') order by id limit 50");
-    const alerts = await q.query("select at, level, msg from stake_alerts order by id desc limit 15");
-    const st = (await q.query("select pause_reason from stake_state where id = 1")).rows[0];
-    admin = { queue: queue.rows.map((w) => ({ id: Number(w.id), user: w.user_id, to: w.to_address, amount: s.fmt(w.amount), status: w.status, at: w.created_at })), alerts: alerts.rows, pauseReason: st?.pause_reason ?? null };
-  }
   return {
-    email: sess.email, test: s.test, token: s.token, paused: s.paused, apy: s.apy, maxApy: MAX_APY_BP / 100, day: Math.max(0, s.day), dayMs: s.dayMs, program: isAdmin ? s.program : { ...s.program, budget: undefined, paid: undefined },
+    email: sess.email, test: s.test, token: s.token, paused: s.paused, apy: s.apy, maxApy: MAX_APY_BP / 100, day: Math.max(0, s.day), dayMs: s.dayMs, program: { ...s.program, budget: undefined, paid: undefined },
     weights: Object.fromEntries(Object.entries(LOCKS).map(([d, w]) => [d, w / 10000])),
     address: addr.rows[0]?.address ?? null, depositsOpen: s.depositsOpen,
     twoFactor: totp.rows[0] ? (totp.rows[0].enabled ? "on" : "pending") : "off",
@@ -103,7 +94,7 @@ async function getMe(sess: Session) {
       confirmations: Number(s.pub.confirmations ?? 15), whitelistDelayMs: Number(s.pub.whitelistDelayMs ?? 86_400_000), maxAddresses: Number(s.pub.maxAddresses ?? 5),
       faucetAmount: s.pub.faucetAmount ? s.fmt(String(s.pub.faucetAmount)) : null,
     },
-    workerSecondsAgo: lag, admin,
+    workerSecondsAgo: lag,
   };
 }
 
@@ -115,7 +106,7 @@ const posInt = (v: unknown) => (Number.isInteger(v) && (v as number) > 0 ? (v as
 async function act(sess: Session, b: Record<string, unknown>) {
   const kind = str(b.kind, 30), id = sess.userId;
   if (await limited(`act:${id}`, 120, 3600)) fail(429, "Too many tries. Try again later.");
-  const sensitive = ["2fa_setup", "2fa_enable", "whitelist_add", "withdraw", "admin_decide", "admin_resume"].includes(kind);
+  const sensitive = ["2fa_setup", "2fa_enable", "whitelist_add", "withdraw"].includes(kind);
   if (sensitive && (await limited(`act:s:${id}`, 30, 3600))) fail(429, "Too many tries. Try again later.");
   const s = await shared();
   const amount = (v: unknown) => {
@@ -146,15 +137,6 @@ async function act(sess: Session, b: Record<string, unknown>) {
       if (r.http === 200) after(() => kickWorker("chain", 35_000));
       return r;
     }
-    case "admin_decide":
-      if (!admins().includes(id)) fail(404, "Not found");
-      return ask(id, kind, { id: posInt(b.id), approve: b.approve === true, code: code(b.code) });
-    case "admin_resume":
-      if (!admins().includes(id)) fail(404, "Not found");
-      return ask(id, kind, { code: code(b.code) });
-    case "admin_pause":
-      if (!admins().includes(id)) fail(404, "Not found");
-      return ask(id, kind, {});
     default:
       return fail(400, "Bad request");
   }

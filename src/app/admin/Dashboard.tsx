@@ -6,8 +6,9 @@ import { marked } from "marked";
 import type { BlogPost, DevNote } from "@/lib/content";
 import { Delta, Divider, Runes, ZText } from "@/components/ui/Glyphs";
 import { plans } from "@/content/subscriptions";
+import StakingAdmin from "./StakingAdmin";
 
-type Tab = "devnotes" | "blog" | "subscribers" | "applications" | "premium";
+type Tab = "devnotes" | "blog" | "subscribers" | "applications" | "premium" | "staking";
 type PremiumReq = { id: string; email: string; name: string; plan: string; method: string; reference: string; at: string; status: "pending" | "issued"; issuedAt?: string };
 type Application = { id: string; track: string; trackName: string; at: string; answers: Record<string, string>; labels: Record<string, string> };
 type Subs = { enabled: boolean; mail: boolean; emails: string[]; notified: Record<string, string> };
@@ -138,7 +139,7 @@ export default function Dashboard({ mode }: { mode: string }) {
   }, [loadSubs]);
 
   const load = useCallback(async (t: Tab) => {
-    if (t === "subscribers" || t === "applications" || t === "premium") {
+    if (t === "subscribers" || t === "applications" || t === "premium" || t === "staking") {
       setItems([]);
       setLoading(false);
       return;
@@ -342,6 +343,9 @@ export default function Dashboard({ mode }: { mode: string }) {
           <ZText>Premium</ZText>
           {prem && <span className="admin-count">{prem.items.filter((x) => x.status === "pending").length}</span>}
         </button>
+        <button className={`admin-tab ${tab === "staking" ? "active" : ""}`} onClick={() => confirmDiscard() && setTab("staking")}>
+          <ZText>Staking</ZText>
+        </button>
         <div className="admin-side-foot">
           <span className={`chip ${mode !== "local" ? "live" : ""}`}>
             {mode === "blob" ? "● Live database" : mode === "github" ? "● Publishing to GitHub" : "Local mode"}
@@ -355,7 +359,9 @@ export default function Dashboard({ mode }: { mode: string }) {
         </div>
       </aside>
 
-      {tab === "premium" ? (
+      {tab === "staking" ? (
+        <StakingAdmin />
+      ) : tab === "premium" ? (
         <section className="admin-subs">
           <div className="admin-editor-head">
             <div>

@@ -18,7 +18,6 @@ type Me = {
   addresses: { address: string; activeAt: string; active: boolean }[];
   limits: { minStake: string; minWithdraw: string; autoLimit: string; userDaily: string; confirmations: number; whitelistDelayMs: number; maxAddresses: number; faucetAmount: string | null };
   workerSecondsAgo: number | null;
-  admin: null | { queue: { id: number; user: string; to: string; amount: string; status: string; at: string }[]; alerts: { at: string; level: string; msg: string }[]; pauseReason: string | null };
 };
 type Pub = { enabled: boolean; test?: boolean; token?: Token; paused?: boolean; program?: Program; apy?: Record<string, number>; maxApy?: number };
 type Refresh = () => Promise<void>;
@@ -223,7 +222,7 @@ export default function StakeApp() {
   if (state === "out" || !me) return <Shell test={pub.test}><SignedOut pub={pub} onDone={refresh} /></Shell>;
 
   const ready = me.twoFactor === "on" && me.address;
-  const tabs = [...TABS, ...(me.admin ? [["admin", "Admin", "shield"] as [string, string, string]] : [])];
+  const tabs = TABS;
   const signOut = async () => { await api("logout", {}); setMe(null); setState("out"); };
   return (
     <Shell test={me.test}>
@@ -246,7 +245,6 @@ export default function StakeApp() {
             {tab === "stake" && <Stake me={me} refresh={refresh} say={setToast} />}
             {tab === "withdraw" && <Withdraw me={me} refresh={refresh} say={setToast} />}
             {tab === "history" && <History me={me} />}
-            {tab === "admin" && me.admin && <Admin me={me} refresh={refresh} say={setToast} />}
           </div>
         </>
       )}
@@ -688,47 +686,4 @@ function Ledger({ items }: { items: Me["history"] }) {
 }
 function History({ me }: { me: Me }) {
   return <Card title="History">{me.history.length ? <Ledger items={me.history} /> : <p className="sk-muted">No activity yet.</p>}</Card>;
-}
-
-/* ---------- admin (owner only) ---------- */
-function Admin({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
-  const a = useAction(refresh);
-  const [code, setCode] = useState("");
-  const ad = me.admin!, p = me.program;
-  const waiting = ad.queue.filter((q) => q.status === "review");
-  return (
-    <>
-      <div className="sk-two">
-        <Card title="System" aside={<span className={`sk-pill ${me.paused ? "bad" : "ok"}`}>{me.paused ? "Paused" : "Running"}</span>}>
-          <Rows items={[["Worker", me.workerSecondsAgo === null ? "Never seen" : `${me.workerSecondsAgo}s ago`], ...(me.paused ? [["Reason", ad.pauseReason || "None"] as [string, string]] : [])]} />
-          <Field label="Admin code" htmlFor="stk-ac"><CodeInput id="stk-ac" value={code} onChange={setCode} /></Field>
-          <Err>{a.err}</Err>
-          {me.paused
-            ? <button type="button" className="sk-btn primary" disabled={a.busy || code.length !== 6} onClick={async () => { if (await a.run({ kind: "admin_resume", code })) { setCode(""); say("Resumed"); } }}>Resume</button>
-            : <button type="button" className="sk-btn" disabled={a.busy} onClick={async () => (await a.run({ kind: "admin_pause" })) && say("Paused")}>Pause staking</button>}
-        </Card>
-        <Card title="Reward budget">
-          <Rows items={[["Budget", "10,000,000,000"], ["Paid", nice(p.paid, 0), "gold"], ["Today's pool", nice(p.dailyPool, 0)], ["Program day", `${p.day + 1} of ${p.programDays}`], ["Total staked", nice(p.totalStaked, 0)], ["Stakers", String(p.stakers)]]} />
-        </Card>
-      </div>
-      <Card title="Approvals" aside={<span className="sk-pill">{waiting.length}</span>}>
-        {!waiting.length ? <p className="sk-muted">Nothing waiting.</p> : (
-          <ul className="sk-rows tight">
-            {waiting.map((q) => (
-              <li key={q.id}>
-                <div><b className="sk-num">#{q.id} · {nice(q.amount, 2)}</b><span className="sk-mono">{short(q.to)}</span></div>
-                <div className="sk-row-actions">
-                  <button type="button" className="sk-ghost" disabled={a.busy || code.length !== 6} onClick={async () => { if (await a.run({ kind: "admin_decide", id: q.id, approve: true, code })) { setCode(""); say("Approved"); } }}>Approve</button>
-                  <button type="button" className="sk-ghost dim" disabled={a.busy || code.length !== 6} onClick={async () => { if (await a.run({ kind: "admin_decide", id: q.id, approve: false, code })) { setCode(""); say("Declined"); } }}>Decline</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Card>
-      <Card title="Alerts">
-        {!ad.alerts.length ? <p className="sk-muted">None.</p> : <ul className="sk-rows tight">{ad.alerts.map((x, i) => <li key={i}><div><span className={`sk-pill ${x.level === "critical" ? "bad" : ""}`}>{x.level}</span><span>{x.msg}</span></div><span className="sk-muted">{when(x.at)}</span></li>)}</ul>}
-      </Card>
-    </>
-  );
 }
