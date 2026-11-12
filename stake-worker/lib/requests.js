@@ -16,6 +16,7 @@ const intId = (v) => { if (!Number.isInteger(v) || v <= 0 || v > 2 ** 40) bad(40
  *   factory, initCodeHash                 for deposit addresses
  *   forbidden: [addresses]                never a withdrawal address (the token, the factory, the vaults, the hot wallet)
  *   adminIds: [user ids], adminSecret     who may approve, and their own authenticator secret
+ *   verifyPayment({tx, to, amount, createdAt}, c) -> { logIndex }   manual payouts: checks the transfer on-chain, throws StakeError if not right
  *   testFaucet(address) -> { tx }         test network only
  * }
  */
@@ -101,6 +102,19 @@ const handlers = {
     await adminCode(ctx, u, p.code);
     await D.adminDecide(c, intId(p.id), p.approve === true, `admin:${u}`);
     return {};
+  },
+  /** Manual payout: the founder sent the tokens himself. The worker checks that transfer on the chain before believing it. */
+  async admin_settle(c, u, p, ctx) {
+    if (!ctx.adminIds.includes(u) || !ctx.verifyPayment) bad(404, 'Not found');
+    const id = intId(p.id);
+    const m = typeof p.tx === 'string' ? p.tx.match(/0x[0-9a-fA-F]{64}/) : null;
+    if (!m) bad(400, 'Paste the transaction hash or its BscScan link');
+    const { rows } = await c.query("select to_address, amount, created_at from stake_withdrawals where id = $1 and status = 'review'", [id]);
+    if (!rows[0]) bad(404, 'No withdrawal waiting with that number');
+    const pay = await ctx.verifyPayment({ tx: m[0].toLowerCase(), to: rows[0].to_address, amount: BigInt(rows[0].amount), createdAt: new Date(rows[0].created_at).getTime() }, c);
+    await adminCode(ctx, u, p.code);
+    await D.settleWithdrawal(c, id, m[0].toLowerCase(), pay.logIndex, `admin:${u}`);
+    return { tx: m[0].toLowerCase() };
   },
   async admin_resume(c, u, p, ctx) {
     await adminCode(ctx, u, p.code);

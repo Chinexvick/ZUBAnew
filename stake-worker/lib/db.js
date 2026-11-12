@@ -21,6 +21,9 @@ export const limits = () => ({
   whitelistDelayMs: Math.round(Number(env('STAKE_WHITELIST_DELAY_H', 24)) * 3600_000),
   confirmations: Number(env('STAKE_CONFIRMATIONS', 15)),
   maxAddresses: 5,
+  // 'manual' (the default): every withdrawal waits for the founder, who pays it from a wallet only he holds.
+  // 'auto': withdrawals up to autoLimit are paid by the worker's own small wallet.
+  manual: env('STAKE_PAYOUT_MODE', 'manual') !== 'auto',
 });
 
 /** Runs fn(client) in a transaction; retries on deadlock / serialization failures. */
@@ -293,12 +296,12 @@ export async function requestWithdrawal(c, userId, amount, address, now = Date.n
   const u = await c.query("select coalesce(sum(amount), 0) as s from stake_withdrawals where user_id = $1 and created_at > $2 and status in ('review', 'queued', 'sending', 'sent')", [userId, since]);
   if (big(u.rows[0].s) + amount > L.userDaily) bad(429, 'Daily withdrawal limit reached. Try again tomorrow.');
   const g = await c.query("select coalesce(sum(amount), 0) as s from stake_withdrawals where created_at > $1 and status in ('queued', 'sending', 'sent')", [since]);
-  const auto = amount <= L.autoLimit && big(g.rows[0].s) + amount <= L.globalDaily;
+  const auto = !L.manual && amount <= L.autoLimit && big(g.rows[0].s) + amount <= L.globalDaily;
   await c.query('update stake_accounts set available = available - $2, held = held + $2, updated_at = now() where user_id = $1', [userId, amount.toString()]);
   const w = await c.query('insert into stake_withdrawals (user_id, to_address, amount, status) values ($1, $2, $3, $4) returning id', [userId, address, amount.toString(), auto ? 'queued' : 'review']);
   await ledger(c, userId, 'withdraw_hold', amount, String(w.rows[0].id));
   await audit(c, `user:${userId}`, 'withdraw_request', { id: Number(w.rows[0].id), amount, address, auto });
-  if (!auto) await alert(c, 'info', `Withdrawal ${w.rows[0].id} is waiting for your approval`);
+  if (!auto) await alert(c, 'info', L.manual ? `Withdrawal ${w.rows[0].id} is waiting to be paid` : `Withdrawal ${w.rows[0].id} is waiting for your approval`);
   return { id: Number(w.rows[0].id), status: auto ? 'queued' : 'review' };
 }
 
@@ -318,9 +321,28 @@ export async function cancelWithdrawal(c, userId, id) {
 export async function adminDecide(c, id, approve, actor) {
   const { rows } = await c.query("select * from stake_withdrawals where id = $1 and status = 'review' for update", [id]);
   if (!rows[0]) bad(404, 'No withdrawal waiting for review with that number');
+  if (approve && limits().manual) bad(400, 'Send the tokens from your wallet, then confirm with the transaction');
   if (approve) await c.query("update stake_withdrawals set status = 'queued', approved_at = now() where id = $1", [id]);
   else await release(c, rows[0], 'rejected', 'rejected by admin');
   await audit(c, actor, approve ? 'withdraw_approve' : 'withdraw_reject', { id });
+}
+
+/**
+ * Manual payout: the founder has sent the tokens himself and the worker has checked that transfer on-chain.
+ * One on-chain transfer can settle one withdrawal, once (the settlements table refuses a second use).
+ */
+export async function settleWithdrawal(c, id, txHash, logIndex, actor) {
+  const { rows } = await c.query("select * from stake_withdrawals where id = $1 and status = 'review' for update", [id]);
+  const w = rows[0];
+  if (!w) bad(404, 'No withdrawal waiting with that number');
+  const used = await c.query('insert into stake_settlements (tx_hash, log_index, withdrawal_id) values ($1, $2, $3) on conflict do nothing', [txHash.toLowerCase(), logIndex, id]);
+  if (!used.rowCount) bad(400, 'That transfer was already used for another withdrawal');
+  const amount = big(w.amount);
+  await lockAccount(c, w.user_id);
+  await c.query('update stake_accounts set held = held - $2, updated_at = now() where user_id = $1', [w.user_id, amount.toString()]);
+  await c.query("update stake_withdrawals set status = 'sent', sent_at = now(), approved_at = now(), tx_hash = $2 where id = $1", [id, txHash.toLowerCase()]);
+  await ledger(c, w.user_id, 'withdraw_paid', amount, String(id));
+  await audit(c, actor, 'withdraw_settle', { id, tx: txHash, logIndex });
 }
 
 // ---- used by the payout worker -------------------------------------------------------------------------------------
@@ -402,7 +424,8 @@ export async function checkBooks(c) {
 export async function liabilities(c) {
   const r = await c.query('select coalesce(sum(available + staked + held), 0) as s from stake_accounts');
   const e = await c.query('select coalesce(sum(paid), 0) as s from stake_epochs');
-  const f = await c.query("select coalesce(sum(amount), 0) as s from stake_withdrawals where status = 'sending' and nonce is not null");
+  // 'sending' = signed by the worker; 'review' in manual mode = the founder may already have paid it and not confirmed yet
+  const f = await c.query("select coalesce(sum(amount), 0) as s from stake_withdrawals where (status = 'sending' and nonce is not null) or (status = 'review' and $1)", [limits().manual]);
   return { owed: big(r.rows[0].s), inFlight: big(f.rows[0].s), rewardsPaid: big(e.rows[0].s), rewardBudgetLeft: TOTAL_BUDGET - big(e.rows[0].s) };
 }
 export { DAYS_PER_YEAR };

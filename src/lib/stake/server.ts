@@ -1,6 +1,6 @@
 // The website side of ZUBA Staking. This code can READ the staking database and ADD requests to it.
 // It cannot change a balance: its database login has no such permission. The worker does the work.
-import { createHash, constants, publicEncrypt, randomBytes } from "crypto";
+import { createHash, constants, publicEncrypt, randomBytes, verify } from "crypto";
 import { Pool } from "pg";
 
 const env = (k: string) => process.env[k] || "";
@@ -119,6 +119,17 @@ export function newTotpSecret() {
 export function sealForWorker(plain: string) {
   const pem = Buffer.from(env("STAKE_SEAL_PUB_B64"), "base64").toString("utf8");
   return "r1." + publicEncrypt({ key: pem, padding: constants.RSA_PKCS1_OAEP_PADDING, oaepHash: "sha256" }, Buffer.from(plain, "utf8")).toString("base64");
+}
+/** Was this withdrawal's deposit check really produced by the worker? (It signs; only its public key lives here.) */
+export function proofValid(w: { id: number | string; user_id: string; to_address: string; amount: string; proof: string | null; proof_sig: string | null; proof_at: string | Date | null }) {
+  if (!w.proof || !w.proof_sig || !w.proof_at) return false;
+  const text = ["zuba-withdrawal-proof", w.id, String(w.user_id).toLowerCase(), String(w.to_address).toLowerCase(), String(w.amount), w.proof, new Date(w.proof_at).getTime()].join("|");
+  try {
+    const pem = Buffer.from(env("STAKE_SEAL_PUB_B64"), "base64").toString("utf8");
+    return verify("sha256", Buffer.from(text, "utf8"), { key: pem, padding: constants.RSA_PKCS1_PSS_PADDING, saltLength: 32 }, Buffer.from(w.proof_sig, "base64"));
+  } catch {
+    return false;
+  }
 }
 export const otpauthUrl = (secret: string, email: string, test: boolean) => {
   const issuer = test ? "ZUBA Staking TEST" : "ZUBA Staking";

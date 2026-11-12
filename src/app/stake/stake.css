@@ -314,3 +314,11 @@
 /* ---- inside the Workbench ---- */
 .sk-admin { padding: 8px 0 40px; display: flex; flex-direction: column; gap: 18px; --num: var(--font-title); --mono: ui-monospace, Menlo, monospace; }
 .sk-big.left { justify-content: flex-start; padding: 0; }
+
+.sk-pay { display: flex; flex-direction: column; gap: 14px; }
+.sk-payrow { display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: 16px; border: 1px solid var(--hair-2); background: var(--glass-2); }
+.sk-payrow.danger { border-color: rgba(255, 143, 163, 0.55); }
+.sk-payrow > header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sk-payrow > header .sk-pill { margin-left: auto; }
+.sk-payrow .sk-dl dd { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+.sk-payrow .sk-actions { margin: 0; }

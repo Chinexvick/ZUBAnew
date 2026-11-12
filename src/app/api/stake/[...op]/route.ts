@@ -4,6 +4,7 @@
 //   POST /api/stake/login {email, password}      POST /api/stake/logout
 //   POST /api/stake/act {kind, ...}              asks the worker to do something
 import { after, NextResponse } from "next/server";
+import { mailEnabled, sendMail, siteUrl } from "@/lib/mailer";
 import { cookies } from "next/headers";
 import { Fail, COOKIE, accountLogin, ask, clientIp, config, cookieOptions, createSession, db, endSession, fail, kickWorker, limited, newTotpSecret, otpauthUrl, readSession, sameOrigin, sealForWorker, stakeEnabled, type Session } from "@/lib/stake/server";
 import { LOCKS, MAX_APY_BP, PROGRAM_DAYS, TOTAL_BUDGET, dailyPool, estimateApy, formatAmount, parseAmount } from "@/lib/stake/rules";
@@ -92,6 +93,7 @@ async function getMe(sess: Session) {
     limits: {
       minStake: s.fmt(String(s.pub.minStake ?? 0)), minWithdraw: s.fmt(String(s.pub.minWithdraw ?? 0)), autoLimit: s.fmt(String(s.pub.autoLimit ?? 0)), userDaily: s.fmt(String(s.pub.userDaily ?? 0)),
       confirmations: Number(s.pub.confirmations ?? 15), whitelistDelayMs: Number(s.pub.whitelistDelayMs ?? 86_400_000), maxAddresses: Number(s.pub.maxAddresses ?? 5),
+      manual: s.pub.manual !== false,
       faucetAmount: s.pub.faucetAmount ? s.fmt(String(s.pub.faucetAmount)) : null,
     },
     workerSecondsAgo: lag,
@@ -126,8 +128,12 @@ async function act(sess: Session, b: Record<string, unknown>) {
     case "whitelist_add": return ask(id, kind, { address: address(b.address), code: code(b.code) });
     case "whitelist_remove": return ask(id, kind, { address: address(b.address) });
     case "withdraw": {
-      const r = await ask(id, kind, { amount: amount(b.amount), address: address(b.address), code: code(b.code) });
-      if (r.http === 200) after(() => kickWorker("chain", 35_000));
+      const amt = amount(b.amount), to = address(b.address);
+      const r = await ask(id, kind, { amount: amt, address: to, code: code(b.code) });
+      if (r.http === 200) {
+        after(() => kickWorker("chain", 35_000));
+        after(() => notifyFounder(Number(r.result?.id), s.fmt(amt), to, s.token.symbol));
+      }
       return r;
     }
     case "withdraw_cancel": return ask(id, kind, { id: posInt(b.id) });
@@ -139,6 +145,20 @@ async function act(sess: Session, b: Record<string, unknown>) {
     }
     default:
       return fail(400, "Bad request");
+  }
+}
+
+/** Tells the founder a withdrawal is waiting. A notice only: nothing can be approved from an email. */
+async function notifyFounder(id: number, amount: string, to: string, symbol: string) {
+  const dest = process.env.STAKE_NOTIFY_EMAIL;
+  if (!dest || !mailEnabled()) return;
+  const link = `${siteUrl()}/admin`;
+  const text = `Withdrawal #${id}\nAmount: ${amount} ${symbol}\nTo: ${to}\n\nOpen the Workbench to check and pay it: ${link}\n\nNever act on a withdrawal from an email alone. Always use the Workbench.`;
+  const html = `<p><b>Withdrawal #${id}</b></p><p>Amount: ${amount} ${symbol}<br>To: <code>${to}</code></p><p><a href="${link}">Open the Workbench</a> to check and pay it.</p><p style="color:#666">Never act on a withdrawal from an email alone. Always use the Workbench.</p>`;
+  try {
+    await sendMail({ to: dest, subject: `ZUBA Staking: withdrawal #${id} is waiting`, text, html });
+  } catch (e) {
+    console.error("stake notify", e);
   }
 }
 

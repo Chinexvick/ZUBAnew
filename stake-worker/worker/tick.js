@@ -6,6 +6,7 @@ import { scan, confirmDeposits, sweepDeposits, getCursor, setCursor } from './wa
 import { payoutOnce } from './payout.js';
 import { reconcile } from './reconcile.js';
 import { flushAlerts, raiseOnce } from './alerts.js';
+import { proveWithdrawals } from './prove.js';
 
 /** The request desk: stake, unstake, withdrawal requests, two-factor... Fast (database only, except the test faucet). */
 export function tickRequests(ctx) {
@@ -30,7 +31,8 @@ export function tickChain(ctx, { budgetMs = 25_000 } = {}) {
     await step('scan', () => scan(pool, providers, cfg, { deadline: t0 + budgetMs * 0.4 }));
     await step('confirm', () => confirmDeposits(pool, providers, cfg));
     await step('sweep', () => sweepDeposits(pool, providers, ctx.sweeper, cfg));
-    await step('payout', async () => {
+    await step('prove', () => proveWithdrawals(pool, providers, cfg, ctx.sign));
+    if (ctx.payer) await step('payout', async () => {
       const done = [];
       while (left() > 14_000) {
         const r = await payoutOnce(pool, providers, ctx.payer, { ...cfg, waitMs: Math.min(12_000, left() - 6_000) });

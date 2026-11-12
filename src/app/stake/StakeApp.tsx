@@ -16,7 +16,7 @@ type Me = {
   withdrawals: { id: number; to: string; amount: string; status: string; tx: string | null; at: string }[];
   history: { kind: string; amount: string; at: string }[];
   addresses: { address: string; activeAt: string; active: boolean }[];
-  limits: { minStake: string; minWithdraw: string; autoLimit: string; userDaily: string; confirmations: number; whitelistDelayMs: number; maxAddresses: number; faucetAmount: string | null };
+  limits: { minStake: string; minWithdraw: string; autoLimit: string; userDaily: string; confirmations: number; whitelistDelayMs: number; maxAddresses: number; manual: boolean; faucetAmount: string | null };
   workerSecondsAgo: number | null;
 };
 type Pub = { enabled: boolean; test?: boolean; token?: Token; paused?: boolean; program?: Program; apy?: Record<string, number>; maxApy?: number };
@@ -556,7 +556,7 @@ function Stake({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
 }
 
 /* ---------- withdraw ---------- */
-const W_LABEL: Record<string, [string, string]> = { review: ["In review", "wait"], queued: ["Processing", "wait"], sending: ["Sending", "wait"], sent: ["Completed", "ok"], failed: ["Failed", "bad"], cancelled: ["Cancelled", ""], rejected: ["Declined", "bad"] };
+const W_LABEL: Record<string, [string, string]> = { review: ["Processing", "wait"], queued: ["Processing", "wait"], sending: ["Sending", "wait"], sent: ["Completed", "ok"], failed: ["Failed", "bad"], cancelled: ["Cancelled", ""], rejected: ["Declined", "bad"] };
 
 function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
   const active = me.addresses.filter((x) => x.active);
@@ -573,7 +573,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
     <>
       <div className="sk-two wide-left">
         <Card title="Withdraw">
-          <p className="sk-sub-copy">Sent to one of your saved addresses on BNB Smart Chain.</p>
+          <p className="sk-sub-copy">Sent to one of your saved addresses on BNB Smart Chain{me.limits.manual ? ", usually within a few hours" : ""}.</p>
           <Field label="Amount" htmlFor="stk-wamt" hint={<>Available <b className="sk-num">{nice(me.balance.available, 2)}</b></>}>
             <Amount id="stk-wamt" value={amount} onChange={setAmount} max={me.balance.available} symbol={sym} />
           </Field>
@@ -590,7 +590,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
           <button type="button" className="sk-btn primary wide" disabled={!amt || !dest || low || over || me.paused} onClick={() => { w.reset(); setCode(""); setConfirm(true); }}>Continue</button>
           <details className="sk-more">
             <summary>Limits</summary>
-            <Rows items={[["Instant, up to", `${compact(me.limits.autoLimit)} ${sym}`], ["Daily", `${compact(me.limits.userDaily)} ${sym}`]]} />
+            <Rows items={[...(me.limits.manual ? [] : [["Instant, up to", `${compact(me.limits.autoLimit)} ${sym}`] as [string, string]]), ["Minimum", `${nice(me.limits.minWithdraw)} ${sym}`], ["Daily", `${compact(me.limits.userDaily)} ${sym}`]]} />
           </details>
         </Card>
         <Card title="Addresses" aside={me.addresses.length < me.limits.maxAddresses && <button type="button" className="sk-ghost" onClick={() => setAdding(true)}><Ico n="plus" s={15} /> Add</button>}>
@@ -633,7 +633,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
           <Rows items={[["To", <span key="a" className="sk-mono sk-wrapaddr">{dest}</span>], ["Network", me.token.chainId === 56 ? "BNB Smart Chain" : "BNB Testnet"]]} />
           <Field label="Authenticator code" htmlFor="stk-wc"><CodeInput id="stk-wc" value={code} onChange={setCode} autoFocus /></Field>
           <Err>{w.err}</Err>
-          <button type="button" className="sk-btn primary wide" disabled={w.busy || code.length !== 6} onClick={async () => { let review = false; if (await w.run<{ status: string }>({ kind: "withdraw", amount, address: dest, code }, (r) => { review = r.status === "review"; })) { setConfirm(false); setAmount(""); say(review ? "Withdrawal submitted for review" : "Withdrawal submitted"); } }}>{w.busy ? "Submitting…" : "Confirm"}</button>
+          <button type="button" className="sk-btn primary wide" disabled={w.busy || code.length !== 6} onClick={async () => { let review = false; if (await w.run<{ status: string }>({ kind: "withdraw", amount, address: dest, code }, (r) => { review = r.status === "review"; })) { setConfirm(false); setAmount(""); say(review && !me.limits.manual ? "Withdrawal submitted for review" : "Withdrawal submitted"); } }}>{w.busy ? "Submitting…" : "Confirm"}</button>
         </Modal>
       )}
       {adding && <AddAddress me={me} refresh={refresh} onClose={() => setAdding(false)} say={say} />}
