@@ -27,6 +27,8 @@ export default async function handler(req, res) {
     const ctx = await context();
     const mode = new URL(req.url, 'https://x').searchParams.get('mode') || 'all';
     const out = {};
+    // when the worker was last told to run (lets the founder see that the every-minute trigger is alive)
+    await ctx.pool.query("insert into stake_cursor (name, block) values ('called', extract(epoch from now())::bigint) on conflict (name) do update set block = excluded.block");
     if (mode === 'requests' || mode === 'all') out.requests = await tickRequests(ctx);
     if (mode === 'chain' || mode === 'all') out.chain = await tickChain(ctx, { budgetMs: 22_000 });
     res.statusCode = 200;
