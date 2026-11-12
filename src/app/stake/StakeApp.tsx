@@ -338,7 +338,6 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
   const a = useAction(refresh);
   const [secret, setSecret] = useState<{ secret: string; url: string } | null>(null);
   const [code, setCode] = useState("");
-  const [manual, setManual] = useState(false);
   const { done, copy } = useCopy();
   const step = me.twoFactor === "on" ? 2 : 1;
   return (
@@ -354,18 +353,20 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
       )}
       {step === 1 && secret && (
         <>
-          <h2 className="sk-h1">Scan with your authenticator</h2>
+          <h2 className="sk-h1">Add to your authenticator</h2>
+          <p className="sk-muted">On this phone, copy the setup key and paste it into your authenticator app. On another device, scan the code.</p>
+          <div className="sk-keybox">
+            <span className="sk-eyebrow">Setup key</span>
+            <p className="sk-mono sk-key">{secret.secret.replace(/(.{4})/g, "$1 ").trim()}</p>
+            <div className="sk-keyacts">
+              <button type="button" className="sk-btn" onClick={() => copy(secret.secret)}><Ico n={done === secret.secret ? "check" : "copy"} s={15} /> {done === secret.secret ? "Copied" : "Copy key"}</button>
+              <a className="sk-btn" href={secret.url}>Open authenticator app</a>
+            </div>
+          </div>
           <div className="sk-qrrow">
             <Qr text={secret.url} />
             <div>
               <Field label="Verification code" htmlFor="stk-c1"><CodeInput id="stk-c1" value={code} onChange={setCode} /></Field>
-              <button type="button" className="sk-ghost" onClick={() => setManual((v) => !v)}>{manual ? "Hide setup key" : "Can't scan? Show setup key"}</button>
-              {manual && (
-                <div className="sk-keybox">
-                  <p className="sk-mono sk-key">{secret.secret.replace(/(.{4})/g, "$1 ").trim()}</p>
-                  <button type="button" className="sk-ghost" onClick={() => copy(secret.secret)}><Ico n={done === secret.secret ? "check" : "copy"} s={15} /> {done === secret.secret ? "Copied" : "Copy"}</button>
-                </div>
-              )}
             </div>
           </div>
           <p className="sk-fine">Store the setup key offline. It is not shown again.</p>

@@ -322,3 +322,7 @@
 .sk-payrow > header .sk-pill { margin-left: auto; }
 .sk-payrow .sk-dl dd { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 .sk-payrow .sk-actions { margin: 0; display: flex; gap: 10px; flex-wrap: wrap; }
+.sk-keybox { gap: 8px; width: 100%; }
+.sk-keybox .sk-key { user-select: all; -webkit-user-select: all; letter-spacing: 0.04em; }
+.sk-keyacts { display: flex; flex-wrap: wrap; gap: 8px; }
+.sk-keyacts .sk-btn { text-decoration: none; }
