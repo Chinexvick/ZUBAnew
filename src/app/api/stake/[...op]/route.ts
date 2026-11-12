@@ -22,7 +22,7 @@ async function session(): Promise<Session> {
 
 async function shared() {
   const conf = await config();
-  const decimals = Number(conf.decimals || 18);
+  const decimals = Number(conf.decimals || 9);
   const unit = 10n ** BigInt(decimals);
   const pub = JSON.parse(conf.public || "{}") as Record<string, string | number | boolean | null>;
   const dayMs = Number(pub.dayMs || 86_400_000);
@@ -53,7 +53,7 @@ async function getPublic() {
   const hb = (await db().query("select block from stake_cursor where name = 'heartbeat'")).rows[0];
   if (process.env.STAKE_WORKER_URL && (!hb || Date.now() / 1000 - Number(hb.block) > 60)) after(() => kickWorker("chain", 35_000));
   return {
-    enabled: true, test: s.test, token: s.token, paused: s.paused, program: { ...s.program, budget: undefined, paid: undefined }, apy: s.apy, maxApy: MAX_APY_BP / 100,
+    enabled: true, test: s.test, token: s.token, paused: s.paused, program: { ...s.program, budget: undefined, paid: undefined, dailyPool: undefined }, apy: s.apy, maxApy: MAX_APY_BP / 100,
     locks: Object.keys(LOCKS).map(Number), weights: Object.fromEntries(Object.entries(LOCKS).map(([d, w]) => [d, w / 10000])),
     workerSecondsAgo: hb ? Math.max(0, Math.floor(Date.now() / 1000) - Number(hb.block)) : null,
   };
@@ -79,7 +79,7 @@ async function getMe(sess: Session) {
   if (process.env.STAKE_WORKER_URL && (lag === null || lag > 10)) after(() => kickWorker("chain", 35_000));
   const now = Date.now();
   return {
-    email: sess.email, test: s.test, token: s.token, paused: s.paused, apy: s.apy, maxApy: MAX_APY_BP / 100, day: Math.max(0, s.day), dayMs: s.dayMs, program: { ...s.program, budget: undefined, paid: undefined },
+    email: sess.email, test: s.test, token: s.token, paused: s.paused, apy: s.apy, maxApy: MAX_APY_BP / 100, day: Math.max(0, s.day), dayMs: s.dayMs, program: { ...s.program, budget: undefined, paid: undefined, dailyPool: undefined },
     weights: Object.fromEntries(Object.entries(LOCKS).map(([d, w]) => [d, w / 10000])),
     address: addr.rows[0]?.address ?? null, depositsOpen: s.depositsOpen,
     twoFactor: totp.rows[0] ? (totp.rows[0].enabled ? "on" : "pending") : "off",

@@ -2,7 +2,7 @@
 import { Wallet } from 'ethers';
 import { makeProviders, healthy } from './chain.js';
 import { ERC20, firstOk } from './chain.js';
-import { assertSafeConfig, tokens, dayMs, MAINNET_CHAIN_ID } from '../lib/core.js';
+import { assertSafeConfig, tokens, dayMs, MAINNET_CHAIN_ID, DECIMALS } from '../lib/core.js';
 import { limits } from '../lib/db.js';
 import { open, pemFromEnv, signText } from '../lib/seal.js';
 import { StakeError } from '../lib/db.js';
@@ -18,6 +18,9 @@ export async function makeContext(pool, env = process.env) {
   if (conf.day_ms) process.env.STAKE_DAY_MS = conf.day_ms;
   assertSafeConfig(chainId);
   const testMode = env.STAKE_TEST_MODE === '1' && chainId !== MAINNET_CHAIN_ID;
+  // the website reads the token's decimals from the settings table; it must never disagree with the worker
+  if (conf.decimals && Number(conf.decimals) !== DECIMALS) throw new Error(`settings say ${conf.decimals} decimals but the worker is set to ${DECIMALS}`);
+  if (!conf.decimals) await pool.query("insert into stake_config (key, value) values ('decimals', $1) on conflict (key) do nothing", [String(DECIMALS)]);
   const chainReady = conf.chain_ready !== '0'; // '0' until the contracts are deployed: accounts work, deposits do not yet
 
   const all = makeProviders(list(need('rpc_urls')), chainId);

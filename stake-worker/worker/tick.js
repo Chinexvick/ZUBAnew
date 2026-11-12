@@ -7,6 +7,8 @@ import { payoutOnce } from './payout.js';
 import { reconcile } from './reconcile.js';
 import { flushAlerts, raiseOnce } from './alerts.js';
 import { proveWithdrawals } from './prove.js';
+import { ERC20, firstOk } from './chain.js';
+import { DECIMALS } from '../lib/core.js';
 
 /** The request desk: stake, unstake, withdrawal requests, two-factor... Fast (database only, except the test faucet). */
 export function tickRequests(ctx) {
@@ -28,6 +30,16 @@ export function tickChain(ctx, { budgetMs = 25_000 } = {}) {
       }
     };
     const providers = await ctx.providers();
+    // Every amount in the books is counted in the token's smallest unit, so the worker must agree with the token itself.
+    if (!ctx.tokenChecked) {
+      const onChain = Number(BigInt(await firstOk(providers, (p) => p.call({ to: cfg.token, data: ERC20.encodeFunctionData('decimals') }))));
+      if (onChain !== DECIMALS) {
+        const msg = `the token has ${onChain} decimals but the worker is set to ${DECIMALS}: nothing will run until this is fixed`;
+        try { await raiseOnce(pool, 'critical', msg, 60); } catch { /* database down */ }
+        throw new Error(msg);
+      }
+      ctx.tokenChecked = true;
+    }
     await step('scan', () => scan(pool, providers, cfg, { deadline: t0 + budgetMs * 0.4 }));
     await step('confirm', () => confirmDeposits(pool, providers, cfg));
     await step('sweep', () => sweepDeposits(pool, providers, ctx.sweeper, cfg));

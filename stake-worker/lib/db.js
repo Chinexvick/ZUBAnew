@@ -395,7 +395,7 @@ export async function failWithdrawal(c, id, note, txHash = null) {
  * The books must always balance. Returns a list of problems (empty = fine).
  *   every account:  available + staked + held  ==  deposits + rewards - paid-out withdrawals   (from the ledger)
  *   all accounts:   staked == the open stakes;  held == the withdrawals not yet paid
- *   all time:       rewards paid never above the 10B budget, and equal to the rewards in the ledger
+ *   all time:       rewards paid never above the reward budget, and equal to the rewards in the ledger
  */
 export async function checkBooks(c) {
   const problems = [];
@@ -409,7 +409,7 @@ export async function checkBooks(c) {
   }
   const one = async (q) => big((await c.query(q)).rows[0].s);
   const paid = await one('select coalesce(sum(paid), 0) as s from stake_epochs');
-  if (paid > TOTAL_BUDGET) problems.push('rewards paid are above the 10B budget');
+  if (paid > TOTAL_BUDGET) problems.push('rewards paid are above the reward budget');
   if (paid !== (await one("select coalesce(sum(amount), 0) as s from stake_ledger where kind = 'reward'"))) problems.push('rewards in the ledger differ from the reward days');
   if ((await one("select coalesce(sum(amount), 0) as s from stake_positions where status = 'active'")) !== (await one('select coalesce(sum(staked), 0) as s from stake_accounts'))) problems.push('staked totals differ between positions and accounts');
   if ((await one("select coalesce(sum(amount), 0) as s from stake_withdrawals where status in ('review', 'queued', 'sending')")) !== (await one('select coalesce(sum(held), 0) as s from stake_accounts'))) problems.push('held totals differ between withdrawals and accounts');

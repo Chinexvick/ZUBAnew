@@ -6,7 +6,7 @@ import QRCode from "qrcode";
 
 /* ---------- types (what /api/stake returns) ---------- */
 type Token = { symbol: string; contract: string; chain: string; chainId: number; explorer: string };
-type Program = { day: number; programDays: number; dayMs: number; nextDayAt: number; budget: string; paid: string; dailyPool: string; totalStaked: string; stakers: number };
+type Program = { day: number; programDays: number; dayMs: number; nextDayAt: number; totalStaked: string; stakers: number };
 type Me = {
   email: string; test: boolean; token: Token; paused: boolean; apy: Record<string, number>; maxApy: number; day: number; dayMs: number; program: Program;
   weights: Record<string, number>; address: string | null; twoFactor: "on" | "pending" | "off"; depositsOpen: boolean;
@@ -268,6 +268,8 @@ function Shell({ children, test }: { children: React.ReactNode; test?: boolean }
 /* ---------- signed out ---------- */
 const FAQ: [string, string][] = [
   ["How are rewards calculated?", "A fixed amount of ZUBA is shared between all stakers each day, in proportion to the size and lock period of each stake."],
+  ["Is the rate fixed?", "No. The rate moves with the total amount staked: it falls as more ZUBA is staked and rises when less is staked. The figures shown are estimates, not a promise."],
+  ["How long do rewards run?", "365 days from launch. Your staked ZUBA stays yours and can be withdrawn after rewards end."],
   ["When do rewards start?", "A stake starts earning from the next full day and is paid daily after that."],
   ["Can I unstake early?", "Flexible stakes can be unstaked at any time. Locked stakes are released when the lock period ends."],
   ["How do withdrawals work?", "Withdrawals go to an address you have saved, on BNB Smart Chain, and are confirmed with your authenticator code."],
@@ -295,7 +297,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
           <dl className="sk-facts">
             <div><dt>Total staked</dt><dd className="sk-num">{compact(p.totalStaked)}</dd></div>
             <div><dt>Stakers</dt><dd className="sk-num">{p.stakers}</dd></div>
-            <div><dt>Daily rewards</dt><dd className="sk-num gold">{compact(p.dailyPool)}</dd></div>
+            <div><dt>Rewards run</dt><dd className="sk-num gold">{p.programDays} days</dd></div>
           </dl>
         </div>
         <form className="sk-card sk-signin" onSubmit={submit}>

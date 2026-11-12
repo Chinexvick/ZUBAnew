@@ -1,6 +1,7 @@
 // The public staking rules, for showing estimates. The worker enforces the real ones.
-export const YEAR_POOLS = [2_800_000_000n, 2_400_000_000n, 2_000_000_000n, 1_600_000_000n, 1_200_000_000n];
-export const TOTAL_BUDGET = 10_000_000_000n;
+// 5,000,000,000 ZUBA over one year (365 days).
+export const YEAR_POOLS = [5_000_000_000n];
+export const TOTAL_BUDGET = 5_000_000_000n;
 export const DAYS_PER_YEAR = 365;
 export const PROGRAM_DAYS = DAYS_PER_YEAR * YEAR_POOLS.length;
 export const LOCKS: Record<number, number> = { 0: 10000, 30: 12500, 90: 15000, 180: 20000 }; // weight in basis points
@@ -13,8 +14,7 @@ export function dailyPool(day: number, unit: bigint) {
 /** Estimated yearly return in % if the day's pool is shared by totalWeighted (sum of amount x weight). */
 export function estimateApy(day: number, totalWeighted: bigint, weightBp: number, unit: bigint) {
   if (totalWeighted <= 0n) return MAX_APY_BP / 100;
-  const perToken = (dailyPool(day, unit) * BigInt(weightBp) * 1_000_000n) / totalWeighted;
-  const yearly = Number((perToken * BigInt(DAYS_PER_YEAR)) / 100n);
+  const yearly = Number((dailyPool(day, unit) * BigInt(weightBp) * BigInt(DAYS_PER_YEAR) * 10000n) / totalWeighted); // basis points, rounded down
   return Math.min(yearly, MAX_APY_BP) / 100;
 }
 export function parseAmount(s: unknown, decimals: number): bigint | null {

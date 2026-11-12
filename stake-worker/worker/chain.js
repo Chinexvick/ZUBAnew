@@ -4,6 +4,7 @@ import { JsonRpcProvider, FetchRequest, Interface, Wallet, id as topicId, zeroPa
 export const ERC20 = new Interface([
   'event Transfer(address indexed from, address indexed to, uint256 value)',
   'function balanceOf(address) view returns (uint256)',
+  'function decimals() view returns (uint8)',
   'function transfer(address to, uint256 value) returns (bool)',
 ]);
 export const FACTORY = new Interface(['function sweep(bytes32 salt, address token)', 'function predict(bytes32 salt) view returns (address)', 'function vault() view returns (address)']);

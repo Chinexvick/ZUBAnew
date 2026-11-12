@@ -19,7 +19,7 @@ export async function GET() {
   if (!(await isAdmin())) return json({ error: "Not signed in." }, 401);
   if (!ready()) return json({ enabled: false });
   const q = db(), conf = await config();
-  const decimals = Number(conf.decimals || 18), unit = 10n ** BigInt(decimals);
+  const decimals = Number(conf.decimals || 9), unit = 10n ** BigInt(decimals);
   const fmt = (v: bigint | string | number) => formatAmount(v, decimals);
   const pub = JSON.parse(conf.public || "{}") as Record<string, string | number | boolean | null>;
   const dayMs = Number(pub.dayMs || 86_400_000);
@@ -52,7 +52,7 @@ export async function GET() {
     },
     budget: {
       total: TOTAL_BUDGET.toString(), paid: fmt(paid.rows[0].s), left: fmt(TOTAL_BUDGET * unit - BigInt(paid.rows[0].s)),
-      today: fmt(dailyPool(day, unit)), day: day + 1, days: PROGRAM_DAYS, daysPaid: paid.rows[0].n,
+      today: fmt(dailyPool(day, unit)), day: Math.min(day + 1, PROGRAM_DAYS), days: PROGRAM_DAYS, daysPaid: paid.rows[0].n,
     },
     totals: { owed: fmt(BigInt(o.a) + BigInt(o.s) + BigInt(o.h)), available: fmt(o.a), staked: fmt(o.s), withdrawing: fmt(o.h), accounts: users.rows[0].n, stakers: staked.rows[0].n },
     wallets: { vault: conf.vault || "", payout: String(pub.payout || ""), token: conf.token || "" }, symbol: conf.symbol || "ZUBA",

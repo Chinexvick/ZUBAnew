@@ -110,7 +110,7 @@ export default function StakingAdmin() {
         </section>
         <section className="sk-card">
           <header className="sk-card-head"><h2>Reward budget</h2><span className="sk-pill">Day {nice(String(b.day))} of {nice(String(b.days))}</span></header>
-          <div className="sk-big left"><b className="sk-num gold">{nice(b.paid)}</b><span>paid of 10B</span></div>
+          <div className="sk-big left"><b className="sk-num gold">{nice(b.paid)}</b><span>paid of 5B</span></div>
           <div className="sk-bar"><span style={{ width: `${Math.max(pct, 0.5)}%`, background: "var(--gold)" }} /></div>
           <dl className="sk-dl">
             <Row k="Left" v={nice(b.left)} />

@@ -2,13 +2,14 @@
 import crypto from 'node:crypto';
 import { keccak_256 } from '@noble/hashes/sha3.js';
 
-export const DECIMALS = Number(process.env.STAKE_DECIMALS || 18);
+export const DECIMALS = Number(process.env.STAKE_DECIMALS || 9);
 export const UNIT = 10n ** BigInt(DECIMALS);
 export const tokens = (n) => BigInt(n) * UNIT; // whole tokens -> base units
 
-// ---- the reward budget: 10,000,000,000 ZUBA over 5 years, nothing more, ever --------------------
-export const YEAR_POOLS = [2_800_000_000n, 2_400_000_000n, 2_000_000_000n, 1_600_000_000n, 1_200_000_000n].map(tokens);
-export const TOTAL_BUDGET = YEAR_POOLS.reduce((a, b) => a + b, 0n); // 10B exactly
+// ---- the reward budget: 5,000,000,000 ZUBA over one year (365 days), nothing more, ever ----------
+// One entry per program year. The program ends when the list ends; extending it is a deliberate code change.
+export const YEAR_POOLS = [5_000_000_000n].map(tokens);
+export const TOTAL_BUDGET = YEAR_POOLS.reduce((a, b) => a + b, 0n); // 5B exactly
 export const DAYS_PER_YEAR = 365;
 export const PROGRAM_DAYS = DAYS_PER_YEAR * YEAR_POOLS.length;
 
@@ -63,8 +64,7 @@ export function dayRewards(positions, pool, maxApyBp = MAX_APY_BP) {
 /** Estimated yearly return in % for a lock, if the pool of `day` is shared by `totalWeighted` (sum of amount * weightBp). */
 export function estimateApy(day, totalWeighted, weightBp) {
   if (totalWeighted <= 0n) return Number(MAX_APY_BP) / 100;
-  const perToken = (dailyPool(day) * weightBp * 1_000_000n) / totalWeighted; // reward per token per day, x1e6
-  const yearly = (perToken * BigInt(DAYS_PER_YEAR)) / 100n; // fraction x1e6 -> basis points
+  const yearly = (dailyPool(day) * weightBp * BigInt(DAYS_PER_YEAR) * 10000n) / totalWeighted; // basis points, rounded down
   const capped = yearly > MAX_APY_BP ? MAX_APY_BP : yearly;
   return Number(capped) / 100;
 }
