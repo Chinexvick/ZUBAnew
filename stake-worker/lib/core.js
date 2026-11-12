@@ -39,12 +39,16 @@ export function dailyPool(day) {
 
 // ---- lock options: longer lock = bigger share of the day's pool --------------------------------------
 export const LOCKS = { 0: 10000n, 30: 12500n, 90: 15000n, 180: 20000n }; // weight in basis points
-export const MAX_APY_BP = BigInt(process.env.STAKE_MAX_APY_BP || 4000); // a stake never earns more than 40% a year
+export const MAX_APY_BP = BigInt(process.env.STAKE_MAX_APY_BP || 4000); // the longest lock never earns more than 40% a year
+export const TOP_WEIGHT = 20000n; // the weight of the longest lock
+/** The yearly ceiling of a lock, in basis points: 40% for the longest lock, less for the others in step with their weight
+ *  (flexible 20%, 30 days 25%, 90 days 30%, 180 days 40%). So a fixed stake always earns more than a flexible one. */
+export const capBp = (weightBp, maxApyBp = MAX_APY_BP) => (maxApyBp * BigInt(weightBp)) / TOP_WEIGHT;
 export const lockWeight = (days) => LOCKS[days] ?? null;
 
 /**
  * One day's rewards. `positions` = [{ id, amount, weightBp }].
- * Each gets pool * (amount*weight) / (sum of amount*weight), rounded down, and never more than the yearly cap / 365.
+ * Each gets pool * (amount*weight) / (sum of amount*weight), rounded down, and never more than its lock's yearly cap / 365.
  * Returns a Map id -> reward. The sum is always <= pool.
  */
 export function dayRewards(positions, pool, maxApyBp = MAX_APY_BP) {
@@ -54,7 +58,7 @@ export function dayRewards(positions, pool, maxApyBp = MAX_APY_BP) {
   if (total === 0n || pool <= 0n) return out;
   for (const p of positions) {
     const share = (pool * p.amount * p.weightBp) / total;
-    const cap = (p.amount * maxApyBp) / 10000n / BigInt(DAYS_PER_YEAR);
+    const cap = (p.amount * capBp(p.weightBp, maxApyBp)) / 10000n / BigInt(DAYS_PER_YEAR);
     const r = share < cap ? share : cap;
     if (r > 0n) out.set(p.id, r);
   }
@@ -63,9 +67,11 @@ export function dayRewards(positions, pool, maxApyBp = MAX_APY_BP) {
 
 /** Estimated yearly return in % for a lock, if the pool of `day` is shared by `totalWeighted` (sum of amount * weightBp). */
 export function estimateApy(day, totalWeighted, weightBp) {
-  if (totalWeighted <= 0n) return Number(MAX_APY_BP) / 100;
+  const top = capBp(weightBp);
+  if (dailyPool(day) <= 0n) return 0;
+  if (totalWeighted <= 0n) return Number(top) / 100;
   const yearly = (dailyPool(day) * weightBp * BigInt(DAYS_PER_YEAR) * 10000n) / totalWeighted; // basis points, rounded down
-  const capped = yearly > MAX_APY_BP ? MAX_APY_BP : yearly;
+  const capped = yearly > top ? top : yearly;
   return Number(capped) / 100;
 }
 

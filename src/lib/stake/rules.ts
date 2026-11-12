@@ -6,6 +6,7 @@ export const DAYS_PER_YEAR = 365;
 export const PROGRAM_DAYS = DAYS_PER_YEAR * YEAR_POOLS.length;
 export const LOCKS: Record<number, number> = { 0: 10000, 30: 12500, 90: 15000, 180: 20000 }; // weight in basis points
 export const MAX_APY_BP = 4000;
+export const TOP_WEIGHT = 20000;
 
 export function dailyPool(day: number, unit: bigint) {
   if (!Number.isInteger(day) || day < 0 || day >= PROGRAM_DAYS) return 0n;
@@ -13,9 +14,11 @@ export function dailyPool(day: number, unit: bigint) {
 }
 /** Estimated yearly return in % if the day's pool is shared by totalWeighted (sum of amount x weight). */
 export function estimateApy(day: number, totalWeighted: bigint, weightBp: number, unit: bigint) {
-  if (totalWeighted <= 0n) return MAX_APY_BP / 100;
+  const top = (MAX_APY_BP * weightBp) / TOP_WEIGHT; // flexible 20%, 30 days 25%, 90 days 30%, 180 days 40%
+  if (dailyPool(day, unit) <= 0n) return 0;
+  if (totalWeighted <= 0n) return top / 100;
   const yearly = Number((dailyPool(day, unit) * BigInt(weightBp) * BigInt(DAYS_PER_YEAR) * 10000n) / totalWeighted); // basis points, rounded down
-  return Math.min(yearly, MAX_APY_BP) / 100;
+  return Math.min(yearly, top) / 100;
 }
 export function parseAmount(s: unknown, decimals: number): bigint | null {
   if (typeof s !== "string" || !/^\d{1,30}(\.\d{1,18})?$/.test(s)) return null;

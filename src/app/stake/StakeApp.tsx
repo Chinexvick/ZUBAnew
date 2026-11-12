@@ -52,7 +52,7 @@ function span(ms: number) {
   if (h < 48) return `${h} h`;
   return `${Math.round(h / 24)} days`;
 }
-const lockName = (d: number) => (d === 0 ? "Flexible" : `${d} days`);
+const lockName = (d: number) => (d === 0 ? "Flexible" : `Fixed · ${d} days`);
 const num = (s: string) => Number(s || 0);
 
 function useNow(ms = 1000) {
@@ -271,7 +271,7 @@ const FAQ: [string, string][] = [
   ["Is the rate fixed?", "No. The rate moves with the total amount staked: it falls as more ZUBA is staked and rises when less is staked. The figures shown are estimates, not a promise."],
   ["How long do rewards run?", "365 days from launch. Your staked ZUBA stays yours and can be withdrawn after rewards end."],
   ["When do rewards start?", "A stake starts earning from the next full day and is paid daily after that."],
-  ["Can I unstake early?", "Flexible stakes can be unstaked at any time. Locked stakes are released when the lock period ends."],
+  ["Can I unstake early?", "Flexible stakes can be unstaked at any time. Fixed stakes earn a higher rate and are released when the term ends."],
   ["How do withdrawals work?", "Withdrawals go to an address you have saved, on BNB Smart Chain, and are confirmed with your authenticator code."],
   ["Which token and network?", "ZUBA (BEP-20) on BNB Smart Chain only."],
 ];
@@ -293,7 +293,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
         <div className="sk-landing-copy">
           <span className="sk-eyebrow">ZUBA Staking</span>
           <h1 className="sk-display">Stake ZUBA.<br /><em>Earn daily.</em></h1>
-          <p className="sk-lead">Deposit ZUBA, choose a lock period and earn rewards every day. The longer you lock, the larger your share.</p>
+          <p className="sk-lead">Deposit ZUBA, keep it flexible or fix a term, and earn rewards every day. Fixed terms always earn more.</p>
           <dl className="sk-facts">
             <div><dt>Total staked</dt><dd className="sk-num">{compact(p.totalStaked)}</dd></div>
             <div><dt>Stakers</dt><dd className="sk-num">{p.stakers}</dd></div>
@@ -314,7 +314,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
         <li><Ico n="check" s={20} /><div><b>Paid daily</b><span>Rewards land in your balance every day.</span></div></li>
         <li><Ico n="shield" s={20} /><div><b>Protected withdrawals</b><span>Two-factor and saved addresses on every payout.</span></div></li>
       </ul>
-      <div className="sk-sec-head"><h2 className="sk-h1">Choose your lock</h2><p className="sk-muted">Rates update daily with the amount staked.</p></div>
+      <div className="sk-sec-head"><h2 className="sk-h1">Flexible or fixed</h2><p className="sk-muted">Unstake any time, or fix a term for a higher rate. Rates update daily.</p></div>
       <div className="sk-tiers">
         {Object.keys(apy).map((d) => (
           <div key={d} className={`sk-tier ${d === "180" ? "top" : ""}`}>
@@ -324,7 +324,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
           </div>
         ))}
       </div>
-      <p className="sk-fine sk-center">Variable rate, capped at {pub.maxApy}% APY.</p>
+      <p className="sk-fine sk-center">Variable rates, up to {pub.maxApy}% APY on the longest term.</p>
       <div className="sk-sec-head"><h2 className="sk-h1">Questions</h2></div>
       <div className="sk-faq">
         {FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
