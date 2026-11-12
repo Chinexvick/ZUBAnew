@@ -17,7 +17,18 @@ const nextConfig: NextConfig = {
     return [{ source: "/play", destination: "/play/index.html" }];
   },
   async headers() {
+    // Staking and admin: never inside another site's frame (stops click-tricking), no plugins, forms only post to us,
+    // nothing about the page leaks to other sites through the referrer, and no access to camera, mic or location.
+    const locked = [
+      { key: "Content-Security-Policy", value: "frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "no-referrer" },
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+      { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+    ];
     return [
+      ...["/stake", "/stake/:path*", "/admin", "/admin/:path*", "/api/stake/:path*", "/api/admin/:path*"].map((source) => ({ source, headers: locked })),
       {
         // The page and loader change with every release: always check for a new copy.
         source: "/play/:file(index.html|flutter_bootstrap.js|main.dart.js|main.dart.mjs|main.dart.wasm|version.json)",
