@@ -23,7 +23,7 @@ const nice = (s: string | undefined, dp = 0) => {
 const short = (a: string) => (a ? `${a.slice(0, 6)}…${a.slice(-4)}` : "Not set");
 const when = (d: string) => new Date(d).toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 const ago = (s: number | null) => (s === null ? "Never" : s < 90 ? `${s}s ago` : s < 5400 ? `${Math.round(s / 60)} min ago` : `${Math.round(s / 3600)} h ago`);
-const STATUS: Record<string, [string, string]> = { review: ["In review", "wait"], queued: ["Processing", "wait"], sending: ["Sending", "wait"], sent: ["Completed", "ok"], failed: ["Failed", "bad"], cancelled: ["Cancelled", ""], rejected: ["Declined", "bad"] };
+const STATUS: Record<string, [string, string]> = { review: ["Waiting", "wait"], queued: ["Processing", "wait"], sending: ["Sending", "wait"], sent: ["Completed", "ok"], failed: ["Failed", "bad"], cancelled: ["Cancelled", ""], rejected: ["Declined", "bad"] };
 
 export default function StakingAdmin() {
   const [d, setD] = useState<Data | null>(null);

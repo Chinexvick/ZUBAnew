@@ -51,9 +51,9 @@ export async function proveWithdrawals(pool, providers, cfg, sign) {
     // what already left, or is asking to leave ahead of this one
     const out = await pool.query("select coalesce(sum(amount), 0) as s from stake_withdrawals where user_id = $1 and id <> $2 and (status in ('sent', 'sending', 'queued') or (status = 'review' and id < $2))", [w.user_id, w.id]);
     const good = BigInt(w.amount) + BigInt(out.rows[0].s) <= ceiling;
-    const at = Date.now(), result = good ? 'ok' : 'fail';
+    const at = Math.floor(Date.now() / 1000) * 1000, result = good ? 'ok' : 'fail'; // whole seconds: stored and read back exactly
     const note = good ? null : `asks for more than this account could hold (verified deposits ${deposited})`;
-    await pool.query("update stake_withdrawals set proof = $2, proof_note = $3, proof_sig = $4, proof_at = to_timestamp($5 / 1000.0) where id = $1 and status = 'review'", [w.id, result, note, sign(proofText(w, result, at)), at]);
+    await pool.query("update stake_withdrawals set proof = $2, proof_note = $3, proof_sig = $4, proof_at = to_timestamp($5::bigint / 1000) where id = $1 and status = 'review'", [w.id, result, note, sign(proofText(w, result, at)), at]);
     if (good) ok++; else {
       failed++;
       await raise(pool, 'critical', `DO NOT PAY withdrawal ${w.id}: it ${note}`);

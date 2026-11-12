@@ -321,4 +321,4 @@
 .sk-payrow > header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .sk-payrow > header .sk-pill { margin-left: auto; }
 .sk-payrow .sk-dl dd { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
-.sk-payrow .sk-actions { margin: 0; }
+.sk-payrow .sk-actions { margin: 0; display: flex; gap: 10px; flex-wrap: wrap; }
