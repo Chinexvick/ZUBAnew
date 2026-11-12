@@ -13,6 +13,11 @@ const env = (k, d) => (process.env[k] !== undefined && process.env[k] !== '' ? p
 /** Limits. Defaults are cautious placeholders; the real numbers are set by environment variables. */
 export const limits = () => ({
   minStake: tokens(env('STAKE_MIN_STAKE', 1000)),
+  // Some wallets take their network fee out of the tokens being sent, so a "1,000,000,000" deposit can arrive a little short.
+  // A stake is accepted down to this floor (1% under the stated minimum by default).
+  minStakeFloor: (tokens(env('STAKE_MIN_STAKE', 1000)) * (10000n - BigInt(env('STAKE_MIN_STAKE_SLACK_BP', 100)))) / 10000n,
+  // Transfers smaller than this are ignored: nobody can make the system work (or spend fees) by sending dust.
+  minDeposit: tokens(env('STAKE_MIN_DEPOSIT', 0)),
   minWithdraw: tokens(env('STAKE_MIN_WITHDRAW', 1000)),
   autoLimit: tokens(env('STAKE_AUTO_LIMIT', 5_000_000)), // paid with no human approval up to this
   userDaily: tokens(env('STAKE_USER_DAILY', 50_000_000)),
@@ -142,7 +147,7 @@ export async function stake(c, userId, amount, lockDays, now = Date.now()) {
   const w = lockWeight(lockDays);
   if (w === null) bad(400, 'Choose one of the lock options');
   const L = limits();
-  if (amount < L.minStake) bad(400, 'That is below the minimum stake');
+  if (amount < L.minStakeFloor) bad(400, 'That is below the minimum stake');
   const acct = await lockAccount(c, userId);
   if (acct.available < amount) bad(400, 'Not enough available ZUBA');
   const { rows } = await c.query("select coalesce(sum(amount), 0) as s from stake_positions where status = 'active'");
@@ -314,6 +319,9 @@ async function release(c, w, status, note) {
 }
 
 export async function cancelWithdrawal(c, userId, id) {
+  // Manual payouts: the founder may already have sent the tokens and not confirmed it yet. If the user could cancel
+  // in that gap, the balance would come back while the tokens are also on their way. So only the founder can release it.
+  if (limits().manual) bad(400, 'A withdrawal cannot be cancelled once it has been requested. Contact support if the address is wrong.');
   const { rows } = await c.query("select * from stake_withdrawals where id = $1 and user_id = $2 and status in ('review', 'queued') for update", [id, userId]);
   if (!rows[0]) bad(400, 'This withdrawal can no longer be cancelled');
   await release(c, rows[0], 'cancelled', 'cancelled by user');

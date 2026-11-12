@@ -16,7 +16,7 @@ type Me = {
   withdrawals: { id: number; to: string; amount: string; status: string; tx: string | null; at: string }[];
   history: { kind: string; amount: string; at: string }[];
   addresses: { address: string; activeAt: string; active: boolean }[];
-  limits: { minStake: string; minWithdraw: string; autoLimit: string; userDaily: string; confirmations: number; whitelistDelayMs: number; maxAddresses: number; manual: boolean; faucetAmount: string | null };
+  limits: { minStake: string; minStakeFloor: string; minDeposit: string; minWithdraw: string; autoLimit: string; userDaily: string; confirmations: number; whitelistDelayMs: number; maxAddresses: number; manual: boolean; faucetAmount: string | null };
   workerSecondsAgo: number | null;
 };
 type Pub = { enabled: boolean; test?: boolean; token?: Token; paused?: boolean; program?: Program; apy?: Record<string, number>; maxApy?: number };
@@ -481,7 +481,8 @@ function Deposit({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
             <button type="button" className="sk-btn primary" onClick={() => copy(addr)}><Ico n={done === addr ? "check" : "copy"} /> {done === addr ? "Copied" : "Copy"}</button>
           </div>
         </div>
-        <p className="sk-warnline">Send only {me.token.symbol} (BEP-20). Credited after {me.limits.confirmations} confirmations.</p>
+        <p className="sk-warnline">Send only {me.token.symbol} (BEP-20). Credited after {me.limits.confirmations} confirmations.{num(me.limits.minDeposit) > 0 ? ` Minimum deposit ${nice(me.limits.minDeposit)} ${me.token.symbol}; smaller amounts are not credited.` : ""}</p>
+        <p className="sk-fine">Minimum stake {nice(me.limits.minStake)} {me.token.symbol}. If your wallet takes its network fee from the tokens you send, send a little extra.</p>
         <details className="sk-more">
           <summary>Token contract</summary>
           <a className="sk-mono" href={`${me.token.explorer}/token/${me.token.contract}`} target="_blank" rel="noreferrer">{me.token.contract} <Ico n="ext" s={13} /></a>
@@ -522,7 +523,7 @@ function Stake({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
   const yearly = (amt * apy) / 100;
   const unlock = lock === 0 ? "Any time" : new Date(Date.now() + lock * me.dayMs).toLocaleString(undefined, me.dayMs === 86_400_000 ? { day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
   const f = (v: number) => nice(v.toFixed(v < 100 ? 2 : 0), 2);
-  const low = amt > 0 && amt < num(me.limits.minStake), over = amt > num(me.balance.available);
+  const low = amt > 0 && amt < num(me.limits.minStakeFloor || me.limits.minStake), over = amt > num(me.balance.available);
   return (
     <>
       <Card title="Stake" className="sk-narrow-l">
@@ -592,7 +593,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
           <button type="button" className="sk-btn primary wide" disabled={!amt || !dest || low || over || me.paused} onClick={() => { w.reset(); setCode(""); setConfirm(true); }}>Continue</button>
           <details className="sk-more">
             <summary>Limits</summary>
-            <Rows items={[...(me.limits.manual ? [] : [["Instant, up to", `${compact(me.limits.autoLimit)} ${sym}`] as [string, string]]), ["Minimum", `${nice(me.limits.minWithdraw)} ${sym}`], ["Daily", `${compact(me.limits.userDaily)} ${sym}`]]} />
+            <Rows items={[...(me.limits.manual ? [] : [["Instant, up to", `${compact(me.limits.autoLimit)} ${sym}`] as [string, string]]), ["Minimum", `${nice(me.limits.minWithdraw)} ${sym}`], ...(me.limits.manual ? [] : [["Daily", `${compact(me.limits.userDaily)} ${sym}`] as [string, string]])]} />
           </details>
         </Card>
         <Card title="Addresses" aside={me.addresses.length < me.limits.maxAddresses && <button type="button" className="sk-ghost" onClick={() => setAdding(true)}><Ico n="plus" s={15} /> Add</button>}>
@@ -621,7 +622,7 @@ function Withdraw({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) 
                   <span className={`sk-pill ${tone}`}>{label}</span>
                   <div className="sk-row-actions">
                     {x.tx && <a className="sk-ghost" href={`${me.token.explorer}/tx/${x.tx}`} target="_blank" rel="noreferrer" aria-label="View transaction"><Ico n="ext" s={15} /></a>}
-                    {(x.status === "review" || x.status === "queued") && <button type="button" className="sk-ghost dim" disabled={cancel.busy} onClick={async () => (await cancel.run({ kind: "withdraw_cancel", id: x.id })) && say("Withdrawal cancelled")}>Cancel</button>}
+                    {!me.limits.manual && (x.status === "review" || x.status === "queued") && <button type="button" className="sk-ghost dim" disabled={cancel.busy} onClick={async () => (await cancel.run({ kind: "withdraw_cancel", id: x.id })) && say("Withdrawal cancelled")}>Cancel</button>}
                   </div>
                 </li>
               );

@@ -12,6 +12,7 @@ import {
 import { loginEmail } from "@/lib/emails";
 import { sendMail, siteUrl } from "@/lib/mailer";
 import { allowOnce, normalizeEmail } from "@/lib/subscribers";
+import { clientIp, limited, stakeEnabled } from "@/lib/stake/server";
 
 export async function POST(req: Request) {
   if (!adminConfigured()) {
@@ -38,6 +39,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, sent: true });
   }
 
+  // Password guessing: a few tries per address, and a ceiling for everyone together, every 15 minutes.
+  if (stakeEnabled()) {
+    const ip = clientIp(req);
+    try {
+      if ((await limited(`admin:login:ip:${ip}`, 8, 900)) || (await limited("admin:login:all", 40, 900))) {
+        return NextResponse.json({ error: "Too many attempts. Try again in 15 minutes." }, { status: 429 });
+      }
+    } catch (e) {
+      console.error("admin login limit", e);
+    }
+  }
   if (!password || !checkPassword(password)) {
     return NextResponse.json({ error: "Wrong password." }, { status: 401 });
   }

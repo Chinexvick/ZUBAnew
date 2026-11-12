@@ -27,6 +27,7 @@ export async function scan(pool, providers, cfg, { deadline = Infinity } = {}) {
   const mine = new Set(addrs.map((a) => a.toLowerCase()));
   const token = cfg.token.toLowerCase();
   let range = cfg.maxRange ?? 20_000, found = 0;
+  const minDeposit = cfg.minDeposit ?? limits().minDeposit;
   do {
     const from = Math.max(cfg.startBlock, cursor + 1 - lookback);
     const to = Math.min(head, from + range - 1);
@@ -43,7 +44,7 @@ export async function scan(pool, providers, cfg, { deadline = Infinity } = {}) {
     for (const l of logs) {
       if (l.address.toLowerCase() !== token || l.removed) continue; // only the real token counts
       const ev = ERC20.parseLog(l);
-      if (!ev || ev.name !== 'Transfer' || !mine.has(ev.args.to.toLowerCase()) || ev.args.value <= 0n) continue;
+      if (!ev || ev.name !== 'Transfer' || !mine.has(ev.args.to.toLowerCase()) || ev.args.value <= 0n || ev.args.value < minDeposit) continue; // dust is ignored
       const isNew = await withTx(pool, (c) => recordDeposit(c, { txHash: l.transactionHash, logIndex: l.index, block: l.blockNumber, blockHash: l.blockHash, to: ev.args.to, from: ev.args.from, amount: ev.args.value }));
       if (isNew) found++;
     }

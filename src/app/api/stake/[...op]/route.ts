@@ -20,7 +20,24 @@ async function session(): Promise<Session> {
   return s ?? fail(401, "Please sign in");
 }
 
+// What every visitor sees is the same for a few seconds, so a crowd (or a flood) costs the database one read, not thousands.
+let sharedCache: { at: number; v: Awaited<ReturnType<typeof loadShared>> } | undefined;
 async function shared() {
+  if (sharedCache && Date.now() - sharedCache.at < 5_000) return sharedCache.v;
+  const v = await loadShared();
+  sharedCache = { at: Date.now(), v };
+  return v;
+}
+let lastKick = 0;
+/** Wakes the worker if its own schedule seems to have stopped. At most once every 30 seconds from here. */
+function nudge(lag: number | null) {
+  if (!process.env.STAKE_WORKER_URL || (lag !== null && lag <= 150) || Date.now() - lastKick < 30_000) return;
+  lastKick = Date.now();
+  after(() => kickWorker("chain", 35_000));
+}
+let pubCache: { at: number; v: unknown } | undefined;
+
+async function loadShared() {
   const conf = await config();
   const decimals = Number(conf.decimals || 9);
   const unit = 10n ** BigInt(decimals);
@@ -49,9 +66,15 @@ async function shared() {
 }
 
 async function getPublic() {
+  if (pubCache && Date.now() - pubCache.at < 5_000) return pubCache.v;
+  const v = await loadPublic();
+  pubCache = { at: Date.now(), v };
+  return v;
+}
+async function loadPublic() {
   const s = await shared();
   const hb = (await db().query("select block from stake_cursor where name = 'heartbeat'")).rows[0];
-  if (process.env.STAKE_WORKER_URL && (!hb || Date.now() / 1000 - Number(hb.block) > 60)) after(() => kickWorker("chain", 35_000));
+  nudge(hb ? Math.floor(Date.now() / 1000) - Number(hb.block) : null);
   return {
     enabled: true, test: s.test, token: s.token, paused: s.paused, program: { ...s.program, budget: undefined, paid: undefined, dailyPool: undefined }, apy: s.apy, maxApy: MAX_APY_BP / 100,
     locks: Object.keys(LOCKS).map(Number), weights: Object.fromEntries(Object.entries(LOCKS).map(([d, w]) => [d, w / 10000])),
@@ -75,8 +98,7 @@ async function getMe(sess: Session) {
   ]);
   const a = acct.rows[0] ?? { available: 0, staked: 0, held: 0, rewards: 0, frozen_until: null };
   const lag = hb.rows[0] ? Math.max(0, Math.floor(Date.now() / 1000) - Number(hb.rows[0].block)) : null;
-  // on the test set-up there is no always-on worker: looking at the dashboard wakes it
-  if (process.env.STAKE_WORKER_URL && (lag === null || lag > 10)) after(() => kickWorker("chain", 35_000));
+  nudge(lag);
   const now = Date.now();
   return {
     email: sess.email, test: s.test, token: s.token, paused: s.paused, apy: s.apy, maxApy: MAX_APY_BP / 100, day: Math.max(0, s.day), dayMs: s.dayMs, program: { ...s.program, budget: undefined, paid: undefined, dailyPool: undefined },
@@ -91,7 +113,7 @@ async function getMe(sess: Session) {
     history: led.rows.map((l) => ({ kind: l.kind, amount: s.fmt(l.amount), at: l.created_at })),
     addresses: wl.rows.map((w) => ({ address: w.address, activeAt: w.active_at, active: new Date(w.active_at).getTime() <= now })),
     limits: {
-      minStake: s.fmt(String(s.pub.minStake ?? 0)), minWithdraw: s.fmt(String(s.pub.minWithdraw ?? 0)), autoLimit: s.fmt(String(s.pub.autoLimit ?? 0)), userDaily: s.fmt(String(s.pub.userDaily ?? 0)),
+      minStake: s.fmt(String(s.pub.minStake ?? 0)), minStakeFloor: s.fmt(String(s.pub.minStakeFloor ?? s.pub.minStake ?? 0)), minDeposit: s.fmt(String(s.pub.minDeposit ?? 0)), minWithdraw: s.fmt(String(s.pub.minWithdraw ?? 0)), autoLimit: s.fmt(String(s.pub.autoLimit ?? 0)), userDaily: s.fmt(String(s.pub.userDaily ?? 0)),
       confirmations: Number(s.pub.confirmations ?? 15), whitelistDelayMs: Number(s.pub.whitelistDelayMs ?? 86_400_000), maxAddresses: Number(s.pub.maxAddresses ?? 5),
       manual: s.pub.manual !== false,
       faucetAmount: s.pub.faucetAmount ? s.fmt(String(s.pub.faucetAmount)) : null,
@@ -107,7 +129,10 @@ const posInt = (v: unknown) => (Number.isInteger(v) && (v as number) > 0 ? (v as
 
 async function act(sess: Session, b: Record<string, unknown>) {
   const kind = str(b.kind, 30), id = sess.userId;
-  if (await limited(`act:${id}`, 120, 3600)) fail(429, "Too many tries. Try again later.");
+  if (await limited(`act:${id}`, 60, 3600)) fail(429, "Too many tries. Try again later.");
+  // if the worker is behind, do not pile more on: say so instead
+  const waiting = (await db().query("select count(*)::int as n from (select 1 from stake_requests where status = 'new' limit 200) q")).rows[0].n;
+  if (waiting >= 200) fail(503, "ZUBA Staking is busy right now. Please try again in a minute.");
   const sensitive = ["2fa_setup", "2fa_enable", "whitelist_add", "withdraw"].includes(kind);
   if (sensitive && (await limited(`act:s:${id}`, 30, 3600))) fail(429, "Too many tries. Try again later.");
   const s = await shared();
@@ -187,6 +212,7 @@ async function handle(req: Request, op: string) {
     if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email) || !password) fail(400, "Enter your email and password");
     if (await limited(`login:ip:${ip}`, 20, 900)) fail(429, "Too many attempts. Try again in 15 minutes.");
     if (await limited(`login:em:${email}`, 8, 900)) fail(429, "Too many attempts. Try again in 15 minutes.");
+    if (Math.random() < 0.05) after(() => db().query("delete from stake_rate where window_start < now() - interval '1 day'").catch(() => {}));
     const u = await accountLogin(email, password);
     const sn = await createSession(u.id, u.email, ip, req.headers.get("user-agent") || "");
     const res = json({ ok: true });
@@ -201,6 +227,7 @@ async function handle(req: Request, op: string) {
     return res;
   }
   if (op === "act") {
+    if (await limited(`act:ip:${ip}`, 240, 3600)) fail(429, "Too many tries. Try again later.");
     const r = await act(await session(), b);
     return r.http === 200 ? json({ ok: true, ...(r.result ?? {}) }) : json({ error: r.error || "Something went wrong." }, r.http || 500);
   }

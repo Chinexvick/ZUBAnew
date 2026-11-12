@@ -57,6 +57,8 @@ export function tickChain(ctx, { budgetMs = 25_000 } = {}) {
     if (Date.now() / 1000 - (await getCursor(pool, 'reconciled', 0)) > 300) {
       await step('reconcile', async () => { const r = await reconcile(pool, providers, cfg); await setCursor(pool, 'reconciled', Math.floor(Date.now() / 1000)); return r.problems; });
     }
+    // housekeeping: answered requests are only needed for a moment; old ones are removed so the table never grows without end
+    await step('tidy', async () => (await pool.query("delete from stake_requests where id in (select id from stake_requests where status <> 'new' and done_at < now() - interval '3 days' limit 5000)")).rowCount);
     await step('alerts', () => flushAlerts(pool, ctx.tg));
     await pool.query("insert into stake_cursor (name, block) values ('heartbeat', extract(epoch from now())::bigint) on conflict (name) do update set block = excluded.block");
     out.ms = Date.now() - t0;

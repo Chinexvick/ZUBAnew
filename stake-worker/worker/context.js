@@ -104,7 +104,7 @@ export async function makeContext(pool, env = process.env) {
   }
   // what the website shows about limits comes from here, so both always agree
   const L = limits();
-  const pub = JSON.stringify({ minStake: L.minStake.toString(), minWithdraw: L.minWithdraw.toString(), autoLimit: L.autoLimit.toString(), userDaily: L.userDaily.toString(), whitelistDelayMs: L.whitelistDelayMs, confirmations: L.confirmations, maxAddresses: L.maxAddresses, dayMs: dayMs(), testMode, faucetAmount: faucet && chainReady ? tokens(env.FAUCET_AMOUNT || 100_000).toString() : null, manual, payout: payer ? payer.address : (payFrom[0] || '') });
+  const pub = JSON.stringify({ minStake: L.minStake.toString(), minStakeFloor: L.minStakeFloor.toString(), minDeposit: L.minDeposit.toString(), minWithdraw: L.minWithdraw.toString(), autoLimit: L.autoLimit.toString(), userDaily: L.userDaily.toString(), whitelistDelayMs: L.whitelistDelayMs, confirmations: L.confirmations, maxAddresses: L.maxAddresses, dayMs: dayMs(), testMode, faucetAmount: faucet && chainReady ? tokens(env.FAUCET_AMOUNT || 100_000).toString() : null, manual, payout: payer ? payer.address : (payFrom[0] || '') });
   if (conf.public !== pub) await pool.query("insert into stake_config (key, value) values ('public', $1) on conflict (key) do update set value = excluded.value", [pub]);
   return ctx;
 }
