@@ -621,3 +621,25 @@ span.sk-exit { visibility: hidden; }
   .sk-wallets { grid-template-columns: 1fr; }
   .sk-tiles { grid-template-columns: 1fr; }
 }
+
+/* ---------- inside the ZUBA app: this page is one of its tabs ---------- */
+.sk.embed { background: #1a0b38; padding-bottom: 28px; min-height: 100vh; }
+.sk.embed .sk-top { display: none; }
+.sk.embed .sk-wrap { padding-top: 14px; }
+.sk-exit.end svg { margin-left: 2px; }
+.sk-landing.one { grid-template-columns: 1fr; }
+.sk-landing.one .sk-btn { align-self: flex-start; }
+.sk-unlock { align-items: center; gap: 14px; margin-top: 6vh; }
+.sk-unlock .sk-code { max-width: 260px; }
+.sk-icobox.big { width: 60px; height: 60px; border-radius: 20px; }
+@media (max-width: 860px) {
+  /* the app has its own bottom bar, so the staking sections sit at the top of the tab instead */
+  .sk.embed .sk-tabs { position: sticky; top: 8px; bottom: auto; left: auto; right: auto; width: 100%; z-index: 20; border-radius: 16px; padding: 5px; background: #1d0c40; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25); }
+  .sk.embed .sk-tabs button { flex-direction: row; gap: 6px; height: 42px; font-size: 0.66rem; }
+  .sk.embed .sk-tabs button svg { width: 16px; height: 16px; }
+}
+@media (max-width: 400px) {
+  .sk.embed .sk-tabs button svg { display: none; }
+}
+.sk-btn.primary:disabled { opacity: 1; background: #5b4692; color: #b9a9e0; box-shadow: 0 4px 0 var(--floor); }
+.sk-btn:disabled { opacity: 1; background: #4a3183; color: #a996d6; }

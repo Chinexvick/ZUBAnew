@@ -6,7 +6,7 @@
 import { after, NextResponse } from "next/server";
 import { mailEnabled, sendMail, siteUrl } from "@/lib/mailer";
 import { cookies } from "next/headers";
-import { Fail, ACOOKIE, COOKIE, FLAG, accountLogin, accountLogout, accountProgress, openAcct, sealAcct, ask, clientIp, config, cookieOptions, createSession, db, endSession, fail, kickWorker, limited, newTotpSecret, otpauthUrl, readSession, sameOrigin, sealForWorker, stakeEnabled, type Session } from "@/lib/stake/server";
+import { Fail, COOKIE, FLAG, accountFromToken, passwordIsRight, unlockSession, ask, clientIp, config, cookieOptions, createSession, db, endSession, fail, kickWorker, limited, newTotpSecret, otpauthUrl, readSession, sameOrigin, sealForWorker, stakeEnabled, type Session } from "@/lib/stake/server";
 import { LOCKS, MAX_APY_BP, PROGRAM_DAYS, TOTAL_BUDGET, dailyPool, estimateApy, formatAmount, parseAmount } from "@/lib/stake/rules";
 
 export const runtime = "nodejs";
@@ -82,6 +82,8 @@ async function loadPublic() {
   };
 }
 
+const twoFactorOn = async (userId: string) => (await db().query("select 1 from stake_totp where user_id = $1 and enabled", [userId])).rowCount === 1;
+
 async function getMe(sess: Session) {
   const s = await shared();
   const id = sess.userId, q = db();
@@ -133,7 +135,18 @@ async function act(sess: Session, b: Record<string, unknown>) {
   // if the worker is behind, do not pile more on: say so instead
   const waiting = (await db().query("select count(*)::int as n from (select 1 from stake_requests where status = 'new' limit 200) q")).rows[0].n;
   if (waiting >= 200) fail(503, "ZUBA Staking is busy right now. Please try again in a minute.");
-  const sensitive = ["2fa_setup", "2fa_enable", "whitelist_add", "withdraw"].includes(kind) || (kind === "stake" && b.lock !== 0);
+  const sensitive = ["unlock", "2fa_setup", "2fa_enable", "whitelist_add", "withdraw"].includes(kind) || (kind === "stake" && b.lock !== 0);
+  const on = await twoFactorOn(id);
+  if (kind === "unlock") {
+    if (!on) fail(400, "Set up your authenticator first");
+    const r = await ask(id, "2fa_check", { code: code(b.code) });
+    if (r.http === 200) await unlockSession(sess.hash);
+    return r;
+  }
+  // an account with an authenticator does nothing until this session has given the code;
+  // an account without one can only set it up
+  if (on && !sess.unlocked) fail(403, "Enter your authenticator code to open staking");
+  if (!on && !["2fa_setup", "2fa_enable"].includes(kind)) fail(403, "Set up your authenticator first");
   if (sensitive && (await limited(`act:s:${id}`, 30, 3600))) fail(429, "Too many tries. Try again later.");
   const s = await shared();
   const amount = (v: unknown) => {
@@ -142,11 +155,19 @@ async function act(sess: Session, b: Record<string, unknown>) {
   };
   switch (kind) {
     case "2fa_setup": {
+      // whoever sets the authenticator owns the staking account from then on, so the account password is asked for here
+      const pw = typeof b.password === "string" ? b.password : "";
+      if (pw.length < 1 || pw.length > 200) fail(400, "Enter your account password");
+      if (!(await passwordIsRight(sess.email, id, pw))) fail(403, "Wrong password");
       const secret = newTotpSecret();
       const r = await ask(id, kind, { sealed: sealForWorker(secret) });
       return r.http === 200 ? { http: 200, error: null, result: { secret, url: otpauthUrl(secret, sess.email, s.test) } } : r;
     }
-    case "2fa_enable": return ask(id, kind, { code: code(b.code) });
+    case "2fa_enable": {
+      const r = await ask(id, kind, { code: code(b.code) });
+      if (r.http === 200) await unlockSession(sess.hash);
+      return r;
+    }
     case "address": return ask(id, kind, {});
     case "stake": {
       const lock = Number.isInteger(b.lock) ? (b.lock as number) : fail(400, "Choose a lock option");
@@ -194,15 +215,11 @@ async function handle(req: Request, op: string) {
   if (!stakeEnabled()) return json({ enabled: false, error: "Staking is coming soon." }, req.method === "GET" && op === "public" ? 200 : 503);
   if (req.method === "GET") {
     if (op === "public") return json(await getPublic());
-    if (op === "me") return json(await getMe(await session()));
-    if (op === "account") {
-      // who is signed in and their game balance, for the dashboard
-      const sn = await session(), jar = await cookies();
-      const acct = openAcct(jar.get(ACOOKIE)?.value, sn.userId);
-      const got = acct ? await accountProgress(acct) : null;
-      const res = json({ email: sn.email, name: acct?.n || "", game: got ? { zuba: got.zuba } : null });
-      if (got?.renewed) res.cookies.set(ACOOKIE, sealAcct(got.acct), cookieOptions(12 * 3600));
-      return res;
+    if (op === "me") {
+      const sn = await session();
+      // with an authenticator on the account, nothing is shown until its code has been given in this session
+      if (!sn.unlocked && (await twoFactorOn(sn.userId))) return json({ locked: true, email: sn.email });
+      return json(await getMe(sn));
     }
     return json({ error: "Not found" }, 404);
   }
@@ -219,29 +236,23 @@ async function handle(req: Request, op: string) {
   }
   const ip = clientIp(req);
 
-  if (op === "login") {
-    const email = str(b.email, 254).trim().toLowerCase(), password = str(b.password, 128);
-    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email) || !password) fail(400, "Enter your email and password");
-    if (await limited(`login:ip:${ip}`, 20, 900)) fail(429, "Too many attempts. Try again in 15 minutes.");
-    if (await limited(`login:em:${email}`, 8, 900)) fail(429, "Too many attempts. Try again in 15 minutes.");
+  if (op === "sso") {
+    // The app is signed in already. It hands over its short-lived pass; the account service says whose it is.
+    if (await limited(`sso:ip:${ip}`, 60, 900)) fail(429, "Too many attempts. Try again in 15 minutes.");
+    const u = await accountFromToken(str(b.access, 2000));
+    if (await limited(`sso:u:${u.id}`, 30, 900)) fail(429, "Too many attempts. Try again in 15 minutes.");
     if (Math.random() < 0.05) after(() => db().query("delete from stake_rate where window_start < now() - interval '1 day'").catch(() => {}));
-    const u = await accountLogin(email, password);
     const sn = await createSession(u.id, u.email, ip, req.headers.get("user-agent") || "");
-    // "arcade" is the games' own sign-in, handed over once so one sign-in covers the games too
-    const res = json({ ok: true, arcade: u.arcade });
+    const res = json({ ok: true });
     res.cookies.set(COOKIE, sn.token, cookieOptions(sn.maxAge));
-    res.cookies.set(ACOOKIE, u.acct ? sealAcct(u.acct) : "", cookieOptions(u.acct ? sn.maxAge : 0));
     res.cookies.set(FLAG, "1", { ...cookieOptions(sn.maxAge), httpOnly: false, sameSite: "lax" });
     return res;
   }
   if (op === "logout") {
-    const jar = await cookies(), t = jar.get(COOKIE)?.value;
-    const sn = await readSession(t);
-    if (sn) accountLogout(openAcct(jar.get(ACOOKIE)?.value, sn.userId));
+    const t = (await cookies()).get(COOKIE)?.value;
     if (t) await endSession(t);
     const res = json({ ok: true });
     res.cookies.set(COOKIE, "", cookieOptions(0));
-    res.cookies.set(ACOOKIE, "", cookieOptions(0));
     res.cookies.set(FLAG, "", { ...cookieOptions(0), httpOnly: false, sameSite: "lax" });
     return res;
   }

@@ -1,6 +1,6 @@
 {
-  "name": "ZUBA Arcade",
-  "short_name": "ZUBA Arcade",
+  "name": "ZUBA",
+  "short_name": "ZUBA",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#12062A",

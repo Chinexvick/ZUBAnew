@@ -22,16 +22,6 @@ type Me = {
 };
 type Pub = { enabled: boolean; test?: boolean; token?: Token; paused?: boolean; program?: Program; apy?: Record<string, number>; maxApy?: number };
 type Refresh = () => Promise<void>;
-type Account = { email: string; name: string; game: { zuba: number } | null };
-
-/* One sign-in for the games too: the games read their own sign-in from the browser's storage, so it is put there once. */
-const ARCADE_KEYS = ["FlutterSecureStorage.zr", "flutter.zr_fallback"];
-function arcadeSignIn(token: unknown) {
-  try {
-    for (const k of ARCADE_KEYS) localStorage.removeItem(k);
-    if (typeof token === "string" && token) localStorage.setItem("flutter.zr_fallback", JSON.stringify(token));
-  } catch { /* storage blocked: the games will ask to sign in */ }
-}
 
 /* ---------- helpers ---------- */
 async function api<T>(path: string, body?: unknown): Promise<T> {
@@ -199,22 +189,29 @@ function Toast({ text, onDone }: { text: string; onDone: () => void }) {
 /* ======================================================================================= */
 const TABS: [string, string, string][] = [["stake", "Stake", "lock"], ["deposit", "Deposit", "down"], ["withdraw", "Withdraw", "up"], ["history", "History", "list"]];
 
-export default function StakeApp({ start = "hub" }: { start?: "hub" | "staking" }) {
-  const [view, setView] = useState<"hub" | "staking">(start);
-  const [account, setAccount] = useState<Account | null>(null);
+export default function StakeApp({ embedded = false }: { embedded?: boolean }) {
   const [pub, setPub] = useState<Pub | null>(null);
   const [me, setMe] = useState<Me | null>(null);
+  const [locked, setLocked] = useState(false);
   const [state, setState] = useState<"loading" | "out" | "in">("loading");
   const [tab, setTab] = useState("stake");
   const [toast, setToast] = useState("");
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  // inside the ZUBA app this page is one of its tabs: the app owns the bar, the menu and the sign-in
+  const [embed, setEmbed] = useState(embedded);
+  useEffect(() => { try { if (window.self !== window.top) setEmbed(true); } catch { setEmbed(true); } }, []);
 
   const refresh = useCallback(async () => {
     try {
-      setMe(await api<Me>("me"));
+      const r = await api<Me & { locked?: boolean }>("me");
+      if (r.locked) { setLocked(true); setMe(null); } else { setLocked(false); setMe(r); }
       setState("in");
     } catch (e) {
-      if ((e as { status?: number }).status === 401) { setMe(null); setState("out"); }
+      if ((e as { status?: number }).status === 401) {
+        setMe(null); setLocked(false); setState("out");
+        // tell the app the staking sign-in has run out, so it can renew it without asking for the password
+        try { if (window.self !== window.top) window.parent.postMessage("zuba-stake-auth", window.location.origin); } catch { /* not embedded */ }
+      }
     }
   }, []);
   useEffect(() => {
@@ -222,22 +219,17 @@ export default function StakeApp({ start = "hub" }: { start?: "hub" | "staking" 
     refresh().then(() => setState((s) => (s === "loading" ? "out" : s)));
   }, [refresh]);
   useEffect(() => {
-    if (state === "in") api<Account>("account").then(setAccount).catch(() => {});
-    else setAccount(null);
-  }, [state]);
-  useEffect(() => {
-    if (state !== "in") return;
+    if (state !== "in" || locked) return;
     timer.current = setInterval(() => { if (document.visibilityState === "visible") refresh(); }, 8000);
     return () => { if (timer.current) clearInterval(timer.current); };
-  }, [state, refresh]);
+  }, [state, locked, refresh]);
   const go = (t: string) => { setTab(t); window.scrollTo({ top: 0, behavior: "smooth" }); };
-  const open = (v: "hub" | "staking") => { setView(v); window.history.replaceState(null, "", v === "hub" ? "/dashboard" : "/stake"); window.scrollTo({ top: 0 }); };
   const clearToast = useCallback(() => setToast(""), []);
 
-  if (!pub || state === "loading") return <Shell><div className="sk-loading" aria-label="Loading" /></Shell>;
+  if (!pub || state === "loading") return <Shell embed={embed}><div className="sk-loading" aria-label="Loading" /></Shell>;
   if (!pub.enabled) {
     return (
-      <Shell>
+      <Shell embed={embed}>
         <Card className="sk-narrow sk-center">
           <span className="sk-eyebrow">Coming soon</span>
           <h2 className="sk-h1">ZUBA Staking</h2>
@@ -246,25 +238,13 @@ export default function StakeApp({ start = "hub" }: { start?: "hub" | "staking" 
       </Shell>
     );
   }
-  if (state === "out" || !me) return <Shell test={pub.test}><SignedOut pub={pub} onDone={refresh} /></Shell>;
+  if (state === "out") return <Shell embed={embed} test={pub.test}><SignedOut pub={pub} embed={embed} /></Shell>;
+  if (locked || !me) return <Shell embed={embed} test={pub.test}><Unlock refresh={refresh} /></Shell>;
 
   const ready = me.twoFactor === "on" && me.address;
   const tabs = TABS;
-  const signOut = async () => { await api("logout", {}); arcadeSignIn(null); setMe(null); setState("out"); setView("hub"); };
-  if (view === "hub") {
-    return (
-      <Shell test={me.test} onSignOut={signOut}>
-        <Hub me={me} pub={pub} account={account} open={() => open("staking")} />
-        {toast && <Toast text={toast} onDone={clearToast} />}
-      </Shell>
-    );
-  }
   return (
-    <Shell test={me.test} onSignOut={signOut}>
-      <div className="sk-crumb">
-        <button type="button" className="sk-backbtn" onClick={() => open("hub")}><Ico n="back" s={18} /> Dashboard</button>
-        <h1>Staking</h1>
-      </div>
+    <Shell embed={embed} test={me.test}>
       {me.paused && <p className="sk-note warn" role="status">Staking is paused. Balances are safe.</p>}
       {!ready ? <Setup me={me} refresh={refresh} /> : (
         <>
@@ -288,13 +268,13 @@ export default function StakeApp({ start = "hub" }: { start?: "hub" | "staking" 
   );
 }
 
-function Shell({ children, test, onSignOut }: { children: React.ReactNode; test?: boolean; onSignOut?: () => void }) {
+function Shell({ children, test, embed }: { children: React.ReactNode; test?: boolean; embed: boolean }) {
   return (
-    <div className="page sk">
+    <div className={`page sk${embed ? " embed" : ""}`}>
       <header className="sk-top">
         <Link href="/" className="sk-exit"><Ico n="back" s={18} /><span>Website</span></Link>
         <span className="sk-brand"><img src="/brand/zuba-coin.png" width={34} height={34} alt="" /><b>ZUBA</b></span>
-        {onSignOut ? <button type="button" className="sk-exit end" onClick={onSignOut}><span>Sign out</span><Ico n="out" s={18} /></button> : <span className="sk-exit end" aria-hidden="true" />}
+        <a href="/play" className="sk-exit end"><span>Games</span><Ico n="play" s={16} /></a>
       </header>
       <div className="sk-wrap">
         {test && <div className="sk-test"><b>Testnet</b> Tokens here have no value.</div>}
@@ -403,41 +383,20 @@ const FAQ: [string, string][] = [
   ["How do withdrawals work?", "Withdrawals go to an address you have saved, on BNB Smart Chain, and are confirmed with your authenticator code."],
   ["Which token and network?", "ZUBA (BEP-20) on BNB Smart Chain only."],
 ];
-function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState("");
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setBusy(true); setErr("");
-    try { const r = await api<{ arcade?: string | null }>("login", { email, password }); arcadeSignIn(r.arcade); await onDone(); } catch (x) { setErr((x as Error).message); } finally { setBusy(false); }
-  }
+function SignedOut({ pub, embed }: { pub: Pub; embed: boolean }) {
   const apy = pub.apy || {}, p = pub.program!, token = pub.token!;
   const [amount, setAmount] = useState("");
   const [lock, setLock] = useState(90);
-  const signin = useRef<HTMLFormElement>(null);
+  if (embed) return <div className="sk-loading" aria-label="Opening staking" />;
   return (
     <>
-      <div className="sk-landing">
+      <div className="sk-landing one">
         <div className="sk-landing-copy">
-          <span className="sk-eyebrow">Your ZUBA account</span>
-          <h1 className="sk-display">One sign-in.<br /><em>Games and staking.</em></h1>
-          <p className="sk-lead">Sign in once to play the ZUBA Arcade, see your game balance and stake ZUBA for daily rewards.</p>
-          <ul className="sk-ticks">
-            <li><Ico n="check" s={16} />The same account as Zualingo and the ZUBA Arcade.</li>
-            <li><Ico n="check" s={16} />Staking with no wallet connection. Deposit to your own address.</li>
-            <li><Ico n="check" s={16} />Two-factor and saved addresses on every withdrawal.</li>
-          </ul>
+          <span className="sk-eyebrow">ZUBA Staking</span>
+          <h1 className="sk-display">Stake ZUBA.<br /><em>Earn daily.</em></h1>
+          <p className="sk-lead">Keep it flexible or fix a term, and earn rewards every day. Fixed terms always earn more.</p>
+          <a className="sk-btn primary" href="/play">Sign in to stake</a>
         </div>
-        <form ref={signin} className="sk-card sk-signin" onSubmit={submit}>
-          <header className="sk-card-head"><h2>Sign in</h2></header>
-          <Field label="Email" htmlFor="stk-email"><input id="stk-email" className="sk-input" type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
-          <Field label="Password" htmlFor="stk-pw"><input id="stk-pw" className="sk-input" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} /></Field>
-          <Err>{err}</Err>
-          <button className="sk-btn primary wide" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
-          <p className="sk-fine sk-center">Use your Zualingo account. <a href="/play">Create one</a></p>
-        </form>
       </div>
       <div className="sk-home">
         <div className="sk-home-side">
@@ -454,7 +413,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
         <section className="sk-card sk-panel">
           <header className="sk-panel-head"><span className="sk-icobox"><Ico n="calc" /></span><h2>Rewards calculator</h2></header>
           <Calc sym={token.symbol} apy={apy} dayMs={p.dayMs} amount={amount} setAmount={setAmount} lock={lock} setLock={setLock} />
-          <button type="button" className="sk-btn primary wide" onClick={() => { signin.current?.scrollIntoView({ behavior: "smooth", block: "center" }); document.getElementById("stk-email")?.focus({ preventScroll: true }); }}>Sign in to stake</button>
+          <a className="sk-btn primary wide" href="/play">Sign in to stake</a>
         </section>
       </div>
       <div className="sk-sec-head"><h2 className="sk-h1">Questions</h2></div>
@@ -465,11 +424,30 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
   );
 }
 
+/* ---------- every visit: the authenticator code opens staking ---------- */
+function Unlock({ refresh }: { refresh: Refresh }) {
+  const a = useAction(refresh);
+  const [code, setCode] = useState("");
+  const submit = () => a.run({ kind: "unlock", code }).then((ok) => { if (!ok) setCode(""); });
+  return (
+    <Card className="sk-narrow sk-center sk-unlock">
+      <span className="sk-icobox gold big"><Ico n="lock" s={26} /></span>
+      <h2 className="sk-h1">Open staking</h2>
+      <p className="sk-muted">Enter the 6-digit code from your authenticator app.</p>
+      <CodeInput id="stk-unlock" value={code} onChange={setCode} autoFocus />
+      <Err>{a.err}</Err>
+      <button type="button" className="sk-btn primary wide" disabled={a.busy || code.length !== 6} onClick={submit}>{a.busy ? "Checking…" : "Open"}</button>
+      <p className="sk-fine">Staking is locked separately from the games, so your tokens stay safe even if someone else gets into your account.</p>
+    </Card>
+  );
+}
+
 /* ---------- first-time set-up ---------- */
 function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
   const a = useAction(refresh);
   const [secret, setSecret] = useState<{ secret: string; url: string } | null>(null);
   const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
   const { done, copy } = useCopy();
   const step = me.twoFactor === "on" ? 2 : 1;
   return (
@@ -477,10 +455,11 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
       <ol className="sk-steps"><li className={step === 1 ? "on" : "done"}><span>{step === 1 ? "1" : <Ico n="check" s={14} />}</span>Security</li><li className={step === 2 ? "on" : ""}><span>2</span>Deposit address</li></ol>
       {step === 1 && !secret && (
         <>
-          <h2 className="sk-h1">Secure your account</h2>
-          <p className="sk-muted">Set up two-factor authentication to protect your balance. You will use it to confirm every withdrawal.</p>
+          <h2 className="sk-h1">Secure your staking</h2>
+          <p className="sk-muted">Staking is protected by an authenticator app. You will use its code to open staking and to confirm every withdrawal. Confirm your account password to begin.</p>
+          <Field label="Account password" htmlFor="stk-pw"><input id="stk-pw" className="sk-input" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} /></Field>
           <Err>{a.err}</Err>
-          <button type="button" className="sk-btn primary" disabled={a.busy} onClick={() => a.run<{ secret: string; url: string }>({ kind: "2fa_setup" }, (r) => setSecret(r))}>{a.busy ? "Preparing…" : "Set up authenticator"}</button>
+          <button type="button" className="sk-btn primary" disabled={a.busy || !password} onClick={() => a.run<{ secret: string; url: string }>({ kind: "2fa_setup", password }, (r) => { setSecret(r); setPassword(""); })}>{a.busy ? "Checking…" : "Set up authenticator"}</button>
         </>
       )}
       {step === 1 && secret && (
@@ -518,44 +497,6 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
   );
 }
 
-/* ---------- the dashboard: everything the account can do, on one screen ---------- */
-function Hub({ me, pub, account, open }: { me: Me; pub: Pub; account: Account | null; open: () => void }) {
-  const sym = me.token.symbol, b = me.balance;
-  const rates = Object.values(pub.apy || me.apy), lo = Math.min(...rates), hi = Math.max(...rates);
-  const name = account?.name || me.email.split("@")[0];
-  const staking = num(b.total) > 0;
-  return (
-    <div className="sk-hub">
-      <div className="sk-hello">
-        <span className="sk-avatar" aria-hidden="true">{name.slice(0, 1).toUpperCase()}</span>
-        <div><span>Welcome back</span><h1>{name}</h1></div>
-      </div>
-      <div className="sk-wallets">
-        <section className="sk-wallet game">
-          <header><span className="sk-icobox gold"><Ico n="play" /></span><span className="sk-eyebrow">Game balance</span></header>
-          <div className="sk-wallet-num"><b className="sk-num">{account === null ? "…" : account.game ? account.game.zuba.toLocaleString("en-US") : "—"}</b><span>ZUBA</span></div>
-          <p>{account && !account.game ? "Open the games to see your balance." : "Earned in the ZUBA Arcade and Zualingo."}</p>
-          <a className="sk-btn primary wide" href="/play"><Ico n="play" s={16} /> Play games</a>
-        </section>
-        <section className="sk-wallet stake">
-          <header><span className="sk-icobox"><Ico n="lock" /></span><span className="sk-eyebrow">Staking</span></header>
-          <div className="sk-wallet-num"><b className="sk-num">{compact(b.total)}</b><span>{sym}</span></div>
-          <p>{staking ? <>Staked <b>{compact(b.staked)}</b> · Rewards <b className="gold">+{compact(b.rewards)}</b></> : <>Earn {lo === hi ? `${hi}%` : `${lo}%–${hi}%`} APR, paid daily.</>}</p>
-          <button type="button" className="sk-btn wide" onClick={open}>{staking ? "Open staking" : "Start staking"}</button>
-        </section>
-      </div>
-      <h2 className="sk-hub-h">Explore</h2>
-      <div className="sk-tiles">
-        <a className="sk-tile" href="/play"><span className="sk-icobox gold"><Ico n="play" /></span><div><b>Games</b><span>Play the ZUBA Arcade</span></div><Ico n="chev" s={16} /></a>
-        <button type="button" className="sk-tile" onClick={open}><span className="sk-icobox"><Ico n="trend" /></span><div><b>Staking</b><span>Stake ZUBA, earn daily</span></div><Ico n="chev" s={16} /></button>
-        <Link className="sk-tile" href="/about"><span className="sk-icobox"><Ico n="info" /></span><div><b>About</b><span>The story of ZUBA</span></div><Ico n="chev" s={16} /></Link>
-        <Link className="sk-tile" href="/whitepaper"><span className="sk-icobox"><Ico n="book" /></span><div><b>Whitepaper</b><span>How the token works</span></div><Ico n="chev" s={16} /></Link>
-      </div>
-      <Link className="sk-leave" href="/"><Ico n="globe" s={18} /> Back to the ZUBA website</Link>
-    </div>
-  );
-}
-
 /* ---------- the three numbers at the top ---------- */
 type Say = (t: string) => void;
 function Summary({ me, go }: { me: Me; go: (t: string) => void }) {
@@ -579,7 +520,7 @@ function Summary({ me, go }: { me: Me; go: (t: string) => void }) {
         <dl>
           <div><dt>Available</dt><dd className="sk-num">{nice(b.available, 2)} {sym}</dd></div>
           {num(b.pendingWithdrawal) > 0 && <div><dt>Withdrawing</dt><dd className="sk-num">{nice(b.pendingWithdrawal, 2)} {sym}</dd></div>}
-          {earning.length > 0 && <div><dt>Accruing today</dt><dd className="sk-num sk-live">≈ +{accruing.toFixed(accruing < 100 ? 4 : 2)} {sym}</dd></div>}
+          {earning.length > 0 && <div><dt>Accruing today</dt><dd className="sk-num">≈ +{accruing.toFixed(accruing < 100 ? 4 : 2)} {sym}</dd></div>}
           {num(b.staked) > 0 && <div><dt>{earning.length > 0 ? "Paid in" : "Starts earning in"}</dt><dd><Countdown to={me.program.nextDayAt} now={now} /></dd></div>}
         </dl>
         <div className="sk-sum-actions">
@@ -609,7 +550,7 @@ function Positions({ me, refresh, say, empty }: { me: Me; refresh: Refresh; say:
               {p.lockDays > 0 && <div className="sk-bar"><span style={{ width: `${pct}%` }} /></div>}
               <footer>
                 <span>{p.lockDays === 0 ? "No lock" : p.canUnstake ? "Unlocked" : `Unlocks in ${span(end - now)}`}</span>
-                {start <= me.program.nextDayAt - me.dayMs ? <span className="sk-live">Earning</span> : <span>Starts earning in {span(me.program.nextDayAt - now)}</span>}
+                <span>{start <= me.program.nextDayAt - me.dayMs ? "Earning" : `Starts earning in ${span(me.program.nextDayAt - now)}`}</span>
                 {p.canUnstake && <button type="button" className="sk-btn small" disabled={a.busy} onClick={async () => (await a.run({ kind: "unstake", id: p.id })) && say("Unstaked")}>Unstake</button>}
               </footer>
             </article>

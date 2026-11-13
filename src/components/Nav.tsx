@@ -106,7 +106,7 @@ export default function Nav() {
           <a href="/play" className="btn nav-cta nav-play" title="Play ZUBA games in your browser">
             <PlayIcon /> Play
           </a>
-          <a href="/dashboard" className="btn primary nav-cta" title="Games, staking and your balances">
+          <a href="/play" className="btn primary nav-cta" title="Games, staking and your balances">
             <UserIcon /> {signedIn ? "Dashboard" : "Sign in"}
           </a>
 
@@ -130,11 +130,8 @@ export default function Nav() {
               </Link>
             );
           })}
-          <a href="/dashboard" className="btn primary" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
+          <a href="/play" className="btn primary" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
             <UserIcon /> {signedIn ? "Dashboard" : "Sign in"}
-          </a>
-          <a href="/play" className="btn" tabIndex={open ? 0 : -1}>
-            <PlayIcon /> Play the Games
           </a>
           <Link href="/whitepaper" className="btn" tabIndex={open ? 0 : -1}>
             Read Whitepaper

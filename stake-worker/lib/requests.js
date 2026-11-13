@@ -54,6 +54,12 @@ const handlers = {
   },
 
   // ---- staking ----------------------------------------------------------------------------------------
+  // Opening staking: proves the person at the keyboard has the authenticator, nothing more.
+  async '2fa_check'(c, u, p, ctx) {
+    await code(ctx, u, p.code);
+    return { ok: true };
+  },
+
   async stake(c, u, p, ctx) {
     const amount = baseUnits(p.amount);
     if (!Number.isInteger(p.lock) || lockWeight(p.lock) === null) bad(400, 'Choose one of the lock options');

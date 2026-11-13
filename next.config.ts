@@ -28,7 +28,9 @@ const nextConfig: NextConfig = {
       { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
     ];
     return [
-      ...["/stake", "/stake/:path*", "/admin", "/admin/:path*", "/api/stake/:path*", "/api/admin/:path*"].map((source) => ({ source, headers: locked })),
+      ...["/admin", "/admin/:path*", "/api/stake/:path*", "/api/admin/:path*"].map((source) => ({ source, headers: locked })),
+      // the staking page is shown inside the ZUBA app, which is on this same site: only our own pages may frame it
+      ...["/stake", "/stake/:path*"].map((source) => ({ source, headers: locked.map((h) => (h.key === "Content-Security-Policy" ? { ...h, value: h.value.replace("frame-ancestors 'none'", "frame-ancestors 'self'") } : h.key === "X-Frame-Options" ? { ...h, value: "SAMEORIGIN" } : h)) })),
       {
         // The page and loader change with every release: always check for a new copy.
         source: "/play/:file(index.html|flutter_bootstrap.js|main.dart.js|main.dart.mjs|main.dart.wasm|version.json)",

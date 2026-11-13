@@ -12,10 +12,11 @@ export const metadata: Metadata = {
 const display = Nunito({ subsets: ["latin"], weight: ["600", "700", "800", "900"], variable: "--font-stk-num" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-stk-mono" });
 
-export default function StakePage() {
+export default async function StakePage({ searchParams }: { searchParams: Promise<{ embed?: string }> }) {
+  const embed = (await searchParams).embed === "1"; // shown inside the ZUBA app as its Stake tab
   return (
     <div className={`${display.variable} ${mono.variable}`}>
-      <StakeApp start="staking" />
+      <StakeApp embedded={embed} />
     </div>
   );
 }

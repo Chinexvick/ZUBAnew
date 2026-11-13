@@ -1,6 +1,6 @@
 // The website side of ZUBA Staking. This code can READ the staking database and ADD requests to it.
 // It cannot change a balance: its database login has no such permission. The worker does the work.
-import { createCipheriv, createDecipheriv, createHash, constants, publicEncrypt, randomBytes, verify } from "crypto";
+import { createHash, constants, publicEncrypt, randomBytes, verify } from "crypto";
 import { Pool } from "pg";
 
 const env = (k: string) => process.env[k] || "";
@@ -62,16 +62,18 @@ export async function createSession(userId: string, email: string, ip: string, u
   await db().query("insert into stake_sessions (token_hash, user_id, email, expires_at, ip, ua) values ($1, $2, $3, now() + make_interval(hours => $4), $5, $6)", [sha(token), userId, email, MAX_HOURS, ip.slice(0, 60), ua.slice(0, 200)]);
   return { token, maxAge: MAX_HOURS * 3600 };
 }
-export type Session = { userId: string; email: string; hash: string };
+export type Session = { userId: string; email: string; hash: string; unlocked: boolean };
+/** The authenticator code has been given: this session may now see and use the staking account. */
+export const unlockSession = (hash: string) => db().query("update stake_sessions set unlocked = true where token_hash = $1", [hash]);
 export async function readSession(token: string | undefined): Promise<Session | null> {
   if (!token || token.length > 100) return null;
   const { rows } = await db().query(
     `update stake_sessions set last_seen = now()
       where token_hash = $1 and expires_at > now() and last_seen > now() - make_interval(mins => $2)
-      returning user_id, email`,
+      returning user_id, email, unlocked`,
     [sha(token), IDLE_MIN],
   );
-  return rows[0] ? { userId: rows[0].user_id, email: rows[0].email, hash: sha(token) } : null;
+  return rows[0] ? { userId: rows[0].user_id, email: rows[0].email, hash: sha(token), unlocked: rows[0].unlocked === true } : null;
 }
 export const endSession = (token: string) => db().query("delete from stake_sessions where token_hash = $1", [sha(token)]);
 
@@ -90,89 +92,42 @@ export function sameOrigin(req: Request) {
   }
 }
 
-// ---- sign-in: the password is checked by the Zualingo account service, never stored or seen again here ----
-type LoginReply = { error?: string; next?: string; access?: string; refresh?: string; expiresIn?: number; user?: { id?: string; email?: string; name?: string } };
+// ---- who is this? The Zualingo account service answers; passwords and tokens are never stored here ----
 const authBase = () => env("STAKE_AUTH_URL").replace(/\/+$/, "");
-async function authPost(path: string, body: unknown, ms = 12_000) {
-  return fetch(`${authBase()}${path}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal: AbortSignal.timeout(ms), cache: "no-store" });
-}
-export type Acct = { u: string; n: string; r: string; a: string; x: number };
-/** One sign-in for the whole site. Returns who signed in, an account session kept by this server (for the game
- *  balance) and a second, separate session for the games to use in the browser. */
-export async function accountLogin(email: string, password: string) {
+type AuthUser = { id?: string; email?: string; name?: string };
+const goodId = (u?: AuthUser) => (u?.id && /^[0-9a-f-]{36}$/i.test(u.id) ? u.id.toLowerCase() : null);
+
+/** The app is already signed in: it shows its short-lived pass, and the account service says whose it is. */
+export async function accountFromToken(access: string) {
+  if (!/^[\w.\-]{20,2000}$/.test(access)) fail(401, "Please sign in again");
   let r: Response;
   try {
-    r = await authPost("/auth/login", { email, password });
+    r = await fetch(`${authBase()}/me`, { headers: { authorization: `Bearer ${access}` }, signal: AbortSignal.timeout(12_000), cache: "no-store" });
   } catch {
     return fail(502, "Sign-in is not reachable right now. Please try again.");
   }
-  const j = (await r.json().catch(() => ({}))) as LoginReply;
-  if (r.status === 403 && j.next === "verify") fail(403, "Verify your email in the Zualingo app or ZUBA Arcade first, then sign in here.");
-  if (r.status === 429) fail(429, j.error || "Too many attempts. Try again later.");
-  if (!r.ok || !j.user?.id || !/^[0-9a-f-]{36}$/i.test(j.user.id)) fail(401, "Wrong email or password");
-  const id = j.user!.id!.toLowerCase(), name = String(j.user!.name || "").slice(0, 40);
-  const acct: Acct | null = j.access && j.refresh && accountCookieReady() ? { u: id, n: name, r: j.refresh, a: j.access, x: Date.now() + (Number(j.expiresIn) || 1800) * 1000 - 60_000 } : null;
-  // without the cookie key we cannot keep the account session safely: end it straight away, as before
-  if (!acct && j.refresh) authPost("/auth/logout", { refresh: j.refresh }, 8_000).catch(() => {});
-  // the games keep their own session (the two must not share one: each use replaces the token)
-  let arcade: string | null = null;
-  try {
-    const r2 = await authPost("/auth/login", { email, password });
-    const j2 = (await r2.json().catch(() => ({}))) as LoginReply;
-    if (r2.ok && typeof j2.refresh === "string" && j2.user?.id?.toLowerCase() === id) arcade = j2.refresh;
-  } catch { /* the games will simply ask to sign in */ }
-  return { id, email: String(j.user!.email || email), name, acct, arcade };
+  const j = (await r.json().catch(() => ({}))) as { user?: AuthUser };
+  const id = r.ok ? goodId(j.user) : null;
+  if (!id || !j.user?.email) fail(401, "Please sign in again");
+  return { id: id!, email: String(j.user!.email) };
 }
 
-// ---- the account session lives in a cookie the page's scripts cannot read, encrypted with a key only this server has ----
-export const ACOOKIE = secure ? "__Host-zacct" : "zacct";
-export const FLAG = "zuba_in"; // not a secret: only tells the menu bar to say "Dashboard" instead of "Sign in"
-const cookieKey = () => (env("STAKE_COOKIE_KEY").length >= 32 ? createHash("sha256").update("zacct|" + env("STAKE_COOKIE_KEY")).digest() : null);
-export const accountCookieReady = () => cookieKey() !== null;
-export function sealAcct(a: Acct) {
-  const iv = randomBytes(12), c = createCipheriv("aes-256-gcm", cookieKey()!, iv);
-  const body = Buffer.concat([c.update(JSON.stringify(a), "utf8"), c.final()]);
-  return Buffer.concat([iv, c.getAuthTag(), body]).toString("base64url");
-}
-export function openAcct(v: string | undefined, userId: string): Acct | null {
-  const key = cookieKey();
-  if (!v || !key || v.length > 3000) return null;
+/** Asks the account service whether this is the account's password. Used once, when the authenticator is first set up. */
+export async function passwordIsRight(email: string, userId: string, password: string) {
+  let r: Response;
   try {
-    const raw = Buffer.from(v, "base64url"), d = createDecipheriv("aes-256-gcm", key, raw.subarray(0, 12));
-    d.setAuthTag(raw.subarray(12, 28));
-    const a = JSON.parse(Buffer.concat([d.update(raw.subarray(28)), d.final()]).toString("utf8")) as Acct;
-    return a.u === userId && typeof a.r === "string" && typeof a.a === "string" ? a : null; // only ever for the person signed in
+    r = await fetch(`${authBase()}/auth/login`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, password }), signal: AbortSignal.timeout(12_000), cache: "no-store" });
   } catch {
-    return null;
+    return fail(502, "Could not check your password right now. Please try again.");
   }
+  const j = (await r.json().catch(() => ({}))) as { error?: string; refresh?: string; user?: AuthUser };
+  if (r.status === 429) fail(429, j.error || "Too many attempts. Try again later.");
+  const ok = r.ok && goodId(j.user) === userId;
+  // the check opened a session we have no use for: close it
+  if (j.refresh) fetch(`${authBase()}/auth/logout`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ refresh: j.refresh }), signal: AbortSignal.timeout(8_000) }).catch(() => {});
+  return ok;
 }
-/** The game balance, read from the account service as the signed-in person. Returns the session to store back when it was renewed. */
-export async function accountProgress(a: Acct): Promise<{ zuba: number; acct: Acct; renewed: boolean } | null> {
-  let acct = a, renewed = false;
-  const renew = async () => {
-    const r = await authPost("/auth/refresh", { refresh: acct.r }, 10_000);
-    if (!r.ok) return false;
-    const j = (await r.json().catch(() => ({}))) as LoginReply;
-    if (!j.access || !j.refresh) return false;
-    acct = { ...acct, r: j.refresh, a: j.access, x: Date.now() + (Number(j.expiresIn) || 1800) * 1000 - 60_000 };
-    renewed = true;
-    return true;
-  };
-  try {
-    if (Date.now() >= acct.x && !(await renew())) return null;
-    const get = () => fetch(`${authBase()}/progress`, { headers: { authorization: `Bearer ${acct.a}` }, signal: AbortSignal.timeout(10_000), cache: "no-store" });
-    let r = await get();
-    if (r.status === 401 && !renewed && (await renew())) r = await get();
-    if (!r.ok) return null;
-    const j = (await r.json().catch(() => ({}))) as { zuba?: number };
-    return { zuba: Math.max(0, Math.floor(Number(j.zuba) || 0)), acct, renewed };
-  } catch {
-    return null;
-  }
-}
-export function accountLogout(a: Acct | null) {
-  if (a) authPost("/auth/logout", { refresh: a.r }, 8_000).catch(() => {});
-}
+export const FLAG = "zuba_in"; // not a secret: only tells the website's menu bar to say "Dashboard" instead of "Sign in"
 
 // ---- two-factor: the secret is made here, shown once, and locked so that only the worker can open it ----
 const B32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
