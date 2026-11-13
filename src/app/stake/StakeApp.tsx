@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import QRCode from "qrcode";
+import Link from "next/link";
 
 /* ---------- types (what /api/stake returns) ---------- */
 type Token = { symbol: string; contract: string; chain: string; chainId: number; explorer: string };
@@ -291,8 +292,8 @@ function Shell({ children, test, onSignOut }: { children: React.ReactNode; test?
   return (
     <div className="page sk">
       <header className="sk-top">
-        <a href="/" className="sk-exit"><Ico n="back" s={18} /><span>Website</span></a>
-        <a href="/dashboard" className="sk-brand" aria-label="ZUBA dashboard"><img src="/brand/zuba-coin.png" width={34} height={34} alt="" /><b>ZUBA</b></a>
+        <Link href="/" className="sk-exit"><Ico n="back" s={18} /><span>Website</span></Link>
+        <span className="sk-brand"><img src="/brand/zuba-coin.png" width={34} height={34} alt="" /><b>ZUBA</b></span>
         {onSignOut ? <button type="button" className="sk-exit end" onClick={onSignOut}><span>Sign out</span><Ico n="out" s={18} /></button> : <span className="sk-exit end" aria-hidden="true" />}
       </header>
       <div className="sk-wrap">
@@ -547,10 +548,10 @@ function Hub({ me, pub, account, open }: { me: Me; pub: Pub; account: Account | 
       <div className="sk-tiles">
         <a className="sk-tile" href="/play"><span className="sk-icobox gold"><Ico n="play" /></span><div><b>Games</b><span>Play the ZUBA Arcade</span></div><Ico n="chev" s={16} /></a>
         <button type="button" className="sk-tile" onClick={open}><span className="sk-icobox"><Ico n="trend" /></span><div><b>Staking</b><span>Stake ZUBA, earn daily</span></div><Ico n="chev" s={16} /></button>
-        <a className="sk-tile" href="/about"><span className="sk-icobox"><Ico n="info" /></span><div><b>About</b><span>The story of ZUBA</span></div><Ico n="chev" s={16} /></a>
-        <a className="sk-tile" href="/whitepaper"><span className="sk-icobox"><Ico n="book" /></span><div><b>Whitepaper</b><span>How the token works</span></div><Ico n="chev" s={16} /></a>
+        <Link className="sk-tile" href="/about"><span className="sk-icobox"><Ico n="info" /></span><div><b>About</b><span>The story of ZUBA</span></div><Ico n="chev" s={16} /></Link>
+        <Link className="sk-tile" href="/whitepaper"><span className="sk-icobox"><Ico n="book" /></span><div><b>Whitepaper</b><span>How the token works</span></div><Ico n="chev" s={16} /></Link>
       </div>
-      <a className="sk-leave" href="/"><Ico n="globe" s={18} /> Back to the ZUBA website</a>
+      <Link className="sk-leave" href="/"><Ico n="globe" s={18} /> Back to the ZUBA website</Link>
     </div>
   );
 }
