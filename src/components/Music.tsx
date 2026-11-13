@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const SRC = "/audio/the-call-of-zuba.mp3";
-const TARGET = 0.6;
+const TARGET = 0.12; // 80% quieter than the original 0.6
 const FADE_MS = 1800;
 
 type W = Window & { __zubaAudio?: HTMLAudioElement };
