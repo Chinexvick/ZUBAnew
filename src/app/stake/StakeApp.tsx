@@ -339,7 +339,7 @@ function Calc({ sym, apy, dayMs, amount, setAmount, lock, setLock, max, minLabel
             <p className="dim">Deposit fee: 0% | Early unstake: not available | Locked {lock} days</p>
           </>
         )}
-        <p className="gold">Rewards start from the next full day, so the first reward arrives the day after you stake.{lock > 0 ? " A fixed stake is confirmed with your authenticator code." : ""}</p>
+        <p className="gold">A stake starts earning when the next reward day begins. Each day&apos;s reward is paid when that day ends.{lock > 0 ? " A fixed stake is confirmed with your authenticator code." : ""}</p>
       </div>
       <div className="sk-est">
         <div className="sk-est-top"><span className="sk-eyebrow">Estimated return</span><i>{lock === 0 ? "over 30 days" : `over ${lock} days`}</i></div>
@@ -362,7 +362,7 @@ const FAQ: [string, string][] = [
   ["How are rewards calculated?", "Once a day, from the size of your stake and the weight of its lock option. Fixed terms carry a higher weight than flexible."],
   ["Is the rate fixed?", "No. The rate is variable and is updated every day. The figures shown are estimates at today's rate."],
   ["How long do rewards run?", "365 days from launch. Your staked ZUBA stays yours and can be withdrawn after rewards end."],
-  ["When do rewards start?", "A stake starts earning from the next full day and is paid daily after that."],
+  ["When do rewards start?", "A stake starts earning when the next reward day begins, and each day's reward is paid when that day ends. So the first reward arrives between one and two days after you stake, then every day after that."],
   ["Can I unstake early?", "Flexible stakes can be unstaked at any time. Fixed stakes earn a higher rate and are released when the term ends."],
   ["How do withdrawals work?", "Withdrawals go to an address you have saved, on BNB Smart Chain, and are confirmed with your authenticator code."],
   ["Which token and network?", "ZUBA (BEP-20) on BNB Smart Chain only."],
@@ -489,6 +489,11 @@ function Summary({ me, go }: { me: Me; go: (t: string) => void }) {
   const b = me.balance, sym = me.token.symbol;
   const staked = me.positions.reduce((t, p) => t + num(p.amount), 0);
   const mine = staked > 0 ? me.positions.reduce((t, p) => t + num(p.amount) * (me.apy[String(p.lockDays)] ?? 0), 0) / staked : null;
+  // What today's reward is building up to. A stake counts for a reward day once it has been in place since that day began.
+  const dayStart = me.program.nextDayAt - me.dayMs;
+  const earning = me.positions.filter((p) => new Date(p.startedAt).getTime() <= dayStart);
+  const part = Math.min(1, Math.max(0, (now - dayStart) / me.dayMs));
+  const accruing = earning.reduce((t, p) => t + (num(p.amount) * (me.apy[String(p.lockDays)] ?? 0)) / 100 / 365, 0) * part;
   return (
     <section className="sk-card sk-sum">
       <div className="sk-stats">
@@ -500,7 +505,8 @@ function Summary({ me, go }: { me: Me; go: (t: string) => void }) {
         <dl>
           <div><dt>Available</dt><dd className="sk-num">{nice(b.available, 2)} {sym}</dd></div>
           {num(b.pendingWithdrawal) > 0 && <div><dt>Withdrawing</dt><dd className="sk-num">{nice(b.pendingWithdrawal, 2)} {sym}</dd></div>}
-          {num(b.staked) > 0 && <div><dt>Next reward</dt><dd><Countdown to={me.program.nextDayAt} now={now} /></dd></div>}
+          {earning.length > 0 && <div><dt>Accruing today</dt><dd className="sk-num sk-live">≈ +{accruing.toFixed(accruing < 100 ? 4 : 2)} {sym}</dd></div>}
+          {num(b.staked) > 0 && <div><dt>{earning.length > 0 ? "Paid in" : "Starts earning in"}</dt><dd><Countdown to={me.program.nextDayAt} now={now} /></dd></div>}
         </dl>
         <div className="sk-sum-actions">
           <button type="button" className="sk-btn primary" onClick={() => go("deposit")}>Deposit</button>
@@ -529,6 +535,7 @@ function Positions({ me, refresh, say, empty }: { me: Me; refresh: Refresh; say:
               {p.lockDays > 0 && <div className="sk-bar"><span style={{ width: `${pct}%` }} /></div>}
               <footer>
                 <span>{p.lockDays === 0 ? "No lock" : p.canUnstake ? "Unlocked" : `Unlocks in ${span(end - now)}`}</span>
+                {start <= me.program.nextDayAt - me.dayMs ? <span className="sk-live">Earning</span> : <span>Starts earning in {span(me.program.nextDayAt - now)}</span>}
                 {p.canUnstake && <button type="button" className="sk-btn small" disabled={a.busy} onClick={async () => (await a.run({ kind: "unstake", id: p.id })) && say("Unstaked")}>Unstake</button>}
               </footer>
             </article>
