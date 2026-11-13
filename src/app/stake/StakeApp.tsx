@@ -238,6 +238,7 @@ export default function StakeApp() {
       {!ready ? <Setup me={me} refresh={refresh} /> : (
         <>
           <Summary me={me} go={go} />
+          <p className="sk-intro">Stake {me.token.symbol} to earn {me.token.symbol}. Rewards are paid to your balance once a day, and you choose between flexible and fixed terms for every stake.</p>
           <nav className="sk-tabs" aria-label="Staking sections">
             {tabs.map(([k, label, icon]) => (
               <button key={k} type="button" className={tab === k ? "on" : ""} onClick={() => go(k)} aria-current={tab === k ? "page" : undefined}><Ico n={icon} /><span>{label}</span></button>
@@ -288,7 +289,7 @@ function Pool({ token, program, apy, earned }: { token: Token; program: Program;
         <div>
           <span className="sk-eyebrow">Est. APR</span>
           <b className="sk-num mint">{lo === hi ? `${hi}%` : `${lo}% – ${hi}%`}</b>
-          <i>Variable. Falls as more {token.symbol} is staked.</i>
+          <i>Annualized · ≈{(lo / 365).toFixed(3)}%{lo === hi ? "" : `–${(hi / 365).toFixed(3)}%`} a day today · variable</i>
         </div>
       </div>
       <Rows items={[["Total staked", <span key="t" className="sk-num">{compact(program.totalStaked)} {token.symbol}</span>], ["Stakers", <span key="s" className="sk-num">{program.stakers}</span>], ["Network", token.chainId === 56 ? "BNB Smart Chain" : "BNB Testnet"]]} />
@@ -316,7 +317,7 @@ function Calc({ sym, apy, dayMs, amount, setAmount, lock, setLock, max, minLabel
         </div>
       )}
       <div className="sk-field">
-        <div className="sk-field-top"><label>Lock option</label><span>Est. APR at today&apos;s rate</span></div>
+        <div className="sk-field-top"><label>Lock option</label><span>APR estimate uses this weight</span></div>
         <div className="sk-lockgrid" role="radiogroup" aria-label="Lock option">
           {Object.keys(apy).map((d) => (
             <button key={d} type="button" role="radio" aria-checked={lock === Number(d)} className={lock === Number(d) ? "on" : ""} onClick={() => setLock(Number(d))}>
@@ -326,11 +327,20 @@ function Calc({ sym, apy, dayMs, amount, setAmount, lock, setLock, max, minLabel
           ))}
         </div>
       </div>
-      <p className="sk-desc">
-        {lock === 0
-          ? <><b>Flexible.</b> Unstake at any time. Rewards are paid to your balance every day.</>
-          : <><b>Fixed for {lock} days.</b> Earns {WEIGHT[String(lock)]}× the flexible share. It cannot be unstaked before {dateIn(lock, dayMs)}.</>}
-      </p>
+      <div className="sk-terms">
+        {lock === 0 ? (
+          <>
+            <p><b>Flexible:</b> unstake at any time, with no fee. Rewards are paid to your balance once a day and can be withdrawn or staked again.</p>
+            <p className="dim">Deposit fee: 0% | Unstake fee: 0% | No lock</p>
+          </>
+        ) : (
+          <>
+            <p><b>Fixed {lock} days:</b> earns {(WEIGHT[String(lock)] ?? 1).toFixed(2)}× the flexible weight. Your {sym} stays locked until {dateIn(lock, dayMs)} and cannot be unstaked early. Rewards are still paid daily and can be withdrawn at any time.</p>
+            <p className="dim">Deposit fee: 0% | Early unstake: not available | Locked {lock} days</p>
+          </>
+        )}
+        <p className="gold">Rewards start from the next full day, so the first reward arrives the day after you stake.{lock > 0 ? " A fixed stake is confirmed with your authenticator code." : ""}</p>
+      </div>
       <div className="sk-est">
         <div className="sk-est-top"><span className="sk-eyebrow">Estimated return</span><i>{lock === 0 ? "over 30 days" : `over ${lock} days`}</i></div>
         <div className="sk-est-big"><b className="sk-num">{amt ? `+${amountOf(earn)}` : "0"}</b><span>{sym}</span></div>
@@ -340,7 +350,7 @@ function Calc({ sym, apy, dayMs, amount, setAmount, lock, setLock, max, minLabel
         <div className="sk-field-top"><label>Summary</label></div>
         <div className="sk-summary">
           <Rows items={[["Principal", <span key="p" className="sk-num">{nice(amount || "0", 2)} {sym}</span>], ["Est. APR", `${rate}%`], ["Lock option", `${lockShort(lock)} · ${(WEIGHT[String(lock)] ?? 1).toFixed(2)}× weight`], ["Unlocks", lock === 0 ? "Any time" : dateIn(lock, dayMs)], ["Total value", <span key="v" className="sk-num">{amountOf(amt + earn)} {sym}</span>, "strong"]]} />
-          <p className="sk-fine">An estimate at today&apos;s rate, not a promise. The rate changes daily with the total staked.</p>
+          <p className="sk-fine">{lock === 0 ? "Flexible has no lock. The estimate uses a 30-day horizon. " : ""}Estimated at today&apos;s rate. Rates are variable.</p>
         </div>
       </div>
     </>
@@ -349,8 +359,8 @@ function Calc({ sym, apy, dayMs, amount, setAmount, lock, setLock, max, minLabel
 
 /* ---------- signed out ---------- */
 const FAQ: [string, string][] = [
-  ["How are rewards calculated?", "A fixed amount of ZUBA is shared between all stakers each day, in proportion to the size and lock period of each stake."],
-  ["Is the rate fixed?", "No. The rate moves with the total amount staked: it falls as more ZUBA is staked and rises when less is staked. The figures shown are estimates, not a promise."],
+  ["How are rewards calculated?", "Once a day, from the size of your stake and the weight of its lock option. Fixed terms carry a higher weight than flexible."],
+  ["Is the rate fixed?", "No. The rate is variable and is updated every day. The figures shown are estimates at today's rate."],
   ["How long do rewards run?", "365 days from launch. Your staked ZUBA stays yours and can be withdrawn after rewards end."],
   ["When do rewards start?", "A stake starts earning from the next full day and is paid daily after that."],
   ["Can I unstake early?", "Flexible stakes can be unstaked at any time. Fixed stakes earn a higher rate and are released when the term ends."],
