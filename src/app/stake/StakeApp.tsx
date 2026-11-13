@@ -106,6 +106,10 @@ const ICONS: Record<string, string> = {
   x: "M6 6l12 12M18 6 6 18",
   plus: "M12 5v14M5 12h14",
   chev: "m9 6 6 6-6 6",
+  wallet: "M3 7.5A2.5 2.5 0 0 1 5.5 5H18v3.5M3 7.5V17a2.5 2.5 0 0 0 2.5 2.5H20a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5.5A2.5 2.5 0 0 1 3 7.5zM17 14h.01",
+  star: "m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4l-5.3 3 1.2-6L3.4 9.3l6-.7z",
+  trend: "m3 17 6-6 4 4 8-8m0 0h-5m5 0v5",
+  calc: "M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm2.5 4h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01",
 };
 function Ico({ n, s = 18 }: { n: string; s?: number }) {
   return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={ICONS[n]} /></svg>;
@@ -177,13 +181,13 @@ function Toast({ text, onDone }: { text: string; onDone: () => void }) {
 }
 
 /* ======================================================================================= */
-const TABS: [string, string, string][] = [["overview", "Overview", "home"], ["deposit", "Deposit", "down"], ["stake", "Stake", "lock"], ["withdraw", "Withdraw", "up"], ["history", "History", "list"]];
+const TABS: [string, string, string][] = [["stake", "Stake", "lock"], ["deposit", "Deposit", "down"], ["withdraw", "Withdraw", "up"], ["history", "History", "list"]];
 
 export default function StakeApp() {
   const [pub, setPub] = useState<Pub | null>(null);
   const [me, setMe] = useState<Me | null>(null);
   const [state, setState] = useState<"loading" | "out" | "in">("loading");
-  const [tab, setTab] = useState("overview");
+  const [tab, setTab] = useState("stake");
   const [toast, setToast] = useState("");
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -233,16 +237,15 @@ export default function StakeApp() {
       {me.paused && <p className="sk-note warn" role="status">Staking is paused. Balances are safe.</p>}
       {!ready ? <Setup me={me} refresh={refresh} /> : (
         <>
-          <Hero me={me} go={go} />
+          <Summary me={me} go={go} />
           <nav className="sk-tabs" aria-label="Staking sections">
             {tabs.map(([k, label, icon]) => (
               <button key={k} type="button" className={tab === k ? "on" : ""} onClick={() => go(k)} aria-current={tab === k ? "page" : undefined}><Ico n={icon} /><span>{label}</span></button>
             ))}
           </nav>
           <div className="sk-view" key={tab}>
-            {tab === "overview" && <Overview me={me} go={go} refresh={refresh} say={setToast} />}
             {tab === "deposit" && <Deposit me={me} refresh={refresh} say={setToast} />}
-            {tab === "stake" && <Stake me={me} refresh={refresh} say={setToast} />}
+            {tab === "stake" && <Stake me={me} go={go} refresh={refresh} say={setToast} />}
             {tab === "withdraw" && <Withdraw me={me} refresh={refresh} say={setToast} />}
             {tab === "history" && <History me={me} />}
           </div>
@@ -262,6 +265,85 @@ function Shell({ children, test }: { children: React.ReactNode; test?: boolean }
       </div>
       <div id="sk-portal" />
     </div>
+  );
+}
+
+/* ---------- the pool and the calculator (shared by the public page and the dashboard) ---------- */
+const WEIGHT: Record<string, number> = { 0: 1, 30: 1.25, 90: 1.5, 180: 2 };
+const lockShort = (d: number) => (d === 0 ? "Flexible" : `${d}D`);
+const dateIn = (days: number, dayMs: number) => new Date(Date.now() + days * dayMs).toLocaleString(undefined, dayMs === 86_400_000 ? { day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const amountOf = (v: number) => nice(v.toFixed(v < 100 ? 2 : 0), 2);
+
+function Pool({ token, program, apy, earned }: { token: Token; program: Program; apy: Record<string, number>; earned?: string }) {
+  const rates = Object.values(apy), lo = Math.min(...rates), hi = Math.max(...rates);
+  return (
+    <section className="sk-card sk-pool">
+      <header className="sk-pool-head">
+        <img src="/brand/zuba-coin.png" width={52} height={52} alt="" />
+        <div><h2>Stake {token.symbol}</h2><span>Earn {token.symbol}</span></div>
+        <span className="sk-pill strong">Day {Math.min(program.day + 1, program.programDays)} of {program.programDays}</span>
+      </header>
+      <div className="sk-pool-main">
+        {earned !== undefined && <div><span className="sk-eyebrow">Earned</span><b className="sk-num gold">{nice(earned, 2)}</b></div>}
+        <div>
+          <span className="sk-eyebrow">Est. APR</span>
+          <b className="sk-num mint">{lo === hi ? `${hi}%` : `${lo}% – ${hi}%`}</b>
+          <i>Variable. Falls as more {token.symbol} is staked.</i>
+        </div>
+      </div>
+      <Rows items={[["Total staked", <span key="t" className="sk-num">{compact(program.totalStaked)} {token.symbol}</span>], ["Stakers", <span key="s" className="sk-num">{program.stakers}</span>], ["Network", token.chainId === 56 ? "BNB Smart Chain" : "BNB Testnet"]]} />
+    </section>
+  );
+}
+
+/** Amount, lock option and what it is estimated to earn. The same block is the public calculator and the stake form. */
+function Calc({ sym, apy, dayMs, amount, setAmount, lock, setLock, max, minLabel }: { sym: string; apy: Record<string, number>; dayMs: number; amount: string; setAmount: (v: string) => void; lock: number; setLock: (d: number) => void; max?: string; minLabel?: string }) {
+  const amt = Number(amount) || 0, rate = apy[String(lock)] ?? 0;
+  const days = lock || 30;
+  const earn = (amt * rate * days) / 100 / 365;
+  const pct = (f: number) => setAmount(f === 1 ? max! : String(Math.floor(num(max!) * f)));
+  return (
+    <>
+      <Field label="Stake amount" htmlFor="stk-amt" hint={max !== undefined ? <>Balance <b className="sk-num">{nice(max, 2)} {sym}</b></> : minLabel}>
+        <div className="sk-amount">
+          <input id="stk-amt" inputMode="decimal" placeholder="0.0" autoComplete="off" value={amount} onChange={(e) => setAmount(e.target.value.replace(/[^\d.]/g, ""))} />
+          <span className="sk-amount-sym">{sym}</span>
+        </div>
+      </Field>
+      {max !== undefined && (
+        <div className="sk-chips">
+          {([[0.25, "25%"], [0.5, "50%"], [0.75, "75%"], [1, "Max"]] as [number, string][]).map(([f, label]) => <button key={label} type="button" disabled={num(max) <= 0} onClick={() => pct(f)}>{label}</button>)}
+        </div>
+      )}
+      <div className="sk-field">
+        <div className="sk-field-top"><label>Lock option</label><span>Est. APR at today&apos;s rate</span></div>
+        <div className="sk-lockgrid" role="radiogroup" aria-label="Lock option">
+          {Object.keys(apy).map((d) => (
+            <button key={d} type="button" role="radio" aria-checked={lock === Number(d)} className={lock === Number(d) ? "on" : ""} onClick={() => setLock(Number(d))}>
+              <span><b>{lockShort(Number(d))}</b><i>{(WEIGHT[d] ?? 1).toFixed(2)}× weight</i></span>
+              <em className="sk-num">{apy[d]}%</em>
+            </button>
+          ))}
+        </div>
+      </div>
+      <p className="sk-desc">
+        {lock === 0
+          ? <><b>Flexible.</b> Unstake at any time. Rewards are paid to your balance every day.</>
+          : <><b>Fixed for {lock} days.</b> Earns {WEIGHT[String(lock)]}× the flexible share. It cannot be unstaked before {dateIn(lock, dayMs)}.</>}
+      </p>
+      <div className="sk-est">
+        <div className="sk-est-top"><span className="sk-eyebrow">Estimated return</span><i>{lock === 0 ? "over 30 days" : `over ${lock} days`}</i></div>
+        <div className="sk-est-big"><b className="sk-num">{amt ? `+${amountOf(earn)}` : "0"}</b><span>{sym}</span></div>
+        <span className="sk-est-pct">+{amt ? ((earn / amt) * 100).toFixed(2) : "0.00"}%</span>
+      </div>
+      <div className="sk-field">
+        <div className="sk-field-top"><label>Summary</label></div>
+        <div className="sk-summary">
+          <Rows items={[["Principal", <span key="p" className="sk-num">{nice(amount || "0", 2)} {sym}</span>], ["Est. APR", `${rate}%`], ["Lock option", `${lockShort(lock)} · ${(WEIGHT[String(lock)] ?? 1).toFixed(2)}× weight`], ["Unlocks", lock === 0 ? "Any time" : dateIn(lock, dayMs)], ["Total value", <span key="v" className="sk-num">{amountOf(amt + earn)} {sym}</span>, "strong"]]} />
+          <p className="sk-fine">An estimate at today&apos;s rate, not a promise. The rate changes daily with the total staked.</p>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -285,8 +367,10 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
     setBusy(true); setErr("");
     try { await api("login", { email, password }); await onDone(); } catch (x) { setErr((x as Error).message); } finally { setBusy(false); }
   }
-  const apy = pub.apy || {}, p = pub.program!;
-  const W: Record<string, number> = { 0: 1, 30: 1.25, 90: 1.5, 180: 2 };
+  const apy = pub.apy || {}, p = pub.program!, token = pub.token!;
+  const [amount, setAmount] = useState("");
+  const [lock, setLock] = useState(90);
+  const signin = useRef<HTMLFormElement>(null);
   return (
     <>
       <div className="sk-landing">
@@ -294,13 +378,13 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
           <span className="sk-eyebrow">ZUBA Staking</span>
           <h1 className="sk-display">Stake ZUBA.<br /><em>Earn daily.</em></h1>
           <p className="sk-lead">Deposit ZUBA, keep it flexible or fix a term, and earn rewards every day. Fixed terms always earn more.</p>
-          <dl className="sk-facts">
-            <div><dt>Total staked</dt><dd className="sk-num">{compact(p.totalStaked)}</dd></div>
-            <div><dt>Stakers</dt><dd className="sk-num">{p.stakers}</dd></div>
-            <div><dt>Rewards run</dt><dd className="sk-num gold">{p.programDays} days</dd></div>
-          </dl>
+          <ul className="sk-ticks">
+            <li><Ico n="check" s={16} />No wallet connection. Deposit to your own address.</li>
+            <li><Ico n="check" s={16} />Rewards paid to your balance every day.</li>
+            <li><Ico n="check" s={16} />Two-factor and saved addresses on every withdrawal.</li>
+          </ul>
         </div>
-        <form className="sk-card sk-signin" onSubmit={submit}>
+        <form ref={signin} className="sk-card sk-signin" onSubmit={submit}>
           <header className="sk-card-head"><h2>Sign in</h2></header>
           <Field label="Email" htmlFor="stk-email"><input id="stk-email" className="sk-input" type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
           <Field label="Password" htmlFor="stk-pw"><input id="stk-pw" className="sk-input" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} /></Field>
@@ -309,22 +393,24 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
           <p className="sk-fine sk-center">Use your Zualingo account. <a href="/play">Create one</a></p>
         </form>
       </div>
-      <ul className="sk-points">
-        <li><Ico n="down" s={20} /><div><b>No wallet connection</b><span>Deposit to your own address. Nothing to sign.</span></div></li>
-        <li><Ico n="check" s={20} /><div><b>Paid daily</b><span>Rewards land in your balance every day.</span></div></li>
-        <li><Ico n="shield" s={20} /><div><b>Protected withdrawals</b><span>Two-factor and saved addresses on every payout.</span></div></li>
-      </ul>
-      <div className="sk-sec-head"><h2 className="sk-h1">Flexible or fixed</h2><p className="sk-muted">Unstake any time, or fix a term for a higher rate. Rates update daily.</p></div>
-      <div className="sk-tiers">
-        {Object.keys(apy).map((d) => (
-          <div key={d} className={`sk-tier ${d === "180" ? "top" : ""}`}>
-            <span className="sk-eyebrow">{lockName(Number(d))}</span>
-            <b className="sk-num">{apy[d]}<small>%</small></b>
-            <i>APY · {W[d]}× share</i>
-          </div>
-        ))}
+      <div className="sk-home">
+        <div className="sk-home-side">
+          <Pool token={token} program={p} apy={apy} />
+          <Card title="How it works">
+            <ol className="sk-how">
+              <li><span>1</span><div><b>Deposit</b>Send ZUBA to your personal deposit address.</div></li>
+              <li><span>2</span><div><b>Stake</b>Choose flexible or a fixed term.</div></li>
+              <li><span>3</span><div><b>Earn</b>Rewards reach your balance every day.</div></li>
+              <li><span>4</span><div><b>Withdraw</b>To a wallet address you have saved, confirmed with your authenticator.</div></li>
+            </ol>
+          </Card>
+        </div>
+        <section className="sk-card sk-panel">
+          <header className="sk-panel-head"><span className="sk-icobox"><Ico n="calc" /></span><h2>Rewards calculator</h2></header>
+          <Calc sym={token.symbol} apy={apy} dayMs={p.dayMs} amount={amount} setAmount={setAmount} lock={lock} setLock={setLock} />
+          <button type="button" className="sk-btn primary wide" onClick={() => { signin.current?.scrollIntoView({ behavior: "smooth", block: "center" }); document.getElementById("stk-email")?.focus({ preventScroll: true }); }}>Sign in to stake</button>
+        </section>
       </div>
-      <p className="sk-fine sk-center">Variable rates, up to {pub.maxApy}% APY on the longest term.</p>
       <div className="sk-sec-head"><h2 className="sk-h1">Questions</h2></div>
       <div className="sk-faq">
         {FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
@@ -386,34 +472,28 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
   );
 }
 
-/* ---------- the balance header ---------- */
-function Hero({ me, go }: { me: Me; go: (t: string) => void }) {
+/* ---------- the three numbers at the top ---------- */
+type Say = (t: string) => void;
+function Summary({ me, go }: { me: Me; go: (t: string) => void }) {
   const now = useNow();
-  const b = me.balance;
-  const total = num(b.total) || 1;
-  const parts: [string, string, string][] = [["Staked", b.staked, "staked"], ["Available", b.available, "avail"], ["Withdrawing", b.pendingWithdrawal, "out"]];
+  const b = me.balance, sym = me.token.symbol;
+  const staked = me.positions.reduce((t, p) => t + num(p.amount), 0);
+  const mine = staked > 0 ? me.positions.reduce((t, p) => t + num(p.amount) * (me.apy[String(p.lockDays)] ?? 0), 0) / staked : null;
   return (
-    <section className="sk-hero">
-      <div className="sk-hero-main">
-        <span className="sk-eyebrow">Total balance</span>
-        <div className="sk-total"><b className="sk-num">{nice(b.total, 2)}</b><span>{me.token.symbol}</span></div>
-        <div className="sk-split" aria-hidden="true">
-          {parts.map(([, v, c]) => num(v) > 0 && <span key={c} className={c} style={{ flexGrow: num(v) / total }} />)}
-          {num(b.total) === 0 && <span className="none" style={{ flexGrow: 1 }} />}
-        </div>
-        <ul className="sk-legend">
-          {parts.map(([label, v, c]) => (c !== "out" || num(v) > 0) && <li key={c}><i className={c} />{label}<b className="sk-num">{nice(v, 2)}</b></li>)}
-        </ul>
+    <section className="sk-card sk-sum">
+      <div className="sk-stats">
+        <div><span className="sk-icobox"><Ico n="wallet" /></span><span className="sk-eyebrow">Total staked</span><b className="sk-num">{compact(b.staked)}</b><i>{sym}</i></div>
+        <div><span className="sk-icobox gold"><Ico n="star" /></span><span className="sk-eyebrow">Rewards earned</span><b className="sk-num gold">{compact(b.rewards)}</b><i>{sym}</i></div>
+        <div><span className="sk-icobox"><Ico n="trend" /></span><span className="sk-eyebrow">Your APR</span><b className="sk-num">{mine === null ? "Variable" : `${mine.toFixed(2).replace(/\.?0+$/, "")}%`}</b><i>{mine === null ? "not staking yet" : "estimate"}</i></div>
       </div>
-      <div className="sk-hero-side">
-        <div className="sk-earned">
-          <span className="sk-eyebrow">Rewards earned</span>
-          <b className="sk-num gold">{nice(b.rewards, 4)}</b>
-          {num(b.staked) > 0 && <span className="sk-next">Next reward <Countdown to={me.program.nextDayAt} now={now} /></span>}
-        </div>
-        <div className="sk-hero-actions">
-          <button type="button" className="sk-btn primary" onClick={() => go("stake")}>Stake</button>
-          <button type="button" className="sk-btn" onClick={() => go("deposit")}>Deposit</button>
+      <div className="sk-sum-foot">
+        <dl>
+          <div><dt>Available</dt><dd className="sk-num">{nice(b.available, 2)} {sym}</dd></div>
+          {num(b.pendingWithdrawal) > 0 && <div><dt>Withdrawing</dt><dd className="sk-num">{nice(b.pendingWithdrawal, 2)} {sym}</dd></div>}
+          {num(b.staked) > 0 && <div><dt>Next reward</dt><dd><Countdown to={me.program.nextDayAt} now={now} /></dd></div>}
+        </dl>
+        <div className="sk-sum-actions">
+          <button type="button" className="sk-btn primary" onClick={() => go("deposit")}>Deposit</button>
           <button type="button" className="sk-btn" onClick={() => go("withdraw")}>Withdraw</button>
         </div>
       </div>
@@ -421,23 +501,6 @@ function Hero({ me, go }: { me: Me; go: (t: string) => void }) {
   );
 }
 
-/* ---------- overview ---------- */
-type Say = (t: string) => void;
-function Overview({ me, go, refresh, say }: { me: Me; go: (t: string) => void; refresh: Refresh; say: Say }) {
-  const funded = num(me.balance.available) > 0;
-  return (
-    <>
-      <Card title="Stakes" aside={me.positions.length > 0 && <button type="button" className="sk-ghost" onClick={() => go("stake")}><Ico n="plus" s={15} /> New</button>}>
-        <Positions me={me} refresh={refresh} say={say} empty={<div className="sk-empty"><p>{funded ? "Your balance is not earning yet. Stake it to start receiving daily rewards." : "Deposit ZUBA to start earning daily rewards."}</p><button type="button" className="sk-btn primary" onClick={() => go(funded ? "stake" : "deposit")}>{funded ? "Stake" : "Deposit"}</button></div>} />
-      </Card>
-      {me.history.length > 0 && (
-        <Card title="Recent activity" aside={<button type="button" className="sk-ghost" onClick={() => go("history")}>View all <Ico n="chev" s={14} /></button>}>
-          <Ledger items={me.history.slice(0, 4)} />
-        </Card>
-      )}
-    </>
-  );
-}
 function Positions({ me, refresh, say, empty }: { me: Me; refresh: Refresh; say: Say; empty?: React.ReactNode }) {
   const a = useAction(refresh);
   const now = useNow(5000);
@@ -456,7 +519,7 @@ function Positions({ me, refresh, say, empty }: { me: Me; refresh: Refresh; say:
               {p.lockDays > 0 && <div className="sk-bar"><span style={{ width: `${pct}%` }} /></div>}
               <footer>
                 <span>{p.lockDays === 0 ? "No lock" : p.canUnstake ? "Unlocked" : `Unlocks in ${span(end - now)}`}</span>
-                {p.canUnstake && <button type="button" className="sk-ghost" disabled={a.busy} onClick={async () => (await a.run({ kind: "unstake", id: p.id })) && say("Unstaked")}>Unstake</button>}
+                {p.canUnstake && <button type="button" className="sk-btn small" disabled={a.busy} onClick={async () => (await a.run({ kind: "unstake", id: p.id })) && say("Unstaked")}>Unstake</button>}
               </footer>
             </article>
           );
@@ -515,42 +578,51 @@ function Deposit({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
 }
 
 /* ---------- stake ---------- */
-function Stake({ me, refresh, say }: { me: Me; refresh: Refresh; say: Say }) {
+function Stake({ me, go, refresh, say }: { me: Me; go: (t: string) => void; refresh: Refresh; say: Say }) {
+  const [mode, setMode] = useState<"stake" | "unstake">("stake");
   const [amount, setAmount] = useState("");
   const [lock, setLock] = useState(90);
   const [review, setReview] = useState(false);
   const [code, setCode] = useState("");
   const a = useAction(refresh);
   const sym = me.token.symbol, amt = Number(amount) || 0, apy = me.apy[String(lock)] ?? 0;
-  const yearly = (amt * apy) / 100;
-  const unlock = lock === 0 ? "Any time" : new Date(Date.now() + lock * me.dayMs).toLocaleString(undefined, me.dayMs === 86_400_000 ? { day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-  const f = (v: number) => nice(v.toFixed(v < 100 ? 2 : 0), 2);
+  const daily = (amt * apy) / 100 / 365;
   const low = amt > 0 && amt < num(me.limits.minStakeFloor || me.limits.minStake), over = amt > num(me.balance.available);
+  const funded = num(me.balance.available) > 0;
   return (
     <>
-      <Card title="Stake" className="sk-narrow-l">
-        <p className="sk-sub-copy">Rewards are paid to your balance every day.</p>
-        <Field label="Amount" htmlFor="stk-amt" hint={<>Available <b className="sk-num">{nice(me.balance.available, 2)}</b></>}>
-          <Amount id="stk-amt" value={amount} onChange={setAmount} max={me.balance.available} symbol={sym} />
-        </Field>
-        <Field label="Lock">
-          <div className="sk-locks" role="radiogroup" aria-label="Lock">
-            {Object.keys(me.apy).map((d) => (
-              <button key={d} type="button" role="radio" aria-checked={lock === Number(d)} className={lock === Number(d) ? "on" : ""} onClick={() => setLock(Number(d))}>
-                <span>{lockName(Number(d))}</span>
-                <b className="sk-num">{me.apy[d]}%</b>
-              </button>
-            ))}
+      <div className="sk-home">
+        <div className="sk-home-side">
+          <Pool token={me.token} program={me.program} apy={me.apy} earned={me.balance.rewards} />
+          {me.history.length > 0 && (
+            <Card title="Recent activity" aside={<button type="button" className="sk-ghost" onClick={() => go("history")}>View all <Ico n="chev" s={14} /></button>}>
+              <Ledger items={me.history.slice(0, 4)} />
+            </Card>
+          )}
+        </div>
+        <section className="sk-card sk-panel">
+          <div className="sk-seg" role="tablist">
+            <button type="button" role="tab" aria-selected={mode === "stake"} className={mode === "stake" ? "on" : ""} onClick={() => setMode("stake")}>Stake</button>
+            <button type="button" role="tab" aria-selected={mode === "unstake"} className={mode === "unstake" ? "on" : ""} onClick={() => setMode("unstake")}>Unstake{me.positions.length > 0 && <i>{me.positions.length}</i>}</button>
           </div>
-        </Field>
-        {(low || over) && <p className="sk-hint bad">{over ? "Exceeds available balance" : `Minimum ${nice(me.limits.minStake)} ${sym}`}</p>}
-        <button type="button" className="sk-btn primary wide" disabled={!amt || low || over || me.paused} onClick={() => { a.reset(); setReview(true); }}>Review</button>
-      </Card>
-      <Card title="Stakes"><Positions me={me} refresh={refresh} say={say} /></Card>
+          <Rows items={[["Available balance", <span key="a" className="sk-num">{nice(me.balance.available, 2)} {sym}</span>], ["Staked", <span key="s" className="sk-num">{nice(me.balance.staked, 2)} {sym}</span>]]} />
+          {mode === "stake" ? (
+            <>
+              <Calc sym={sym} apy={me.apy} dayMs={me.dayMs} amount={amount} setAmount={setAmount} lock={lock} setLock={setLock} max={me.balance.available} />
+              {(low || over) && <p className="sk-hint bad">{over ? "Exceeds available balance" : `Minimum ${nice(me.limits.minStake)} ${sym}`}</p>}
+              {!funded && <p className="sk-note info">Your balance is empty. <button type="button" className="sk-ghost" onClick={() => go("deposit")}>Deposit {sym}</button></p>}
+              <button type="button" className="sk-btn primary wide" disabled={!amt || low || over || me.paused} onClick={() => { a.reset(); setCode(""); setReview(true); }}>Review stake</button>
+              <p className="sk-fine sk-center">Minimum {nice(me.limits.minStake)} {sym}</p>
+            </>
+          ) : (
+            <Positions me={me} refresh={refresh} say={say} empty={<p className="sk-muted">You have no stakes yet.</p>} />
+          )}
+        </section>
+      </div>
       {review && (
         <Modal title="Confirm stake" onClose={() => setReview(false)}>
           <div className="sk-big"><b className="sk-num">{nice(amount, 2)}</b><span>{sym}</span></div>
-          <Rows items={[["Lock", lockName(lock)], ["Unlocks", unlock], ["Est. APY", `${apy}%`], ["Est. daily", `+${f(yearly / 365)} ${sym}`, "gold"]]} />
+          <Rows items={[["Lock", lockName(lock)], ["Unlocks", lock === 0 ? "Any time" : dateIn(lock, me.dayMs)], ["Est. APR", `${apy}%`], ["Est. daily", `+${amountOf(daily)} ${sym}`, "gold"]]} />
           {lock > 0 && <p className="sk-fine">Fixed stakes can&apos;t be unstaked before the term ends.</p>}
           {lock > 0 && <Field label="Authenticator code" htmlFor="stk-sc"><CodeInput id="stk-sc" value={code} onChange={setCode} autoFocus /></Field>}
           <Err>{a.err}</Err>
