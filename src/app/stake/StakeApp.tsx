@@ -21,6 +21,16 @@ type Me = {
 };
 type Pub = { enabled: boolean; test?: boolean; token?: Token; paused?: boolean; program?: Program; apy?: Record<string, number>; maxApy?: number };
 type Refresh = () => Promise<void>;
+type Account = { email: string; name: string; game: { zuba: number } | null };
+
+/* One sign-in for the games too: the games read their own sign-in from the browser's storage, so it is put there once. */
+const ARCADE_KEYS = ["FlutterSecureStorage.zr", "flutter.zr_fallback"];
+function arcadeSignIn(token: unknown) {
+  try {
+    for (const k of ARCADE_KEYS) localStorage.removeItem(k);
+    if (typeof token === "string" && token) localStorage.setItem("flutter.zr_fallback", JSON.stringify(token));
+  } catch { /* storage blocked: the games will ask to sign in */ }
+}
 
 /* ---------- helpers ---------- */
 async function api<T>(path: string, body?: unknown): Promise<T> {
@@ -106,6 +116,11 @@ const ICONS: Record<string, string> = {
   x: "M6 6l12 12M18 6 6 18",
   plus: "M12 5v14M5 12h14",
   chev: "m9 6 6 6-6 6",
+  back: "M15 6l-6 6 6 6",
+  play: "M8 5.5v13l11-6.5z",
+  book: "M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zm0 13a3 3 0 0 1 3-3h10",
+  info: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zm0-10v6m0-9.5h.01",
+  globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z",
   wallet: "M3 7.5A2.5 2.5 0 0 1 5.5 5H18v3.5M3 7.5V17a2.5 2.5 0 0 0 2.5 2.5H20a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5.5A2.5 2.5 0 0 1 3 7.5zM17 14h.01",
   star: "m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4l-5.3 3 1.2-6L3.4 9.3l6-.7z",
   trend: "m3 17 6-6 4 4 8-8m0 0h-5m5 0v5",
@@ -183,7 +198,9 @@ function Toast({ text, onDone }: { text: string; onDone: () => void }) {
 /* ======================================================================================= */
 const TABS: [string, string, string][] = [["stake", "Stake", "lock"], ["deposit", "Deposit", "down"], ["withdraw", "Withdraw", "up"], ["history", "History", "list"]];
 
-export default function StakeApp() {
+export default function StakeApp({ start = "hub" }: { start?: "hub" | "staking" }) {
+  const [view, setView] = useState<"hub" | "staking">(start);
+  const [account, setAccount] = useState<Account | null>(null);
   const [pub, setPub] = useState<Pub | null>(null);
   const [me, setMe] = useState<Me | null>(null);
   const [state, setState] = useState<"loading" | "out" | "in">("loading");
@@ -204,11 +221,16 @@ export default function StakeApp() {
     refresh().then(() => setState((s) => (s === "loading" ? "out" : s)));
   }, [refresh]);
   useEffect(() => {
+    if (state === "in") api<Account>("account").then(setAccount).catch(() => {});
+    else setAccount(null);
+  }, [state]);
+  useEffect(() => {
     if (state !== "in") return;
     timer.current = setInterval(() => { if (document.visibilityState === "visible") refresh(); }, 8000);
     return () => { if (timer.current) clearInterval(timer.current); };
   }, [state, refresh]);
   const go = (t: string) => { setTab(t); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const open = (v: "hub" | "staking") => { setView(v); window.history.replaceState(null, "", v === "hub" ? "/dashboard" : "/stake"); window.scrollTo({ top: 0 }); };
   const clearToast = useCallback(() => setToast(""), []);
 
   if (!pub || state === "loading") return <Shell><div className="sk-loading" aria-label="Loading" /></Shell>;
@@ -227,12 +249,20 @@ export default function StakeApp() {
 
   const ready = me.twoFactor === "on" && me.address;
   const tabs = TABS;
-  const signOut = async () => { await api("logout", {}); setMe(null); setState("out"); };
+  const signOut = async () => { await api("logout", {}); arcadeSignIn(null); setMe(null); setState("out"); setView("hub"); };
+  if (view === "hub") {
+    return (
+      <Shell test={me.test} onSignOut={signOut}>
+        <Hub me={me} pub={pub} account={account} open={() => open("staking")} />
+        {toast && <Toast text={toast} onDone={clearToast} />}
+      </Shell>
+    );
+  }
   return (
-    <Shell test={me.test}>
-      <div className="sk-topline">
-        <span className="sk-who" title={me.email}>{me.email}</span>
-        <button type="button" className="sk-ghost" onClick={signOut}><Ico n="out" s={16} /> Sign out</button>
+    <Shell test={me.test} onSignOut={signOut}>
+      <div className="sk-crumb">
+        <button type="button" className="sk-backbtn" onClick={() => open("hub")}><Ico n="back" s={18} /> Dashboard</button>
+        <h1>Staking</h1>
       </div>
       {me.paused && <p className="sk-note warn" role="status">Staking is paused. Balances are safe.</p>}
       {!ready ? <Setup me={me} refresh={refresh} /> : (
@@ -257,9 +287,14 @@ export default function StakeApp() {
   );
 }
 
-function Shell({ children, test }: { children: React.ReactNode; test?: boolean }) {
+function Shell({ children, test, onSignOut }: { children: React.ReactNode; test?: boolean; onSignOut?: () => void }) {
   return (
     <div className="page sk">
+      <header className="sk-top">
+        <a href="/" className="sk-exit"><Ico n="back" s={18} /><span>Website</span></a>
+        <a href="/dashboard" className="sk-brand" aria-label="ZUBA dashboard"><img src="/brand/zuba-coin.png" width={34} height={34} alt="" /><b>ZUBA</b></a>
+        {onSignOut ? <button type="button" className="sk-exit end" onClick={onSignOut}><span>Sign out</span><Ico n="out" s={18} /></button> : <span className="sk-exit end" aria-hidden="true" />}
+      </header>
       <div className="sk-wrap">
         {test && <div className="sk-test"><b>Testnet</b> Tokens here have no value.</div>}
         {children}
@@ -375,7 +410,7 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true); setErr("");
-    try { await api("login", { email, password }); await onDone(); } catch (x) { setErr((x as Error).message); } finally { setBusy(false); }
+    try { const r = await api<{ arcade?: string | null }>("login", { email, password }); arcadeSignIn(r.arcade); await onDone(); } catch (x) { setErr((x as Error).message); } finally { setBusy(false); }
   }
   const apy = pub.apy || {}, p = pub.program!, token = pub.token!;
   const [amount, setAmount] = useState("");
@@ -385,12 +420,12 @@ function SignedOut({ pub, onDone }: { pub: Pub; onDone: Refresh }) {
     <>
       <div className="sk-landing">
         <div className="sk-landing-copy">
-          <span className="sk-eyebrow">ZUBA Staking</span>
-          <h1 className="sk-display">Stake ZUBA.<br /><em>Earn daily.</em></h1>
-          <p className="sk-lead">Deposit ZUBA, keep it flexible or fix a term, and earn rewards every day. Fixed terms always earn more.</p>
+          <span className="sk-eyebrow">Your ZUBA account</span>
+          <h1 className="sk-display">One sign-in.<br /><em>Games and staking.</em></h1>
+          <p className="sk-lead">Sign in once to play the ZUBA Arcade, see your game balance and stake ZUBA for daily rewards.</p>
           <ul className="sk-ticks">
-            <li><Ico n="check" s={16} />No wallet connection. Deposit to your own address.</li>
-            <li><Ico n="check" s={16} />Rewards paid to your balance every day.</li>
+            <li><Ico n="check" s={16} />The same account as Zualingo and the ZUBA Arcade.</li>
+            <li><Ico n="check" s={16} />Staking with no wallet connection. Deposit to your own address.</li>
             <li><Ico n="check" s={16} />Two-factor and saved addresses on every withdrawal.</li>
           </ul>
         </div>
@@ -479,6 +514,44 @@ function Setup({ me, refresh }: { me: Me; refresh: Refresh }) {
         </>
       )}
     </Card>
+  );
+}
+
+/* ---------- the dashboard: everything the account can do, on one screen ---------- */
+function Hub({ me, pub, account, open }: { me: Me; pub: Pub; account: Account | null; open: () => void }) {
+  const sym = me.token.symbol, b = me.balance;
+  const rates = Object.values(pub.apy || me.apy), lo = Math.min(...rates), hi = Math.max(...rates);
+  const name = account?.name || me.email.split("@")[0];
+  const staking = num(b.total) > 0;
+  return (
+    <div className="sk-hub">
+      <div className="sk-hello">
+        <span className="sk-avatar" aria-hidden="true">{name.slice(0, 1).toUpperCase()}</span>
+        <div><span>Welcome back</span><h1>{name}</h1></div>
+      </div>
+      <div className="sk-wallets">
+        <section className="sk-wallet game">
+          <header><span className="sk-icobox gold"><Ico n="play" /></span><span className="sk-eyebrow">Game balance</span></header>
+          <div className="sk-wallet-num"><b className="sk-num">{account === null ? "…" : account.game ? account.game.zuba.toLocaleString("en-US") : "—"}</b><span>ZUBA</span></div>
+          <p>{account && !account.game ? "Open the games to see your balance." : "Earned in the ZUBA Arcade and Zualingo."}</p>
+          <a className="sk-btn primary wide" href="/play"><Ico n="play" s={16} /> Play games</a>
+        </section>
+        <section className="sk-wallet stake">
+          <header><span className="sk-icobox"><Ico n="lock" /></span><span className="sk-eyebrow">Staking</span></header>
+          <div className="sk-wallet-num"><b className="sk-num">{compact(b.total)}</b><span>{sym}</span></div>
+          <p>{staking ? <>Staked <b>{compact(b.staked)}</b> · Rewards <b className="gold">+{compact(b.rewards)}</b></> : <>Earn {lo === hi ? `${hi}%` : `${lo}%–${hi}%`} APR, paid daily.</>}</p>
+          <button type="button" className="sk-btn wide" onClick={open}>{staking ? "Open staking" : "Start staking"}</button>
+        </section>
+      </div>
+      <h2 className="sk-hub-h">Explore</h2>
+      <div className="sk-tiles">
+        <a className="sk-tile" href="/play"><span className="sk-icobox gold"><Ico n="play" /></span><div><b>Games</b><span>Play the ZUBA Arcade</span></div><Ico n="chev" s={16} /></a>
+        <button type="button" className="sk-tile" onClick={open}><span className="sk-icobox"><Ico n="trend" /></span><div><b>Staking</b><span>Stake ZUBA, earn daily</span></div><Ico n="chev" s={16} /></button>
+        <a className="sk-tile" href="/about"><span className="sk-icobox"><Ico n="info" /></span><div><b>About</b><span>The story of ZUBA</span></div><Ico n="chev" s={16} /></a>
+        <a className="sk-tile" href="/whitepaper"><span className="sk-icobox"><Ico n="book" /></span><div><b>Whitepaper</b><span>How the token works</span></div><Ico n="chev" s={16} /></a>
+      </div>
+      <a className="sk-leave" href="/"><Ico n="globe" s={18} /> Back to the ZUBA website</a>
+    </div>
   );
 }
 

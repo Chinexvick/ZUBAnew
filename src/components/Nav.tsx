@@ -10,6 +10,15 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 }
 
+function UserIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ marginRight: 4 }}>
+      <circle cx="12" cy="8" r="3.6" />
+      <path d="M4.5 20c1.2-3.6 4-5.4 7.5-5.4s6.3 1.8 7.5 5.4" />
+    </svg>
+  );
+}
+
 function PlayIcon() {
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ marginRight: 2 }}>
@@ -48,7 +57,12 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [pathname, router]);
 
-  if (pathname.startsWith("/admin")) return null;
+  // "zuba_in" is a plain marker set at sign-in (not a secret): it only decides what the button says
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => setSignedIn(document.cookie.split("; ").some((c) => c === "zuba_in=1")), [pathname]);
+
+  // the dashboard is its own space, with its own bar and a way back to the website
+  if (pathname.startsWith("/admin") || pathname.startsWith("/dashboard") || pathname.startsWith("/stake")) return null;
 
   return (
     <>
@@ -92,8 +106,8 @@ export default function Nav() {
           <a href="/play" className="btn nav-cta nav-play" title="Play ZUBA games in your browser">
             <PlayIcon /> Play
           </a>
-          <a href={site.links.buy} target="_blank" rel="noopener noreferrer" className="btn primary nav-cta">
-            Buy $ZUBA
+          <a href="/dashboard" className="btn primary nav-cta" title="Games, staking and your balances">
+            <UserIcon /> {signedIn ? "Dashboard" : "Sign in"}
           </a>
 
           <button className="nav-burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
@@ -116,7 +130,10 @@ export default function Nav() {
               </Link>
             );
           })}
-          <a href="/play" className="btn primary" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
+          <a href="/dashboard" className="btn primary" tabIndex={open ? 0 : -1} style={{ marginTop: 18 }}>
+            <UserIcon /> {signedIn ? "Dashboard" : "Sign in"}
+          </a>
+          <a href="/play" className="btn" tabIndex={open ? 0 : -1}>
             <PlayIcon /> Play the Games
           </a>
           <Link href="/whitepaper" className="btn" tabIndex={open ? 0 : -1}>

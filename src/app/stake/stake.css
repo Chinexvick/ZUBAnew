@@ -477,3 +477,147 @@
 .sk-pos footer { flex-wrap: wrap; }
 .sk-lockgrid em { grid-column: 2; grid-row: 1; }
 .sk-lockgrid b { grid-column: 1; grid-row: 1; }
+
+/* =====================================================================================
+   The dashboard has its own look, taken from Zualingo: royal purple, chunky cards and
+   buttons with a solid edge under them, kente gold for the main action. Phone first.
+   ===================================================================================== */
+.sk {
+  --ink: #2a1458;
+  --glass: #41247f;
+  --glass-2: #2f1763;
+  --floor: #1d0c40;
+  --accent: #ffd447;
+  --accent-hi: #ffdf6b;
+  --accent-floor: #c08a12;
+  --brand: #7a3ff2;
+  --hair: rgba(201, 184, 242, 0.16);
+  --hair-2: rgba(201, 184, 242, 0.3);
+  --txt: #ffffff;
+  --dim: #cdbdf3;
+  --vio: #b79bff;
+  --gold: #ffd447;
+  --mint: #4be08f;
+  --rose: #ff7a88;
+  position: relative; z-index: 2; min-height: 100vh; background: var(--ink);
+  padding-top: 0; padding-bottom: 48px;
+  font-family: var(--font-stk-num), var(--font-raleway), system-ui, sans-serif;
+}
+.sk-num, .sk-h1, .sk-display { font-family: var(--num); font-weight: 800; letter-spacing: -0.01em; }
+.sk-eyebrow, .sk-card-head h2, .sk-field-top label, .sk-sheet > header h2, .sk-btn, .sk-seg button, .sk-tabs button, .sk-chips button, .sk-amount-sym, .sk-sum-foot dt { font-family: var(--num); font-weight: 800; }
+.sk-eyebrow { color: var(--dim); letter-spacing: 0.1em; }
+.sk a { color: #e9dcff; }
+
+/* top bar: the way out to the website, the mark, sign out */
+.sk-top { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding: 10px clamp(12px, 3.5vw, 40px); background: var(--ink); border-bottom: 2px solid var(--floor); margin-bottom: 18px; }
+.sk-exit { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px 0 8px; border-radius: 12px; border: 0; background: #3a1f72; box-shadow: 0 3px 0 var(--floor); color: #fff !important; font: inherit; font-weight: 800; font-size: 0.82rem; text-decoration: none; cursor: pointer; justify-self: start; }
+.sk-exit.end { justify-self: end; padding: 0 8px 0 12px; }
+span.sk-exit { visibility: hidden; }
+.sk-exit:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--floor); }
+.sk-brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #fff !important; }
+.sk-brand img { border-radius: 50%; }
+.sk-brand b { font-weight: 900; font-size: 1.15rem; letter-spacing: 0.08em; }
+
+/* surfaces */
+.sk-card, .sk-pool, .sk-panel, .sk-sum { background: var(--glass); border: 0; border-radius: 22px; box-shadow: 0 5px 0 var(--floor); }
+.sk-sum-foot { background: #371d70; border-top: 2px solid var(--floor); }
+.sk-stats > div + div { border-left: 2px solid rgba(29, 12, 64, 0.55); }
+.sk-pool-main, .sk-summary, .sk-terms, .sk-pos, .sk-keybox, .sk-est, .sk-payrow, .sk-empty { background: var(--glass-2); border-color: transparent; }
+.sk-est { background: #24114f; border: 2px solid rgba(255, 212, 71, 0.35); }
+.sk-icobox { background: #5a34a8; border: 0; color: #fff; box-shadow: 0 3px 0 var(--floor); }
+.sk-icobox.gold { background: var(--accent); color: #1a0b38; box-shadow: 0 3px 0 var(--accent-floor); }
+.sk-pill.strong { background: #5a34a8; border-color: transparent; color: #fff; font-weight: 700; }
+.sk-note.info { background: #371d70; border-color: transparent; }
+
+/* buttons with an edge under them */
+.sk-btn { height: 48px; border: 0; border-radius: 14px; background: #5a34a8; color: #fff; box-shadow: 0 4px 0 var(--floor); letter-spacing: 0.06em; font-size: 0.84rem; text-decoration: none; }
+.sk-btn:hover:not(:disabled) { background: #6740bd; }
+.sk-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 var(--floor); }
+.sk-btn.primary { background: var(--accent); color: #1a0b38; border: 0; box-shadow: 0 4px 0 var(--accent-floor); }
+.sk-btn.primary:hover:not(:disabled) { background: var(--accent-hi); }
+.sk-btn.primary:active:not(:disabled) { box-shadow: 0 1px 0 var(--accent-floor); }
+.sk-btn:disabled { opacity: 0.45; }
+.sk-btn.small { height: 36px; box-shadow: 0 3px 0 var(--floor); }
+.sk a.sk-btn.primary { color: #1a0b38; }
+.sk a.sk-btn { color: #fff; }
+
+/* inputs and choices */
+.sk-input, .sk-amount { background: var(--glass-2); border: 2px solid transparent; }
+.sk-input:focus, .sk-amount:focus-within { border-color: var(--accent); box-shadow: none; }
+.sk-amount input { font-weight: 800; }
+.sk-chips button { background: var(--glass-2); border: 0; color: #fff; box-shadow: 0 3px 0 var(--floor); }
+.sk-chips button:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--floor); }
+.sk-seg { background: var(--glass-2); border: 0; }
+.sk-seg button.on { background: var(--accent); color: #1a0b38; box-shadow: 0 3px 0 var(--accent-floor); }
+.sk-seg i { background: rgba(26, 11, 56, 0.2); }
+.sk-seg button:not(.on) i { background: rgba(255, 255, 255, 0.16); }
+.sk-lockgrid button { background: var(--glass-2); border: 2px solid transparent; box-shadow: 0 3px 0 var(--floor); }
+.sk-lockgrid button.on { background: #371d70; border-color: var(--accent); box-shadow: 0 3px 0 var(--accent-floor); }
+.sk-lockgrid b { font-weight: 800; }
+.sk-dests button { background: var(--glass-2); border: 2px solid transparent; }
+.sk-dests button.on { border-color: var(--accent); background: #371d70; }
+.sk-dests button.on::before { border-color: var(--accent); }
+.sk-bar span { background: var(--accent); }
+.sk-terms .gold { color: #ffe08a; }
+.sk-dot { background: #5a34a8; color: #fff; }
+.sk-dot.reward { background: rgba(255, 212, 71, 0.2); color: var(--accent); }
+.sk-dot.deposit { background: rgba(75, 224, 143, 0.18); color: var(--mint); }
+.sk-steps .on span { background: var(--accent); border-color: var(--accent); color: #1a0b38; }
+.sk-how li > span { background: var(--accent); border: 0; color: #1a0b38; font-weight: 900; }
+.sk-faq { background: var(--glass); border: 0; box-shadow: 0 5px 0 var(--floor); }
+.sk-faq details + details { border-top: 2px solid rgba(29, 12, 64, 0.5); }
+.sk-display em { color: var(--accent); }
+.sk-ticks svg { color: var(--accent); }
+
+/* dialogs */
+.sk-modal { background: rgba(18, 7, 42, 0.82); }
+.sk-sheet { background: #371d70; border: 0; box-shadow: 0 6px 0 var(--floor); }
+.sk-x { background: #5a34a8; color: #fff; }
+.sk-toast { background: #17432d; border: 0; box-shadow: 0 4px 0 #0c2a1b; color: #b6f5cf; }
+
+/* staking section tabs */
+.sk-tabs { background: var(--glass-2); border: 0; }
+.sk-tabs button.on { background: var(--accent); color: #1a0b38; box-shadow: 0 3px 0 var(--accent-floor); }
+.sk-crumb { display: flex; align-items: center; gap: 12px; }
+.sk-crumb h1 { font-weight: 900; font-size: 1.35rem; }
+.sk-backbtn { display: inline-flex; align-items: center; gap: 4px; height: 38px; padding: 0 12px 0 6px; border-radius: 12px; border: 0; background: #5a34a8; box-shadow: 0 3px 0 var(--floor); color: #fff; font: inherit; font-weight: 800; font-size: 0.8rem; cursor: pointer; }
+.sk-backbtn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--floor); }
+
+/* the hub */
+.sk-hub { display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 920px; margin: 0 auto; }
+.sk-hello { display: flex; align-items: center; gap: 14px; }
+.sk-avatar { width: 52px; height: 52px; flex: none; display: grid; place-items: center; border-radius: 18px; background: var(--accent); color: #1a0b38; font-weight: 900; font-size: 1.4rem; box-shadow: 0 4px 0 var(--accent-floor); }
+.sk-hello div { display: flex; flex-direction: column; min-width: 0; }
+.sk-hello div span { color: var(--dim); font-size: 0.86rem; font-weight: 700; }
+.sk-hello h1 { font-weight: 900; font-size: clamp(1.35rem, 5vw, 1.8rem); line-height: 1.15; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sk-wallets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sk-wallet { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: 24px; background: var(--glass); box-shadow: 0 5px 0 var(--floor); min-width: 0; }
+.sk-wallet.game { background: #5a2fd0; box-shadow: 0 5px 0 #2f1585; }
+.sk-wallet header { display: flex; align-items: center; gap: 10px; }
+.sk-wallet header .sk-eyebrow { color: #fff; opacity: 0.85; }
+.sk-wallet-num { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.sk-wallet-num b { font-size: clamp(1.9rem, 8vw, 2.6rem); line-height: 1; overflow-wrap: anywhere; }
+.sk-wallet-num span { font-weight: 800; font-size: 0.82rem; letter-spacing: 0.1em; opacity: 0.8; }
+.sk-wallet p { font-size: 0.88rem; line-height: 1.5; color: #e6dcff; flex: 1; }
+.sk-wallet p b { color: #fff; }
+.sk-hub-h { font-weight: 900; font-size: 1.05rem; margin-top: 6px !important; }
+.sk-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sk-tile { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; border: 0; background: var(--glass); box-shadow: 0 4px 0 var(--floor); color: #fff !important; font: inherit; text-align: left; text-decoration: none; cursor: pointer; min-width: 0; }
+.sk-tile:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--floor); }
+.sk-tile div { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
+.sk-tile b { font-weight: 800; font-size: 0.98rem; }
+.sk-tile div span { font-size: 0.78rem; color: var(--dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sk-tile > svg { color: var(--dim); flex: none; }
+.sk-leave { display: flex; align-items: center; justify-content: center; gap: 8px; height: 50px; border-radius: 16px; border: 2px dashed var(--hair-2); color: #fff !important; font-weight: 800; font-size: 0.88rem; text-decoration: none; margin-top: 6px; }
+.sk-leave:hover { border-color: var(--accent); }
+
+@media (max-width: 860px) {
+  .sk { padding-bottom: 110px; }
+  .sk-tabs { background: #1d0c40; border: 0; box-shadow: 0 -2px 0 rgba(255, 255, 255, 0.05); }
+  .sk-exit span { display: none; }
+  .sk-exit, .sk-exit.end { padding: 0; width: 40px; justify-content: center; }
+}
+@media (max-width: 620px) {
+  .sk-wallets { grid-template-columns: 1fr; }
+  .sk-tiles { grid-template-columns: 1fr; }
+}

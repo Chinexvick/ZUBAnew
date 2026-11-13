@@ -16,7 +16,7 @@ type W = Window & { __zubaAudio?: HTMLAudioElement };
    (anything marked data-music-off) is on screen. */
 export default function Music() {
   const pathname = usePathname();
-  const off = pathname.startsWith("/admin") || pathname.startsWith("/theatre/games") || pathname.startsWith("/play");
+  const off = pathname.startsWith("/admin") || pathname.startsWith("/dashboard") || pathname.startsWith("/stake") || pathname.startsWith("/theatre/games") || pathname.startsWith("/play");
 
   useEffect(() => {
     const w = window as W;

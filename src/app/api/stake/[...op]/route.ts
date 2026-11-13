@@ -6,7 +6,7 @@
 import { after, NextResponse } from "next/server";
 import { mailEnabled, sendMail, siteUrl } from "@/lib/mailer";
 import { cookies } from "next/headers";
-import { Fail, COOKIE, accountLogin, ask, clientIp, config, cookieOptions, createSession, db, endSession, fail, kickWorker, limited, newTotpSecret, otpauthUrl, readSession, sameOrigin, sealForWorker, stakeEnabled, type Session } from "@/lib/stake/server";
+import { Fail, ACOOKIE, COOKIE, FLAG, accountLogin, accountLogout, accountProgress, openAcct, sealAcct, ask, clientIp, config, cookieOptions, createSession, db, endSession, fail, kickWorker, limited, newTotpSecret, otpauthUrl, readSession, sameOrigin, sealForWorker, stakeEnabled, type Session } from "@/lib/stake/server";
 import { LOCKS, MAX_APY_BP, PROGRAM_DAYS, TOTAL_BUDGET, dailyPool, estimateApy, formatAmount, parseAmount } from "@/lib/stake/rules";
 
 export const runtime = "nodejs";
@@ -195,6 +195,15 @@ async function handle(req: Request, op: string) {
   if (req.method === "GET") {
     if (op === "public") return json(await getPublic());
     if (op === "me") return json(await getMe(await session()));
+    if (op === "account") {
+      // who is signed in and their game balance, for the dashboard
+      const sn = await session(), jar = await cookies();
+      const acct = openAcct(jar.get(ACOOKIE)?.value, sn.userId);
+      const got = acct ? await accountProgress(acct) : null;
+      const res = json({ email: sn.email, name: acct?.n || "", game: got ? { zuba: got.zuba } : null });
+      if (got?.renewed) res.cookies.set(ACOOKIE, sealAcct(got.acct), cookieOptions(12 * 3600));
+      return res;
+    }
     return json({ error: "Not found" }, 404);
   }
   if (req.method !== "POST") return json({ error: "Not found" }, 404);
@@ -218,15 +227,22 @@ async function handle(req: Request, op: string) {
     if (Math.random() < 0.05) after(() => db().query("delete from stake_rate where window_start < now() - interval '1 day'").catch(() => {}));
     const u = await accountLogin(email, password);
     const sn = await createSession(u.id, u.email, ip, req.headers.get("user-agent") || "");
-    const res = json({ ok: true });
+    // "arcade" is the games' own sign-in, handed over once so one sign-in covers the games too
+    const res = json({ ok: true, arcade: u.arcade });
     res.cookies.set(COOKIE, sn.token, cookieOptions(sn.maxAge));
+    res.cookies.set(ACOOKIE, u.acct ? sealAcct(u.acct) : "", cookieOptions(u.acct ? sn.maxAge : 0));
+    res.cookies.set(FLAG, "1", { ...cookieOptions(sn.maxAge), httpOnly: false, sameSite: "lax" });
     return res;
   }
   if (op === "logout") {
-    const t = (await cookies()).get(COOKIE)?.value;
+    const jar = await cookies(), t = jar.get(COOKIE)?.value;
+    const sn = await readSession(t);
+    if (sn) accountLogout(openAcct(jar.get(ACOOKIE)?.value, sn.userId));
     if (t) await endSession(t);
     const res = json({ ok: true });
     res.cookies.set(COOKIE, "", cookieOptions(0));
+    res.cookies.set(ACOOKIE, "", cookieOptions(0));
+    res.cookies.set(FLAG, "", { ...cookieOptions(0), httpOnly: false, sameSite: "lax" });
     return res;
   }
   if (op === "act") {

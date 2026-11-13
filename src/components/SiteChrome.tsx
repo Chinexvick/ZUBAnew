@@ -4,5 +4,6 @@ import { usePathname } from "next/navigation";
 
 /* Hides public-site chrome (footer) inside the admin workbench. */
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
-  return usePathname().startsWith("/admin") ? null : <>{children}</>;
+  const p = usePathname();
+  return p.startsWith("/admin") || p.startsWith("/dashboard") || p.startsWith("/stake") ? null : <>{children}</>;
 }
