@@ -388,3 +388,40 @@ test('AI guides on Gemini: busy model falls back, history alternates, audio is t
     delete process.env.GEMINI_API_KEY;
   }
 });
+
+test('voices: Yoruba, Igbo and Hausa use native 9jaLingo voices; guides and lessons sound different', async () => {
+  await call('POST', '/auth/signup', { email: 'kemi@example.com', password: 'secret123', username: 'kemi', name: 'Kemi' }, null, '1.1.1.1');
+  const K = (await call('POST', '/auth/verify', { email: 'kemi@example.com', code: lastCode('kemi@example.com') })).tokens;
+  process.env.NAIJALINGO_API_KEY = 'nl-key';
+  process.env.GEMINI_API_KEY = 'g-key';
+  const saved = { a: process.env.ANTHROPIC_API_KEY, e: process.env.ELEVENLABS_API_KEY };
+  delete process.env.ANTHROPIC_API_KEY;
+  delete process.env.ELEVENLABS_API_KEY;
+  const voices = [];
+  const real = globalThis.fetch;
+  globalThis.fetch = async (url, opts) => {
+    url = String(url);
+    if (url.includes('9jalingo')) {
+      assert.equal(opts.headers['X-API-Key'], 'nl-key');
+      const b = JSON.parse(opts.body);
+      voices.push(b.voice);
+      return new Response(new Uint8Array([9, 9]), { status: 200 });
+    }
+    if (url.includes('generativelanguage')) return Response.json({ candidates: [{ content: { parts: [{ text: '{"reply":"Ẹ n lẹ!","english":"Hello!","tip":""}' }] } }] });
+    return real(url, opts);
+  };
+  try {
+    const a = await call('POST', '/ai/speak', { lang: 'Yoruba', text: 'Báwo ni' }, K.access);
+    assert.equal(a.audio, Buffer.from([9, 9]).toString('base64'));
+    const t = await call('POST', '/ai/talk', { lang: 'Igbo', level: 0, text: 'Kedu' }, K.access);
+    assert.ok(t.audio);
+    assert.deepEqual(voices, ['adeola_yo', 'chinedu_ig']);
+    assert.equal((await call('POST', '/ai/speak', { lang: 'Swahili', text: 'Habari za leo' }, K.access)).status, 503, 'no voice yet for Swahili');
+  } finally {
+    globalThis.fetch = real;
+    process.env.ANTHROPIC_API_KEY = saved.a;
+    process.env.ELEVENLABS_API_KEY = saved.e;
+    delete process.env.NAIJALINGO_API_KEY;
+    delete process.env.GEMINI_API_KEY;
+  }
+});
