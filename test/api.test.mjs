@@ -226,3 +226,54 @@ test('unknown routes and bad JSON shapes', async () => {
   assert.equal((await call('GET', '/me', null, 'not.a.token')).status, 401);
   assert.equal((await call('POST', '/pay/verify', { invoice: 'x', tx: '0x12' }, null)).status, 401);
 });
+
+test('AI tutor: keys stay on the server, audio is cached, Premium stages are enforced', async () => {
+  await call('POST', '/auth/signup', { email: 'erin@example.com', password: 'secret123', username: 'erin', name: 'Erin' }, null, '7.7.7.7');
+  const E = (await call('POST', '/auth/verify', { email: 'erin@example.com', code: lastCode('erin@example.com') })).tokens;
+  // Not configured yet: a clear 503, no crash.
+  delete process.env.ELEVENLABS_API_KEY;
+  assert.equal((await call('POST', '/ai/speak', { lang: 'Swahili', text: 'Habari' }, E.access)).status, 503);
+  process.env.ELEVENLABS_API_KEY = 'test-key';
+  process.env.ELEVEN_VOICE_DEFAULT = 'voice1';
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  let ttsCalls = 0;
+  const real = globalThis.fetch;
+  globalThis.fetch = async (url, opts) => {
+    url = String(url);
+    if (url.includes('text-to-speech')) {
+      ttsCalls++;
+      assert.equal(opts.headers['xi-api-key'], 'test-key');
+      return new Response(new Uint8Array([1, 2, 3]), { status: 200 });
+    }
+    if (url.includes('speech-to-text')) return Response.json({ text: 'Habari yako' });
+    if (url.includes('anthropic')) {
+      const body = JSON.parse(opts.body);
+      if (body.system.includes('lessons')) {
+        const phrases = Array.from({ length: 12 }, (_, i) => [`Neno ${i}`, `Word ${i}`, `NEH-no ${i}`]);
+        return Response.json({ content: [{ text: JSON.stringify({ title: 'Daily routines', about: 'x', tip: 'y', phrases, talk: [['A', 0], ['B', 1], ['A', 99]] }) }] });
+      }
+      return Response.json({ content: [{ text: '{"reply":"Nzuri sana! Na wewe?","english":"Very good! And you?","tip":""}' }] });
+    }
+    return real(url, opts);
+  };
+  try {
+    const a = await call('POST', '/ai/speak', { lang: 'Swahili', text: 'Habari' }, E.access);
+    assert.equal(a.audio, Buffer.from([1, 2, 3]).toString('base64'));
+    await call('POST', '/ai/speak', { lang: 'Swahili', text: 'Habari' }, E.access);
+    assert.equal(ttsCalls, 1, 'second request served from cache');
+    assert.equal((await call('POST', '/ai/speak', { lang: 'Klingon', text: 'x' }, E.access)).status, 400);
+    assert.equal((await call('POST', '/ai/speak', { lang: 'Swahili', text: 'x' })).status, 401);
+    const t = await call('POST', '/ai/talk', { lang: 'Swahili', level: 0, audio: 'A'.repeat(200), history: [{ role: 'tutor', text: 'Habari?' }] }, E.access);
+    assert.equal(t.heard, 'Habari yako');
+    assert.equal(t.reply, 'Nzuri sana! Na wewe?');
+    assert.ok(t.audio);
+    const l1 = await call('POST', '/ai/lesson', { lang: 'Swahili', stage: 1, unit: 0 }, E.access);
+    assert.equal(l1.phrases.length, 12);
+    assert.equal(l1.talk.length, 2, 'out-of-range dialogue lines are dropped');
+    assert.equal((await call('POST', '/ai/lesson', { lang: 'Swahili', stage: 3, unit: 0 }, E.access)).status, 402, 'Premium stage needs Premium');
+    assert.equal((await call('POST', '/ai/lesson', { lang: 'Swahili', stage: 9, unit: 0 }, E.access)).status, 400);
+    assert.equal((await call('POST', '/ai/report', { lang: 'Swahili', phrase: 'Neno 1', note: 'tone' }, E.access)).ok, true);
+  } finally {
+    globalThis.fetch = real;
+  }
+});

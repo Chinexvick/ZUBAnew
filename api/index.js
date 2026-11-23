@@ -1,6 +1,7 @@
 // AfriT Hub API. One function, explicit routes, JSON only, no browser CORS.
 import { HttpError, send } from '../lib/core.js';
 import * as h from '../lib/handlers.js';
+import * as ai from '../lib/ai.js';
 
 const routes = {
   'POST /auth/signup': h.signup,
@@ -23,6 +24,10 @@ const routes = {
   'GET /referrals': h.referrals,
   'GET /admin/referrals': h.adminReferrals,
   'POST /admin/referrals/paid': h.adminReferralsPaid,
+  'POST /ai/speak': ai.speak,
+  'POST /ai/talk': ai.talk,
+  'POST /ai/lesson': ai.lesson,
+  'POST /ai/report': ai.report,
 };
 
 export default async function handler(req, res) {

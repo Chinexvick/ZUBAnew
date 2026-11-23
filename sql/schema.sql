@@ -134,3 +134,27 @@ create index if not exists ref_referrer on referrals(referrer_id, created_at des
 
 -- Orders paid from any wallet are matched by their exact amount.
 alter table invoices add column if not exists exact boolean not null default false;
+
+-- AI tutor: cached lesson audio, shared AI lessons and learner reports.
+create table if not exists tts_cache (
+  key text primary key,
+  audio text not null,
+  created_at timestamptz not null default now()
+);
+create table if not exists ai_lessons (
+  lang text not null,
+  stage int not null,
+  unit int not null,
+  content jsonb not null,
+  reviewed boolean not null default false,
+  created_at timestamptz not null default now(),
+  primary key (lang, stage, unit)
+);
+create table if not exists lesson_reports (
+  id bigserial primary key,
+  user_id bigint references users(id) on delete set null,
+  lang text not null,
+  phrase text not null,
+  note text not null default '',
+  created_at timestamptz not null default now()
+);
