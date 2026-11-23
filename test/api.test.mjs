@@ -300,3 +300,21 @@ test('live rooms: signed pass only for signed-in users, secret never returned', 
   const guest = await call('POST', '/rooms/token', { room: 'party-someoneelse-1' }, F.access);
   assert.equal(JSON.parse(Buffer.from(guest.token.split('.')[1], 'base64url').toString()).video.roomAdmin, false);
 });
+
+test('profile: categories come from the list, level and language sync', async () => {
+  await call('POST', '/auth/signup', { email: 'gbenga@example.com', password: 'secret123', username: 'gbenga', name: 'Gbenga' }, null, '5.5.5.5');
+  const G = (await call('POST', '/auth/verify', { email: 'gbenga@example.com', code: lastCode('gbenga@example.com') })).tokens;
+  let r = await call('PATCH', '/me', { bizCategory: 'Founder', level: 3, language: 'Yoruba' }, G.access);
+  assert.equal(r.user.bizCategory, 'Founder');
+  assert.equal(r.user.level, 3);
+  assert.equal(r.user.language, 'Yoruba');
+  assert.equal((await call('PATCH', '/me', { bizCategory: 'Restaurant' }, G.access)).status, 400, 'business-only category');
+  assert.equal((await call('PATCH', '/me', { bizCategory: '<script>' }, G.access)).status, 400);
+  assert.equal((await call('PATCH', '/me', { level: 9 }, G.access)).status, 400);
+  r = await call('PATCH', '/me', { kind: 'business', bizName: 'Gbenga Foods', bizCategory: 'Restaurant' }, G.access);
+  assert.equal(r.user.kind, 'business');
+  assert.equal(r.user.bizCategory, 'Restaurant');
+  r = await call('PATCH', '/me', { bizCategory: 'CEO', bizName: 'Gbenga Group' }, G.access);
+  assert.equal(r.user.bizCategory, 'CEO');
+  assert.equal(r.user.bizName, 'Gbenga Group');
+});
