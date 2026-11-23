@@ -409,7 +409,12 @@ test('voices: Yoruba, Igbo and Hausa use native 9jaLingo voices; guides and less
       assert.equal(opts.headers['X-API-Key'], 'nl-key');
       const b = JSON.parse(opts.body);
       voices.push(b.voice);
+      if (b.input === 'Daalụ') return new Response('{}', { status: 429 });
       return new Response(new Uint8Array([9, 9]), { status: 200 });
+    }
+    if (url.includes('-tts:')) {
+      voices.push('gemini');
+      return Response.json({ candidates: [{ content: { parts: [{ inlineData: { mimeType: 'audio/L16;codec=pcm;rate=24000', data: Buffer.alloc(480).toString('base64') } }] } }] });
     }
     if (url.includes('generativelanguage')) return Response.json({ candidates: [{ content: { parts: [{ text: '{"reply":"Ẹ n lẹ!","english":"Hello!","tip":""}' }] } }] });
     return real(url, opts);
@@ -420,7 +425,16 @@ test('voices: Yoruba, Igbo and Hausa use native 9jaLingo voices; guides and less
     const t = await call('POST', '/ai/talk', { lang: 'Igbo', level: 0, text: 'Kedu' }, K.access);
     assert.ok(t.audio);
     assert.deepEqual(voices, ['adeola_yo', 'chinedu_ig']);
-    assert.equal((await call('POST', '/ai/speak', { lang: 'Swahili', text: 'Habari za leo' }, K.access)).status, 503, 'no voice yet for Swahili');
+    const sw = await call('POST', '/ai/speak', { lang: 'Swahili', text: 'Habari za leo' }, K.access);
+    assert.equal(sw.type, 'audio/wav', 'languages without a native voice use the backup voice');
+    assert.equal(Buffer.from(sw.audio, 'base64').subarray(0, 4).toString(), 'RIFF');
+    // 9jaLingo at its plan limit: the backup voice answers, and 9jaLingo is rested for a while.
+    voices.length = 0;
+    const busy = await call('POST', '/ai/speak', { lang: 'Igbo', text: 'Daalụ' }, K.access);
+    assert.equal(busy.status, 200);
+    assert.equal(busy.type, 'audio/wav');
+    await call('POST', '/ai/speak', { lang: 'Igbo', text: 'Ka ọ dị' }, K.access);
+    assert.deepEqual(voices, ['adaeze_ig', 'gemini', 'gemini'], 'no more 9jaLingo calls while it is busy');
   } finally {
     globalThis.fetch = real;
     process.env.ANTHROPIC_API_KEY = saved.a;
@@ -605,6 +619,68 @@ test('stories and Ask a local are shared, and only locals answer', async () => {
   assert.ok((await call('GET', '/notifications', null, P1)).notifications.some((n) => /New question about Nigeria/.test(n.text)));
   assert.ok((await call('GET', '/notifications', null, P3)).notifications.some((n) => /answered your question/.test(n.text)));
   assert.equal((await call('GET', '/locals?country=DROP;TABLE', null, P2)).status, 400);
+});
+
+test('stories disappear when their timer ends, photos too', async () => {
+  const removed = [];
+  const { useBlobDelete } = await import('../lib/social.js');
+  useBlobDelete(async (urls) => removed.push(...urls));
+  const img = (await call('POST', '/media', { data: JPEG }, P1)).url;
+  assert.equal((await call('POST', '/stories', { image: img, hours: 5 }, P1)).status, 400);
+  const s1 = await call('POST', '/stories', { image: img, hours: 1 }, P1);
+  assert.ok(s1.story.until - s1.story.at <= 3600 * 1000 + 1000);
+  await pool.query(`update stories set expires_at = now() - interval '1 minute' where id = $1`, [Number(s1.story.id.slice(4))]);
+  const st = await call('GET', '/stories', null, P2);
+  assert.ok(!st.stories.some((x) => x.id === s1.story.id));
+  assert.ok(removed.includes(img));
+});
+
+test('progress follows you to a new phone', async () => {
+  assert.equal((await call('GET', '/me/state', null, P1)).data, null);
+  await call('POST', '/me/state', { data: { xp: 120, done: ['Yoruba:0:1'] } }, P1);
+  assert.equal((await call('GET', '/me/state', null, P1)).data.xp, 120);
+  assert.equal((await call('POST', '/me/state', { data: { x: 'a'.repeat(70000) } }, P1)).status, 413);
+  assert.equal((await call('GET', '/me/state', null, P2)).data, null, 'each account only sees its own');
+});
+
+test('party rooms: shared list, wallet needed to join, only the host pays out', async () => {
+  const room = (await call('POST', '/party', { name: 'Friday jollof', pot: 20, max: 2, hours: 6, private: false }, P1)).room;
+  assert.equal((await call('POST', '/party', { name: 'x', pot: 20, max: 2, hours: 6 }, P1)).status, 400);
+  assert.equal((await call('POST', '/party', { name: 'Big', pot: -5, max: 2, hours: 6 }, P1)).status, 400);
+  assert.ok((await call('GET', '/party', null, P2)).rooms.some((r) => r.id === room.id));
+  assert.equal((await call('POST', '/party/join', { id: room.id }, P2)).status, 400, 'no wallet linked yet');
+  const uid = (await pool.query(`select id from users where username = 'bayo'`)).rows[0].id;
+  await pool.query(`insert into wallets (user_id, address) values ($1, '0x1111111111111111111111111111111111111111')`, [uid]);
+  assert.equal((await call('POST', '/party/join', { id: room.id }, P2)).room.joined[0], 'bayo');
+  assert.equal((await call('POST', '/party/join', { id: room.id }, P1)).status, 400, 'host cannot join');
+  assert.equal((await call('POST', '/party/end', { id: room.id }, P2)).status, 403);
+  const e = await call('POST', '/party/end', { id: room.id }, P1);
+  assert.equal(e.payees[0].wallet, '0x1111111111111111111111111111111111111111');
+  assert.equal((await call('POST', '/party/paid', { id: room.id, u: 'bayo', hash: '0x' + 'a'.repeat(64) }, P2)).status, 403);
+  await call('POST', '/party/paid', { id: room.id, u: 'bayo', hash: '0x' + 'a'.repeat(64) }, P1);
+  assert.deepEqual((await call('GET', '/party', null, P2)).rooms.find((r) => r.id === room.id).paid, ['bayo']);
+  // private rooms: code only shown to the host
+  const priv = (await call('POST', '/party', { name: 'Secret circle', pot: 5, max: 5, hours: 1, private: true }, P1)).room;
+  assert.match(priv.code, /^[A-Z2-9]{6}$/);
+  assert.ok(!(await call('GET', '/party', null, P2)).rooms.some((r) => r.id === priv.id));
+  assert.equal((await call('POST', '/party/join', { id: priv.id }, P2)).status, 404);
+  assert.equal((await call('POST', '/party/join', { code: priv.code }, P2)).status, 200);
+  assert.equal((await call('GET', '/party', null, P2)).rooms.find((r) => r.id === priv.id).code, '');
+});
+
+test('wallet activity: only transfers touching your wallet, checked on chain', async () => {
+  const hash = '0x' + 'b'.repeat(64);
+  const pad = (a) => '0x' + a.slice(2).padStart(64, '0');
+  chain.receipts[hash] = { status: '0x1', blockNumber: '0x3e0', logs: [{ address: ZUBA, logIndex: '0x0', topics: [TRANSFER, pad('0x1111111111111111111111111111111111111111'), pad('0x2222222222222222222222222222222222222222')], data: '0x' + (5000n).toString(16).padStart(64, '0') }] };
+  chain.txs[hash] = { from: '0x1111111111111111111111111111111111111111', to: ZUBA, value: '0x0' };
+  assert.equal((await call('POST', '/wallet/tx', { hash: 'nope' }, P2)).status, 400);
+  assert.equal((await call('POST', '/wallet/tx', { hash }, P2)).ok, true);
+  const mine = await call('GET', `/wallet/txs?token=${ZUBA}`, null, P2);
+  assert.equal(mine.txs[0].hash, hash);
+  assert.equal(mine.txs[0].dir, 'out');
+  assert.equal(mine.txs[0].amount, '5000');
+  assert.equal((await call('GET', `/wallet/txs?token=${ZUBA}`, null, P1)).txs.length, 0, 'not your wallet, not your list');
+  assert.equal((await call('GET', '/wallet/txs?token=DROP', null, P2)).status, 400);
 });
 
 test('deleting an account removes what they shared', async () => {

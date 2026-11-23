@@ -5,6 +5,8 @@ import * as ai from '../lib/ai.js';
 import { roomToken } from '../lib/rooms.js';
 import * as live from '../lib/live.js';
 import * as so from '../lib/social.js';
+import * as ledger from '../lib/ledger.js';
+import * as party from '../lib/party.js';
 
 const routes = {
   'POST /auth/signup': h.signup,
@@ -38,6 +40,16 @@ const routes = {
   'POST /auth/logout-all': h.logoutAll,
   'POST /me/delete': h.deleteMe,
   'POST /media': so.upload,
+  'GET /me/state': so.getState,
+  'POST /me/state': so.putState,
+  'POST /wallet/tx': ledger.record,
+  'GET /wallet/txs': ledger.list,
+  'GET /party': party.list,
+  'POST /party': party.create,
+  'POST /party/join': party.join,
+  'POST /party/end': party.end,
+  'POST /party/paid': party.paid,
+  'POST /admin/voice-check': ai.voiceCheck,
   'GET /feed': so.feed,
   'GET /post': so.post,
   'POST /posts': so.createPost,

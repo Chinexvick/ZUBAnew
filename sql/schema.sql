@@ -317,3 +317,58 @@ create table if not exists blocks (
   blocked_id bigint not null references users(id) on delete cascade,
   primary key (user_id, blocked_id)
 );
+
+-- Wallet activity reported by the app and confirmed on the blockchain.
+create table if not exists wallet_tx_pending (
+  hash text primary key,
+  user_id bigint not null references users(id) on delete cascade,
+  done boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create table if not exists wallet_txs (
+  hash text not null,
+  idx int not null,
+  token text not null,
+  from_addr text not null,
+  to_addr text not null,
+  amount text not null,
+  block bigint not null,
+  ok boolean not null default true,
+  created_at timestamptz not null default now(),
+  primary key (hash, idx)
+);
+create index if not exists wallet_txs_from on wallet_txs (from_addr, token, block desc);
+create index if not exists wallet_txs_to on wallet_txs (to_addr, token, block desc);
+
+-- Stories can be set to disappear sooner or later than a day.
+alter table stories add column if not exists expires_at timestamptz;
+update stories set expires_at = created_at + interval '24 hours' where expires_at is null;
+
+-- Learning progress and app settings, so they follow you to a new phone.
+create table if not exists user_state (
+  user_id bigint primary key references users(id) on delete cascade,
+  data jsonb not null default '{}',
+  updated_at timestamptz not null default now()
+);
+
+-- Party rooms. The pot stays in the host's own wallet until they pay out.
+create table if not exists party_rooms (
+  id bigserial primary key,
+  host_id bigint not null references users(id) on delete cascade,
+  name text not null,
+  pot_usd numeric(12,2) not null,
+  max_people int not null,
+  private boolean not null default false,
+  code text not null default '',
+  ends_at timestamptz not null,
+  ended_at timestamptz,
+  created_at timestamptz not null default now()
+);
+create index if not exists party_rooms_open on party_rooms (id desc) where ended_at is null;
+create table if not exists party_members (
+  room_id bigint not null references party_rooms(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  paid_tx text,
+  joined_at timestamptz not null default now(),
+  primary key (room_id, user_id)
+);
