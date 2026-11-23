@@ -63,6 +63,7 @@ const routes = {
   'POST /party/end': party.end,
   'POST /party/paid': party.paid,
   'POST /admin/voice-check': ai.voiceCheck,
+  'POST /ai/live': ai.live,
   'GET /feed': so.feed,
   'GET /post': so.post,
   'POST /posts': so.createPost,
