@@ -318,3 +318,17 @@ test('profile: categories come from the list, level and language sync', async ()
   assert.equal(r.user.bizCategory, 'CEO');
   assert.equal(r.user.bizName, 'Gbenga Group');
 });
+
+test('security: sign out everywhere, delete account needs the password', async () => {
+  await call('POST', '/auth/signup', { email: 'hadiza@example.com', password: 'secret123', username: 'hadiza', name: 'Hadiza' }, null, '4.4.4.4');
+  const H = (await call('POST', '/auth/verify', { email: 'hadiza@example.com', code: lastCode('hadiza@example.com') })).tokens;
+  const H2 = (await call('POST', '/auth/login', { email: 'hadiza@example.com', password: 'secret123' }, null, '4.4.4.5')).tokens;
+  assert.equal((await call('POST', '/auth/logout-all', {}, H.access)).ok, true);
+  assert.equal((await call('GET', '/me', null, H2.access)).status, 401, 'other device signed out');
+  assert.equal((await call('POST', '/auth/refresh', { refresh: H2.refresh })).status, 401);
+  const H3 = (await call('POST', '/auth/login', { email: 'hadiza@example.com', password: 'secret123' }, null, '4.4.4.6')).tokens;
+  assert.equal((await call('POST', '/me/delete', { password: 'wrong-pass' }, H3.access)).status, 401);
+  assert.equal((await call('POST', '/me/delete', { password: 'secret123' }, H3.access)).ok, true);
+  assert.equal((await call('GET', '/me', null, H3.access)).status, 401);
+  assert.equal((await call('POST', '/auth/login', { email: 'hadiza@example.com', password: 'secret123' }, null, '4.4.4.7')).status, 401);
+});

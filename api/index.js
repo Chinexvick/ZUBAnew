@@ -30,6 +30,8 @@ const routes = {
   'POST /ai/lesson': ai.lesson,
   'POST /ai/report': ai.report,
   'POST /rooms/token': roomToken,
+  'POST /auth/logout-all': h.logoutAll,
+  'POST /me/delete': h.deleteMe,
 };
 
 export default async function handler(req, res) {
