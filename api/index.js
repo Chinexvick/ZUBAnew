@@ -56,6 +56,7 @@ const routes = {
   'POST /groups/chat/task/done': gc.taskDone,
   'POST /groups/chat/task/review': gc.taskReview,
   'GET /groups/unread': gc.unread,
+  'GET /groups/media': gc.media,
   'POST /groups/settings': gc.settings,
   'POST /groups/mute': gc.mute,
   'POST /groups/invite': gc.invite,

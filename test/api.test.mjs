@@ -775,7 +775,13 @@ test('group chat: members only, polls, pins, slow mode, mutes, invite links, tas
   await call('POST', '/groups/chat/task/review', { msg: task.id, u: 'bayo', approve: true, hash: '0x' + 'c'.repeat(64) }, P1);
   const t2 = (await call('GET', `/groups/chat?id=${g.id}&topic=General`, null, P2)).messages.find((m) => m.id === task.id);
   assert.equal(t2.claims[0].s, 'approved');
-  assert.ok((await call('GET', '/groups/unread', null, P2)).unread[g.id]);
+  const un = (await call('GET', '/groups/unread', null, P2)).unread[g.id];
+  assert.equal(un.t, '✅ Task', 'chat list shows the latest message');
+  assert.equal(un.u, 'ada');
+  const img = (await call('POST', '/media', { data: JPEG }, P1)).url;
+  await call('POST', '/groups/chat', { id: g.id, image: img, text: 'flyer' }, P1);
+  assert.equal((await call('GET', `/groups/media?id=${g.id}`, null, P2)).media[0].i, img);
+  assert.equal((await call('GET', `/groups/media?id=${g.id}`, null, P3)).status, 403);
 });
 
 test('deleting an account removes what they shared', async () => {
