@@ -115,3 +115,22 @@ create table if not exists audit (
   meta jsonb not null default '{}',
   at timestamptz not null default now()
 );
+
+-- Referrals: 2,000 ZUBA once the new member verifies their email and links a wallet.
+alter table users add column if not exists referred_by bigint references users(id);
+alter table users add column if not exists signup_ip text;
+create table if not exists referrals (
+  id bigserial primary key,
+  referrer_id bigint not null references users(id),
+  referee_id bigint not null unique references users(id),
+  zuba bigint not null default 2000,
+  status text not null default 'pending' check (status in ('pending','paid','rejected')),
+  flag text,
+  tx_hash citext,
+  created_at timestamptz not null default now(),
+  paid_at timestamptz
+);
+create index if not exists ref_referrer on referrals(referrer_id, created_at desc);
+
+-- Orders paid from any wallet are matched by their exact amount.
+alter table invoices add column if not exists exact boolean not null default false;

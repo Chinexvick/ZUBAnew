@@ -12,6 +12,8 @@ import handler from '../api/index.js';
 process.env.JWT_SECRET = 'j'.repeat(48);
 process.env.OTP_PEPPER = 'p'.repeat(48);
 process.env.RPC_URLS = 'https://a.test,https://b.test';
+process.env.TREASURY = '0x60E5EFE6dcf598Ff8ED52B70a80bddaca3C6AFdd';
+process.env.ADMIN_KEY = 'k'.repeat(40);
 const TREASURY = '0x60e5efe6dcf598ff8ed52b70a80bddaca3c6afdd';
 
 const dir = '/tmp/afrit-pg-' + process.pid;
@@ -20,7 +22,7 @@ let pool;
 const mails = [];
 
 // ---- fake blockchain ----
-const chain = { head: 1000n, receipts: {}, blocks: {} };
+const chain = { head: 1000n, receipts: {}, blocks: {}, txs: {} };
 const TRANSFER = keccakId('Transfer(address,address,uint256)');
 const pad = (a) => '0x' + a.slice(2).toLowerCase().padStart(64, '0');
 function payTx(hash, from, amount, { block = 990n, ts = Math.floor(Date.now() / 1000), to = TREASURY, status = '0x1' } = {}) {
@@ -34,13 +36,14 @@ useFetch(async (url, opts) => {
   if (method === 'eth_blockNumber') result = '0x' + chain.head.toString(16);
   else if (method === 'eth_getTransactionReceipt') result = chain.receipts[params[0]] ?? null;
   else if (method === 'eth_getBlockByNumber') result = chain.blocks[params[0]];
+  else if (method === 'eth_getTransactionByHash') result = chain.txs[params[0]] ?? null;
   else if (method === 'eth_call') result = AbiCoder.defaultAbiCoder().encode(['uint256[]'], [[10n ** 18n, 10n ** 15n, 45_000_000n * 10n ** 9n]]);
   return { json: async () => ({ jsonrpc: '2.0', id: 1, result }) };
 });
 
 // ---- call the real handler like Vercel would ----
-async function call(method, path, body, token, ip = '1.1.1.1') {
-  const req = { method, url: path, headers: { 'x-real-ip': ip, ...(token ? { authorization: `Bearer ${token}` } : {}) }, body: body ?? {} };
+async function call(method, path, body, token, ip = '1.1.1.1', extra = {}) {
+  const req = { method, url: path, headers: { 'x-real-ip': ip, ...extra, ...(token ? { authorization: `Bearer ${token}` } : {}) }, body: body ?? {} };
   let status, out;
   const res = { setHeader() {}, set statusCode(s) { status = s; }, end(b) { out = JSON.parse(b); } };
   await handler(req, res);
@@ -140,7 +143,7 @@ test('Premium is only switched on by a real, confirmed, unused payment from the 
   assert.equal(inv.status, 200);
   assert.equal(inv.usd, 4);
   // on-chain says 45M ZUBA per $, DexScreener says 50M: the higher is used
-  assert.equal(inv.zuba, '200000000');
+  assert.equal(inv.zuba, '200000000'); // plus a tiny unique tail
   const need = BigInt(inv.zubaUnits);
   const stranger = Wallet.createRandom().address;
   payTx('0x' + '1'.repeat(64), stranger, need);
@@ -168,6 +171,41 @@ test('Premium is only switched on by a real, confirmed, unused payment from the 
   assert.ok(carol.premium_until > new Date());
   // someone else can't use alice's invoice
   assert.equal((await call('POST', '/pay/verify', { invoice: inv2.invoice, tx: '0x' + '7'.repeat(64) }, C.access)).status, 404);
+});
+
+test('paying from another wallet needs the exact order amount', async () => {
+  const inv = await call('POST', '/pay/invoice', { purpose: 'promo', plan: 'day' }, A.access);
+  const other = Wallet.createRandom().address;
+  const amt = BigInt(inv.zubaUnits);
+  const tA = '0x' + 'a'.repeat(64), tB = '0x' + 'b'.repeat(64);
+  payTx(tA, other, amt + 1000n);
+  chain.txs[tA] = { to: ZUBA, input: '0xa9059cbb' + TREASURY.slice(2).padStart(64, '0') + (amt + 1000n).toString(16).padStart(64, '0') };
+  assert.equal((await call('POST', '/pay/verify', { invoice: inv.invoice, tx: tA }, A.access)).status, 400, 'not the exact amount');
+  payTx(tB, other, amt * 97n / 100n);
+  chain.txs[tB] = { to: ZUBA, input: '0xa9059cbb' + TREASURY.slice(2).padStart(64, '0') + amt.toString(16).padStart(64, '0') };
+  const ok = await call('POST', '/pay/verify', { invoice: inv.invoice, tx: tB }, A.access);
+  assert.equal(ok.status, 200);
+  const [p] = (await pool.query('select count(*)::int as n from promotions')).rows;
+  assert.equal(p.n, 1);
+});
+
+test('referrals: reward recorded once the new member verifies and links a wallet', async () => {
+  await call('POST', '/auth/signup', { email: 'dan@example.com', password: 'secret123', username: 'dan', ref: 'alice' }, null, '10.0.0.1');
+  const D = (await call('POST', '/auth/verify', { email: 'dan@example.com', code: lastCode('dan@example.com') }, null, '10.0.0.1')).tokens;
+  let r = await call('GET', '/referrals', null, A.access);
+  assert.equal(r.joined, 1);
+  assert.equal(r.earned, 0, 'not until a wallet is linked');
+  const dw = Wallet.createRandom();
+  const c = await call('POST', '/wallet/challenge', {}, D.access);
+  await call('POST', '/wallet/link', { address: dw.address, signature: await dw.signMessage(c.message) }, D.access);
+  r = await call('GET', '/referrals', null, A.access);
+  assert.equal(r.earned, 1);
+  assert.equal(r.pending, 2000);
+  assert.equal((await call('GET', '/admin/referrals')).status, 404, 'admin hidden without key');
+  const adm = await call('GET', '/admin/referrals', null, null, '1.1.1.1', { 'x-admin-key': 'k'.repeat(40) });
+  assert.equal(adm.pending.length, 1);
+  const paid = await call('POST', '/admin/referrals/paid', { ids: [adm.pending[0].id], tx: '0x' + 'c'.repeat(64) }, null, '1.1.1.1', { 'x-admin-key': 'k'.repeat(40) });
+  assert.equal(paid.paid, 1);
 });
 
 test('password reset ends sessions, pauses wallet changes, and old tokens stop working', async () => {

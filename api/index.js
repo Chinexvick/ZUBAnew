@@ -20,6 +20,9 @@ const routes = {
   'POST /pay/verify': h.verifyInvoice,
   'GET /notifications': h.notifications,
   'POST /notifications/read': h.readNotifications,
+  'GET /referrals': h.referrals,
+  'GET /admin/referrals': h.adminReferrals,
+  'POST /admin/referrals/paid': h.adminReferralsPaid,
 };
 
 export default async function handler(req, res) {
