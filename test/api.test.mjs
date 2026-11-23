@@ -351,3 +351,40 @@ test('live: start, list, only the host ends it', async () => {
   await call('POST', '/live/end', { id: g.id }, I.access);
   assert.equal((await call('GET', '/live', null, I.access)).live.length, 0);
 });
+
+test('AI guides on Gemini: busy model falls back, history alternates, audio is transcribed', async () => {
+  await call('POST', '/auth/signup', { email: 'jide@example.com', password: 'secret123', username: 'jide', name: 'Jide' }, null, '2.2.2.2');
+  const J = (await call('POST', '/auth/verify', { email: 'jide@example.com', code: lastCode('jide@example.com') })).tokens;
+  const saved = { a: process.env.ANTHROPIC_API_KEY, e: process.env.ELEVENLABS_API_KEY };
+  delete process.env.ANTHROPIC_API_KEY;
+  delete process.env.ELEVENLABS_API_KEY;
+  process.env.GEMINI_API_KEY = 'g-key';
+  const seen = [];
+  const real = globalThis.fetch;
+  globalThis.fetch = async (url, opts) => {
+    url = String(url);
+    if (url.includes('generativelanguage')) {
+      seen.push(url);
+      assert.equal(opts.headers['x-goog-api-key'], 'g-key');
+      const body = JSON.parse(opts.body);
+      if (url.includes('flash-lite') && seen.length === 1) return new Response('{}', { status: 503 });
+      if (body.contents[0].parts[0].inline_data) return Response.json({ candidates: [{ content: { parts: [{ text: 'Habari yako' }] } }] });
+      assert.equal(body.contents[0].role, 'user', 'starts with the user');
+      for (let i = 1; i < body.contents.length; i++) assert.notEqual(body.contents[i].role, body.contents[i - 1].role, 'turns alternate');
+      return Response.json({ candidates: [{ content: { parts: [{ text: '{"reply":"Nzuri!","english":"Good!","tip":""}' }] } }] });
+    }
+    return real(url, opts);
+  };
+  try {
+    const t = await call('POST', '/ai/talk', { lang: 'Swahili', level: 0, text: 'Habari', history: [{ role: 'tutor', text: 'Jambo!' }, { role: 'tutor', text: 'Karibu' }] }, J.access);
+    assert.equal(t.reply, 'Nzuri!');
+    assert.equal(t.audio, null, 'no voice key: text reply only');
+    const v = await call('POST', '/ai/talk', { lang: 'Swahili', level: 0, audio: 'A'.repeat(300) }, J.access);
+    assert.equal(v.heard, 'Habari yako');
+  } finally {
+    globalThis.fetch = real;
+    process.env.ANTHROPIC_API_KEY = saved.a;
+    process.env.ELEVENLABS_API_KEY = saved.e;
+    delete process.env.GEMINI_API_KEY;
+  }
+});
