@@ -9,6 +9,7 @@ import * as ledger from '../lib/ledger.js';
 import * as party from '../lib/party.js';
 import * as gifs from '../lib/gifs.js';
 import * as food from '../lib/food.js';
+import * as gc from '../lib/groupchat.js';
 
 const routes = {
   'POST /auth/signup': h.signup,
@@ -43,6 +44,22 @@ const routes = {
   'POST /me/delete': h.deleteMe,
   'POST /media': so.upload,
   'GET /gifs': gifs.search,
+  'GET /groups/chat': gc.list,
+  'POST /groups/chat': gc.send,
+  'POST /groups/chat/react': gc.react,
+  'POST /groups/chat/delete': gc.remove,
+  'POST /groups/chat/pin': gc.pin,
+  'POST /groups/chat/vote': gc.vote,
+  'POST /groups/chat/typing': gc.typing,
+  'POST /groups/chat/read': gc.read,
+  'POST /groups/chat/tip': gc.tip,
+  'POST /groups/chat/task/done': gc.taskDone,
+  'POST /groups/chat/task/review': gc.taskReview,
+  'GET /groups/unread': gc.unread,
+  'POST /groups/settings': gc.settings,
+  'POST /groups/mute': gc.mute,
+  'POST /groups/invite': gc.invite,
+  'POST /groups/join-link': gc.joinByLink,
   'GET /food': food.list,
   'GET /food/place': food.place,
   'GET /food/mine': food.mine,
@@ -107,6 +124,21 @@ const routes = {
   'POST /locals/delete': so.deleteLocal,
 };
 
+/** A small page for group invite links shared outside the app. */
+function invitePage(res, code) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'");
+  res.end(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Join a group on AfriT Hub</title>
+<style>body{margin:0;font-family:system-ui,sans-serif;background:#10331f;color:#fff;display:grid;place-items:center;min-height:100vh;padding:24px;box-sizing:border-box;text-align:center}
+.c{max-width:360px}h1{font-size:24px;margin:0 0 8px}p{color:#cfe3d3;line-height:1.5}code{display:block;background:#fff;color:#10331f;font-size:22px;font-weight:800;padding:14px;border-radius:14px;margin:18px 0;letter-spacing:1px;word-break:break-all}
+a{display:inline-block;background:#f5c518;color:#10331f;font-weight:800;padding:14px 22px;border-radius:30px;text-decoration:none}</style></head>
+<body><div class="c"><h1>You're invited to a group</h1><p>Open AfriT Hub, go to Connect &rarr; Groups &rarr; Join with link, and paste this code:</p><code>${code}</code>
+<a href="afrithub://g/${code}">Open AfriT Hub</a></div></body></html>`);
+}
+
 export default async function handler(req, res) {
   try {
     const url = new URL(req.url, 'http://x');
@@ -115,6 +147,8 @@ export default async function handler(req, res) {
     const m = path.match(/^\/users\/([^/]+)\/wallet$/);
     if (req.method === 'GET' && m) return send(res, 200, await h.walletOf(req, decodeURIComponent(m[1])));
     if (req.method === 'GET' && path === '/health') return send(res, 200, { ok: true });
+    const inv = path.match(/^\/g\/([A-Za-z0-9_-]{8,20})$/);
+    if (req.method === 'GET' && inv) return invitePage(res, inv[1]);
     const fn = routes[`${req.method} ${path}`];
     if (!fn) return send(res, 404, { error: 'Not found' });
     return send(res, 200, await fn(req));

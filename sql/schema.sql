@@ -418,3 +418,63 @@ create table if not exists food_orders (
 );
 create index if not exists food_orders_rest on food_orders (restaurant_id, id desc);
 create index if not exists food_orders_buyer on food_orders (buyer_id, id desc);
+
+-- Group chat rooms.
+alter table groups add column if not exists pinned_msg bigint;
+alter table groups add column if not exists slow_secs int not null default 0;
+alter table groups add column if not exists posting text not null default 'all';
+alter table groups add column if not exists topics jsonb not null default '[]';
+alter table groups add column if not exists invite_code text unique;
+create table if not exists group_messages (
+  id bigserial primary key,
+  group_id bigint not null references groups(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  kind text not null default 'text' check (kind in ('text','poll','task','tip')),
+  text text, gif text, image text, voice text,
+  voice_secs int not null default 0,
+  reply_to bigint,
+  topic text not null default 'General',
+  data jsonb,
+  deleted boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create index if not exists group_messages_g on group_messages (group_id, id desc);
+create table if not exists group_msg_reactions (
+  msg_id bigint not null references group_messages(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  emoji text not null,
+  primary key (msg_id, user_id)
+);
+create table if not exists poll_votes (
+  msg_id bigint not null references group_messages(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  option int not null,
+  primary key (msg_id, user_id)
+);
+create table if not exists task_claims (
+  msg_id bigint not null references group_messages(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  status text not null default 'done' check (status in ('done','approved','rejected')),
+  proof text not null default '',
+  paid_tx text,
+  created_at timestamptz not null default now(),
+  primary key (msg_id, user_id)
+);
+create table if not exists group_reads (
+  group_id bigint not null references groups(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  last_read bigint not null default 0,
+  primary key (group_id, user_id)
+);
+create table if not exists group_typing (
+  group_id bigint not null references groups(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  at timestamptz not null default now(),
+  primary key (group_id, user_id)
+);
+create table if not exists group_mutes (
+  group_id bigint not null references groups(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  until timestamptz not null,
+  primary key (group_id, user_id)
+);

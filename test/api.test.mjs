@@ -728,6 +728,56 @@ test('restaurants: business accounts list menus, prices come from the server', a
   assert.equal((await call('POST', '/food/order', { restaurant: r.restaurant.id, items: [{ id: suya.id, qty: 1 }], pay: 'zuba' }, P2)).status, 400, 'restaurant has no wallet');
 });
 
+test('group chat: members only, polls, pins, slow mode, mutes, invite links, tasks', async () => {
+  const g = (await call('POST', '/groups', { name: 'ZUBA builders', about: 'Shill to the world', private: true }, P1)).group;
+  assert.equal((await call('GET', `/groups/chat?id=${g.id}`, null, P2)).status, 403, 'outsiders cannot read');
+  const inv = await call('POST', '/groups/invite', { id: g.id }, P1);
+  assert.equal((await call('POST', '/groups/invite', { id: g.id }, P2)).status, 403);
+  assert.equal((await call('POST', '/groups/join-link', { code: inv.link }, P2)).name, 'ZUBA builders', 'invite link skips approval');
+  const m1 = await call('POST', '/groups/chat', { id: g.id, text: 'gm @bayo' }, P1);
+  assert.ok((await call('GET', '/notifications', null, P2)).notifications.some((n) => /mentioned you in ZUBA builders/.test(n.text)));
+  const reply = await call('POST', '/groups/chat', { id: g.id, text: 'gm!', replyTo: m1.id }, P2);
+  assert.equal(reply.re.u, 'ada');
+  await call('POST', '/groups/chat/react', { msg: m1.id, emoji: '🔥' }, P2);
+  assert.equal((await call('POST', '/groups/chat/react', { msg: m1.id, emoji: '💩' }, P2)).status, 400);
+  const poll = await call('POST', '/groups/chat', { id: g.id, poll: { question: 'Next listing?', options: ['CEX', 'DEX'] } }, P2);
+  await call('POST', '/groups/chat/vote', { msg: poll.id, option: 1 }, P1);
+  await call('POST', '/groups/chat/vote', { msg: poll.id, option: 0 }, P1);
+  await call('POST', '/groups/chat/read', { id: g.id, last: poll.id }, P2);
+  await call('POST', '/groups/chat/typing', { id: g.id }, P2);
+  const view = await call('GET', `/groups/chat?id=${g.id}`, null, P1);
+  assert.equal(view.messages.length, 3);
+  assert.deepEqual(view.messages[2].poll.counts, [1, 0], 'changing a vote moves it');
+  assert.equal(view.messages[0].r['🔥'], 1);
+  assert.equal(view.messages[0].seen, 1, 'read receipts');
+  assert.deepEqual(view.typing, ['bayo']);
+  assert.equal((await call('GET', `/groups/chat?id=${g.id}&after=${reply.id}`, null, P1)).messages.length, 1);
+  // pins, deletes
+  assert.equal((await call('POST', '/groups/chat/pin', { id: g.id, msg: m1.id }, P2)).status, 403);
+  await call('POST', '/groups/chat/pin', { id: g.id, msg: m1.id }, P1);
+  assert.equal((await call('GET', `/groups/chat?id=${g.id}`, null, P2)).pinned.t, 'gm @bayo');
+  assert.equal((await call('POST', '/groups/chat/delete', { msg: m1.id }, P2)).status, 403);
+  assert.equal((await call('POST', '/groups/chat/delete', { msg: reply.id }, P1)).status, 200, 'admins can delete');
+  // slow mode, mutes, admin-only posting
+  await call('POST', '/groups/settings', { id: g.id, slow: 30, topics: ['Raids'] }, P1);
+  await call('POST', '/groups/chat', { id: g.id, text: 'one', topic: 'Raids' }, P2);
+  assert.equal((await call('POST', '/groups/chat', { id: g.id, text: 'two' }, P2)).status, 429);
+  assert.equal((await call('POST', '/groups/chat', { id: g.id, text: 'x', topic: 'Nope' }, P1)).status, 400);
+  await call('POST', '/groups/mute', { id: g.id, u: 'bayo', minutes: 60 }, P1);
+  await call('POST', '/groups/settings', { id: g.id, slow: 0 }, P1);
+  assert.equal((await call('POST', '/groups/chat', { id: g.id, text: 'muted?' }, P2)).status, 403);
+  await call('POST', '/groups/mute', { id: g.id, u: 'bayo', minutes: 0 }, P1);
+  // tasks: admins post, members claim, admins approve
+  assert.equal((await call('POST', '/groups/chat', { id: g.id, task: { title: 'Like and repost', reward: 1000 } }, P2)).status, 403);
+  const task = await call('POST', '/groups/chat', { id: g.id, task: { title: 'Like and repost', link: 'https://x.com/zuba/status/1', reward: 1000 } }, P1);
+  await call('POST', '/groups/chat/task/done', { msg: task.id, proof: 'done, @bayo_x' }, P2);
+  assert.equal((await call('POST', '/groups/chat/task/review', { msg: task.id, u: 'bayo', approve: true }, P2)).status, 403);
+  await call('POST', '/groups/chat/task/review', { msg: task.id, u: 'bayo', approve: true, hash: '0x' + 'c'.repeat(64) }, P1);
+  const t2 = (await call('GET', `/groups/chat?id=${g.id}&topic=General`, null, P2)).messages.find((m) => m.id === task.id);
+  assert.equal(t2.claims[0].s, 'approved');
+  assert.ok((await call('GET', '/groups/unread', null, P2)).unread[g.id]);
+});
+
 test('deleting an account removes what they shared', async () => {
   await call('POST', '/posts', { text: 'bye' }, P3);
   assert.equal((await call('POST', '/me/delete', { password: 'secret123' }, P3)).status, 200);
