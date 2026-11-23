@@ -81,6 +81,7 @@ const routes = {
   'POST /party/paid': party.paid,
   'POST /admin/voice-check': ai.voiceCheck,
   'POST /ai/live': ai.live,
+  'POST /ai/translate': ai.translate,
   'GET /feed': so.feed,
   'GET /post': so.post,
   'POST /posts': so.createPost,
@@ -136,7 +137,7 @@ function invitePage(res, code) {
 .c{max-width:360px}h1{font-size:24px;margin:0 0 8px}p{color:#cfe3d3;line-height:1.5}code{display:block;background:#fff;color:#10331f;font-size:22px;font-weight:800;padding:14px;border-radius:14px;margin:18px 0;letter-spacing:1px;word-break:break-all}
 a{display:inline-block;background:#f5c518;color:#10331f;font-weight:800;padding:14px 22px;border-radius:30px;text-decoration:none}</style></head>
 <body><div class="c"><h1>You're invited to a group</h1><p>Open AfriT Hub, go to Connect &rarr; Groups &rarr; Join with link, and paste this code:</p><code>${code}</code>
-<a href="afrithub://g/${code}">Open AfriT Hub</a></div></body></html>`);
+<p>Don't have the app yet? Ask the person who invited you for the AfriT Hub download link.</p></div></body></html>`);
 }
 
 export default async function handler(req, res) {
