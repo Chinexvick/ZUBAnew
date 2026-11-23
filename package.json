@@ -1,0 +1,20 @@
+{
+  "name": "afrit-api",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "ethers": "^6.13.4",
+    "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "embedded-postgres": "*",
+    "pg": "*"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  }
+}
