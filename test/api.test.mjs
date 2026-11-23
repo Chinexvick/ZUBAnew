@@ -340,7 +340,11 @@ test('live: start, list, only the host ends it', async () => {
   assert.equal((await call('POST', '/live/start', { title: 'Sunset', place: 'DROP TABLE' }, I.access)).status, 400);
   const v = await call('POST', '/live/start', { title: 'Sunset in Lagos', about: 'Come through', place: 'Q8673' }, I.access);
   assert.ok(v.room.startsWith('live-ife-'));
-  const g = await call('POST', '/live/start', { title: 'Yoruba circle', voice: true, group: 'Yoruba learners' }, I.access);
+  const grp = (await call('POST', '/groups', { name: 'Yoruba learners', about: 'Practice' }, I.access)).group;
+  const E0 = (await call('POST', '/auth/login', { email: 'erin@example.com', password: 'secret123' }, null, '7.7.7.9')).tokens;
+  assert.equal((await call('POST', '/live/start', { title: 'Yoruba circle', voice: true, groupId: grp.id }, E0.access)).status, 403, 'only owners and admins host');
+  assert.equal((await call('POST', '/live/start', { title: 'Yoruba circle', voice: true, group: 'Yoruba learners' }, I.access)).status, 400);
+  const g = await call('POST', '/live/start', { title: 'Yoruba circle', voice: true, groupId: grp.id }, I.access);
   assert.ok(g.room.startsWith('voice-ife-'));
   let l = await call('GET', '/live', null, I.access);
   assert.equal(l.live.length, 1, 'starting a new session ends the previous one');
@@ -424,4 +428,189 @@ test('voices: Yoruba, Igbo and Hausa use native 9jaLingo voices; guides and less
     delete process.env.NAIJALINGO_API_KEY;
     delete process.env.GEMINI_API_KEY;
   }
+});
+
+// ---------------- social: shared between phones ----------------
+import { useBlob } from '../lib/social.js';
+const uploads = [];
+useBlob(async (path, buf, type) => {
+  uploads.push({ path, type, size: buf.length });
+  return `https://abc123.public.blob.vercel-storage.com/${path}`;
+});
+let ipN = 50;
+async function person(username, extra = {}) {
+  const ip = `9.9.9.${ipN++}`;
+  const email = `${username}@example.com`;
+  await call('POST', '/auth/signup', { email, password: 'secret123', username, name: username[0].toUpperCase() + username.slice(1) }, null, ip);
+  const t = (await call('POST', '/auth/verify', { email, code: lastCode(email) })).tokens;
+  if (Object.keys(extra).length) await call('PATCH', '/me', extra, t.access);
+  return t.access;
+}
+const JPEG = Buffer.concat([Buffer.from('ffd8ffe000104a464946', 'hex'), Buffer.alloc(200)]).toString('base64');
+const M4A = Buffer.concat([Buffer.from('00000020', 'hex'), Buffer.from('ftypM4A '), Buffer.alloc(200)]).toString('base64');
+
+let P1, P2, P3; // three phones
+test('media: only real photos and voice notes upload, and only by signed-in people', async () => {
+  P1 = await person('ada');
+  P2 = await person('bayo');
+  P3 = await person('chi');
+  assert.equal((await call('POST', '/media', { data: JPEG })).status, 401);
+  const img = await call('POST', '/media', { data: JPEG }, P1);
+  assert.equal(img.status, 200);
+  assert.match(img.url, /^https:\/\/abc123\.public\.blob\.vercel-storage\.com\/i\//);
+  const voice = await call('POST', '/media', { data: M4A, kind: 'audio' }, P1);
+  assert.equal(voice.kind, 'audio');
+  assert.equal((await call('POST', '/media', { data: Buffer.from('<script>alert(1)</script>'.repeat(3)).toString('base64') }, P1)).status, 415);
+  assert.equal((await call('POST', '/media', { data: M4A, kind: 'image' }, P1)).status, 415);
+});
+
+test('posts: one phone posts, another phone sees, reacts and comments', async () => {
+  const img = (await call('POST', '/media', { data: JPEG }, P1)).url;
+  assert.equal((await call('POST', '/posts', { text: 'hi', images: ['https://evil.example/x.jpg'] }, P1)).status, 400, 'only uploaded photos');
+  assert.equal((await call('POST', '/posts', { text: 'hi', images: Array(21).fill(img) }, P1)).status, 400);
+  assert.equal((await call('POST', '/posts', { text: '' }, P1)).status, 400);
+  const p = await call('POST', '/posts', { text: 'Sunset at Lekki\nbeautiful', images: [img, img], place: 'Q8673' }, P1);
+  assert.equal(p.status, 200);
+  assert.ok(p.post.id.startsWith('srv:'));
+  const feed = await call('GET', '/feed', null, P2);
+  const seen = feed.posts.find((x) => x.id === p.post.id);
+  assert.equal(seen.a, 'ada');
+  assert.equal(seen.i.length, 2);
+  assert.equal(feed.who.ada.n, 'Ada');
+  assert.equal((await call('POST', '/posts/react', { id: p.post.id, emoji: '💩' }, P2)).status, 400);
+  await call('POST', '/posts/react', { id: p.post.id, emoji: '🔥' }, P2);
+  await call('POST', '/posts/react', { id: p.post.id, emoji: '❤️' }, P3);
+  await call('POST', '/posts/react', { id: p.post.id, emoji: '❤️' }, P2); // changes, not adds
+  const c = await call('POST', '/comments', { post: p.post.id, text: 'Wow!' }, P2);
+  assert.equal(c.status, 200);
+  assert.equal((await call('POST', '/comments', { post: p.post.id, gif: 'https://evil.example/a.gif' }, P2)).status, 400);
+  const voice = (await call('POST', '/media', { data: M4A }, P3)).url;
+  await call('POST', '/comments', { post: p.post.id, voice, voiceSecs: 4 }, P3);
+  await call('POST', '/comments/like', { id: c.comment.id }, P1);
+  await call('POST', '/posts/save', { id: p.post.id }, P3);
+  await call('POST', '/posts/share', { id: p.post.id }, P3);
+  await call('POST', '/posts/share', { id: p.post.id }, P3);
+  const one = (await call('GET', `/post?id=${encodeURIComponent(p.post.id)}`, null, P1)).post;
+  assert.deepEqual(one.r, { '❤️': 2 });
+  assert.equal(one.c.length, 2);
+  assert.equal(one.c[0].l, 1);
+  assert.equal(one.c[0].lk, true);
+  assert.equal(one.s, 1, 'a share counts once per person');
+  assert.equal((await call('GET', '/feed?saved=1', null, P3)).posts.length, 1);
+  assert.equal((await call('GET', '/feed?place=Q8673', null, P3)).posts.length, 1);
+  assert.equal((await call('GET', '/feed?user=ada', null, P3)).posts.length, 1);
+  const notes = await call('GET', '/notifications', null, P1);
+  assert.ok(notes.notifications.some((n) => /commented/.test(n.text)));
+  // only the author edits; the post author may remove comments on their post
+  assert.equal((await call('POST', '/posts/edit', { id: p.post.id, text: 'hacked' }, P2)).status, 404);
+  assert.equal((await call('POST', '/posts/edit', { id: p.post.id, text: 'Sunset at Lekki' }, P1)).post.e, true);
+  assert.equal((await call('POST', '/posts/delete', { id: p.post.id }, P2)).status, 403);
+  assert.equal((await call('POST', '/comments/delete', { id: c.comment.id }, P1)).status, 200);
+  assert.equal((await call('POST', '/posts/delete', { id: p.post.id }, P1)).status, 200);
+  assert.equal((await call('GET', `/post?id=${p.post.id}`, null, P2)).status, 404);
+});
+
+test('friends, private accounts, blocks and who can message', async () => {
+  await call('POST', '/friends/request', { u: 'bayo' }, P1);
+  assert.equal((await call('GET', '/user?u=ada', null, P2)).relation, 'received');
+  assert.equal((await call('GET', '/friends', null, P2)).incoming[0].u, 'ada');
+  assert.equal((await call('POST', '/friends/accept', { u: 'ada' }, P2)).relation, 'friends');
+  assert.equal((await call('GET', '/friends', null, P1)).friends[0].u, 'bayo');
+  // private: only friends see posts
+  await call('PATCH', '/me', { private: true, dms: 'Friends', bio: 'Lagos girl', homeCountry: 'Nigeria', localHelper: true }, P1);
+  const secret = await call('POST', '/posts', { text: 'friends only' }, P1);
+  assert.ok((await call('GET', '/feed', null, P2)).posts.some((x) => x.id === secret.post.id));
+  assert.ok(!(await call('GET', '/feed', null, P3)).posts.some((x) => x.id === secret.post.id));
+  assert.equal((await call('POST', '/posts/react', { id: secret.post.id, emoji: '🔥' }, P3)).status, 404);
+  // messages
+  assert.equal((await call('POST', '/chat', { u: 'ada', text: 'hey' }, P3)).status, 403, 'friends only');
+  assert.equal((await call('POST', '/chat', { u: 'ada', text: 'hey ada' }, P2)).status, 200);
+  const r = await call('POST', '/chat', { u: 'chi', text: 'hello chi' }, P1);
+  assert.equal(r.status, 200);
+  assert.equal((await call('POST', '/chat', { u: 'ada', text: 'thanks for writing' }, P3)).status, 200, 'replies are allowed');
+  const list = await call('GET', '/chats', null, P1);
+  assert.equal(list.chats.length, 2);
+  assert.equal(list.chats.find((c) => c.u === 'bayo').unread, 1);
+  const th = await call('GET', '/chat?u=bayo', null, P1);
+  assert.equal(th.messages[0].t, 'hey ada');
+  assert.equal((await call('GET', '/chats', null, P1)).chats.find((c) => c.u === 'bayo').unread, 0);
+  const after = await call(`GET`, `/chat?u=bayo&after=${th.messages[0].id}`, null, P1);
+  assert.equal(after.messages.length, 0);
+  // blocks hide everything and stop messages
+  await call('POST', '/block', { u: 'chi' }, P1);
+  assert.equal((await call('POST', '/chat', { u: 'ada', text: 'again' }, P3)).status, 403);
+  assert.equal((await call('GET', '/user?u=ada', null, P3)).status, 404);
+  assert.ok(!(await call('GET', '/users?q=ad', null, P3)).people.some((x) => x.u === 'ada'));
+  await call('POST', '/block', { u: 'chi', blocked: false }, P1);
+  assert.ok((await call('GET', '/users?q=ad', null, P3)).people.some((x) => x.u === 'ada'));
+  const me = await call('GET', '/me', null, P1);
+  assert.equal(me.user.bio, 'Lagos girl');
+  assert.equal(me.user.dms, 'friends');
+  assert.equal((await call('PATCH', '/me', { photo: 'https://evil.example/me.jpg' }, P1)).status, 400);
+  const ph = (await call('POST', '/media', { data: JPEG }, P1)).url;
+  assert.equal((await call('PATCH', '/me', { photo: ph, private: false }, P1)).user.photo, ph);
+  assert.equal((await call('GET', '/users?q=ada', null, P2)).people[0].ph, ph);
+});
+
+test('groups: owner, admins, private approval, group posts stay in the group', async () => {
+  const g = (await call('POST', '/groups', { name: 'Lagos foodies', about: 'Eat', private: true }, P1)).group;
+  assert.equal(g.o, 'ada');
+  assert.equal((await call('POST', '/posts', { text: 'x', group: g.id }, P2)).status, 403);
+  const j = await call('POST', '/groups/join', { id: g.id }, P2);
+  assert.equal(j.group.pend, true);
+  assert.equal((await call('GET', `/groups/members?id=${g.id}`, null, P2)).status, 403);
+  assert.equal((await call('POST', '/groups/approve', { id: g.id, u: 'bayo' }, P3)).status, 403);
+  await call('POST', '/groups/approve', { id: g.id, u: 'bayo' }, P1);
+  const gp = await call('POST', '/posts', { text: 'Best suya?', group: g.id }, P2);
+  assert.equal(gp.status, 200);
+  assert.ok(!(await call('GET', '/feed', null, P2)).posts.some((x) => x.id === gp.post.id), 'group posts stay out of the main feed');
+  assert.equal((await call('GET', `/feed?group=${g.id}`, null, P2)).posts.length, 1);
+  assert.equal((await call('GET', `/feed?group=${g.id}`, null, P3)).posts.length, 0, 'private group hidden from outsiders');
+  // admins
+  assert.equal((await call('POST', '/groups/admin', { id: g.id, u: 'bayo' }, P3)).status, 403);
+  const a = await call('POST', '/groups/admin', { id: g.id, u: 'bayo' }, P1);
+  assert.deepEqual(a.group.ad, ['bayo']);
+  await call('POST', '/groups/join', { id: g.id }, P3);
+  await call('POST', '/groups/approve', { id: g.id, u: 'chi' }, P2);
+  assert.equal((await call('POST', '/groups/remove', { id: g.id, u: 'ada' }, P2)).status, 403, 'nobody removes the owner');
+  assert.equal((await call('POST', '/groups/admin', { id: g.id, u: 'bayo', admin: false }, P2)).status, 403, 'only the owner demotes');
+  assert.equal((await call('POST', '/posts/delete', { id: gp.post.id }, P2)).status, 200);
+  const list = await call('GET', '/groups', null, P3);
+  assert.equal(list.groups.find((x) => x.id === g.id).j, true);
+  assert.equal((await call('POST', '/groups/leave', { id: g.id }, P1)).status, 400);
+  // voice rooms: admins can host
+  assert.equal((await call('POST', '/live/start', { title: 'Suya talk', voice: true, groupId: g.id }, P2)).status, 200);
+  assert.equal((await call('POST', '/live/start', { title: 'Suya talk', voice: true, groupId: g.id }, P3)).status, 403);
+  assert.equal((await call('POST', '/groups/delete', { id: g.id }, P2)).status, 403);
+  assert.equal((await call('POST', '/groups/delete', { id: g.id }, P1)).status, 200);
+});
+
+test('stories and Ask a local are shared, and only locals answer', async () => {
+  const img = (await call('POST', '/media', { data: JPEG }, P2)).url;
+  assert.equal((await call('POST', '/stories', { image: 'https://evil.example/s.jpg' }, P2)).status, 400);
+  await call('POST', '/stories', { image: img, caption: 'Morning in Ibadan' }, P2);
+  const st = await call('GET', '/stories', null, P3);
+  assert.equal(st.stories[0].u, 'bayo');
+  assert.equal(st.who.bayo.n, 'Bayo');
+  const q = await call('POST', '/locals/questions', { country: 'Nigeria', topic: 'Food', text: 'Where is the best amala in Ibadan?' }, P3);
+  assert.equal(q.status, 200);
+  assert.equal((await call('POST', '/locals/answers', { id: q.question.id, text: 'No idea' }, P2)).status, 403, 'bayo is not a local helper');
+  const a = await call('POST', '/locals/answers', { id: q.question.id, text: 'Amala Skye in Bodija. Go before 1pm.' }, P1);
+  assert.equal(a.status, 200);
+  assert.equal((await call('POST', '/locals/vote', { id: a.answer.id }, P1)).status, 400);
+  await call('POST', '/locals/vote', { id: a.answer.id }, P3);
+  const l = await call('GET', '/locals?country=Nigeria', null, P2);
+  assert.equal(l.questions[0].a[0].v, 1);
+  assert.equal(l.helpers[0].u, 'ada');
+  assert.ok((await call('GET', '/notifications', null, P1)).notifications.some((n) => /New question about Nigeria/.test(n.text)));
+  assert.ok((await call('GET', '/notifications', null, P3)).notifications.some((n) => /answered your question/.test(n.text)));
+  assert.equal((await call('GET', '/locals?country=DROP;TABLE', null, P2)).status, 400);
+});
+
+test('deleting an account removes what they shared', async () => {
+  await call('POST', '/posts', { text: 'bye' }, P3);
+  assert.equal((await call('POST', '/me/delete', { password: 'secret123' }, P3)).status, 200);
+  const f = await call('GET', '/feed', null, P1);
+  assert.ok(!f.posts.some((x) => x.a === 'chi'));
+  assert.equal((await call('GET', '/chats', null, P1)).chats.some((c) => c.u === 'chi'), false);
 });

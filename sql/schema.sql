@@ -172,3 +172,148 @@ create table if not exists live_sessions (
   ended_at timestamptz
 );
 create index if not exists live_sessions_active on live_sessions (started_at desc) where ended_at is null;
+
+-- ---------------- social: shared between every phone ----------------
+alter table users add column if not exists bio text not null default '';
+alter table users add column if not exists photo_url text not null default '';
+alter table users add column if not exists home_country text not null default '';
+alter table users add column if not exists local_helper boolean not null default false;
+alter table users add column if not exists dms text not null default 'everyone';
+alter table users add column if not exists private boolean not null default false;
+
+create table if not exists groups (
+  id bigserial primary key,
+  owner_id bigint not null references users(id) on delete cascade,
+  name text not null,
+  about text not null default '',
+  private boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create table if not exists group_members (
+  group_id bigint not null references groups(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  role text not null default 'member' check (role in ('owner','admin','member','pending')),
+  joined_at timestamptz not null default now(),
+  primary key (group_id, user_id)
+);
+create index if not exists group_members_user on group_members (user_id);
+
+create table if not exists posts (
+  id bigserial primary key,
+  user_id bigint not null references users(id) on delete cascade,
+  text text not null default '',
+  images jsonb not null default '[]',
+  place_id text,
+  group_id bigint references groups(id) on delete cascade,
+  shares int not null default 0,
+  edited boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create index if not exists posts_recent on posts (id desc);
+create index if not exists posts_user on posts (user_id, id desc);
+create index if not exists posts_place on posts (place_id, id desc);
+create index if not exists posts_group on posts (group_id, id desc);
+
+create table if not exists post_reactions (
+  post_id bigint not null references posts(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  emoji text not null,
+  primary key (post_id, user_id)
+);
+create table if not exists post_saves (
+  post_id bigint not null references posts(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (post_id, user_id)
+);
+create table if not exists comments (
+  id bigserial primary key,
+  post_id bigint not null references posts(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  text text,
+  gif text,
+  voice text,
+  voice_secs int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index if not exists comments_post on comments (post_id, id);
+create table if not exists comment_likes (
+  comment_id bigint not null references comments(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  primary key (comment_id, user_id)
+);
+
+create table if not exists friend_requests (
+  from_id bigint not null references users(id) on delete cascade,
+  to_id bigint not null references users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (from_id, to_id)
+);
+create table if not exists friendships (
+  a bigint not null references users(id) on delete cascade,
+  b bigint not null references users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (a, b),
+  check (a < b)
+);
+create index if not exists friendships_b on friendships (b);
+
+create table if not exists messages (
+  id bigserial primary key,
+  from_id bigint not null references users(id) on delete cascade,
+  to_id bigint not null references users(id) on delete cascade,
+  text text,
+  gif text,
+  read boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create index if not exists messages_pair on messages (least(from_id, to_id), greatest(from_id, to_id), id desc);
+create index if not exists messages_to on messages (to_id, id desc);
+
+create table if not exists stories (
+  id bigserial primary key,
+  user_id bigint not null references users(id) on delete cascade,
+  image text not null,
+  caption text not null default '',
+  created_at timestamptz not null default now()
+);
+create index if not exists stories_recent on stories (created_at desc);
+
+create table if not exists local_questions (
+  id bigserial primary key,
+  user_id bigint not null references users(id) on delete cascade,
+  country text not null,
+  topic text not null default '',
+  text text not null,
+  place_id text,
+  created_at timestamptz not null default now()
+);
+create index if not exists local_questions_country on local_questions (country, id desc);
+create table if not exists local_answers (
+  id bigserial primary key,
+  question_id bigint not null references local_questions(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  text text not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists local_answers_q on local_answers (question_id, id);
+create table if not exists answer_votes (
+  answer_id bigint not null references local_answers(id) on delete cascade,
+  user_id bigint not null references users(id) on delete cascade,
+  primary key (answer_id, user_id)
+);
+
+create table if not exists content_reports (
+  id bigserial primary key,
+  user_id bigint not null references users(id) on delete cascade,
+  kind text not null,
+  target_id bigint not null,
+  reason text not null default '',
+  created_at timestamptz not null default now(),
+  unique (user_id, kind, target_id)
+);
+create table if not exists blocks (
+  user_id bigint not null references users(id) on delete cascade,
+  blocked_id bigint not null references users(id) on delete cascade,
+  primary key (user_id, blocked_id)
+);
