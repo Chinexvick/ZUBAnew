@@ -158,3 +158,17 @@ create table if not exists lesson_reports (
   note text not null default '',
   created_at timestamptz not null default now()
 );
+
+create table if not exists live_sessions (
+  id bigserial primary key,
+  host_id bigint not null references users(id) on delete cascade,
+  title text not null,
+  about text not null default '',
+  place_id text,
+  voice boolean not null default false,
+  group_name text,
+  room text not null unique,
+  started_at timestamptz not null default now(),
+  ended_at timestamptz
+);
+create index if not exists live_sessions_active on live_sessions (started_at desc) where ended_at is null;

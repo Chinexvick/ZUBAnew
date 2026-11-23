@@ -332,3 +332,22 @@ test('security: sign out everywhere, delete account needs the password', async (
   assert.equal((await call('GET', '/me', null, H3.access)).status, 401);
   assert.equal((await call('POST', '/auth/login', { email: 'hadiza@example.com', password: 'secret123' }, null, '4.4.4.7')).status, 401);
 });
+
+test('live: start, list, only the host ends it', async () => {
+  await call('POST', '/auth/signup', { email: 'ife@example.com', password: 'secret123', username: 'ife', name: 'Ife' }, null, '3.3.3.3');
+  const I = (await call('POST', '/auth/verify', { email: 'ife@example.com', code: lastCode('ife@example.com') })).tokens;
+  assert.equal((await call('POST', '/live/start', { title: 'x' }, I.access)).status, 400);
+  assert.equal((await call('POST', '/live/start', { title: 'Sunset', place: 'DROP TABLE' }, I.access)).status, 400);
+  const v = await call('POST', '/live/start', { title: 'Sunset in Lagos', about: 'Come through', place: 'Q8673' }, I.access);
+  assert.ok(v.room.startsWith('live-ife-'));
+  const g = await call('POST', '/live/start', { title: 'Yoruba circle', voice: true, group: 'Yoruba learners' }, I.access);
+  assert.ok(g.room.startsWith('voice-ife-'));
+  let l = await call('GET', '/live', null, I.access);
+  assert.equal(l.live.length, 1, 'starting a new session ends the previous one');
+  assert.equal(l.live[0].group, 'Yoruba learners');
+  const E = (await call('POST', '/auth/login', { email: 'erin@example.com', password: 'secret123' }, null, '7.7.7.8')).tokens;
+  await call('POST', '/live/end', { id: g.id }, E.access);
+  assert.equal((await call('GET', '/live', null, I.access)).live.length, 1, 'others cannot end it');
+  await call('POST', '/live/end', { id: g.id }, I.access);
+  assert.equal((await call('GET', '/live', null, I.access)).live.length, 0);
+});
