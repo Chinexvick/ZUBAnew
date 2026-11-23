@@ -720,6 +720,10 @@ test('restaurants: business accounts list menus, prices come from the server', a
   assert.equal((await call('POST', '/food/order/status', { id: o.order.id, status: 'accepted' }, P2)).status, 400, 'buyers cannot accept');
   await call('POST', '/food/order/status', { id: o.order.id, status: 'accepted' }, P1);
   assert.equal((await call('GET', '/food/orders', null, P2)).orders[0].status, 'accepted');
+  // Switching back to personal hides the restaurant; switching again brings it back.
+  assert.equal((await call('PATCH', '/me', { kind: 'individual' }, P1)).user.kind, 'individual');
+  assert.ok(!(await call('GET', '/food', null, P2)).restaurants.some((x) => x.name === 'Ada Kitchen'));
+  assert.equal((await call('PATCH', '/me', { kind: 'business', bizName: 'Ada Kitchen' }, P1)).user.kind, 'business');
   // ZUBA orders need a wallet on both sides and wait for payment.
   assert.equal((await call('POST', '/food/order', { restaurant: r.restaurant.id, items: [{ id: suya.id, qty: 1 }], pay: 'zuba' }, P2)).status, 400, 'restaurant has no wallet');
 });
