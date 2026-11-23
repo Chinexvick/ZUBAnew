@@ -297,7 +297,8 @@ test('live rooms: signed pass only for signed-in users, secret never returned', 
   assert.equal(claims.video.roomAdmin, true, 'host of their own room');
   const crypto = await import('node:crypto');
   assert.equal(sig, crypto.createHmac('sha256', 's'.repeat(40)).update(`${h}.${b}`).digest('base64url'));
-  const guest = await call('POST', '/rooms/token', { room: 'party-someoneelse-1' }, F.access);
+  assert.equal((await call('POST', '/rooms/token', { room: 'party-someoneelse-1' }, F.access)).status, 403, 'party voice is for people who joined');
+  const guest = await call('POST', '/rooms/token', { room: 'live-someoneelse-ab12' }, F.access);
   assert.equal(JSON.parse(Buffer.from(guest.token.split('.')[1], 'base64url').toString()).video.roomAdmin, false);
 });
 
