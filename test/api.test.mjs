@@ -110,6 +110,14 @@ test('login: generic errors, lockout after 8 wrong passwords', async () => {
 test('refresh tokens rotate; reusing an old one ends the session family', async () => {
   const r1 = await call('POST', '/auth/refresh', { refresh: A.refresh });
   assert.equal(r1.status, 200);
+  // The same phone retrying within seconds keeps its session.
+  const retry = await call('POST', '/auth/refresh', { refresh: A.refresh });
+  assert.equal(retry.status, 200, 'a quick retry is not treated as theft');
+  // Signed in for 7 days from the last use, not 30.
+  const { rows } = await pool.query(`select max(expires_at - created_at) as life from refresh_tokens`);
+  assert.ok(rows[0].life.days === 7 || rows[0].life.days === undefined && rows[0].life.hours === 168, 'sign-in lasts 7 days from last use');
+  // An old token coming back later is treated as stolen.
+  await pool.query(`update refresh_tokens set used_at = now() - interval '5 minutes' where used_at is not null`);
   const reuse = await call('POST', '/auth/refresh', { refresh: A.refresh });
   assert.equal(reuse.status, 401);
   const r2 = await call('POST', '/auth/refresh', { refresh: r1.tokens.refresh });
@@ -682,6 +690,38 @@ test('wallet activity: only transfers touching your wallet, checked on chain', a
   assert.equal(mine.txs[0].amount, '5000');
   assert.equal((await call('GET', `/wallet/txs?token=${ZUBA}`, null, P1)).txs.length, 0, 'not your wallet, not your list');
   assert.equal((await call('GET', '/wallet/txs?token=DROP', null, P2)).status, 400);
+});
+
+test('restaurants: business accounts list menus, prices come from the server', async () => {
+  assert.equal((await call('POST', '/food/restaurant', { name: 'Ada Kitchen', city: 'Lagos' }, P1)).status, 403, 'personal accounts cannot list');
+  await call('PATCH', '/me', { kind: 'business', bizName: 'Ada Kitchen', bizCategory: 'Restaurant & food' }, P1);
+  const me = await call('GET', '/me', null, P1);
+  if (me.user.kind !== 'business') await pool.query(`update users set kind = 'business' where username = 'ada'`);
+  const r = await call('POST', '/food/restaurant', { name: 'Ada Kitchen', cuisine: 'Nigerian', city: 'Lagos', country: 'Nigeria', phone: '+234 801 234 5678' }, P1);
+  assert.equal(r.status, 200);
+  assert.equal((await call('POST', '/food/item', { name: 'Jollof', price: -1 }, P1)).status, 400);
+  const jollof = (await call('POST', '/food/item', { name: 'Jollof rice', about: 'Smoky', price: 6.5 }, P1)).item;
+  const suya = (await call('POST', '/food/item', { name: 'Suya', price: 5 }, P1)).item;
+  assert.equal((await call('POST', '/food/item', { name: 'Hack', price: 1, id: jollof.id }, P2)).status, 403);
+  const list = await call('GET', '/food?q=jollof', null, P2);
+  assert.equal(list.restaurants[0].name, 'Ada Kitchen');
+  const menu = await call('GET', `/food/place?id=${r.restaurant.id}`, null, P2);
+  assert.equal(menu.menu.length, 2);
+  // The phone cannot set the price.
+  const o = await call('POST', '/food/order', { restaurant: r.restaurant.id, items: [{ id: jollof.id, qty: 2, price: 0.01 }, { id: suya.id, qty: 1 }], pay: 'delivery', address: '12 Allen Ave' }, P2);
+  assert.equal(o.status, 200);
+  assert.equal(o.order.total, 18);
+  assert.equal(o.order.status, 'new');
+  assert.equal((await call('POST', '/food/order', { restaurant: r.restaurant.id, items: [{ id: jollof.id, qty: 1 }] }, P1)).status, 400, 'not from your own kitchen');
+  assert.ok((await call('GET', '/notifications', null, P1)).notifications.some((n) => /New order/.test(n.text)));
+  const mine = await call('GET', '/food/mine', null, P1);
+  assert.equal(mine.orders[0].buyer, 'bayo');
+  assert.equal((await call('POST', '/food/order/status', { id: o.order.id, status: 'delivered' }, P1)).status, 400, 'no skipping steps');
+  assert.equal((await call('POST', '/food/order/status', { id: o.order.id, status: 'accepted' }, P2)).status, 400, 'buyers cannot accept');
+  await call('POST', '/food/order/status', { id: o.order.id, status: 'accepted' }, P1);
+  assert.equal((await call('GET', '/food/orders', null, P2)).orders[0].status, 'accepted');
+  // ZUBA orders need a wallet on both sides and wait for payment.
+  assert.equal((await call('POST', '/food/order', { restaurant: r.restaurant.id, items: [{ id: suya.id, qty: 1 }], pay: 'zuba' }, P2)).status, 400, 'restaurant has no wallet');
 });
 
 test('deleting an account removes what they shared', async () => {

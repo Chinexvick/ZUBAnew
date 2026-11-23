@@ -372,3 +372,49 @@ create table if not exists party_members (
   joined_at timestamptz not null default now(),
   primary key (room_id, user_id)
 );
+
+-- Restaurants run by business accounts, their menus and orders.
+create table if not exists restaurants (
+  id bigserial primary key,
+  owner_id bigint not null unique references users(id) on delete cascade,
+  name text not null,
+  cuisine text not null default '',
+  city text not null default '',
+  country text not null default '',
+  about text not null default '',
+  photo text not null default '',
+  phone text not null default '',
+  delivery boolean not null default true,
+  pickup boolean not null default true,
+  open boolean not null default true,
+  created_at timestamptz not null default now()
+);
+create table if not exists menu_items (
+  id bigserial primary key,
+  restaurant_id bigint not null references restaurants(id) on delete cascade,
+  name text not null,
+  about text not null default '',
+  price_usd numeric(10,2) not null check (price_usd > 0),
+  photo text not null default '',
+  available boolean not null default true,
+  sort int not null default 0
+);
+create index if not exists menu_items_rest on menu_items (restaurant_id, sort);
+create table if not exists food_orders (
+  id bigserial primary key,
+  restaurant_id bigint not null references restaurants(id) on delete cascade,
+  buyer_id bigint not null references users(id) on delete cascade,
+  items jsonb not null,
+  total_usd numeric(10,2) not null,
+  pay text not null check (pay in ('zuba','delivery')),
+  status text not null check (status in ('awaiting_payment','new','accepted','ready','delivered','cancelled')),
+  address text not null default '',
+  phone text not null default '',
+  note text not null default '',
+  zuba_units text,
+  pay_to text,
+  tx_hash text unique,
+  created_at timestamptz not null default now()
+);
+create index if not exists food_orders_rest on food_orders (restaurant_id, id desc);
+create index if not exists food_orders_buyer on food_orders (buyer_id, id desc);

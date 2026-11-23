@@ -7,6 +7,8 @@ import * as live from '../lib/live.js';
 import * as so from '../lib/social.js';
 import * as ledger from '../lib/ledger.js';
 import * as party from '../lib/party.js';
+import * as gifs from '../lib/gifs.js';
+import * as food from '../lib/food.js';
 
 const routes = {
   'POST /auth/signup': h.signup,
@@ -40,6 +42,17 @@ const routes = {
   'POST /auth/logout-all': h.logoutAll,
   'POST /me/delete': h.deleteMe,
   'POST /media': so.upload,
+  'GET /gifs': gifs.search,
+  'GET /food': food.list,
+  'GET /food/place': food.place,
+  'GET /food/mine': food.mine,
+  'GET /food/orders': food.myOrders,
+  'POST /food/restaurant': food.saveRestaurant,
+  'POST /food/item': food.saveItem,
+  'POST /food/item/delete': food.deleteItem,
+  'POST /food/order': food.order,
+  'POST /food/order/paid': food.paid,
+  'POST /food/order/status': food.setStatus,
   'GET /me/state': so.getState,
   'POST /me/state': so.putState,
   'POST /wallet/tx': ledger.record,
