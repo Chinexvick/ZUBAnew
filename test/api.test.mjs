@@ -37,6 +37,9 @@ useFetch(async (url, opts) => {
   else if (method === 'eth_getTransactionReceipt') result = chain.receipts[params[0]] ?? null;
   else if (method === 'eth_getBlockByNumber') result = chain.blocks[params[0]];
   else if (method === 'eth_getTransactionByHash') result = chain.txs[params[0]] ?? null;
+  else if (method === 'eth_getLogs') {
+    result = Object.entries(chain.receipts).flatMap(([h, r]) => r.status === '0x1' ? r.logs.filter((l) => l.topics[2] === params[0].topics[2]).map((l) => ({ ...l, transactionHash: h })) : []);
+  }
   else if (method === 'eth_call') result = AbiCoder.defaultAbiCoder().encode(['uint256[]'], [[10n ** 18n, 10n ** 15n, 45_000_000n * 10n ** 9n]]);
   return { json: async () => ({ jsonrpc: '2.0', id: 1, result }) };
 });
@@ -195,6 +198,29 @@ test('paying from another wallet needs the exact order amount', async () => {
   assert.equal(ok.status, 200);
   const [p] = (await pool.query('select count(*)::int as n from promotions')).rows;
   assert.equal(p.n, 1);
+});
+
+test('a payment the app never confirmed is found and applied automatically, once', async () => {
+  const inv = await call('POST', '/pay/invoice', { purpose: 'premium', plan: 'month', giftTo: '@carol' }, A.access);
+  const amt = BigInt(inv.zubaUnits);
+  const before = (await pool.query("select premium_until from users where username='carol'")).rows[0].premium_until;
+  const tx = '0x' + 'c'.repeat(64);
+  const other = Wallet.createRandom().address;
+  payTx(tx, other, amt * 97n / 100n);
+  chain.txs[tx] = { to: ZUBA, input: '0xa9059cbb' + TREASURY.slice(2).padStart(64, '0') + amt.toString(16).padStart(64, '0') };
+  // a stranger's random payment of a different amount is ignored
+  payTx('0x' + 'd'.repeat(64), Wallet.createRandom().address, amt + 5n);
+  const r = await call('POST', '/pay/check', {}, A.access);
+  assert.equal(r.status, 200);
+  assert.equal(r.paid, 1);
+  const after = (await pool.query("select premium_until from users where username='carol'")).rows[0].premium_until;
+  assert.ok(after > before);
+  assert.equal((await call('POST', '/pay/check', {}, A.access)).paid, 0, 'never applied twice');
+  assert.equal((await call('POST', '/pay/verify', { invoice: inv.invoice, tx }, A.access)).status, 200);
+  // the daily check needs the scheduler secret or the admin key
+  assert.equal((await call('GET', '/cron/payments')).status, 404);
+  assert.equal((await call('GET', '/cron/payments', null, null, '1.1.1.1', { authorization: 'Bearer wrong' })).status, 404);
+  assert.equal((await call('GET', '/cron/payments', null, null, '1.1.1.1', { 'x-admin-key': 'k'.repeat(40) })).status, 200);
 });
 
 test('referrals: reward recorded once the new member verifies and links a wallet', async () => {
@@ -503,13 +529,17 @@ test('posts: one phone posts, another phone sees, reacts and comments', async ()
   assert.equal((await call('POST', '/posts/react', { id: p.post.id, emoji: '💩' }, P2)).status, 400);
   await call('POST', '/posts/react', { id: p.post.id, emoji: '🔥' }, P2);
   await call('POST', '/posts/react', { id: p.post.id, emoji: '❤️' }, P3);
-  await call('POST', '/posts/react', { id: p.post.id, emoji: '❤️' }, P2); // changes, not adds
+  const changed = await call('POST', '/posts/react', { id: p.post.id, emoji: '❤️' }, P2); // changes, not adds
+  assert.deepEqual(changed.r, { '❤️': 2 }, 'the server returns the true count');
+  assert.equal(changed.m, '❤️');
   const c = await call('POST', '/comments', { post: p.post.id, text: 'Wow!' }, P2);
   assert.equal(c.status, 200);
   assert.equal((await call('POST', '/comments', { post: p.post.id, gif: 'https://evil.example/a.gif' }, P2)).status, 400);
   const voice = (await call('POST', '/media', { data: M4A }, P3)).url;
   await call('POST', '/comments', { post: p.post.id, voice, voiceSecs: 4 }, P3);
-  await call('POST', '/comments/like', { id: c.comment.id }, P1);
+  const cl = await call('POST', '/comments/like', { id: c.comment.id }, P1);
+  assert.equal(cl.likes, 1);
+  assert.equal(cl.liked, true);
   await call('POST', '/posts/save', { id: p.post.id }, P3);
   await call('POST', '/posts/share', { id: p.post.id }, P3);
   await call('POST', '/posts/share', { id: p.post.id }, P3);

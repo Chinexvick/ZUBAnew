@@ -27,6 +27,8 @@ const routes = {
   'GET /price': h.price,
   'POST /pay/invoice': h.createInvoice,
   'POST /pay/verify': h.verifyInvoice,
+  'POST /pay/check': h.checkMyPayments,
+  'GET /cron/payments': h.reconcileAll,
   'GET /notifications': h.notifications,
   'POST /notifications/read': h.readNotifications,
   'GET /referrals': h.referrals,
