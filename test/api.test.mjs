@@ -277,3 +277,26 @@ test('AI tutor: keys stay on the server, audio is cached, Premium stages are enf
     globalThis.fetch = real;
   }
 });
+
+test('live rooms: signed pass only for signed-in users, secret never returned', async () => {
+  await call('POST', '/auth/signup', { email: 'fola@example.com', password: 'secret123', username: 'fola', name: 'Fola' }, null, '6.6.6.6');
+  const F = (await call('POST', '/auth/verify', { email: 'fola@example.com', code: lastCode('fola@example.com') })).tokens;
+  assert.equal((await call('POST', '/rooms/token', { room: 'party-fola-1' }, F.access)).status, 503);
+  process.env.LIVEKIT_URL = 'wss://example.livekit.cloud';
+  process.env.LIVEKIT_API_KEY = 'APIkey';
+  process.env.LIVEKIT_API_SECRET = 's'.repeat(40);
+  assert.equal((await call('POST', '/rooms/token', { room: 'party-fola-1' })).status, 401);
+  assert.equal((await call('POST', '/rooms/token', { room: 'bad room!' }, F.access)).status, 400);
+  const r = await call('POST', '/rooms/token', { room: 'party-fola-1' }, F.access);
+  assert.equal(r.url, 'wss://example.livekit.cloud');
+  assert.ok(!JSON.stringify(r).includes('s'.repeat(40)));
+  const [h, b, sig] = r.token.split('.');
+  const claims = JSON.parse(Buffer.from(b, 'base64url').toString());
+  assert.equal(claims.sub, 'fola');
+  assert.equal(claims.video.room, 'party-fola-1');
+  assert.equal(claims.video.roomAdmin, true, 'host of their own room');
+  const crypto = await import('node:crypto');
+  assert.equal(sig, crypto.createHmac('sha256', 's'.repeat(40)).update(`${h}.${b}`).digest('base64url'));
+  const guest = await call('POST', '/rooms/token', { room: 'party-someoneelse-1' }, F.access);
+  assert.equal(JSON.parse(Buffer.from(guest.token.split('.')[1], 'base64url').toString()).video.roomAdmin, false);
+});

@@ -2,6 +2,7 @@
 import { HttpError, send } from '../lib/core.js';
 import * as h from '../lib/handlers.js';
 import * as ai from '../lib/ai.js';
+import { roomToken } from '../lib/rooms.js';
 
 const routes = {
   'POST /auth/signup': h.signup,
@@ -28,6 +29,7 @@ const routes = {
   'POST /ai/talk': ai.talk,
   'POST /ai/lesson': ai.lesson,
   'POST /ai/report': ai.report,
+  'POST /rooms/token': roomToken,
 };
 
 export default async function handler(req, res) {
