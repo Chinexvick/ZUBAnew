@@ -832,9 +832,10 @@ test('place photos: Google key stays on the server, the credit comes back, calls
     assert.equal(opts.headers['X-Goog-Api-Key'], 'g'.repeat(39));
     assert.ok(!String(url).includes('g'.repeat(39)), 'key never in the URL');
     let j;
-    if (url.endsWith(':searchText')) j = JSON.parse(opts.body).textQuery.startsWith('Nowhere') ? {} : { places: [{ id: 'ChIJ1' }] };
+    const photos = [{ name: 'places/ChIJ1/photos/P1', widthPx: 4000, authorAttributions: [{ displayName: 'Ada Lovelace', uri: '//maps.google.com/maps/contrib/1', photoUri: '//lh3.googleusercontent.com/a/x' }] }];
+    if (url.endsWith(':searchText')) j = JSON.parse(opts.body).textQuery.startsWith('Nowhere') ? {} : { places: [{ id: 'ChIJ1', photos }] };
     else if (url.includes('/media')) j = { photoUri: 'https://lh3.googleusercontent.com/p/abc=s1200' };
-    else j = { photos: [{ name: 'places/ChIJ1/photos/P1', widthPx: 4000, authorAttributions: [{ displayName: 'Ada Lovelace', uri: '//maps.google.com/maps/contrib/1', photoUri: '//lh3.googleusercontent.com/a/x' }] }] };
+    else j = { id: 'ChIJ1', photos };
     return { ok: true, json: async () => j };
   });
   const T = P2;
