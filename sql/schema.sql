@@ -478,3 +478,15 @@ create table if not exists group_mutes (
   until timestamptz not null,
   primary key (group_id, user_id)
 );
+
+-- Google place photos. The Google place id may be kept; the photo link is refreshed after a day.
+create table if not exists place_photos (
+  place text primary key,
+  gid text,
+  uri text,
+  author text,
+  author_uri text,
+  author_photo text,
+  fetched_at timestamptz,
+  missing boolean not null default false
+);

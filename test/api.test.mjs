@@ -8,6 +8,7 @@ import { useDb } from '../lib/db.js';
 import { useMailer } from '../lib/mail.js';
 import { useFetch, ZUBA } from '../lib/chain.js';
 import handler from '../api/index.js';
+import { useGoogleFetch } from '../lib/places.js';
 
 process.env.JWT_SECRET = 'j'.repeat(48);
 process.env.OTP_PEPPER = 'p'.repeat(48);
@@ -821,3 +822,34 @@ test('deleting an account removes what they shared', async () => {
   assert.ok(!f.posts.some((x) => x.a === 'chi'));
   assert.equal((await call('GET', '/chats', null, P1)).chats.some((c) => c.u === 'chi'), false);
 });
+
+test('place photos: Google key stays on the server, the credit comes back, calls are reused and capped', async () => {
+  process.env.GOOGLE_PLACES_KEY = 'g'.repeat(39);
+  process.env.GOOGLE_DAILY_CAP = '2';
+  const calls = [];
+  useGoogleFetch(async (url, opts) => {
+    calls.push(String(url));
+    assert.equal(opts.headers['X-Goog-Api-Key'], 'g'.repeat(39));
+    assert.ok(!String(url).includes('g'.repeat(39)), 'key never in the URL');
+    let j;
+    if (url.endsWith(':searchText')) j = JSON.parse(opts.body).textQuery.startsWith('Nowhere') ? {} : { places: [{ id: 'ChIJ1' }] };
+    else if (url.includes('/media')) j = { photoUri: 'https://lh3.googleusercontent.com/p/abc=s1200' };
+    else j = { photos: [{ name: 'places/ChIJ1/photos/P1', widthPx: 4000, authorAttributions: [{ displayName: 'Ada Lovelace', uri: '//maps.google.com/maps/contrib/1', photoUri: '//lh3.googleusercontent.com/a/x' }] }] };
+    return { ok: true, json: async () => j };
+  });
+  const T = P2;
+  assert.equal((await call('GET', '/places/photo?id=Q1&q=Olumo%20Rock,%20Nigeria')).status, 401);
+  const a = await call('GET', '/places/photo?id=Q1&q=Olumo%20Rock,%20Nigeria&lat=7.16&lng=3.35&w=1200', null, T);
+  assert.equal(a.status, 200);
+  assert.equal(a.url, 'https://lh3.googleusercontent.com/p/abc=s1200');
+  assert.equal(a.by, 'Ada Lovelace');
+  assert.equal(a.byUrl, 'https://maps.google.com/maps/contrib/1');
+  assert.ok(!JSON.stringify(a).includes('g'.repeat(39)));
+  const n = calls.length;
+  assert.equal((await call('GET', '/places/photo?id=Q1&q=Olumo%20Rock,%20Nigeria', null, T)).url, a.url);
+  assert.equal(calls.length, n, 'a fresh link is reused, not paid for again');
+  assert.equal((await call('GET', '/places/photo?id=Q2&q=Nowhere%20at%20all', null, T)).status, 404);
+  assert.equal((await call('GET', '/places/photo?id=Q3&q=Zuma%20Rock', null, T)).status, 503, 'daily cap');
+  assert.equal((await call('GET', '/places/photo?id=../x&q=Zuma', null, T)).status, 400);
+});
+

@@ -1,4 +1,5 @@
 // AfriT Hub API. One function, explicit routes, JSON only, no browser CORS.
+import * as places from '../lib/places.js';
 import { HttpError, send } from '../lib/core.js';
 import * as h from '../lib/handlers.js';
 import * as ai from '../lib/ai.js';
@@ -28,6 +29,7 @@ const routes = {
   'POST /pay/invoice': h.createInvoice,
   'POST /pay/verify': h.verifyInvoice,
   'POST /pay/check': h.checkMyPayments,
+  'GET /places/photo': places.photo,
   'GET /cron/payments': h.reconcileAll,
   'GET /notifications': h.notifications,
   'POST /notifications/read': h.readNotifications,
